@@ -1,6 +1,6 @@
 'use client'
 
-import { FormContextType } from '@/types'
+import { FormContextType } from '@/components/types'
 import { createContext, useContext } from 'react'
 
 export const FormContext = createContext<FormContextType | undefined>(undefined)

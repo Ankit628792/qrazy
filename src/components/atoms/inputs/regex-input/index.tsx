@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { TextInput } from '../text-input'
-import { RegexInputProps } from '../../../../types'
+import { RegexInputProps } from '../../../types'
 
 export const RegexInput: React.FC<RegexInputProps> = ({
   pattern,

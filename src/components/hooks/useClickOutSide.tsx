@@ -1,6 +1,6 @@
 'use client'
 
-import { IUseOutsideClick } from '@/types'
+import { IUseOutsideClick } from '@/components/types'
 import { RefObject, useEffect } from 'react'
 
 const useClickOutside: IUseOutsideClick = <T extends HTMLElement>(

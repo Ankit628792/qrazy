@@ -4,7 +4,7 @@ import BaseInput from '../base-input'
 import React, { useState, useEffect } from 'react'
 import { IoCheckbox } from 'react-icons/io5'
 import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md'
-import { CheckboxProps, INPUT_TYPE } from '../../../../types'
+import { CheckboxProps, INPUT_TYPE } from '../../../types'
 import { Label } from '../../labels'
 
 export const Checkbox: React.FC<CheckboxProps> = ({

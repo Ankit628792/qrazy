@@ -1,5 +1,5 @@
 import React from 'react'
-import { LinkProps } from '../../../../types'
+import { LinkProps } from '../../../types'
 
 export const Link: React.FC<LinkProps> = ({
   to,

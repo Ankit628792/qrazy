@@ -1,5 +1,5 @@
 import React from 'react'
-import { LogoProps } from '../../../../types'
+import { LogoProps } from '../../../types'
 
 export const Logo: React.FC<LogoProps> = ({
   src,

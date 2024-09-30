@@ -1,7 +1,7 @@
 'use client'
 
 import React, { ChangeEvent, useState } from 'react'
-import { TextAreaInputProps } from '../../../../types'
+import { TextAreaInputProps } from '../../../types'
 
 export const TextAreaInput: React.FC<TextAreaInputProps> = ({
   lengthReq = 200,

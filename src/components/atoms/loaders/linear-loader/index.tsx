@@ -1,5 +1,5 @@
 import React from 'react'
-import { LinearLoaderProps } from '../../../../types'
+import { LinearLoaderProps } from '../../../types'
 
 export const LinearLoader: React.FC<LinearLoaderProps> = ({
   isLoading = false,

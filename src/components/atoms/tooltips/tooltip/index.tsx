@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ITooltipProps } from '../../../../types'
+import { ITooltipProps } from '../../../types'
 
 export const Tooltip = ({
   text,

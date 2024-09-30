@@ -5,11 +5,7 @@ import React, { useRef, useState } from 'react'
 import { Button, ButtonWithIcon } from '../../../../atoms'
 import { BiFilterAlt } from 'react-icons/bi'
 import { FilterDisplayOptions } from '../filter-display-options'
-import {
-  FILTER_TYPE,
-  ITableFilter,
-  TableFilterProps
-} from '../../../../../types'
+import { FILTER_TYPE, ITableFilter, TableFilterProps } from '../../../../types'
 
 export const TableFilter: React.FC<TableFilterProps> = ({
   definedFilters = [],

@@ -4,7 +4,7 @@ import React, { useState, ChangeEvent } from 'react'
 import { TypeAhead } from '../../../atoms'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { MdDeleteOutline } from 'react-icons/md'
-import { StringListInputProps } from '../../../../types'
+import { StringListInputProps } from '../../../types'
 
 export const StringListInput: React.FC<StringListInputProps> = ({
   notContainsList,

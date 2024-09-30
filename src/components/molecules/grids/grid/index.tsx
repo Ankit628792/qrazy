@@ -1,5 +1,5 @@
 import React from 'react'
-import { IGridProps } from '../../../../types'
+import { IGridProps } from '../../../types'
 import { Container } from '../../../atoms'
 
 export const Grid: React.FC<IGridProps> = ({

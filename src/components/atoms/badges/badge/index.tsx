@@ -1,5 +1,5 @@
 import React from 'react'
-import { BadgeProps } from '../../../../types'
+import { BadgeProps } from '../../../types'
 
 export const Badge: React.FC<BadgeProps> = ({
   color = 'default',

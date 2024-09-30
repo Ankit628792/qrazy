@@ -1,6 +1,6 @@
 import React from 'react'
 import { GrPrevious, GrNext } from 'react-icons/gr'
-import { TableFooterProps } from '../../../../types'
+import { TableFooterProps } from '../../../types'
 
 export const TableFooter: React.FC<TableFooterProps> = ({
   page = 1,

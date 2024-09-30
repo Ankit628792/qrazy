@@ -2,7 +2,7 @@
 
 import BaseInput from '../base-input'
 import React, { useState, useEffect } from 'react'
-import { INPUT_TYPE, TypeAheadProps } from '../../../../types'
+import { INPUT_TYPE, TypeAheadProps } from '../../../types'
 
 export const TypeAhead: React.FC<TypeAheadProps> = ({
   placeholder = 'Search...',

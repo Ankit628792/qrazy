@@ -3,7 +3,7 @@
 import BaseInput from '../../../atoms/inputs/base-input'
 import React, { useRef, useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
-import { CustomSelectProps } from '../../../../types'
+import { CustomSelectProps } from '../../../types'
 
 export const CustomSelect = <T,>({
   options,

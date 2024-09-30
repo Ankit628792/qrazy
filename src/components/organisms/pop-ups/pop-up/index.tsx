@@ -1,5 +1,5 @@
 import React from 'react'
-import { PopUpProps } from '../../../../types'
+import { PopUpProps } from '../../../types'
 import { Modal } from '../../modals'
 
 export const PopUp: React.FC<PopUpProps> = ({

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { SelectProps } from '../../../../types'
+import { SelectProps } from '../../../types'
 
 export const Select = <T,>({
   options,

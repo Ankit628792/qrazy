@@ -1,5 +1,5 @@
 import React from 'react'
-import { InputDescriptionProps } from '../../../../types'
+import { InputDescriptionProps } from '../../../types'
 
 export const InputDescription: React.FC<InputDescriptionProps> = ({
   text,

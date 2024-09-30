@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { MultiSelectProps } from '../../../../types'
+import { MultiSelectProps } from '../../../types'
 
 export const MultiSelect = <T,>({
   options,

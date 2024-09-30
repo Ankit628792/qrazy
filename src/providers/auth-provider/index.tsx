@@ -3,6 +3,7 @@
 import React from 'react'
 import toast from 'react-hot-toast'
 import Logger from '@/libs/logger.util'
+import AuthService from '@/features/auth/auth.service'
 import { useRouter } from 'next/navigation'
 import { Loader } from '@/components'
 import {
@@ -17,7 +18,6 @@ import {
   IUserLogin,
   IUserLoginPayload
 } from '@/features/auth/auth.interface'
-import AuthService from '@/features/auth/auth.service'
 import { useLocalStorage } from '@/components/hooks/useLocalStorage'
 
 const AuthContext = React.createContext<IAuthContext>({

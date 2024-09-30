@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChipGroupProps } from '../../../../types'
+import { ChipGroupProps } from '../../../types'
 import { Chip } from '../../../atoms'
 
 export const ChipGroup: React.FC<ChipGroupProps> = ({

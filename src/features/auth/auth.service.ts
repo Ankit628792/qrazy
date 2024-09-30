@@ -1,5 +1,5 @@
 import Logger from '@/libs/logger.util'
-import HttpService from '@/service/HttpService'
+import HttpService from '@/libs/http.service'
 import {
   ICreateUserPayload,
   IUserLoginPayload,

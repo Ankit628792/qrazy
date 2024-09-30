@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableCellProps } from '../../../../../types'
+import { TableCellProps } from '../../../../types'
 
 export const TableCell = <T, U>({ row, column }: TableCellProps<T, U>) => {
   if (column.render) {

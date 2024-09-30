@@ -2,11 +2,7 @@ import useClickOutSide from '../../../../hooks/useClickOutSide'
 import React, { useRef, useState } from 'react'
 import { Select } from '../../../../molecules'
 import { Button, Switch } from '../../../../atoms'
-import {
-  ITableSort,
-  SORT_DIRECTION,
-  TableSortProps
-} from '../../../../../types'
+import { ITableSort, SORT_DIRECTION, TableSortProps } from '../../../../types'
 
 export const TableSort: React.FC<TableSortProps> = ({
   definedSorts = [],

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChipProps } from '../../../../types'
+import { ChipProps } from '../../../types'
 
 export const Chip: React.FC<ChipProps> = ({
   label,

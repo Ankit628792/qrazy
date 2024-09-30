@@ -25,7 +25,7 @@ import {
   DAYS_OF_WEEK,
   INPUT_TYPE,
   MONTHS
-} from '../../../../types'
+} from '../../../types'
 
 export const DateInput: React.FC<DateInputProps> = ({
   minDate,

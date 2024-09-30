@@ -1,4 +1,4 @@
-import { IUseDebounce } from '@/types'
+import { IUseDebounce } from '@/components/types'
 import React from 'react'
 
 const useDebounce: IUseDebounce = (value: string, delay = 500) => {

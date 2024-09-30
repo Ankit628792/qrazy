@@ -1,5 +1,5 @@
 import React from 'react'
-import { CircularLoaderProps } from '../../../../types'
+import { CircularLoaderProps } from '../../../types'
 
 export const CircularLoader: React.FC<CircularLoaderProps> = ({
   size = 40,

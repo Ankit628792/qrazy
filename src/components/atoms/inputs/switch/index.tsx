@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { SwitchProps } from '../../../../types'
+import { SwitchProps } from '../../../types'
 
 export const Switch: React.FC<SwitchProps> = ({
   checked,

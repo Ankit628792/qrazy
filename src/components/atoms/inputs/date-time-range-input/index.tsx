@@ -1,6 +1,6 @@
 import React from 'react'
 import DateTimeInput from '../date-time-input'
-import { DateTimeRangeInputProps, INPUT_TYPE } from '../../../../types'
+import { DateTimeRangeInputProps, INPUT_TYPE } from '../../../types'
 
 export const DateTimeRangeInput: React.FC<DateTimeRangeInputProps> = ({
   startDateTime,

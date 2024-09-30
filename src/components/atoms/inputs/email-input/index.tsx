@@ -2,7 +2,7 @@
 
 import BaseInput from '../base-input'
 import React, { useState } from 'react'
-import { EmailInputProps, INPUT_TYPE } from '../../../../types'
+import { EmailInputProps, INPUT_TYPE } from '../../../types'
 
 export const EmailInput: React.FC<EmailInputProps> = ({
   value,

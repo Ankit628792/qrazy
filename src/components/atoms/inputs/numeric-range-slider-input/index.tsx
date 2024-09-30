@@ -1,6 +1,6 @@
 import React from 'react'
 import BaseInput from '../base-input'
-import { INPUT_TYPE, NumericRangeSliderInputProps } from '../../../../types'
+import { INPUT_TYPE, NumericRangeSliderInputProps } from '../../../types'
 
 export const NumericRangeSliderInput: React.FC<
   NumericRangeSliderInputProps

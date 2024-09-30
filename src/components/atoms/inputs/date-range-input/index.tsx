@@ -1,5 +1,5 @@
 import React from 'react'
-import { DateRangeInputProps, INPUT_TYPE } from '../../../../types'
+import { DateRangeInputProps, INPUT_TYPE } from '../../../types'
 import DateInput from '../date-input'
 
 export const DateRangeInput: React.FC<DateRangeInputProps> = ({

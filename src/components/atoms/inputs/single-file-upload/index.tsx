@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef } from 'react'
-import { SingleFileUploadProps } from '../../../../types'
+import { SingleFileUploadProps } from '../../../types'
 
 export const SingleFileUpload: React.FC<SingleFileUploadProps> = ({
   maxSize,

@@ -1,6 +1,6 @@
 'use client'
 
-import useOutsideClick from '../../../../hooks/useClickOutSide'
+import useOutsideClick from '../../../hooks/useClickOutSide'
 import React, { useState } from 'react'
 import { Checkbox, Chip, SearchBar } from '../../../atoms'
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa'

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { FormInputProps } from '../../../../types'
-import { FormContext } from '../../../../hooks/useFormContext'
+import { FormContext } from '../../../hooks/useFormContext'
 
 export const FormInput: React.FC<FormInputProps> = ({
   size = 'medium',

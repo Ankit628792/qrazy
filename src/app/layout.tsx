@@ -1,12 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Toaster } from 'react-hot-toast'
-import { Provider } from '@/providers'
-import { ErrorBoundary } from '@/templates/error-boundary'
-import { ProtectedBoundary } from '@/templates/protected-boundary'
-import { HeaderComponent } from '@/features/header'
-import { FooterComponent } from '@/features/shared/footer'
+import { Layout } from '@/templates/layouts'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,14 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main>
-          <Toaster position="top-center" />
-          <ErrorBoundary>
-            <Provider>
-              <HeaderComponent />
-              <ProtectedBoundary {...{ children }} />
-              <FooterComponent />
-            </Provider>
-          </ErrorBoundary>
+          <Layout>{children}</Layout>
         </main>
       </body>
     </html>

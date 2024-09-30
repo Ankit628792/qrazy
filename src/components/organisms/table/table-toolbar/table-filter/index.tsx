@@ -1,6 +1,6 @@
 'use client'
 
-import useClickOutside from '@/hooks/useClickOutSide'
+import useClickOutside from '@/components/hooks/useClickOutSide'
 import React, { useRef, useState } from 'react'
 import { Button, ButtonWithIcon } from '../../../../atoms'
 import { BiFilterAlt } from 'react-icons/bi'

@@ -1,6 +1,7 @@
 'use client'
 
 import { AuthContextProvider } from './auth-provider'
+import { ErrorBoundary } from './error-boundary-provider'
 import { TanStackQueryProvider } from './tanstack-query-provider'
 import { NextThemesProvider } from './theme-provider'
 
@@ -10,10 +11,12 @@ type ProviderProps = Readonly<{
 
 export const Provider = ({ children }: ProviderProps) => {
   return (
-    <TanStackQueryProvider>
-      <NextThemesProvider>
-        <AuthContextProvider>{children}</AuthContextProvider>
-      </NextThemesProvider>
-    </TanStackQueryProvider>
+    <ErrorBoundary>
+      <TanStackQueryProvider>
+        <NextThemesProvider>
+          <AuthContextProvider>{children}</AuthContextProvider>
+        </NextThemesProvider>
+      </TanStackQueryProvider>
+    </ErrorBoundary>
   )
 }

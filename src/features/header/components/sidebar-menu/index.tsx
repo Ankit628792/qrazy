@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import useClickOutside from '@/hooks/useClickOutSide'
+import useClickOutside from '@/components/hooks/useClickOutSide'
 import React, { useRef } from 'react'
 import { Logo } from '../logo'
 import { Bars3BottomRightIcon } from '@heroicons/react/20/solid'

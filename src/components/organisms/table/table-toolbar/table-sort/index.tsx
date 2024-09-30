@@ -1,4 +1,4 @@
-import useClickOutSide from '../../../../../hooks/useClickOutSide'
+import useClickOutSide from '../../../../hooks/useClickOutSide'
 import React, { useRef, useState } from 'react'
 import { Select } from '../../../../molecules'
 import { Button, Switch } from '../../../../atoms'

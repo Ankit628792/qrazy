@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import toast from 'react-hot-toast'
 import Logger from '@/libs/logger.util'
@@ -16,7 +18,7 @@ import {
   IUserLoginPayload
 } from '@/features/auth/auth.interface'
 import AuthService from '@/features/auth/auth.service'
-import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { useLocalStorage } from '@/components/hooks/useLocalStorage'
 
 const AuthContext = React.createContext<IAuthContext>({
   user: null,

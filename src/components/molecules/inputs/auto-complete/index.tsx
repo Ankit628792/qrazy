@@ -1,7 +1,7 @@
 'use client'
 
 import BaseInput from '../../../atoms/inputs/base-input'
-import useDebounce from '../../../../hooks/useDebouce'
+import useDebounce from '../../../hooks/useDebouce'
 import React, { useEffect, useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { AutoCompleteProps } from '../../../../types'

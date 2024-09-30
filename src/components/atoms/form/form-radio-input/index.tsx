@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { FormContext } from '../../../../hooks/useFormContext'
+import { FormContext } from '../../../hooks/useFormContext'
 import { IFormRadioInput } from '../../../../types'
 
 export const FormRadioInput: React.FC<IFormRadioInput> = ({

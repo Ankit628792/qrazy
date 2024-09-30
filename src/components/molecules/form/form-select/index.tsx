@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { FormContext } from '../../../../hooks/useFormContext'
+import { FormContext } from '../../../hooks/useFormContext'
 import { FormSelectProps } from '../../../../types'
 
 export const FormSelect: React.FC<FormSelectProps> = ({

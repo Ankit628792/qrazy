@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { FormContext } from '../../../../hooks/useFormContext'
+import { FormContext } from '../../../hooks/useFormContext'
 import { FormSwitchProps } from '../../../../types'
 
 export const FormSwitch: React.FC<FormSwitchProps> = ({

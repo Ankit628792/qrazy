@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { FormContext } from '../../../../hooks/useFormContext'
+import { FormContext } from '../../../hooks/useFormContext'
 import { FormGroupInputsProps, INPUT_TYPE } from '../../../../types'
 
 export const FormGroupInputs: React.FC<FormGroupInputsProps> = ({

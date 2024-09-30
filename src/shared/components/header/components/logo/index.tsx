@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Container } from '@/components'
-import { ROUTES } from '@/features/shared/shared.interface'
+import { ROUTES } from '@/shared/shared.interface'
 
 export const Logo = () => {
   return (
@@ -14,6 +14,7 @@ export const Logo = () => {
           height={50}
           className="filter dark:drop-shadow-lg dark:shadow-inherit"
           placeholder="empty"
+          priority
         />
       </Link>
     </Container>

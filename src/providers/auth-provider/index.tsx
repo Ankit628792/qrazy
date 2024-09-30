@@ -11,7 +11,7 @@ import {
   LOCAL_STORAGE_KEYS,
   ROUTES,
   USER_TYPE
-} from '@/features/shared/shared.interface'
+} from '@/shared/shared.interface'
 import {
   IAuthContext,
   ICreateUserPayload,

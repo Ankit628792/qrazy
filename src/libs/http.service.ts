@@ -2,8 +2,8 @@
 
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { LOCAL_STORAGE_KEYS } from '@/features/shared/shared.interface'
 import { showToast } from '@/utils/show-toast'
+import { LOCAL_STORAGE_KEYS } from '@/shared/shared.interface'
 
 const TIMEOUT = 5000
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL

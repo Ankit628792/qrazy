@@ -1,5 +1,9 @@
 import React from 'react'
-import { SORT_DIRECTION, TableColumn, TableHeaderProps } from '../../../types'
+import {
+  SORT_DIRECTION,
+  TableColumn,
+  TableHeaderProps
+} from '../../../../types'
 
 export const TableHeader = <T, U>({
   columns,

@@ -3,7 +3,7 @@
 import BaseInput from '../base-input'
 import React, { useState } from 'react'
 import { BiHide, BiShowAlt } from 'react-icons/bi'
-import { INPUT_TYPE, PasswordInputProps } from '../../../types'
+import { INPUT_TYPE, PasswordInputProps } from '../../../../types'
 
 export const PasswordInput: React.FC<PasswordInputProps> = ({
   showPasswordToggle = false,

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { Checkbox } from '../../../atoms'
-import { CheckboxGroupProps } from '../../../types'
+import { CheckboxGroupProps } from '../../../../types'
 
 export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   options,

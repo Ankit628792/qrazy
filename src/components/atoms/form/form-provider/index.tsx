@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { FormContext } from '../../../hooks/useFormContext'
-import { IFormProviderProps } from '../../../types'
+import { IFormProviderProps } from '../../../../types'
 
 export const FormProvider = <T,>({
   children,

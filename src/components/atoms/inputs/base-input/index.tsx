@@ -1,5 +1,5 @@
 import React from 'react'
-import { BaseInputProps } from '../../../types'
+import { BaseInputProps } from '../../../../types'
 
 const BaseInput: React.FC<BaseInputProps> = (props) => {
   const { dirty, hidden, ...rest } = props

@@ -1,12 +1,8 @@
 'use client'
 
-import { useAuth } from '@/providers/auth-provider'
 import { LoginLayout } from './login-layout'
 import { SidebarLayout } from './sidebar-layout'
-
-type LayoutProps = Readonly<{
-  children: React.ReactNode
-}>
+import { LayoutProps } from '@/types/templates'
 
 export const Layout = ({ children }: LayoutProps) => {
   const isUserLoggedIn = true

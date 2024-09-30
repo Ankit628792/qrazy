@@ -5,7 +5,7 @@ import { TableBody } from './table-body'
 import { TableFooter } from './table-footer'
 import { TableHeader } from './table-header'
 import { TableToolbar } from './table-toolbar'
-import { TableComponentProps } from '../../types'
+import { TableComponentProps } from '../../../types'
 
 export const TableComponent = <T, U>({
   columns,

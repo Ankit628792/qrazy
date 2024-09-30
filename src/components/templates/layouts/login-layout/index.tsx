@@ -1,8 +1,5 @@
 import React from 'react'
-
-type LoginLayoutProps = Readonly<{
-  children: React.ReactNode
-}>
+import { LoginLayoutProps } from '@/types'
 
 export const LoginLayout = ({ children }: LoginLayoutProps) => {
   return (

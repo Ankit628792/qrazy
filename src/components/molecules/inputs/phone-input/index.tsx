@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { TextInput } from '../../../atoms'
 import { SelectWithIcon } from '../select-with-icon'
 import { FaChevronDown } from 'react-icons/fa'
-import { CountryOption, PhoneInputProps } from '../../../types'
+import { CountryOption, PhoneInputProps } from '../../../../types'
 
 export const PhoneInput: React.FC<PhoneInputProps> = ({
   value,

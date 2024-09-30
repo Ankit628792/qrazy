@@ -1,6 +1,6 @@
 import React from 'react'
 import { Select } from '../select' // Adjust the path as needed
-import { SelectWithIconProps } from '../../../types'
+import { SelectWithIconProps } from '../../../../types'
 
 export const SelectWithIcon = <T,>({
   icon: Icon,

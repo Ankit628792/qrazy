@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { MultiImageUploadProps } from '../../../types'
+import { MultiImageUploadProps } from '../../../../types'
 
 export const MultiImageUpload: React.FC<MultiImageUploadProps> = ({
   onFilesChange,

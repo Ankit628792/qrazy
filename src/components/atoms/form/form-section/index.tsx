@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormSectionProps } from '../../../types'
+import { FormSectionProps } from '../../../../types'
 
 export const FormSection: React.FC<FormSectionProps> = ({
   label,

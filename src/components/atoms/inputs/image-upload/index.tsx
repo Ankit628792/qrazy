@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ImageUploadProps } from '../../../types'
+import { ImageUploadProps } from '../../../../types'
 
 export const ImageUpload: React.FC<ImageUploadProps> = ({
   onFileChange,

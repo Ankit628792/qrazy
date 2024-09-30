@@ -2,7 +2,7 @@
 
 import BaseInput from '../base-input'
 import React, { useState } from 'react'
-import { INPUT_TYPE, NumberInputProps } from '../../../types'
+import { INPUT_TYPE, NumberInputProps } from '../../../../types'
 
 export const NumberInput: React.FC<NumberInputProps> = ({
   value,

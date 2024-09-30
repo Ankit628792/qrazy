@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Container } from '@/components'
-import { ROUTES } from '@/features/shared/shared.interface'
+import { ROUTES } from '@/shared/shared.interface'
 
 export const NotFoundComponent = () => {
   return (

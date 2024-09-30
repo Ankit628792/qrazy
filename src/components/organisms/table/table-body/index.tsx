@@ -2,7 +2,7 @@ import React from 'react'
 import { CiEdit } from 'react-icons/ci'
 import { TableCell } from './table-cell'
 import { NoResult } from './NoResult'
-import { TableBodyProps } from '../../../types'
+import { TableBodyProps } from '../../../../types'
 
 export const TableBody = <T, U>({
   columns,

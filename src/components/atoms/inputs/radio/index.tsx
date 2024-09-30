@@ -6,7 +6,7 @@ import {
   MdOutlineRadioButtonUnchecked,
   MdOutlineRadioButtonChecked
 } from 'react-icons/md'
-import { INPUT_TYPE, RadioProps } from '../../../types'
+import { INPUT_TYPE, RadioProps } from '../../../../types'
 
 export const Radio: React.FC<RadioProps> = ({
   name,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFormContext } from '../../../hooks/useFormContext'
-import { FormProps } from '../../../types'
+import { FormProps } from '../../../../types'
 
 export const Form: React.FC<FormProps> = ({ children, className, id }) => {
   const { handleSubmit } = useFormContext()

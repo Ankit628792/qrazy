@@ -1,5 +1,5 @@
 import React from 'react'
-import { ModalProps } from '../../../types'
+import { ModalProps } from '../../../../types'
 // import { AiOutlineCloseCircle } from 'react-icons/ai'
 
 export const Modal: React.FC<ModalProps> = ({

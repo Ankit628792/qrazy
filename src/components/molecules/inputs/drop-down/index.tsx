@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef, KeyboardEvent } from 'react'
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa'
 import { TiTick } from 'react-icons/ti'
 import { Radio, SearchBar } from '../../../atoms'
-import { DropDownOption, DropDownProps } from '../../../types'
+import { DropDownOption, DropDownProps } from '../../../../types'
 
 export const Dropdown: React.FC<DropDownProps> = ({
   options,

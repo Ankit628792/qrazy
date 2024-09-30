@@ -1,7 +1,7 @@
 'use client'
 
 import React, { SyntheticEvent, useState } from 'react'
-import { MultiFileUploadProps } from '../../../types'
+import { MultiFileUploadProps } from '../../../../types'
 
 export const MultiFileUpload: React.FC<MultiFileUploadProps> = ({
   maxFiles = Infinity,

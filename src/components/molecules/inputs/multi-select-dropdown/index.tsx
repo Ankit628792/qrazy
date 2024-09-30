@@ -7,7 +7,7 @@ import { FaCaretUp, FaCaretDown } from 'react-icons/fa'
 import {
   MultiSelectDropDownOption,
   MultiSelectDropDownProps
-} from '../../../types'
+} from '../../../../types'
 import { ChipGroup } from '../../chip-groups'
 
 export const MultiSelectDropdown: React.FC<MultiSelectDropDownProps> = ({

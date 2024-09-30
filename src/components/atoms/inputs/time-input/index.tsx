@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { FaRegClock } from 'react-icons/fa'
 import { Button } from '../../buttons'
-import { INPUT_TYPE, TimeInputProps } from '../../../types'
+import { INPUT_TYPE, TimeInputProps } from '../../../../types'
 import BaseInput from '../base-input'
 
 export const TimeInput: React.FC<TimeInputProps> = ({

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ContainerProps } from '../../../types'
+import { ContainerProps } from '../../../../types'
 
 export const Container: React.FC<ContainerProps> = ({
   maxWidth = '1280px', // Default to a common large screen width

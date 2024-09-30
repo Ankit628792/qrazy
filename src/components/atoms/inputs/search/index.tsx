@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { INPUT_TYPE, SearchBarProps } from '../../../types'
+import { INPUT_TYPE, SearchBarProps } from '../../../../types'
 import BaseInput from '../base-input'
 
 export const SearchBar: React.FC<SearchBarProps> = ({

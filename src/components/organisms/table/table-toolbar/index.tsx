@@ -2,7 +2,7 @@ import React from 'react'
 import { TableFilter } from './table-filter'
 import { TableSort } from './table-sort'
 import { TextInput } from '../../../atoms'
-import { TableToolbarProps } from '../../../types'
+import { TableToolbarProps } from '../../../../types'
 
 export const TableToolbar: React.FC<TableToolbarProps> = ({
   definedFilters,

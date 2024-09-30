@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { NumberInput } from '../number-input'
-import { NumericRangeInputProps } from '../../../types'
+import { NumericRangeInputProps } from '../../../../types'
 
 export const NumericRangeInput: React.FC<NumericRangeInputProps> = ({
   min,

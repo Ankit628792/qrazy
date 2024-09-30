@@ -2,7 +2,7 @@
 
 import BaseInput from '../base-input'
 import React, { useState } from 'react'
-import { INPUT_TYPE, TextInputProps } from '../../../types'
+import { INPUT_TYPE, TextInputProps } from '../../../../types'
 
 export const TextInput: React.FC<TextInputProps> = ({
   autoComplete = 'off',

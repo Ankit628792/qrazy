@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { NumberInput } from '../../../atoms'
-import { NumericListInputProps } from '../../../types'
+import { NumericListInputProps } from '../../../../types'
 
 export const NumericListInput: React.FC<NumericListInputProps> = ({
   values,

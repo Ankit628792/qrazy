@@ -1,14 +1,11 @@
 import React from 'react'
 import { Toaster } from 'react-hot-toast'
 import { Provider } from '@/providers'
-import { ProtectedBoundary } from '@/templates/protected-boundary'
-import { HeaderComponent } from '@/features/header'
-import { FooterComponent } from '@/features/shared/footer'
 import { Container } from '@/components'
-
-type SidebarLayoutProps = Readonly<{
-  children: React.ReactNode
-}>
+import { HeaderComponent } from '@/shared/components/header'
+import { ProtectedBoundary } from '../../protected-boundary'
+import { FooterComponent } from '@/shared/components/footer'
+import { SidebarLayoutProps } from '@/types'
 
 export const SidebarLayout = ({ children }: SidebarLayoutProps) => {
   return (

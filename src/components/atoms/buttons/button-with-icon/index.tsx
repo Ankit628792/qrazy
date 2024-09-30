@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonWithIconProps } from '../../../types'
+import { ButtonWithIconProps } from '../../../../types'
 import { Button } from '../button'
 
 export const ButtonWithIcon: React.FC<ButtonWithIconProps> = ({

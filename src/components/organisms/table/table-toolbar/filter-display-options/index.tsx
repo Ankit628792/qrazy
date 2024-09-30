@@ -5,7 +5,7 @@ import {
   FILTER_TYPE,
   FilterDisplayOptionsProps,
   INPUT_TYPE
-} from '../../../../types'
+} from '../../../../../types'
 
 const TableFilterInput = ({
   filterData,

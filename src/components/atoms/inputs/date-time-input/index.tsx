@@ -4,7 +4,7 @@ import DateInput from '../date-input'
 import BaseInput from '../base-input'
 import TimeInput from '../time-input'
 import React, { useState, useEffect } from 'react'
-import { DateTimeInputProps, INPUT_TYPE } from '../../../types'
+import { DateTimeInputProps, INPUT_TYPE } from '../../../../types'
 
 export const DateTimeInput: React.FC<DateTimeInputProps> = ({
   value,

@@ -21,6 +21,7 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
   lowestPageCount = 0,
   className,
   searchedValue,
+  showViewButton = false,
   handleSortChange,
   handleFilterChange,
   handlePageChange,
@@ -28,7 +29,8 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
   handleRowClick,
   handleEditClick,
   renderRow,
-  getSearchedValue
+  getSearchedValue,
+  handleViewClick,
 }: TableComponentProps<T, U>) => {
   const [selectedRows, setSelectedRows] = useState<number[]>([])
 
@@ -60,6 +62,7 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
             columns={columns}
             appliedSorts={definedSorts}
             showEditButton={showEditButton}
+            showViewButton={showViewButton}
             className="max-h-[48px]"
           />
         )}
@@ -67,22 +70,24 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
           columns={columns}
           rowData={rowData}
           showEditButton={showEditButton}
+          className={className}
+          showViewButton={showViewButton}
           selectedRows={selectedRows}
+          renderRow={renderRow}
+          handleViewClick={handleViewClick}
           onRowSelection={handleRowSelection}
           handleEditClick={handleEditClick}
-          className={className}
-          renderRow={renderRow}
         />
         <TableFooter
           page={page}
-          pageLimit={pageLimit}
           colSpan={colSpan}
+          pageLimit={pageLimit}
+          className="max-h-[48px]"
           perPageOptions={rowsPerPageOptions}
-          handlePageChange={handlePageChange}
-          handlePageLimitChange={handlePageLimitChange}
           isNextPagebuttonDisabled={isNextPagebuttonDisabled}
           lowestPageCount={lowestPageCount}
-          className="max-h-[48px]"
+          handlePageChange={handlePageChange}
+          handlePageLimitChange={handlePageLimitChange}
         />
       </table>
     </div>

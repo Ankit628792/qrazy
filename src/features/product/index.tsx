@@ -1,8 +1,14 @@
 'use client'
 
+import React from 'react'
 import { Container, TableComponent } from '@/components'
+import { ProductViewSideBarMenu } from './components/view-sidebar'
+import { IProductRowData } from './product.interface'
 
 export const ProductComponent: React.FC = () => {
+  const [isViewSidebarOpen, setIsViewSidebarOpen] = React.useState(false)
+  const [selectedRowData, setSelectedRowData] =
+    React.useState<IProductRowData | null>(null)
   const columns = [
     {
       id: 'serialNumber',
@@ -149,8 +155,19 @@ export const ProductComponent: React.FC = () => {
     }
   ]
 
+  const handleViewSidebar = (row: IProductRowData) => {
+    console.log(row)
+    setIsViewSidebarOpen(true)
+    setSelectedRowData(row)
+  }
+
   return (
     <Container className="w-full h-full">
+      <ProductViewSideBarMenu
+        sideBarOpen={isViewSidebarOpen}
+        selectedRowData={selectedRowData}
+        setSideBarOpen={setIsViewSidebarOpen}
+      />
       <TableComponent
         columns={columns}
         rowKey="id"
@@ -163,7 +180,9 @@ export const ProductComponent: React.FC = () => {
         showEditButton={true}
         isNextPagebuttonDisabled={false}
         lowestPageCount={0}
+        handleViewClick={handleViewSidebar}
         tableName={`Products List (${data.length})`}
+        showViewButton={true}
       />
     </Container>
   )

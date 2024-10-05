@@ -3,14 +3,17 @@ import { CiEdit } from 'react-icons/ci'
 import { TableCell } from './table-cell'
 import { NoResult } from './NoResult'
 import { TableBodyProps } from '../../../../types'
+import { HiMiniViewfinderCircle } from 'react-icons/hi2'
 
 export const TableBody = <T extends { [key: string]: any }, U>({
   columns,
   rowData,
   showEditButton,
   className,
+  showViewButton,
   onRowSelection,
   handleEditClick,
+  handleViewClick,
   renderRow
 }: TableBodyProps<T, U>) => {
   const zero = 0
@@ -95,8 +98,22 @@ export const TableBody = <T extends { [key: string]: any }, U>({
                 </td>
               )
             )}
+          {showViewButton && (
+            <td className="px-6 py-2 whitespace-nowrap text-sm overflow-hidden flex justify-start items-center">
+              <button
+                className="hover:text-blue-400"
+                onClick={() => {
+                  if (handleViewClick) {
+                    handleViewClick(row)
+                  }
+                }}
+              >
+                <HiMiniViewfinderCircle />
+              </button>
+            </td>
+          )}
           {showEditButton && (
-            <td className="px-4 py-2 flex justify-center items-center">
+            <td className="px-6 py-2 whitespace-nowrap text-sm overflow-hidden flex justify-start items-center">
               <button
                 className="hover:text-blue-400"
                 onClick={() => {

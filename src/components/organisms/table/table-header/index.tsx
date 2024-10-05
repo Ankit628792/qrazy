@@ -10,6 +10,7 @@ export const TableHeader = <T, U>({
   appliedSorts = [],
   className,
   showEditButton,
+  showViewButton,
   onSortChange
 }: TableHeaderProps<T, U>) => {
   const getSortDirection = (columnId: string): SORT_DIRECTION => {
@@ -53,7 +54,8 @@ export const TableHeader = <T, U>({
             )}
           </th>
         ))}
-        {showEditButton && <th className="px-4 py-2"></th>}
+        {showViewButton && <th className="px-4 py-2">View</th>}
+        {showEditButton && <th className="px-4 py-2">Edit</th>}
       </tr>
     </thead>
   )

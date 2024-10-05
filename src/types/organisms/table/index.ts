@@ -26,9 +26,10 @@ export type TableColumn<T, U> = {
 }
 
 export interface TableHeaderProps<T, U> {
-  appliedSorts?: ITableSort[]
   columns: TableColumn<T, U>[]
+  appliedSorts?: ITableSort[]
   className?: string
+  showViewButton?: boolean
   showEditButton?: boolean
   onSortChange?: (sort: ITableSort) => void
 }
@@ -39,6 +40,8 @@ export type TableBodyProps<T, U> = {
   showEditButton?: boolean
   selectedRows?: number[] // Add this line
   className?: string
+  showViewButton?: boolean
+  handleViewClick?: (row: T) => void // Add this line
   renderRow?: (data: T) => React.ReactElement
   onRowSelection?: (rowIndex: number) => void // Add this line
   handleEditClick?: (row: T) => void // Update this line
@@ -76,6 +79,8 @@ export interface TableComponentProps<T extends { [key: string]: any }, U> {
   lowestPageCount?: number
   className?: string
   searchedValue?: string
+  showViewButton?: boolean
+  handleViewClick?: (row: T) => void
   renderRow?: (data: T) => React.ReactElement
   onRowSelectionChange?: (selectedRowIds: string[]) => void
   handleSortChange?: (sort: ITableSort) => void

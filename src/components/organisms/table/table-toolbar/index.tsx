@@ -7,6 +7,7 @@ import { TableToolbarProps } from '../../../../types'
 export const TableToolbar: React.FC<TableToolbarProps> = ({
   definedFilters,
   definedSorts,
+  tableName,
   searchedValue,
   className,
   handleSortChange,
@@ -15,7 +16,8 @@ export const TableToolbar: React.FC<TableToolbarProps> = ({
 }) => {
   return (
     <div className={`flex justify-between items-center ${className || ''}`}>
-      <div className="flex flex-row gap-5 p-2">
+      <div className="flex items-center flex-row gap-5 p-2">
+        {tableName}
         <TableSort definedSorts={definedSorts} onChange={handleSortChange} />
         <TableFilter
           definedFilters={definedFilters}

@@ -43,7 +43,7 @@ export const Switch: React.FC<SwitchProps> = ({
         />
         <div
           className={`toggle__line block bg-neutral-200 w-10 h-6 rounded-full shadow-inner border border-neutral-200  ${
-            toggle ? 'bg-primary-400' : 'hover:border-neutral-400'
+            toggle ? 'bg-blue-400' : 'hover:border-neutral-400'
           } ${disabled ? 'bg-neutral-200 cursor-not-allowed' : ''}`}
         ></div>
         <div

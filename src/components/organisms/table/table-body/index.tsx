@@ -23,7 +23,8 @@ export const TableBody = <T extends { [key: string]: any }, U>({
   if (rowData.length === zero) {
     return (
       <tbody
-        className={`overflow-auto item-center w-full justify-center ${className}`}
+        className={`item-center justify-center overflow-scroll w-full ${className}`}
+        style={{ height: 'calc(100vh - 218px)' }}
       >
         <tr>
           <td className="flex flex-col items-center justify-center">
@@ -44,7 +45,10 @@ export const TableBody = <T extends { [key: string]: any }, U>({
     }
     const RenderTableCell: any = renderRow
     return (
-      <tbody className={`overflow-auto block ${className}`}>
+      <tbody
+        className={`block overflow-scroll w-full  ${className}`}
+        style={{ height: 'calc(100vh - 218px)' }}
+      >
         {groupedData.map((rowGroup, rowIndex) => (
           <tr key={rowIndex} className="flex items-center justify-start">
             {rowGroup.map((data, index) => (
@@ -63,22 +67,38 @@ export const TableBody = <T extends { [key: string]: any }, U>({
   }
 
   return (
-    <tbody className={`overflow-auto block ${className}`}>
+    <tbody
+      className={`overflow-scroll w-full block ${className}`}
+      style={{ height: 'calc(100vh - 218px)' }}
+    >
       {rowData.map((row, index) => (
-        <tr key={index} onClick={() => handleRowClick(index)} className="flex">
+        <tr
+          key={index}
+          onClick={() => handleRowClick(index)}
+          className="flex border-y border-gray-500/10 py-1 hover:bg-gray-500/10 cursor-pointer"
+        >
           {columns &&
-            columns.map((column) => (
-              <td
-                key={column.id}
-                className="px-4 py-2 whitespace-nowrap text-sm overflow-hidden flex justify-center items-center flex-1"
-              >
-                <TableCell row={row} column={column} />
-              </td>
-            ))}
+            columns.map((column) =>
+              column.id === 'serialNumber' ? (
+                <td
+                  key={column.id}
+                  className="px-4 py-2 whitespace-nowrap text-sm overflow-hidden flex justify-start items-center flex-1"
+                >
+                  {index + 1}.
+                </td>
+              ) : (
+                <td
+                  key={column.id}
+                  className="px-4 py-2 whitespace-nowrap text-sm overflow-hidden flex justify-start items-center flex-1"
+                >
+                  <TableCell row={row} column={column} />
+                </td>
+              )
+            )}
           {showEditButton && (
             <td className="px-4 py-2 flex justify-center items-center">
               <button
-                className="hover:text-primary-700"
+                className="hover:text-blue-400"
                 onClick={() => {
                   if (handleEditClick) {
                     handleEditClick(row)

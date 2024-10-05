@@ -35,7 +35,7 @@ export const TableHeader = <T, U>({
           <th
             key={column.id}
             className={`px-4 py-2 ${column.sortable ? 'cursor-pointer' : ''} 
-            flex justify-center items-center flex-1
+            flex justify-start items-center flex-1
             `}
             onClick={() => handleSortClick(column)}
           >
@@ -44,7 +44,7 @@ export const TableHeader = <T, U>({
               <span
                 className={`ml-2 ${
                   getSortDirection(column.id) === 'asc'
-                    ? 'text-primary-500'
+                    ? 'text-blue-400'
                     : 'text-neutral-500'
                 }`}
               >

@@ -53,7 +53,7 @@ export const Select = <T extends Record<string, any>>({
           <option
             key={option[displayKey]}
             value={option[displayKey]}
-            className="hover:bg-primary-100 hover:bg-opacity-10"
+            className="hover:bg-blue-400 hover:bg-opacity-10"
           >
             {option[displayKey]}
           </option>

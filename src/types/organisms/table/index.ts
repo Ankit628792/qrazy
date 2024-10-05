@@ -64,6 +64,7 @@ export interface TableComponentProps<T extends { [key: string]: any }, U> {
   columns?: TableColumn<T, U>[]
   rowData: T[] // Update the type of rowData to an array of T
   rowKey: string
+  tableName?: string
   selectedRows?: string[]
   definedFilters?: ITableFilter[]
   definedSorts?: ITableSort[]
@@ -90,6 +91,7 @@ export type TableToolbarProps = {
   definedFilters?: ITableFilter[]
   definedSorts?: ITableSort[]
   className?: string
+  tableName?: string
   searchedValue?: string
   handleSortChange?: (sort: ITableSort) => void
   handleFilterChange?: (filters: ITableFilter[]) => void

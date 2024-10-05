@@ -8,6 +8,7 @@ import { TableToolbar } from './table-toolbar'
 import { TableComponentProps } from '../../../types'
 
 export const TableComponent = <T extends { [key: string]: any }, U>({
+  tableName = '',
   columns,
   rowData,
   definedFilters = [],
@@ -45,6 +46,7 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
   return (
     <div className="overflow-hidden p-2">
       <TableToolbar
+        tableName={tableName}
         definedFilters={definedFilters}
         definedSorts={definedSorts}
         searchedValue={searchedValue}
@@ -52,12 +54,13 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
         handleFilterChange={handleFilterChange}
         getSearchedValue={getSearchedValue}
       />
-      <table className="table-auto min-w-full">
+      <table className="table-auto w-full h-full">
         {columns && (
           <TableHeader
             columns={columns}
             appliedSorts={definedSorts}
             showEditButton={showEditButton}
+            className="max-h-[48px]"
           />
         )}
         <TableBody
@@ -79,10 +82,9 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
           handlePageLimitChange={handlePageLimitChange}
           isNextPagebuttonDisabled={isNextPagebuttonDisabled}
           lowestPageCount={lowestPageCount}
+          className="max-h-[48px]"
         />
       </table>
     </div>
   )
 }
-
-export * from './table-wrapper'

@@ -41,7 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled:hover:outline-danger-400 disabled:cursor-not-allowed
     `,
     base: `
-      rounded-full text-base font-semibold leading-7 text-gray-900 
+      rounded-full text-base font-semibold text-gray-900 
       hover:bg-black-400 hover:bg-opacity-15 ring-2 ring-black-400 cursor-pointer 
       w-fit dark:text-gray-600 dark:ring-gray-600 dark:hover:bg-gray-900/20 duration-200
     `

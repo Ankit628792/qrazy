@@ -32,23 +32,52 @@ export const Button: React.FC<ButtonProps> = ({
       hover:text-primary-100 focus:text-primary-400
       hover:bg-primary-100 hover:outline-none hover:bg-opacity-10 
       disabled:text-neutral-300 disabled:cursor-not-allowed
+    `,
+    danger: `
+      bg-danger-400 text-neutral-100
+      hover:bg-danger-100 hover:outline-none hover:bg-opacity-10
+      focus:bg-danger-400 focus:outline-1 focus:outline-neutral-100
+      disabled:bg-danger-400 disabled:opacity-30 disabled:hover:outline-none
+      disabled:hover:outline-danger-400 disabled:cursor-not-allowed
+    `,
+    base: `
+      rounded-full text-base font-semibold leading-7 text-gray-900 
+      hover:bg-black-400 hover:bg-opacity-15 ring-2 ring-black-400 cursor-pointer 
+      w-fit dark:text-gray-600 dark:ring-gray-600 dark:hover:bg-gray-900/20 duration-200
     `
   }
 
-  let sizeClasses = `
-  h-8 w-auto rounded text-button px-4 py-1 
-  tablet:h-9 tablet:min-w-32 tablet:rounded-md tablet:py-2 tablet:text-button 
-  laptop:h-9 laptop:min-w-32 laptop:rounded-md laptop:py-2 laptop:text-button 
-  desktop:h-10 desktop:min-w-36 desktop:rounded-lg desktop:py-3 desktop:text-button 
-`
-
-  if (btnType === 'tertiary') {
-    sizeClasses = `
+  const btnSizeClasses = {
+    primary: `
+    h-8 min-w-auto w-auto rounded text-button px-4 py-1
+    tablet:h-9 tablet:min-w-auto tablet:rounded-md tablet:py-2 tablet:text-button
+    laptop:h-9 laptop:min-w-auto laptop:rounded-md laptop:py-2 laptop:text-button
+    desktop:h-10 desktop:min-w-auto desktop:rounded-lg desktop:py-3 desktop:text-button
+    `,
+    secondary: `
+    h-8 min-w-auto w-auto rounded text-button px-4 py-1
+    tablet:h-9 tablet:min-w-auto tablet:rounded-md tablet:py-2 tablet:text-button
+    laptop:h-9 laptop:min-w-auto laptop:rounded-md laptop:py-2 laptop:text-button
+    desktop:h-10 desktop:min-w-auto desktop:rounded-lg desktop:py-3 desktop:text-button
+    `,
+    tertiary: `
     h-8 min-w-auto w-auto rounded text-button px-4 py-1 
     tablet:h-9 tablet:min-w-auto tablet:rounded-md tablet:py-2 tablet:text-button 
     laptop:h-9 laptop:min-w-auto laptop:rounded-md laptop:py-2 laptop:text-button 
     desktop:h-10 desktop:min-w-auto desktop:rounded-lg desktop:py-3 desktop:text-button 
-  `
+   `,
+    danger: `
+    h-8 min-w-auto w-auto rounded text-button px-4 py-1
+    tablet:h-9 tablet:min-w-auto tablet:rounded-md tablet:py-2 tablet:text-button
+    laptop:h-9 laptop:min-w-auto laptop:rounded-md laptop:py-2 laptop:text-button
+    desktop:h-10 desktop:min-w-auto desktop:rounded-lg desktop:py-3 desktop:text-button
+    `,
+    base: `
+    h-8 min-w-auto w-auto rounded text-button px-4 py-1
+    tablet:h-9 tablet:min-w-auto tablet:rounded-md tablet:py-2 tablet:text-button
+    laptop:h-9 laptop:min-w-auto laptop:rounded-md laptop:py-2 laptop:text-button
+    desktop:h-10 desktop:min-w-auto desktop:rounded-lg desktop:py-3 desktop:text-button
+    `
   }
 
   return (
@@ -61,7 +90,7 @@ export const Button: React.FC<ButtonProps> = ({
       form={form}
       className={`cursor-pointer
         ${btnTypeClasses[btnType]}
-        ${sizeClasses} 
+        ${btnSizeClasses[btnType]} 
         ${className}`}
     >
       <span>{children || btnText}</span>

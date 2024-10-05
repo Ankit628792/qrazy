@@ -42,7 +42,7 @@ export const SideBarMenu = ({
         aria-hidden="true"
       />
       <Container
-        className={`fixed inset-y-0 right-0 lg:w-4/12 md:w-2/3 sm:w-6/12 bg-gray-900 z-50 transform transition-transform ease-in-out duration-300 ${sideBarOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed inset-y-0 right-0 lg:w-4/12 md:w-2/3 sm:w-6/12 bg-gray-100 z-50 transform transition-transform ease-in-out duration-300 border-x border-gray-500/10 ${sideBarOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         <Container className="bg-gray-100 dark:bg-gray-800 h-screen">
           <Container className="p-7">

@@ -2,7 +2,7 @@ import React from 'react'
 import { IconType } from 'react-icons'
 
 export type ButtonProps = {
-  btnType: 'primary' | 'secondary' | 'tertiary'
+  btnType: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'base'
   type?: 'button' | 'submit' | 'reset'
   disable?: boolean
   name?: string

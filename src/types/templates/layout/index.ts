@@ -19,6 +19,5 @@ export type LayoutProps = DefaultLayoutProp &
 
 export type ProtectedBoundaryProps = DefaultLayoutProp &
   Readonly<{
-    isUserLoggedIn: boolean
     // future extension for ProtectedBoundary
   }>

@@ -13,7 +13,7 @@ export const NotFoundComponent = () => {
           404 Not Authorized
         </h2>
         <p className="text-neutral-500">
-          Need to login to find requested resource
+          You are not authorized to access this page.
         </p>
         <Link href={ROUTES.HOME} className="text-neutral-500">
           Go Home <span aria-hidden="true">&rarr;</span>

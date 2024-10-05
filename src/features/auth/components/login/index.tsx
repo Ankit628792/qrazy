@@ -2,7 +2,16 @@
 
 import React from 'react'
 import Joi from 'joi'
-import { Container } from '@/components'
+import {
+  Button,
+  Container,
+  EmailInput,
+  Form,
+  FormInput,
+  FormProvider,
+  FormSection,
+  PasswordInput
+} from '@/components'
 
 const loginSchema = Joi.object({
   email: Joi.string()
@@ -19,9 +28,32 @@ const loginSchema = Joi.object({
 })
 
 export const LoginComponent = () => {
+  const handleSubmit = (data: any) => {
+    console.log(data)
+  }
   return (
-    <Container>
-      <h1 className="mb-4">Login to your account</h1>
+    <Container className="w-[50vw] h-[50vh]">
+      <FormProvider schema={loginSchema} onSubmit={handleSubmit}>
+        <Form>
+          <FormSection
+            label="Login to your account"
+            className="w-[50vw] h-[50vh]"
+          >
+            <FormInput name="email" label="Email">
+              <EmailInput />
+            </FormInput>
+            <FormInput name="password" label="Password">
+              <PasswordInput />
+            </FormInput>
+            <Button
+              type="submit"
+              btnText="Login"
+              btnType="base"
+              className="w-[200px] m-2"
+            />
+          </FormSection>
+        </Form>
+      </FormProvider>
     </Container>
   )
 }

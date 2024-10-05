@@ -34,10 +34,22 @@ export const LeftSideBarMenu = ({}: LeftSideBarMenuProps) => {
           <Container
             className={`flex items-center justify-start gap-2 p-2 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 ${selectedMenuItem === item.title ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
           >
-            <Container className="w-5 h-5">
-              <item.icon className="text-gray-700 dark:text-gray-300" />
+            <Container className="w-6 h-6">
+              <item.icon
+                className={`${
+                  selectedMenuItem === item.title
+                    ? 'text-blue-400'
+                    : 'text-gray-700'
+                } h-full w-full`}
+              />
             </Container>
-            <Container className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+            <Container
+              className={`text-sm font-semibold ${
+                selectedMenuItem === item.title
+                  ? 'text-blue-400'
+                  : 'text-gray-700'
+              }`}
+            >
               {item.title}
             </Container>
           </Container>

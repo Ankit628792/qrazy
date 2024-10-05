@@ -74,9 +74,7 @@ export const FormInput: React.FC<FormInputProps> = ({
         )}
       </div>
       {errors[name] && (
-        <span className="block mt-2 text-state-error text-sm">
-          {errors[name]}
-        </span>
+        <span className="block mt-2 text-red-400 text-sm">{errors[name]}</span>
       )}
     </div>
   )

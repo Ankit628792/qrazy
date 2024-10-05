@@ -1,74 +1,48 @@
-import useClickOutside from '@/components/hooks/useClickOutSide'
-import React, { useRef } from 'react'
+import React from 'react'
+import { Container } from '@/components'
+import { ROUTES } from '@/shared/shared.interface'
+import { FaUserShield, FaChartPie } from 'react-icons/fa'
 
-type LeftSideBarMenuProps = {
-  sideBarOpen: boolean
-  setSideBarOpen: (value: boolean) => void
-}
-
-export const LeftSideBarMenu = ({
-  sideBarOpen,
-  setSideBarOpen
-}: LeftSideBarMenuProps) => {
-  const sideBarRef = useRef(null)
-
-  const handleCloseModal = () => {
-    setSideBarOpen(false)
+// hard coded menu items
+const menuItems = [
+  {
+    title: 'Auth',
+    icon: FaUserShield,
+    link: ROUTES.AUTH
+  },
+  {
+    title: 'Overview',
+    icon: FaChartPie,
+    link: ROUTES.AUTH
   }
+]
 
-  useClickOutside(sideBarRef, handleCloseModal)
+type LeftSideBarMenuProps = {}
 
+export const LeftSideBarMenu = ({}: LeftSideBarMenuProps) => {
+  const [selectedMenuItem, setSelectedMenuItem] = React.useState<string | null>(
+    null
+  )
   return (
-    <div
-      ref={sideBarRef}
-      className="h-[inherit] px-1rem bg-gray-100 dark:bg-gray-800 flex items-start justify-start p-2 border-x border-gray-500/10 dark:border-gray-600"
-    >
-      hi
-      {/* <Bars3BottomRightIcon
-        className="h-6 w-6 cursor-pointer text-gray-900 dark:text-gray-600"
-        onClick={() => setSideBarOpen(true)}
-        aria-hidden="true"
-      />
-      <Container
-        className={`fixed inset-y-0 right-0 lg:w-4/12 md:w-2/3 sm:w-6/12 bg-gray-900 z-50 transform transition-transform ease-in-out duration-300 ${sideBarOpen ? 'translate-x-0' : 'translate-x-full'}`}
-      >
-        <Container className="bg-gray-100 dark:bg-gray-800 h-screen">
-          <Container className="p-7">
-            <Container className="flex items-center justify-between">
-              <Logo />
-              <ButtonWithIcon
-                Icon={AiTwotoneCloseCircle}
-                onClick={() => setSideBarOpen(false)}
-                btnType="tertiary"
-              />
+    <Container className="h-[inherit] px-1rem bg-gray-100 dark:bg-gray-800 flex flex-col items-start justify-start p-2 border-x border-gray-500/10 dark:border-gray-600">
+      {menuItems.map((item, index) => (
+        <div
+          key={index}
+          className="w-full"
+          onClick={() => setSelectedMenuItem(item.title)}
+        >
+          <Container
+            className={`flex items-center justify-start gap-2 p-2 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 ${selectedMenuItem === item.title ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+          >
+            <Container className="w-5 h-5">
+              <item.icon className="text-gray-700 dark:text-gray-300" />
             </Container>
-            <Container className="mt-6">
-              <Container className="py-6 border-y border-gray-500/10 dark:border-gray-600">
-                <RenderButtonType
-                  user={user}
-                  handleSignOut={handleSignOut}
-                  handleSignIn={googleSignIn}
-                />
-              </Container>
-              <Container className="divide-y divide-gray-500/10 dark:divide-gray-600">
-                <Container className="py-6">
-                  <Container className="flex flex-col lg:gap-y-2">
-                    {subNavigationData?.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="rounded-full gap-6 hover:ring-2 px-4 hover:bg-black-400 hover:bg-opacity-15 ring-black-400 text-base font-semibold leading-7 text-gray-900 w-fit dark:text-gray-600 dark:ring-gray-400 dark:hover:bg-gray-900/20 duration-200"
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </Container>
-                </Container>
-              </Container>
+            <Container className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+              {item.title}
             </Container>
           </Container>
-        </Container>
-      </Container> */}
-    </div>
+        </div>
+      ))}
+    </Container>
   )
 }

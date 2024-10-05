@@ -1,16 +1,25 @@
 'use client'
 
-import { useAuth } from '@/providers/auth-provider'
+import { ProtectedBoundary } from '../protected-boundary'
 import { LoginLayout } from './login-layout'
 import { SidebarLayout } from './sidebar-layout'
 import { LayoutProps } from '@/types/templates'
 
 export const Layout = ({ children }: LayoutProps) => {
-  const { user } = useAuth()
+  // const { user } = useAuth()
+  const isUserLoggedIn = true
 
-  if (!true) {
-    return <LoginLayout>{children}</LoginLayout>
+  if (isUserLoggedIn) {
+    return (
+      <SidebarLayout>
+        <ProtectedBoundary {...{ children, isUserLoggedIn }} />
+      </SidebarLayout>
+    )
   }
 
-  return <SidebarLayout>{children}</SidebarLayout>
+  return (
+    <LoginLayout>
+      <ProtectedBoundary {...{ children, isUserLoggedIn }} />
+    </LoginLayout>
+  )
 }

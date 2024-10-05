@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import useAuthStore from './auth.store'
+import useAuthStore from './store/auth.store'
 import getRenderComponent from './components'
 import { BackgroundGradient } from '@/shared/components/background-gradient'
 

@@ -1,7 +1,10 @@
 import React from 'react'
 import { Container } from '@/components'
 import { ROUTES } from '@/shared/shared.interface'
-import { FaUserShield, FaChartPie } from 'react-icons/fa'
+import { FaChartPie, FaFileInvoiceDollar } from 'react-icons/fa'
+import { BsFillBuildingsFill } from 'react-icons/bs'
+import { AiFillProduct } from 'react-icons/ai'
+import { SiGooglesheets } from 'react-icons/si'
 import { useAuth } from '@/providers/auth-provider'
 import { SidebarContainer } from './component/SidebarContainer'
 import { IMenuBottomItem, IMenuItem } from './left-sidebar.interface'
@@ -15,17 +18,17 @@ const menuItems: IMenuItem[] = [
   },
   {
     title: 'Product',
-    icon: FaChartPie,
+    icon: AiFillProduct,
     link: ROUTES.PRODUCT
   },
   {
     title: 'Invoice',
-    icon: FaUserShield,
+    icon: FaFileInvoiceDollar,
     link: ROUTES.INVOICE
   },
   {
     title: 'Report',
-    icon: FaChartPie,
+    icon: SiGooglesheets,
     link: ROUTES.REPORT
   }
 ]
@@ -33,7 +36,7 @@ const menuItems: IMenuItem[] = [
 const menuBottomItems: IMenuBottomItem[] = [
   {
     title: 'User Profile',
-    icon: FaChartPie,
+    icon: BsFillBuildingsFill,
     link: ROUTES.USER
   }
 ]

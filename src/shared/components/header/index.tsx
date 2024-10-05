@@ -5,7 +5,6 @@ import React from 'react'
 import { Container } from '@/components'
 import { Logo } from './components/logo'
 import { SideBarMenu } from './components/sidebar-menu'
-import { RenderButtonType } from './components/render-button-type'
 import { ThemeSwitcher } from './components/theme-switcher-button'
 import { useAuth } from '@/providers/auth-provider'
 
@@ -24,12 +23,6 @@ export const HeaderComponent: React.FC = () => {
         <Logo />
         <Container className="flex items-center justify-center gap-x-6">
           <ThemeSwitcher />
-          <RenderButtonType
-            user={user}
-            showProfile={true}
-            handleSignOut={logOut}
-            handleSignIn={() => setSideBarOpen(true)}
-          />
           <Container className='className="relative flex overflow-hidden'>
             <SideBarMenu
               user={user}

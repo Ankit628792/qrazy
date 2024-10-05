@@ -20,8 +20,11 @@ export enum AUTH_MESSAGE {
 
 export const ROUTES = {
   HOME: '/',
+  AUTH: '/auth',
   USER: '/user',
-  AUTH: '/auth'
+  NOT_FOUND: '/404',
+  INVOICE: '/invoice',
+  PRODUCT: '/product'
 }
 
 export enum USER_TYPE {

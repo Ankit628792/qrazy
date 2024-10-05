@@ -84,3 +84,5 @@ export const TableComponent = <T, U>({
     </div>
   )
 }
+
+export * from './table-wrapper'

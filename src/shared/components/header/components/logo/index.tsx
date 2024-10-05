@@ -5,14 +5,14 @@ import { ROUTES } from '@/shared/shared.interface'
 
 export const Logo = () => {
   return (
-    <Container className="flex lg:flex-1 bg-black">
+    <Container className="flex lg:flex-1">
       <Link href={ROUTES.HOME}>
         <Image
           src="/logo.png"
           alt="logo"
-          width={50}
-          height={50}
-          className="filter dark:drop-shadow-lg dark:shadow-inherit"
+          width={40}
+          height={40}
+          className="filter dark:drop-shadow-lg dark:shadow-inherit bg-black-400 rounded-full"
           placeholder="empty"
           priority
         />

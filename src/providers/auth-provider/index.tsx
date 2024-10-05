@@ -71,6 +71,7 @@ export const AuthContextProvider = ({
     setLoading(false)
     if (token && username && user_type) {
       return setUser({
+        ...user,
         token,
         username,
         user_type
@@ -84,7 +85,12 @@ export const AuthContextProvider = ({
       setToken(user.token)
       setUserName(user.username)
       setUserType(user.user_type)
-      setUser(user)
+      setUser({
+        ...user,
+        token: user.token,
+        username: user.username,
+        user_type: user.user_type
+      })
       setLoading(false)
       router.push(ROUTES.HOME)
       toast.success(AUTH_MESSAGE.USER_LOGGED_IN)

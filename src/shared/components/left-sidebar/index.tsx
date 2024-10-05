@@ -1,31 +1,15 @@
-import Link from 'next/link'
 import useClickOutside from '@/components/hooks/useClickOutSide'
 import React, { useRef } from 'react'
-import { Logo } from '../logo'
-import { AiTwotoneCloseCircle } from 'react-icons/ai'
-import { Bars3BottomRightIcon } from '@heroicons/react/20/solid'
-import { INavigationData } from '../../header.interface'
-import { RenderButtonType } from '../render-button-type'
-import { IUserLogin } from '@/features/auth/auth.interface'
-import { ButtonWithIcon, Container } from '@/components'
 
-type SideBarMenuProps = {
-  user: IUserLogin | null
+type LeftSideBarMenuProps = {
   sideBarOpen: boolean
-  subNavigationData: [] | INavigationData[]
-  handleSignOut: () => void
   setSideBarOpen: (value: boolean) => void
-  googleSignIn: () => void
 }
 
-export const SideBarMenu = ({
-  user,
+export const LeftSideBarMenu = ({
   sideBarOpen,
-  subNavigationData,
-  handleSignOut,
-  setSideBarOpen,
-  googleSignIn
-}: SideBarMenuProps) => {
+  setSideBarOpen
+}: LeftSideBarMenuProps) => {
   const sideBarRef = useRef(null)
 
   const handleCloseModal = () => {
@@ -35,8 +19,12 @@ export const SideBarMenu = ({
   useClickOutside(sideBarRef, handleCloseModal)
 
   return (
-    <div ref={sideBarRef}>
-      <Bars3BottomRightIcon
+    <div
+      ref={sideBarRef}
+      className="h-[inherit] px-1rem bg-gray-100 dark:bg-gray-800 flex items-start justify-start p-2 border-x border-gray-500/10 dark:border-gray-600"
+    >
+      hi
+      {/* <Bars3BottomRightIcon
         className="h-6 w-6 cursor-pointer text-gray-900 dark:text-gray-600"
         onClick={() => setSideBarOpen(true)}
         aria-hidden="true"
@@ -80,7 +68,7 @@ export const SideBarMenu = ({
             </Container>
           </Container>
         </Container>
-      </Container>
+      </Container> */}
     </div>
   )
 }

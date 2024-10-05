@@ -10,15 +10,15 @@ import { ThemeSwitcher } from './components/theme-switcher-button'
 import { useAuth } from '@/providers/auth-provider'
 
 export const HeaderComponent: React.FC = () => {
-  const { navigation, subNavigation } = useHeaderStore()
+  const { subNavigation } = useHeaderStore()
   const { user, logOut } = useAuth()
   const { sideBarOpen } = useHeaderStore()
   const { setSideBarOpen } = useHeaderStore()
 
   return (
-    <header>
+    <header className="bg-gray-100 border-y border-gray-500/10 dark:border-gray-600">
       <nav
-        className="flex items-center justify-between p-6 lg:px-8 bg-transparent relative z-10"
+        className="flex items-center justify-between p-2 lg:px-8 bg-transparent relative z-10"
         aria-label="Global"
       >
         <Logo />
@@ -34,7 +34,6 @@ export const HeaderComponent: React.FC = () => {
             <SideBarMenu
               user={user}
               sideBarOpen={sideBarOpen}
-              navigationData={navigation}
               subNavigationData={subNavigation}
               handleSignOut={() => logOut()}
               setSideBarOpen={setSideBarOpen}

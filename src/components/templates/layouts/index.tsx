@@ -1,13 +1,14 @@
 'use client'
 
+import { useAuth } from '@/providers/auth-provider'
 import { LoginLayout } from './login-layout'
 import { SidebarLayout } from './sidebar-layout'
 import { LayoutProps } from '@/types/templates'
 
 export const Layout = ({ children }: LayoutProps) => {
-  const isUserLoggedIn = true
+  const { user } = useAuth()
 
-  if (!isUserLoggedIn) {
+  if (!true) {
     return <LoginLayout>{children}</LoginLayout>
   }
 

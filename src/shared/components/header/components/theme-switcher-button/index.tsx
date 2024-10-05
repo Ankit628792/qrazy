@@ -8,9 +8,9 @@ import { THEME_TYPES } from '../../header.interface'
 const renderThemeIcon = (theme: string | undefined) => {
   switch (theme) {
     case THEME_TYPES.LIGHT:
-      return <MoonIcon className="h-6 w-6 text-brand dark:text-gray-600" />
+      return <MoonIcon className="h-6 w-6 text-black-400 dark:text-gray-600" />
     case THEME_TYPES.DARK:
-      return <SunIcon className="h-6 w-6 text-brand dark:text-gray-600" />
+      return <SunIcon className="h-6 w-6 text-black-400 dark:text-gray-600" />
     default:
       return null
   }

@@ -1,7 +1,12 @@
 'use client'
 
 import React from 'react'
+import { TableWrapper } from '@/components'
 
 export const HomeComponent: React.FC = () => {
-  return <React.Fragment>Hello World!!</React.Fragment>
+  return (
+    <React.Fragment>
+      <TableWrapper>Hello World!!</TableWrapper>
+    </React.Fragment>
+  )
 }

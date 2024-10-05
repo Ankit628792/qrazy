@@ -4,6 +4,8 @@
 
 * {
   user-select: none;
+  margin: 0;
+  padding: 0;
 }
 
 ::-webkit-scrollbar {
@@ -18,7 +20,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #f68a1e;
+  background: #0083FF;
   border-radius: 6px;
 }
 

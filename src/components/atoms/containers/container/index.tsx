@@ -2,7 +2,7 @@ import React from 'react'
 import { ContainerProps } from '../../../../types'
 
 export const Container: React.FC<ContainerProps> = ({
-  maxWidth = '1280px', // Default to a common large screen width
+  maxWidth = '100%', // Default to a common large screen width
   padding = '1rem', // Default padding
   centered = false,
   className = '',

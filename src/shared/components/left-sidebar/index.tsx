@@ -1,22 +1,36 @@
 import React from 'react'
-import Link from 'next/link'
 import { Container } from '@/components'
 import { ROUTES } from '@/shared/shared.interface'
 import { FaUserShield, FaChartPie } from 'react-icons/fa'
 import { useAuth } from '@/providers/auth-provider'
+import { SidebarContainer } from './component/SidebarContainer'
+import { IMenuBottomItem, IMenuItem } from './left-sidebar.interface'
 
 // hard coded menu items
-const menuItems = [
+const menuItems: IMenuItem[] = [
   {
-    title: 'Invoice',
-    icon: FaUserShield,
-    link: ROUTES.INVOICE
+    title: 'Overview',
+    icon: FaChartPie,
+    link: ROUTES.OVERVIEW
   },
   {
     title: 'Product',
     icon: FaChartPie,
     link: ROUTES.PRODUCT
   },
+  {
+    title: 'Invoice',
+    icon: FaUserShield,
+    link: ROUTES.INVOICE
+  },
+  {
+    title: 'Report',
+    icon: FaChartPie,
+    link: ROUTES.REPORT
+  }
+]
+
+const menuBottomItems: IMenuBottomItem[] = [
   {
     title: 'User Profile',
     icon: FaChartPie,
@@ -31,38 +45,29 @@ export const LeftSideBarMenu = ({}: LeftSideBarMenuProps) => {
     null
   )
   return (
-    <Container className="h-[inherit] px-1rem bg-gray-100 dark:bg-gray-800 flex flex-col items-start justify-start p-2 border-x border-gray-500/10 dark:border-gray-600">
-      {menuItems.map((item, index) => (
-        <div key={index} className="w-full">
-          <Link
-            href={item.link}
-            onClick={() => setSelectedMenuItem(item.title)}
-          >
-            <Container
-              className={`flex items-center justify-start gap-2 p-2 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 ${selectedMenuItem === item.title ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
-            >
-              <Container className="w-6 h-6">
-                <item.icon
-                  className={`${
-                    selectedMenuItem === item.title
-                      ? 'text-blue-400'
-                      : 'text-gray-700'
-                  } h-full w-full`}
-                />
-              </Container>
-              <Container
-                className={`text-sm font-semibold ${
-                  selectedMenuItem === item.title
-                    ? 'text-blue-400'
-                    : 'text-gray-700'
-                }`}
-              >
-                {item.title}
-              </Container>
-            </Container>
-          </Link>
-        </div>
-      ))}
+    <Container className="h-[inherit] bg-gray-100 flex flex-col items-start justify-between border-x border-gray-500/10">
+      <Container className="w-full">
+        {menuItems.map((item, index) => (
+          <SidebarContainer
+            key={index}
+            item={item}
+            index={index}
+            selectedMenuItem={selectedMenuItem}
+            setSelectedMenuItem={setSelectedMenuItem}
+          />
+        ))}
+      </Container>
+      <Container className="w-full">
+        {menuBottomItems.map((item, index) => (
+          <SidebarContainer
+            key={index}
+            item={item}
+            index={index}
+            selectedMenuItem={selectedMenuItem}
+            setSelectedMenuItem={setSelectedMenuItem}
+          />
+        ))}
+      </Container>
     </Container>
   )
 }

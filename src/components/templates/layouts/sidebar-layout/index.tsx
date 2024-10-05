@@ -12,7 +12,7 @@ export const SidebarLayout = ({ children }: SidebarLayoutProps) => {
         <Container className="h-full w-[246px]">
           <LeftSideBarMenu />
         </Container>
-        <Container className="h-full w-[calc(100vw-246px)] flex items-center justify-center bg-gray-100 dark:bg-gray-800 p-2">
+        <Container className="h-full w-[calc(100vw-246px)] flex items-center justify-center bg-gray-100 p-2">
           {children}
         </Container>
       </Container>

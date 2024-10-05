@@ -19,7 +19,9 @@ export const ROUTES = {
   USER: '/user',
   NOT_FOUND: '/404',
   INVOICE: '/invoice',
-  PRODUCT: '/product'
+  PRODUCT: '/product',
+  REPORT: '/report',
+  OVERVIEW: '/overview'
 }
 
 export interface IRouteParams {

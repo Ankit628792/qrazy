@@ -163,7 +163,7 @@ export const ProductComponent: React.FC = () => {
         showEditButton={true}
         isNextPagebuttonDisabled={false}
         lowestPageCount={0}
-        tableName="Product Table"
+        tableName={`Products List (${data.length})`}
       />
     </Container>
   )

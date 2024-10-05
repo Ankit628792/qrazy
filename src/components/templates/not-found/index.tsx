@@ -9,9 +9,7 @@ export const NotFoundComponent = () => {
       centered={true}
     >
       <Container>
-        <h2 className="text-4xl text-neutral-900 dark:text-gray-600">
-          404 Not Authorized
-        </h2>
+        <h2 className="text-4xl text-neutral-900">404 Not Authorized</h2>
         <p className="text-neutral-500">
           You are not authorized to access this page.
         </p>

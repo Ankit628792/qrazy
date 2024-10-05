@@ -43,7 +43,7 @@ export const Button: React.FC<ButtonProps> = ({
     base: `
       rounded-full text-base font-semibold text-gray-900 
       hover:bg-black-400 hover:bg-opacity-15 ring-2 ring-black-400 cursor-pointer 
-      w-fit dark:text-gray-600 dark:ring-gray-600 dark:hover:bg-gray-900/20 duration-200
+      w-fit duration-200
     `
   }
 

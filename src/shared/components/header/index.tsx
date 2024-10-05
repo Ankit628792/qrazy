@@ -16,7 +16,7 @@ export const HeaderComponent: React.FC = () => {
   const { setSideBarOpen } = useHeaderStore()
 
   return (
-    <header className="bg-gray-100 border-y border-gray-500/10 dark:border-gray-600">
+    <header className="bg-gray-100 border-y border-gray-500/10 ">
       <nav
         className="flex items-center justify-between p-2 lg:px-8 bg-transparent relative z-10"
         aria-label="Global"

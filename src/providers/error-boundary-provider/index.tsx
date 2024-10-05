@@ -26,7 +26,7 @@ export class ErrorBoundary extends React.Component<
     if (this.state.hasError) {
       return (
         <Container className="bg-white py-24 sm:py-32 h-screen flex items-center justify-center flex-col gap-3">
-          <p className="text-4xl text-neutral-800 dark:text-gray-600">
+          <p className="text-4xl text-neutral-800">
             Oops, Something went wrong!
           </p>
           <Button

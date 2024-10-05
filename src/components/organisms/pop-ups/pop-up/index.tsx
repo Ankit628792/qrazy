@@ -25,8 +25,9 @@ export const PopUp: React.FC<PopUpProps> = ({
       onClose={onClose}
       header={header}
       footer={footer}
-      children={children}
       {...props}
-    ></Modal>
+    >
+      {children}
+    </Modal>
   )
 }

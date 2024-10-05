@@ -38,9 +38,27 @@ export interface IUserLoginResponse {
 }
 
 export enum LOGIN_ALERT {
-  SUCCESS = 'success',
+  SUCCESS = 'Login successful',
   ERROR = 'Login failed',
   OTP_SENT = 'OTP sent to your email',
   USER_NOT_CREATED = 'User not created',
-  USER_NOT_FOUND = 'User not found'
+  USER_NOT_FOUND = 'User not found',
+  USER_LOGGED_OUT = 'User logged out'
+}
+
+export enum USER_TYPE {
+  CUSTOMER = 'customer',
+  ADMIN = 'admin'
+}
+
+export enum AUTH_LOCAL_STORAGE_KEYS {
+  USERNAME = 'username',
+  USERTYPE = 'usertype',
+  TOKEN = 'token',
+  USER_DETAILS = 'userDetails'
+}
+
+export enum QUERY_STATUS {
+  PENDING = 'pending',
+  RESOLVED = 'resolved'
 }

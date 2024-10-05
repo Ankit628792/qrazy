@@ -1,7 +1,7 @@
 'use client'
 
 import BaseInput from '../base-input'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, MouseEventHandler } from 'react'
 import { IoCheckbox } from 'react-icons/io5'
 import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md'
 import { CheckboxProps, INPUT_TYPE } from '../../../../types'
@@ -22,12 +22,12 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     setIsChecked(checked)
   }, [checked])
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<SVGElement>) => {
     if (disabled) return
     setIsDirty(true)
     setIsChecked(!isChecked)
     if (onChange) {
-      onChange(event)
+      onChange(event as unknown as React.ChangeEvent<HTMLInputElement>)
     }
   }
 

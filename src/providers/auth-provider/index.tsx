@@ -6,17 +6,15 @@ import Logger from '@/libs/logger.util'
 import AuthService from '@/features/auth/auth.service'
 import { useRouter } from 'next/navigation'
 import { Loader } from '@/components'
+import { ROUTES } from '@/shared/shared.interface'
 import {
-  AUTH_MESSAGE,
-  LOCAL_STORAGE_KEYS,
-  ROUTES,
-  USER_TYPE
-} from '@/shared/shared.interface'
-import {
+  AUTH_LOCAL_STORAGE_KEYS,
   IAuthContext,
   ICreateUserPayload,
   IUserLogin,
-  IUserLoginPayload
+  IUserLoginPayload,
+  LOGIN_ALERT,
+  USER_TYPE
 } from '@/features/auth/auth.interface'
 import { useLocalStorage } from '@/components/hooks/useLocalStorage'
 
@@ -42,26 +40,26 @@ export const AuthContextProvider = ({
     removeItem: removeToken,
     getItem: getToken,
     setItem: setToken
-  } = useLocalStorage(LOCAL_STORAGE_KEYS.TOKEN)
+  } = useLocalStorage(AUTH_LOCAL_STORAGE_KEYS.TOKEN)
 
   const {
     removeItem: removeUserName,
     getItem: getUserName,
     setItem: setUserName
-  } = useLocalStorage(LOCAL_STORAGE_KEYS.USERNAME)
+  } = useLocalStorage(AUTH_LOCAL_STORAGE_KEYS.USERNAME)
 
   const {
     removeItem: removeUserType,
     getItem: getUserType,
     setItem: setUserType
-  } = useLocalStorage(LOCAL_STORAGE_KEYS.USERTYPE)
+  } = useLocalStorage(AUTH_LOCAL_STORAGE_KEYS.USERTYPE)
 
   const logOut = () => {
     removeToken()
     removeUserName()
     removeUserType()
     setUser(null)
-    toast.success(AUTH_MESSAGE.USER_LOGGED_OUT)
+    toast.success(LOGIN_ALERT.USER_LOGGED_OUT)
   }
 
   const checkIsUserLoggedIn = () => {
@@ -93,7 +91,7 @@ export const AuthContextProvider = ({
       })
       setLoading(false)
       router.push(ROUTES.HOME)
-      toast.success(AUTH_MESSAGE.USER_LOGGED_IN)
+      toast.success(LOGIN_ALERT.SUCCESS)
       return true
     }
     return false

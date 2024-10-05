@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Container } from '@/components'
 import { ROUTES } from '@/shared/shared.interface'
 import { FaUserShield, FaChartPie } from 'react-icons/fa'
+import { useAuth } from '@/providers/auth-provider'
 
 // hard coded menu items
 const menuItems = [

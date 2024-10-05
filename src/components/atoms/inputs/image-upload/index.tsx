@@ -32,6 +32,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   return (
     <div className="image-upload">
       {showPreview && preview && (
+        // eslint-disable-next-line @next/next/no-img-element
         <img src={preview} alt="Preview" className="image-preview" />
       )}
       <input

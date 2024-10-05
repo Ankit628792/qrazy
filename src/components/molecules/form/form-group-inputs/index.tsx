@@ -12,7 +12,7 @@ export const FormGroupInputs: React.FC<FormGroupInputsProps> = ({
 
   const onFormGroupInputChange = (
     name: string,
-    value: Record<string, string | number | boolean >
+    value: Record<string, string | number | boolean>
   ) => {
     if (
       name == INPUT_TYPE.RANGE ||

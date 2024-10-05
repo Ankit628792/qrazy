@@ -1,3 +1,7 @@
+'use client'
+
+import { TableWrapper } from '@/components'
+
 export const ProductComponent: React.FC = () => {
-  return <div>Product Component</div>
+  return <TableWrapper>Product Component</TableWrapper>
 }

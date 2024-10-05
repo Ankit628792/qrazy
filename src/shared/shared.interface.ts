@@ -13,11 +13,6 @@ export enum HTTP_STATUS_CODE {
   CONFLICT = 409
 }
 
-export enum AUTH_MESSAGE {
-  USER_LOGGED_IN = 'User logged in successfully',
-  USER_LOGGED_OUT = 'User logged out successfully'
-}
-
 export const ROUTES = {
   HOME: '/',
   AUTH: '/auth',
@@ -25,23 +20,6 @@ export const ROUTES = {
   NOT_FOUND: '/404',
   INVOICE: '/invoice',
   PRODUCT: '/product'
-}
-
-export enum USER_TYPE {
-  CUSTOMER = 'customer',
-  ADMIN = 'admin'
-}
-
-export enum LOCAL_STORAGE_KEYS {
-  USERNAME = 'username',
-  USERTYPE = 'usertype',
-  TOKEN = 'token',
-  USER_DETAILS = 'userDetails'
-}
-
-export enum QUERY_STATUS {
-  PENDING = 'pending',
-  RESOLVED = 'resolved'
 }
 
 export interface IRouteParams {

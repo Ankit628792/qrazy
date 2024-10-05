@@ -41,6 +41,7 @@ export const MultiImageUpload: React.FC<MultiImageUploadProps> = ({
     <div className="multi-image-upload">
       {showPreviews &&
         previews.map((preview, index) => (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             key={index}
             src={preview}

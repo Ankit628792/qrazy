@@ -1,12 +1,13 @@
 'use client'
 
 import React from 'react'
-import { TableWrapper } from '@/components'
 
 export const HomeComponent: React.FC = () => {
   return (
     <React.Fragment>
-      <TableWrapper>Hello World!!</TableWrapper>
+      <h1 className="text-xl font-bold text-center text-black-400">
+        Welcome to QRAZY CRM 🚀
+      </h1>
     </React.Fragment>
   )
 }

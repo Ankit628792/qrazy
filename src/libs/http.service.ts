@@ -3,7 +3,7 @@
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { showToast } from '@/utils/show-toast'
-import { LOCAL_STORAGE_KEYS } from '@/shared/shared.interface'
+import { AUTH_LOCAL_STORAGE_KEYS } from '@/features/auth/auth.interface'
 
 const TIMEOUT = 5000
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
@@ -16,7 +16,7 @@ const _axios = axios.create({
 _axios.interceptors.request.use(
   (config) => {
     if (typeof window !== 'undefined') {
-      const token = window.localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN)
+      const token = window.localStorage.getItem(AUTH_LOCAL_STORAGE_KEYS.TOKEN)
 
       config.headers
       if (token) {

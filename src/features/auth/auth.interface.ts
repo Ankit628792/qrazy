@@ -16,6 +16,18 @@ export interface IUserLoginPayload {
   user_type: string
 }
 
+export enum PERMISSION_LEVEL {
+  EDIT = 'edit',
+  VIEW = 'view',
+  DELETE = 'delete',
+  FULL = 'full',
+  DENIED = 'denied'
+}
+
+export interface IModulesAndPermissions {
+  [key: string]: PERMISSION_LEVEL
+}
+
 export interface IAuthContext {
   user: IUserLogin | null
   loading: Boolean
@@ -26,6 +38,7 @@ export interface IAuthContext {
   registerUser: (
     createRegistrationPayload: ICreateUserPayload
   ) => Promise<boolean>
+  modulesAndPermissions: IModulesAndPermissions | {}
 }
 
 export interface IUserLoginResponse {
@@ -55,7 +68,8 @@ export enum AUTH_LOCAL_STORAGE_KEYS {
   USERNAME = 'username',
   USERTYPE = 'usertype',
   TOKEN = 'token',
-  USER_DETAILS = 'userDetails'
+  USER_DETAILS = 'userDetails',
+  MODULES_AND_PERMISSIONS = 'modulesAndPermissions'
 }
 
 export enum QUERY_STATUS {

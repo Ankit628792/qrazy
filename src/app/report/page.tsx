@@ -1,4 +1,4 @@
-import { ReportComponent } from '@/features/report'
+import ReportComponent from '../../features/report'
 
 export default function Report() {
   return <ReportComponent />

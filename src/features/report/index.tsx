@@ -4,8 +4,9 @@ import React from 'react'
 import { Container, TableComponent } from '@/components'
 import { ReportViewSideBarMenu } from './components/view-sidebar'
 import { IReportRowData } from './report.interface'
+import { withViewPermissions } from '@/shared/HOC/useHaveViewPermission'
 
-export const ReportComponent: React.FC = () => {
+const ReportComponent: React.FC = () => {
   const [isViewSidebarOpen, setIsViewSidebarOpen] = React.useState(false)
   const [selectedRowData, setSelectedRowData] =
     React.useState<IReportRowData | null>(null)
@@ -188,3 +189,5 @@ export const ReportComponent: React.FC = () => {
     </Container>
   )
 }
+
+export default withViewPermissions(ReportComponent)

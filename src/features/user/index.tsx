@@ -1,3 +1,7 @@
-export const UserComponent: React.FC = () => {
+import { withViewPermissions } from '@/shared/HOC/useHaveViewPermission'
+
+const UserComponent: React.FC = () => {
   return <div>User Component</div>
 }
+
+export default withViewPermissions(UserComponent)

@@ -11,6 +11,7 @@ import {
   AUTH_LOCAL_STORAGE_KEYS,
   IAuthContext,
   ICreateUserPayload,
+  IModulesAndPermissions,
   IUserLogin,
   IUserLoginPayload,
   LOGIN_ALERT,
@@ -24,7 +25,8 @@ const AuthContext = React.createContext<IAuthContext>({
   logOut: () => {},
   loginWithEmail: async (data: Record<string, string | number | boolean>) =>
     false,
-  registerUser: async (createRegistrationPayload: ICreateUserPayload) => false
+  registerUser: async (createRegistrationPayload: ICreateUserPayload) => false,
+  modulesAndPermissions: {}
 })
 
 export const AuthContextProvider = ({
@@ -35,6 +37,8 @@ export const AuthContextProvider = ({
   const router = useRouter()
   const [user, setUser] = React.useState<IUserLogin | null>(null)
   const [loading, setLoading] = React.useState<Boolean>(false)
+  const [modulesAndPermissions, setModulesAndPermissions] =
+    React.useState<IModulesAndPermissions>({})
 
   const {
     removeItem: removeToken,
@@ -54,11 +58,19 @@ export const AuthContextProvider = ({
     setItem: setUserType
   } = useLocalStorage(AUTH_LOCAL_STORAGE_KEYS.USERTYPE)
 
+  const {
+    removeItem: removeModulesAndPermissions,
+    getItem: getModulesAndPermissions,
+    setItem: setModulesAndPermissionsToLocalStorage
+  } = useLocalStorage(AUTH_LOCAL_STORAGE_KEYS.MODULES_AND_PERMISSIONS)
+
   const logOut = () => {
     removeToken()
     removeUserName()
     removeUserType()
+    removeModulesAndPermissions()
     setUser(null)
+    setModulesAndPermissions({})
     toast.success(LOGIN_ALERT.USER_LOGGED_OUT)
   }
 
@@ -76,6 +88,14 @@ export const AuthContextProvider = ({
       })
     }
     return setUser(null)
+  }
+
+  const checkForModulesAndPermissions = async () => {
+    const modulesAndPermissions = getModulesAndPermissions()
+    if (modulesAndPermissions) {
+      return setModulesAndPermissions(JSON.parse(modulesAndPermissions))
+    }
+    return setModulesAndPermissions({})
   }
 
   const handleUserOnAuth = (user: IUserLogin) => {
@@ -124,12 +144,22 @@ export const AuthContextProvider = ({
   }
 
   React.useEffect(() => {
-    return () => checkIsUserLoggedIn()
+    return () => {
+      checkIsUserLoggedIn()
+      checkForModulesAndPermissions()
+    }
   }, [])
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, logOut, loginWithEmail, registerUser }}
+      value={{
+        user,
+        loading,
+        modulesAndPermissions,
+        logOut,
+        loginWithEmail,
+        registerUser
+      }}
     >
       {loading ? <Loader /> : children}
     </AuthContext.Provider>

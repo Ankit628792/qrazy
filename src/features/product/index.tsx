@@ -4,8 +4,9 @@ import React from 'react'
 import { Container, TableComponent } from '@/components'
 import { ProductViewSideBarMenu } from './components/view-sidebar'
 import { IProductRowData } from './product.interface'
+import { withViewPermissions } from '@/shared/HOC/useHaveViewPermission'
 
-export const ProductComponent: React.FC = () => {
+const ProductComponent: React.FC = () => {
   const [isViewSidebarOpen, setIsViewSidebarOpen] = React.useState(false)
   const [selectedRowData, setSelectedRowData] =
     React.useState<IProductRowData | null>(null)
@@ -187,3 +188,5 @@ export const ProductComponent: React.FC = () => {
     </Container>
   )
 }
+
+export default withViewPermissions(ProductComponent)

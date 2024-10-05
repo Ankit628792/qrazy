@@ -4,8 +4,9 @@ import React from 'react'
 import { Container, TableComponent } from '@/components'
 import { InvoiceViewSideBarMenu } from './components/view-sidebar'
 import { IInvoiceRowData } from './invoice.interface'
+import { withViewPermissions } from '@/shared/HOC/useHaveViewPermission'
 
-export const InvoiceComponent: React.FC = () => {
+const InvoiceComponent: React.FC = () => {
   const [isViewSidebarOpen, setIsViewSidebarOpen] = React.useState(false)
   const [selectedRowData, setSelectedRowData] =
     React.useState<IInvoiceRowData | null>(null)
@@ -187,3 +188,5 @@ export const InvoiceComponent: React.FC = () => {
     </Container>
   )
 }
+
+export default withViewPermissions(InvoiceComponent)

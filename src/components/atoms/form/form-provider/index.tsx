@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { FormContext } from '../../../hooks/useFormContext'
 import { IFormProviderProps } from '../../../../types'
 
@@ -16,14 +16,17 @@ export const FormProvider = <T,>({
   const [formData, setFormData] = useState(initialValues)
   const [errors, setErrors] = useState({})
 
-  const handleInputChange = (name, value) => {
+  const handleInputChange = (
+    name: string,
+    value: Record<string, string | number | boolean>
+  ) => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const validate = () => {
     const result = schema.validate(formData, { abortEarly: false })
     if (result.error) {
-      const errorObj = {}
+      const errorObj: { [key: string]: string } = {}
       result.error.details.forEach((detail) => {
         if (customValidationMessages) {
           errorObj[detail.path[0]] = customValidationMessages[detail.path[0]]
@@ -38,7 +41,7 @@ export const FormProvider = <T,>({
     return true
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<Element>) => {
     e.preventDefault()
     if (validate()) {
       if (customValidate) {

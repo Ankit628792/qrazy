@@ -25,7 +25,7 @@ export const TableToolbar: React.FC<TableToolbarProps> = ({
       {getSearchedValue && (
         <div className="w-80">
           <TextInput
-            invalid={false}
+            invalid="false"
             value={searchedValue}
             onChange={(e) => {
               if (getSearchedValue) {

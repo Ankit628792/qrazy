@@ -31,6 +31,7 @@ export const Card: React.FC<CardProps> = ({
       className={`rounded ${outlineClasses} ${sizeClasses[size]} ${shadowClasses[shadow]} ${className}`}
     >
       {img && (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={img}
           alt={title || 'Card Image'}

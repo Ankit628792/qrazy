@@ -74,7 +74,7 @@ export const StringListInput: React.FC<StringListInputProps> = ({
           Icon={AiOutlinePlusCircle}
           iconClassName="h-4 w-4 text-primary-400"
           iconOnClick={addStringInput}
-          invalid={false}
+          invalid="false"
           disabled={disabled}
           placeholder="Enter your text here..."
           value={inputValue}
@@ -92,7 +92,7 @@ export const StringListInput: React.FC<StringListInputProps> = ({
             disabled={disabled}
             onChange={(e) => handleStringChange(index, e)}
             iconOnClick={() => removeStringInput(index)}
-            invalid={false}
+            invalid="false"
             isSearchActive={false}
           />
         </div>

@@ -126,7 +126,7 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropDownProps> = ({
             <span className="flex items-center justify-between">
               <span className="flex items-center">
                 <Checkbox
-                  invalid={false}
+                  invalid="false"
                   checked={isOptionSelected(option.value ? option.value : '')}
                   hidden={true}
                   onChange={(e) => {
@@ -162,14 +162,15 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropDownProps> = ({
             <SearchBar
               className="bg-neutral-100 hover:outline focus:outline-1 hover:outline-neutral-300 focus:outline-none focus:outline-neutral-800 disabled:outline disabled:outline-neutral-300 disabled:bg-neutral-100 disabled:text-neutral-300"
               Icon={isOpen ? FaCaretUp : FaCaretDown}
-              invalid={false}
+              invalid="false"
               disabled={false}
               isSearchActive={isOpen}
               onChange={handleSearchChange}
               placeholder={placeholder}
               value={searchQuery}
-              children={childComponent}
-            />
+            >
+              {childComponent}
+            </SearchBar>
           </span>
         </div>
         {isOpen && (

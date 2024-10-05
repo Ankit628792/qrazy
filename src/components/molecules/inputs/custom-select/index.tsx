@@ -1,11 +1,12 @@
 'use client'
 
 import BaseInput from '../../../atoms/inputs/base-input'
+import useClickOutside from '@/components/hooks/useClickOutSide'
 import React, { useRef, useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { CustomSelectProps } from '../../../../types'
 
-export const CustomSelect = <T,>({
+export const CustomSelect = <T extends Record<string, any>>({
   options,
   selectedValue,
   onChangeSelect,
@@ -19,13 +20,13 @@ export const CustomSelect = <T,>({
   const [selected, setSelected] = useState(selectedValue)
   const [isOpen, setIsOpen] = useState(false)
   const customSelectRef = useRef<HTMLDivElement>(null)
-  useOutsideClick(customSelectRef, () => setIsOpen(false))
+  useClickOutside(customSelectRef, () => setIsOpen(false))
 
   const toggleDropdown = () => {
     !baseProps.disabled && setIsOpen(!isOpen)
   }
 
-  const handleSelectChange = (option) => {
+  const handleSelectChange = (option: Record<string, any>) => {
     getSelectedValue && getSelectedValue(option)
     setSelected(option[displayKey])
     if (onChangeSelect) {

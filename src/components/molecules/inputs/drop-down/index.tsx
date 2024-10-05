@@ -126,7 +126,7 @@ export const Dropdown: React.FC<DropDownProps> = ({
               <span className="flex items-center">
                 {isRadio && (
                   <Radio
-                    invalid={false}
+                    invalid="false"
                     checked={option.value === selected}
                     className={
                       option.value === selected ? '' : 'text-neutral-900'
@@ -153,7 +153,7 @@ export const Dropdown: React.FC<DropDownProps> = ({
             <SearchBar
               className="bg-neutral-100 hover:outline focus:outline-1 hover:outline-neutral-300 focus:outline-none focus:outline-neutral-800 disabled:outline disabled:outline-neutral-300 disabled:bg-neutral-100 disabled:text-neutral-300"
               Icon={isOpen ? FaCaretUp : FaCaretDown}
-              invalid={false}
+              invalid="false"
               disabled={false}
               isSearchActive={true}
               onChange={handleSearchChange}
@@ -165,7 +165,7 @@ export const Dropdown: React.FC<DropDownProps> = ({
             <SearchBar
               className="bg-neutral-100 hover:outline focus:outline-1 hover:outline-neutral-300 focus:outline-none focus:outline-neutral-800 disabled:outline disabled:outline-neutral-300 disabled:bg-neutral-100 disabled:text-neutral-300"
               Icon={isOpen ? FaCaretUp : FaCaretDown}
-              invalid={false}
+              invalid="false"
               isSearchActive={false}
               placeholder={selected ? selectedValue : placeholder}
               value={selected ? selected : ''}

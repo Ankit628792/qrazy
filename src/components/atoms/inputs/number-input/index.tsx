@@ -10,7 +10,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
   max = Number.MAX_SAFE_INTEGER,
   step = 1,
   className,
-  invalid = false,
+  invalid = 'false',
   onChange,
   ...props
 }: NumberInputProps) => {
@@ -37,7 +37,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
         className={`w-auto disabled:cursor-not-allowed border rounded-lg px-3 py-2 bg-neutral-100 outline-none ${className}`}
         min={min}
         max={max}
-        invalid={invalid}
+        invalid={invalid ? 'true' : undefined}
         step={step}
         style={inputStyles}
         dirty={isDirty}

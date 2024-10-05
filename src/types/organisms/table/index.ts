@@ -60,7 +60,7 @@ export interface ITableFilter {
   type: FILTER_TYPE
 }
 
-export interface TableComponentProps<T, U> {
+export interface TableComponentProps<T extends { [key: string]: any }, U> {
   columns?: TableColumn<T, U>[]
   rowData: T[] // Update the type of rowData to an array of T
   rowKey: string

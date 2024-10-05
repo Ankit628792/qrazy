@@ -4,7 +4,7 @@ import { TableCell } from './table-cell'
 import { NoResult } from './NoResult'
 import { TableBodyProps } from '../../../../types'
 
-export const TableBody = <T, U>({
+export const TableBody = <T extends { [key: string]: any }, U>({
   columns,
   rowData,
   showEditButton,
@@ -47,8 +47,14 @@ export const TableBody = <T, U>({
       <tbody className={`overflow-auto block ${className}`}>
         {groupedData.map((rowGroup, rowIndex) => (
           <tr key={rowIndex} className="flex items-center justify-start">
-            {rowGroup.map((data) => (
-              <RenderTableCell rowData={data} />
+            {rowGroup.map((data, index) => (
+              <RenderTableCell
+                rowData={data}
+                key={index}
+                columns={columns}
+                handleEditClick={handleEditClick}
+                showEditButton={showEditButton}
+              />
             ))}
           </tr>
         ))}

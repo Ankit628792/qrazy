@@ -35,7 +35,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
       {options.map((option) => (
         <Checkbox
           key={option.value}
-          invalid={false}
+          invalid="false"
           label={option.label}
           checked={selectedValues.includes(option.value)}
           onChange={(e) => handleCheckboxChange(e, option.checked || false)}

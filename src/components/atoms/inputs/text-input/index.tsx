@@ -7,7 +7,7 @@ import { INPUT_TYPE, TextInputProps } from '../../../../types'
 export const TextInput: React.FC<TextInputProps> = ({
   autoComplete = 'off',
   className = '',
-  invalid = false,
+  invalid = 'false',
   onChange,
   ...props
 }) => {
@@ -32,7 +32,7 @@ export const TextInput: React.FC<TextInputProps> = ({
       autoComplete={autoComplete}
       className={`w-full disabled:cursor-not-allowed border rounded-lg px-3 py-2 bg-neutral-100 outline-none ${className}`}
       style={inputStyles}
-      invalid={invalid}
+      invalid={invalid ? 'true' : undefined}
       dirty={isDirty}
       onChange={handleChange}
       {...props}

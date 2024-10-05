@@ -12,7 +12,7 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
   maxLength = 10,
   className = '',
   disabled = false,
-  invalid = false,
+  invalid = 'false',
   onChange,
   onCountryChange,
   ...props
@@ -69,12 +69,14 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
         options={countries}
         selectedValue={selectedCountry.value}
         disabled={disabled}
-        invalid={invalid}
+        invalid={invalid ? 'true' : undefined}
         onChange={handleCountryCodeChange}
         icon={FaChevronDown}
       />
       <TextInput
-        invalid={isNumberInvalid !== null ? isNumberInvalid : invalid}
+        invalid={
+          isNumberInvalid !== null ? JSON.stringify(isNumberInvalid) : invalid
+        }
         ref={inputRef}
         maxLength={maxLength}
         value={phoneNumber}

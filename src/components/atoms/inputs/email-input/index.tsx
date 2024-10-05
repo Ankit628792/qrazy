@@ -6,7 +6,7 @@ import { EmailInputProps, INPUT_TYPE } from '../../../../types'
 
 export const EmailInput: React.FC<EmailInputProps> = ({
   value,
-  invalid = false,
+  invalid = 'false',
   className,
   onChange,
   ...props
@@ -26,7 +26,7 @@ export const EmailInput: React.FC<EmailInputProps> = ({
   return (
     <BaseInput
       type={INPUT_TYPE.EMAIL}
-      invalid={invalid}
+      invalid={invalid ? 'true' : undefined}
       value={value}
       dirty={isDirty}
       onChange={handleEmailChange}

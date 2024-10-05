@@ -64,7 +64,7 @@ export const TypeAhead: React.FC<TypeAheadProps> = ({
       <h1 className="hidden">{valueInput}</h1>
       <BaseInput
         type={INPUT_TYPE.TEXT}
-        invalid={false}
+        invalid="false"
         value={value}
         disabled={disabled}
         placeholder={placeholder}

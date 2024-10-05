@@ -7,7 +7,7 @@ import { TableHeader } from './table-header'
 import { TableToolbar } from './table-toolbar'
 import { TableComponentProps } from '../../../types'
 
-export const TableComponent = <T, U>({
+export const TableComponent = <T extends { [key: string]: any }, U>({
   columns,
   rowData,
   definedFilters = [],

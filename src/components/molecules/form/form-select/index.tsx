@@ -18,7 +18,10 @@ export const FormSelect: React.FC<FormSelectProps> = ({
 }) => {
   const { handleInputChange, errors, formData }: any = useContext(FormContext)
 
-  const onChangeSelect = (name, value) => {
+  const onChangeSelect = (
+    name: string,
+    value: Record<string, string | number | boolean>
+  ) => {
     if (onFormGroupInputChange) {
       onFormGroupInputChange(name, value)
     } else {

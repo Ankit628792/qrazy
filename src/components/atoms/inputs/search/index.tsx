@@ -51,7 +51,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     >
       <BaseInput
         type={INPUT_TYPE.TEXT}
-        invalid={false}
+        invalid="false"
         value={valueInput}
         disabled={disabled}
         placeholder={placeholder}

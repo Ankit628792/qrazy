@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { SelectProps } from '../../../../types'
 
-export const Select = <T,>({
+export const Select = <T extends Record<string, any>>({
   options,
   selectedValue,
   onChange: onSelectChange,

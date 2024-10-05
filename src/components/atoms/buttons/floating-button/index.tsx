@@ -36,6 +36,24 @@ export const FloatingButton: React.FC<FloatingButtonProps> = ({
       text-primary-400 
       hover:text-primary-100 focus:text-primary-400
       disabled:text-neutral-300 disabled:cursor-not-allowed
+    `,
+
+    danger: `
+      bg-danger-400 text-neutral-100 
+      hover:bg-danger-100 focus:bg-danger-400
+      disabled:bg-neutral-100 disabled:text-neutral-300
+    `,
+
+    success: `
+      bg-success-400 text-neutral-100 
+      hover:bg-success-100 focus:bg-success-400
+      disabled:bg-neutral-100 disabled:text-neutral-300
+    `,
+
+    base: `
+      bg-neutral-100 text-neutral-800 
+      hover:bg-neutral-200 focus:bg-neutral-300
+      disabled:bg-neutral-100 disabled:text-neutral-300
     `
   }
 

@@ -38,7 +38,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       {options.map((option) => (
         <Radio
           key={option.value}
-          invalid={false}
+          invalid="false"
           name={name || option.value}
           value={option.value}
           label={option.label}

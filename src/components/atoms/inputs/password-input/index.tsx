@@ -7,7 +7,7 @@ import { INPUT_TYPE, PasswordInputProps } from '../../../../types'
 
 export const PasswordInput: React.FC<PasswordInputProps> = ({
   showPasswordToggle = false,
-  invalid = false,
+  invalid = 'false',
   className,
   onChange,
   ...props
@@ -29,7 +29,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
           type={showPassword ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
           className={`w-full disabled:cursor-not-allowed border rounded-lg px-3 py-2 bg-neutral-100 outline-none ${className}`}
           dirty={isDirty}
-          invalid={invalid}
+          invalid={invalid ? 'true' : undefined}
           onChange={handleChange}
           {...props}
         />

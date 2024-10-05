@@ -60,14 +60,14 @@ export const DateTimeInput: React.FC<DateTimeInputProps> = ({
       <div className="flex gap-2 items-start">
         <DateInput
           openNext={false}
-          invalid={false}
+          invalid="false"
           value={dateValue}
           min={minDateTime && minDateTime.split('T')[0]}
           max={maxDateTime && maxDateTime.split('T')[0]}
           onChange={handleDateChange}
         />
         <TimeInput
-          invalid={false}
+          invalid="false"
           onChange={handleTimeChange}
           value={timeValue}
           className="border rounded-lg hover:border-neutral-400 focus:border-neutral-900"

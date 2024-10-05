@@ -93,7 +93,7 @@ export interface BaseInputProps<T extends HTMLElement = HTMLInputElement> {
   //dirty - whether it has been touched or not
   dirty?: boolean
   //Validity of input
-  invalid?: boolean
+  invalid?: string | undefined
 
   // ARIA and accessibility attributes
   ariaLabel?: string

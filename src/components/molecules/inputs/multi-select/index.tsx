@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { MultiSelectProps } from '../../../../types'
 
-export const MultiSelect = <T,>({
+export const MultiSelect = <T extends Record<string, any>>({
   options,
   selectedValues = [],
   displayKey,

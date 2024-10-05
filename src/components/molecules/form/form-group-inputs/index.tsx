@@ -10,7 +10,10 @@ export const FormGroupInputs: React.FC<FormGroupInputsProps> = ({
 }) => {
   const { handleInputChange, formData }: any = useContext(FormContext)
 
-  const onFormGroupInputChange = (name, value) => {
+  const onFormGroupInputChange = (
+    name: string,
+    value: Record<string, string | number | boolean >
+  ) => {
     if (
       name == INPUT_TYPE.RANGE ||
       name == INPUT_TYPE.DATE_RANGE ||

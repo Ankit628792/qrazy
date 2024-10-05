@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { AutoCompleteProps } from '../../../../types'
 
-export const AutoComplete = <T,>({
+export const AutoComplete = <T extends Record<string, any>>({
   options,
   selectedValue = '',
   handleChange,
@@ -37,7 +37,7 @@ export const AutoComplete = <T,>({
     setIsDropDownOpen(!isDropdownOpen)
   }
 
-  const handleSelectChange = (data) => {
+  const handleSelectChange = (data: Record<string, any>) => {
     setSelected(data[displayKey])
     setSearch(data[displayKey])
     onChangeSelect &&

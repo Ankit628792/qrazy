@@ -7,7 +7,7 @@ export const TextAreaInput: React.FC<TextAreaInputProps> = ({
   lengthReq = 200,
   rows = 4, // Default to 4 rows
   cols = 40, // Default to 40 columns
-  invalid = false,
+  invalid = 'false',
   className,
   onChange,
   ...props // Rest of the props

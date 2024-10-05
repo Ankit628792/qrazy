@@ -1,7 +1,7 @@
 'use client'
 
 import BaseInput from '../base-input'
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import {
   MdOutlineRadioButtonUnchecked,
   MdOutlineRadioButtonChecked
@@ -37,11 +37,12 @@ export const Radio: React.FC<RadioProps> = ({
     base: ''
   }
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.MouseEvent<SVGElement>) => {
     setIsDirty(true)
     setIsChecked(!isChecked)
     if (props.onChange) {
-      props.onChange(e)
+      const event = e as unknown as ChangeEvent<HTMLInputElement>
+      props.onChange(event)
     }
   }
 

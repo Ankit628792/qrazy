@@ -19,7 +19,7 @@ export const FormRangeInput: React.FC<FormRangeInputProps> = ({
 }) => {
   const { handleInputChange, errors, formData }: any = useContext(FormContext)
 
-  const onRangeInputChange = (newMin, newMax) => {
+  const onRangeInputChange = (newMin: string, newMax: string) => {
     if (onFormGroupInputChange) {
       onFormGroupInputChange(INPUT_TYPE.RANGE, {
         [label[0]]: newMin,

@@ -163,6 +163,10 @@ const ReportComponent: React.FC = () => {
     setSelectedRowData(row)
   }
 
+  const getSearchedValue = (value: string) => {
+    console.log('searched value', value)
+  }
+
   return (
     <Container className="w-full h-full">
       <ReportViewSideBarMenu
@@ -184,6 +188,7 @@ const ReportComponent: React.FC = () => {
         lowestPageCount={0}
         showViewButton={true}
         handleViewClick={handleViewSidebar}
+        getSearchedValue={getSearchedValue}
         tableName={`Reports List (${data.length})`}
       />
     </Container>

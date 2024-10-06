@@ -22,6 +22,9 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
   className,
   searchedValue,
   showViewButton = false,
+  hideToolbar = false,
+  showAddRowButton = false,
+  handleAddRow,
   handleSortChange,
   handleFilterChange,
   handlePageChange,
@@ -44,7 +47,9 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
     })
     handleRowClick && handleRowClick(rowIndex)
   }
-  const colSpan = columns && columns.length + (showEditButton ? 1 : 0)
+  const colSpan =
+    columns &&
+    columns.length + (showEditButton ? 1 : 0) + (showViewButton ? 1 : 0)
   return (
     <div className="overflow-hidden">
       <TableToolbar
@@ -52,6 +57,9 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
         definedFilters={definedFilters}
         definedSorts={definedSorts}
         searchedValue={searchedValue}
+        hideToolbar={hideToolbar}
+        showAddRowButton={showAddRowButton}
+        handleAddRow={handleAddRow}
         handleSortChange={handleSortChange}
         handleFilterChange={handleFilterChange}
         getSearchedValue={getSearchedValue}

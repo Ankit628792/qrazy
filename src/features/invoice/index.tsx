@@ -162,6 +162,10 @@ const InvoiceComponent: React.FC = () => {
     setSelectedRowData(row)
   }
 
+  const getSearchedValue = (value: string) => {
+    console.log('searched value', value)
+  }
+
   return (
     <Container className="w-full h-full">
       <InvoiceViewSideBarMenu
@@ -183,6 +187,7 @@ const InvoiceComponent: React.FC = () => {
         showEditButton={true}
         showViewButton={true}
         handleViewClick={handleViewSidebar}
+        getSearchedValue={getSearchedValue}
         tableName={`Invoice List (${data.length})`}
       />
     </Container>

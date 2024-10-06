@@ -80,6 +80,9 @@ export interface TableComponentProps<T extends { [key: string]: any }, U> {
   className?: string
   searchedValue?: string
   showViewButton?: boolean
+  hideToolbar?: boolean
+  showAddRowButton?: boolean
+  handleAddRow?: () => void
   handleViewClick?: (row: T) => void
   renderRow?: (data: T) => React.ReactElement
   onRowSelectionChange?: (selectedRowIds: string[]) => void
@@ -98,6 +101,9 @@ export type TableToolbarProps = {
   className?: string
   tableName?: string
   searchedValue?: string
+  hideToolbar?: boolean
+  showAddRowButton?: boolean
+  handleAddRow?: () => void
   handleSortChange?: (sort: ITableSort) => void
   handleFilterChange?: (filters: ITableFilter[]) => void
   getSearchedValue?: (value: string) => void

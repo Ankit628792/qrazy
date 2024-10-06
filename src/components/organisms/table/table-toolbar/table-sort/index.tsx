@@ -53,7 +53,7 @@ export const TableSort: React.FC<TableSortProps> = ({
       <div>
         {isSortOpen && (
           <div className="absolute rounded-md w-auto bg-white overflow-y-auto top-10 left-0 border border-neutral-200 shadow-md z-10">
-            <Container className="flex items-center justify-center p-2">
+            <Container className="flex items-center justify-center p-1">
               <Select
                 placeholder="Sort by column"
                 options={definedSorts.map((col) => ({
@@ -61,6 +61,7 @@ export const TableSort: React.FC<TableSortProps> = ({
                   value: col.columnId
                 }))}
                 onChange={handleColumnChange}
+                className="h-8"
               />
               <Container className="w-[60px]">
                 <Switch
@@ -68,7 +69,7 @@ export const TableSort: React.FC<TableSortProps> = ({
                   onClick={() => handleSortDirectionChange()}
                 />
               </Container>
-              <Button onClick={applySort} btnType="base" btnText="Apply" />
+              <Button onClick={applySort} btnType="secondary" btnText="Apply" />
             </Container>
           </div>
         )}

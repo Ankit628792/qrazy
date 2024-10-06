@@ -62,8 +62,8 @@ export const TableFilter: React.FC<TableFilterProps> = ({
       <div>
         {isFilterOpen && (
           <div className="absolute rounded-md w-auto bg-white overflow-y-auto top-10 left-0 border border-neutral-200 shadow-md z-10">
-            <div className="flex items-center justify-between border-b border-neutral-100 pl-3 pr-3">
-              <h4 className="m-4 font-Lato">Filters</h4>
+            <div className="flex items-center justify-between border-b border-neutral-100 p-1 gap-2">
+              <h4 className="font-Lato">Filters</h4>
               <div className="flex items-center justify-center gap-2">
                 <Button
                   type="submit"
@@ -74,7 +74,7 @@ export const TableFilter: React.FC<TableFilterProps> = ({
                 <Button
                   type="submit"
                   btnText="Apply"
-                  btnType="base"
+                  btnType="secondary"
                   onClick={() => handleApplyFilter()}
                 />
               </div>

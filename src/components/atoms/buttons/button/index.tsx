@@ -22,6 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
     `,
     secondary: `
       bg-background-surface-primary text-neutral-800 
+      outline outline-1 outline-neutral-300
       hover:outline hover:outline-1 hover:outline-neutral-300
       focus:outline-1 focus:outline-neutral-700 
       disabled:bg-background-surface-primary disabled:text-neutral-300

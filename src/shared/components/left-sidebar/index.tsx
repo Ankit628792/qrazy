@@ -1,7 +1,7 @@
 'use client'
 
-import React from 'react'
-import { useAuth } from '@/providers/auth-provider'
+import React, { useState } from 'react'
+// import { useAuth } from '@/providers/auth-provider'
 import { Container } from '@/components'
 import { ROUTES } from '@/shared/shared.interface'
 import { FaChartPie, FaFileInvoiceDollar } from 'react-icons/fa'
@@ -11,6 +11,7 @@ import { SiGooglesheets } from 'react-icons/si'
 import { SidebarContainer } from './component/SidebarContainer'
 import { IMenuBottomItem, IMenuItem } from './left-sidebar.interface'
 import { useSelectedSideBarModule } from './hooks/useSelectedSideBarModule'
+import useLeftSidebarStore from './store/left-sidebar.store'
 
 // hard coded menu items
 const menuItems: IMenuItem[] = [
@@ -44,10 +45,13 @@ const menuBottomItems: IMenuBottomItem[] = [
   }
 ]
 
-type LeftSideBarMenuProps = {}
+type LeftSideBarMenuProps = {
+  showOnlyIcons: boolean
+}
 
-export const LeftSideBarMenu = ({}: LeftSideBarMenuProps) => {
+export const LeftSideBarMenu = ({ showOnlyIcons }: LeftSideBarMenuProps) => {
   const selectedModule = useSelectedSideBarModule()
+
   return (
     <Container className="h-[inherit] bg-gray-100 flex flex-col items-start justify-between border-x border-gray-500/10">
       <Container className="w-full">
@@ -57,6 +61,7 @@ export const LeftSideBarMenu = ({}: LeftSideBarMenuProps) => {
             item={item}
             index={index}
             selectedModule={selectedModule}
+            isIconsOnly={showOnlyIcons}
           />
         ))}
       </Container>
@@ -67,6 +72,7 @@ export const LeftSideBarMenu = ({}: LeftSideBarMenuProps) => {
             item={item}
             index={index}
             selectedModule={selectedModule}
+            isIconsOnly={showOnlyIcons}
           />
         ))}
       </Container>

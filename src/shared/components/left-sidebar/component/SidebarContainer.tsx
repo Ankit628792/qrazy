@@ -6,12 +6,14 @@ export interface SidebarContainerProps<T extends IBaseMenuItem> {
   item: T
   index: number
   selectedModule: string
+  isIconsOnly: boolean
 }
 
 export const SidebarContainer = <T extends IBaseMenuItem>({
   item,
   index,
-  selectedModule
+  selectedModule,
+  isIconsOnly
 }: SidebarContainerProps<T>) => {
   return (
     <div key={index} className="w-full">
@@ -28,15 +30,17 @@ export const SidebarContainer = <T extends IBaseMenuItem>({
               } h-full w-full`}
             />
           </Container>
-          <Container
-            className={`text-sm font-semibold ${
-              `/${selectedModule}` === item.link
-                ? 'text-blue-400'
-                : 'text-gray-700'
-            }`}
-          >
-            {item.title}
-          </Container>
+          {!isIconsOnly && (
+            <Container
+              className={`text-sm font-semibold ${
+                `/${selectedModule}` === item.link
+                  ? 'text-blue-400'
+                  : 'text-gray-700'
+              }`}
+            >
+              {item.title}
+            </Container>
+          )}
         </Container>
       </Link>
     </div>

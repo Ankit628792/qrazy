@@ -162,6 +162,10 @@ const ProductComponent: React.FC = () => {
     setSelectedRowData(row)
   }
 
+  const getSearchedValue = (value: string) => {
+    console.log('searched value', value)
+  }
+
   return (
     <Container className="w-full h-full">
       <ProductViewSideBarMenu
@@ -182,6 +186,7 @@ const ProductComponent: React.FC = () => {
         isNextPagebuttonDisabled={false}
         lowestPageCount={0}
         handleViewClick={handleViewSidebar}
+        getSearchedValue={getSearchedValue}
         tableName={`Products List (${data.length})`}
         showViewButton={true}
       />

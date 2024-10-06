@@ -10,8 +10,8 @@ export const Logo = () => {
         <Image
           src="/logo.png"
           alt="logo"
-          width={40}
-          height={40}
+          width={32}
+          height={32}
           className="filter bg-black-400 rounded-full"
           placeholder="empty"
           priority

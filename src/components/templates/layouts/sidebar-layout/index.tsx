@@ -27,7 +27,7 @@ export const SidebarLayout = ({ children }: SidebarLayoutProps) => {
   return (
     <React.Fragment>
       <HeaderComponent />
-      <Container className="h-[calc(100vh-68px)] flex">
+      <Container className="h-[calc(100vh-50px)] flex">
         <Container
           className={`h-full ${showOnlyIcons ? 'w-[50px]' : 'w-[246px]'}`}
         >

@@ -1,14 +1,17 @@
 'use client'
 
-import useHeaderStore from './store/header.store'
 import React from 'react'
+import useHeaderStore from './store/header.store'
+import useLeftSidebarStore from '../left-sidebar/store/left-sidebar.store'
 import { Container } from '@/components'
 import { Logo } from './components/logo'
 import { SideBarMenu } from './components/sidebar-menu'
 import { ThemeSwitcher } from './components/theme-switcher-button'
 import { useAuth } from '@/providers/auth-provider'
-import { PiArrowBendDoubleUpLeftDuotone } from 'react-icons/pi'
-import useLeftSidebarStore from '../left-sidebar/store/left-sidebar.store'
+import {
+  TbLayoutSidebarLeftCollapseFilled,
+  TbLayoutSidebarLeftExpandFilled
+} from 'react-icons/tb'
 
 export const HeaderComponent: React.FC = () => {
   const { user, logOut } = useAuth()
@@ -23,23 +26,33 @@ export const HeaderComponent: React.FC = () => {
   return (
     <header className="bg-gray-100 border-y border-gray-500/10 ">
       <nav
-        className="flex items-center justify-between p-2 lg:px-8 bg-transparent relative z-10"
+        className="flex items-center justify-between p-2 bg-transparent relative z-10"
         aria-label="Global"
       >
         <div
           onMouseEnter={() => setShowLogo(false)}
           onMouseLeave={() => setShowLogo(true)}
+          className="cursor-pointer w-8 h-8"
         >
           {showLogo ? (
             <Logo />
           ) : (
-            <PiArrowBendDoubleUpLeftDuotone
-              className="h-[40px] w-[40px] cursor-pointer"
-              onClick={() => setShowOnlyIcons(!showOnlyIcons)}
-            />
+            <React.Fragment>
+              {showOnlyIcons ? (
+                <TbLayoutSidebarLeftExpandFilled
+                  className="w-full h-full"
+                  onClick={() => setShowOnlyIcons(!showOnlyIcons)}
+                />
+              ) : (
+                <TbLayoutSidebarLeftCollapseFilled
+                  className="w-full h-full"
+                  onClick={() => setShowOnlyIcons(!showOnlyIcons)}
+                />
+              )}
+            </React.Fragment>
           )}
         </div>
-        <Container className="flex items-center justify-center gap-x-6">
+        <Container className="flex items-center justify-center gap-x-4">
           <ThemeSwitcher />
           <Container className='className="relative flex overflow-hidden'>
             <SideBarMenu

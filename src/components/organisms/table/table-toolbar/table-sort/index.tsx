@@ -47,7 +47,7 @@ export const TableSort: React.FC<TableSortProps> = ({
     <div className="relative flex flex-row" ref={tableFilterSortRef}>
       <Button
         btnText="Sort By"
-        btnType="base"
+        btnType="secondary"
         onClick={() => setIsSortOpen((filterOpen) => !filterOpen)}
       />
       <div>

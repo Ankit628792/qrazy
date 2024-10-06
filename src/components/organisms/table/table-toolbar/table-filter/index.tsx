@@ -56,7 +56,7 @@ export const TableFilter: React.FC<TableFilterProps> = ({
       <ButtonWithIcon
         btnText="Filters"
         Icon={BiFilterAlt}
-        btnType="base"
+        btnType="secondary"
         onClick={() => setIsFilterOpen((filterOpen) => !filterOpen)}
       />
       <div>

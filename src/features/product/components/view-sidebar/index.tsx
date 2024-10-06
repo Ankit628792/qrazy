@@ -28,8 +28,8 @@ export const ProductViewSideBarMenu = ({
       sideBarOpen={sideBarOpen}
       setSideBarOpen={setSideBarOpen}
       headerNode={
-        <Container className="">
-          {selectedRowData && selectedRowData.name}
+        <Container>
+          <Container>{selectedRowData && selectedRowData.name}</Container>
         </Container>
       }
       Children={

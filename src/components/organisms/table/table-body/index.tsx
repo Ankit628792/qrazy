@@ -27,7 +27,7 @@ export const TableBody = <T extends { [key: string]: any }, U>({
     return (
       <tbody
         className={`item-center justify-center overflow-scroll w-full ${className}`}
-        style={{ height: 'calc(100vh - 218px)' }}
+        style={{ height: 'calc(100vh - 194px)' }}
       >
         <tr>
           <td className="flex flex-col items-center justify-center">
@@ -50,7 +50,7 @@ export const TableBody = <T extends { [key: string]: any }, U>({
     return (
       <tbody
         className={`block overflow-scroll w-full  ${className}`}
-        style={{ height: 'calc(100vh - 218px)' }}
+        style={{ height: 'calc(100vh - 194px)' }}
       >
         {groupedData.map((rowGroup, rowIndex) => (
           <tr key={rowIndex} className="flex items-center justify-start">
@@ -72,7 +72,7 @@ export const TableBody = <T extends { [key: string]: any }, U>({
   return (
     <tbody
       className={`overflow-scroll w-full block ${className}`}
-      style={{ height: 'calc(100vh - 218px)' }}
+      style={{ height: 'calc(100vh - 194px)' }}
     >
       {rowData.map((row, index) => (
         <tr

@@ -30,7 +30,7 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
   handleEditClick,
   renderRow,
   getSearchedValue,
-  handleViewClick,
+  handleViewClick
 }: TableComponentProps<T, U>) => {
   const [selectedRows, setSelectedRows] = useState<number[]>([])
 
@@ -46,7 +46,7 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
   }
   const colSpan = columns && columns.length + (showEditButton ? 1 : 0)
   return (
-    <div className="overflow-hidden p-2">
+    <div className="overflow-hidden">
       <TableToolbar
         tableName={tableName}
         definedFilters={definedFilters}
@@ -63,7 +63,6 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
             appliedSorts={definedSorts}
             showEditButton={showEditButton}
             showViewButton={showViewButton}
-            className="max-h-[48px]"
           />
         )}
         <TableBody
@@ -82,7 +81,6 @@ export const TableComponent = <T extends { [key: string]: any }, U>({
           page={page}
           colSpan={colSpan}
           pageLimit={pageLimit}
-          className="max-h-[48px]"
           perPageOptions={rowsPerPageOptions}
           isNextPagebuttonDisabled={isNextPagebuttonDisabled}
           lowestPageCount={lowestPageCount}

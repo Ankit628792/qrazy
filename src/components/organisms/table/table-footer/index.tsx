@@ -16,7 +16,7 @@ export const TableFooter: React.FC<TableFooterProps> = ({
   return (
     <tfoot className={className}>
       <tr>
-        <td colSpan={colSpan} className="px-4 py-2">
+        <td colSpan={colSpan} className="py-2">
           <div className="flex justify-between items-center">
             <div>
               Rows per page:

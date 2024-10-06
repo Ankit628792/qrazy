@@ -40,17 +40,18 @@ export const RightSideBarMenu = ({
         className={`fixed inset-y-0 right-0 w-[446px] bg-gray-100 z-50 transform transition-transform ease-in-out duration-300 border-x border-gray-500/10 ${sideBarOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         <Container className="bg-gray-100 h-screen">
-          <Container className="p-7">
+          <Container className="p-2">
             <Container className="flex items-center justify-between">
               {headerNode}
               <ButtonWithIcon
                 Icon={AiTwotoneCloseCircle}
                 onClick={() => setSideBarOpen(false)}
                 btnType="tertiary"
+                className="w-6 h-6"
               />
             </Container>
             <div
-              className="mt-6"
+              className="mt-2  border-t border-gray-500/10"
               style={{
                 height: 'calc(100% - 3.5rem)'
               }}

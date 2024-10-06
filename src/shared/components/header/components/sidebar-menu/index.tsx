@@ -41,21 +41,21 @@ export const SideBarMenu = ({
       headerNode={<Logo />}
       Children={
         <React.Fragment>
-          <Container className="py-6 border-y border-gray-500/10">
+          <Container className="pt-2">
             <RenderButtonType
               user={user}
               handleSignOut={handleSignOut}
               handleSignIn={googleSignIn}
             />
           </Container>
-          <Container className="divide-y divide-gray-500/10">
-            <Container className="py-6">
+          <Container>
+            <Container className="py-2">
               <Container className="flex flex-col lg:gap-y-2">
                 {subNavigationData?.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="rounded-full gap-6 hover:ring-2 px-4 hover:bg-black-400 hover:bg-opacity-15 ring-black-400 text-base font-semibold leading-7 text-gray-900 w-fit duration-200"
+                    className="rounded-full mx-0 px-6 text-base font-semibold leading-7 text-gray-900 hover:bg-black-400 hover:bg-opacity-15 ring-2 ring-black-400 cursor-pointer w-fit duration-200"
                   >
                     {item.name}
                   </Link>

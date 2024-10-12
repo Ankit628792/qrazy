@@ -28,7 +28,7 @@ function Login() {
                     <span className="text-base lg:text-lg">Login</span> <MoveRight className="ml-2" />
                 </Button>
                 <div className="text-sm xl:text-base flex items-center justify-center">
-                    <p>Don't have an account?</p>
+                    <p>Don&apos;t have an account?</p>
                     <Link href={"/register"} className="text-yellow-500 px-1 font-medium">
                         Register
                     </Link>

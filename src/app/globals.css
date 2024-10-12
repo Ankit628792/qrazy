@@ -35,6 +35,15 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .menu-item {
+    @apply min-w-24 font-medium text-center py-3 px-5 rounded-full hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-150 ease-in-out
+  }
+
+  .menu-item.active {
+    @apply bg-black dark:bg-white text-white dark:text-black
+  }
+
 }
 
 @layer base {

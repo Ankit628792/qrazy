@@ -1,6 +1,4 @@
 import ToggleTheme from "@/components/ak/ToggleTheme";
-import Header from "@/components/dashboard/Header";
-import Sidebar from "@/components/dashboard/Sidebar";
 
 export default function RootLayout({
     children,

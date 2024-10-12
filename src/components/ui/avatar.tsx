@@ -51,7 +51,7 @@ export { AvatarImage, AvatarFallback }
 
 export default function Avatar({ image, fallback, onClick }: {
   image?: string;
-  fallback?: any;
+  fallback?: string | React.ReactNode;
   onClick?: () => void;
 }) {
   return (

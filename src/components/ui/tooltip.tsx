@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 
 const TooltipProvider = TooltipPrimitive.Provider
 
-const Tooltip = TooltipPrimitive.Root
+const TooltipWrapper = TooltipPrimitive.Root
 
 const TooltipTrigger = TooltipPrimitive.Trigger
 
@@ -27,20 +27,20 @@ const TooltipContent = React.forwardRef<
 ))
 TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+export { TooltipTrigger, TooltipContent, TooltipProvider }
 
-export default function ({ title, children }: {
+export default function Tooltip({ title, children }: {
   title: string,
   children: React.ReactNode,
 }) {
   return (
     <TooltipProvider>
-      <Tooltip>
+      <TooltipWrapper>
         <TooltipTrigger>{children}</TooltipTrigger>
         <TooltipContent>
           <p className="text-sm">{title}</p>
         </TooltipContent>
-      </Tooltip>
+      </TooltipWrapper>
     </TooltipProvider>
 
   )

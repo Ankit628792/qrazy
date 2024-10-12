@@ -1,6 +1,6 @@
 import React from 'react'
-import LogoLight from '@/assets/logo-light.png'
-import LogoDark from '@/assets/logo-dark.png'
+import LogoLight from '@/assets/logo-light.svg'
+import LogoDark from '@/assets/logo-dark.svg'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'

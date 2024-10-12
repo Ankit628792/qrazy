@@ -1,11 +1,28 @@
-import Register from '@/components/auth/Register'
+
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import React from 'react'
+
+const routes = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/verify",
+]
 
 function Page() {
   return (
-    <>
-      <Register />
-    </>
+    <div className='pt-20'>
+      {
+        routes.map((route, index) => (
+          <Link href={route} key={index}>
+            <span className="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900">
+              {route.replace("/", "").toUpperCase()}
+            </span>
+          </Link>
+        ))}
+    </div>
   )
 }
 

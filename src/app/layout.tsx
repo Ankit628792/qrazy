@@ -28,7 +28,7 @@ export default function RootLayout({
           enableSystem
           defaultTheme="light"
         >
-          <div className="flex flex-col min-h-screen w-full bg-gray-50 text-black dark:bg-black dark:text-white">
+          <div className="flex flex-col min-h-dvh w-full bg-gray-50 text-black dark:bg-black dark:text-white">
             {children}
             <ToggleTheme />
           </div>

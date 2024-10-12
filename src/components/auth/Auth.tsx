@@ -28,7 +28,7 @@ function Auth({
     type: string; // "login" or "register"
 }>) {
     return (
-        <section className={cn("w-full flex h-screen bg-zinc-900 dark:bg-white", type == "register" ? "flex-row-reverse" : "")}>
+        <section className={cn("w-full flex h-dvh bg-zinc-900 dark:bg-white", type == "register" ? "flex-row-reverse" : "")}>
             <div className={cn("w-full lg:w-1/2 p-10 bg-white dark:bg-zinc-900 grid place-items-center relative")}>
                 <div className="flex flex-col gap-2 w-full max-w-sm xl:max-w-md">
                     <Logo />

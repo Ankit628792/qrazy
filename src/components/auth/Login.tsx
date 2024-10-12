@@ -18,7 +18,7 @@ function Login() {
                 <div className="w-full text-base xl:text-lg">
                     <div className="flex items-end justify-between">
                         <Label htmlFor="password" className="xl:text-base">Password</Label>
-                        <Link href={""} className="text-yellow-500 px-1 text-sm">
+                        <Link href={"/forgot-password"} className="text-yellow-500 px-1 text-sm">
                             Forget Password?
                         </Link>
                     </div>

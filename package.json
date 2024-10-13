@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write '{src,pages,components}/**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "npm run format -- --fix"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.1",

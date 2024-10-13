@@ -34,9 +34,11 @@ export default function RootLayout({
           enableSystem
           defaultTheme="light"
         >
-          <div className="flex flex-col min-h-dvh w-full text-black dark:text-white bg-black dark:bg-white">
+          <div className="flex flex-col min-h-dvh w-full text-black dark:text-white bg-white dark:bg-black">
             {children}
-            <ToggleTheme />
+            <div className="fixed bottom-2 right-2 z-50 p-2 bg-white dark:bg-black rounded-full" draggable>
+              <ToggleTheme />
+            </div>
           </div>
         </ThemeProvider>
       </body>

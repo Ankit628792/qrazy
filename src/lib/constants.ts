@@ -4,3 +4,10 @@ export const ROUTES = [
     "Reports",
     "Settings"
 ]
+
+export const OnboardingTitles = [
+    "Basic Info",
+    "Personalization",
+    "Company Location",
+    "Contact Details"
+]

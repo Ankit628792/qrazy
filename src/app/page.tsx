@@ -9,7 +9,8 @@ const routes = [
   "/reset-password",
   "/verify",
   "/products",
-  "/settings"
+  "/settings",
+  "/onboarding"
 ]
 
 function Page() {

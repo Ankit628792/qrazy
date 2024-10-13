@@ -17,11 +17,11 @@ function Page() {
                         <h1 className='text-4xl sm:text-5xl lg:text-6xl font-bold text-center'>Reset Password</h1>
                         <div className='w-full'>
                             <Label htmlFor='password' className='text-lg'>New Password</Label>
-                            <Input type='password' id='password' placeholder='Type Here...' className={cn('focus-visible:ring-0 focus-visible:outline-none xl:text-lg my-1')} />
+                            <Input type='password' id='password' placeholder='Type Here...' className={cn('xl:text-lg')} />
                         </div>
                         <div className='w-full'>
                             <Label htmlFor='cPassword' className='text-lg'>Confirm Password</Label>
-                            <Input type='password' id='cPassword' placeholder='Type Here...' className={cn('focus-visible:ring-0 focus-visible:outline-none xl:text-lg my-1')} />
+                            <Input type='password' id='cPassword' placeholder='Type Here...' className={cn('xl:text-lg')} />
                         </div>
                         <Button onClick={() => setSuccess(true)} size={"lg"} className="mt-4">
                             <span className='sm:text-lg select-none'>Submit</span>

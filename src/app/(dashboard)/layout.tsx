@@ -11,7 +11,7 @@ export default function RootLayout({
             <Header />
             <section className="flex-grow w-full flex px-5 gap-4">
                 <Sidebar />
-                <div className="flex-grow overflow-y-auto">
+                <div className="flex-grow overflow-y-auto grid place-items-center text-3xl">
                     {children}
                 </div>
             </section>

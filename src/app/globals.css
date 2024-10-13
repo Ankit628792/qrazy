@@ -19,6 +19,39 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* File uploader  */
+
+.fileUpload * {
+  transition: all 0.1s ease-in-out;
+}
+
+.fileUpload input[type="file"] {
+  display: none !important;
+  ;
+}
+
+.fileUpload label div.fileUploadOverlay {
+  display: none !important;
+}
+
+.fileUpload label div:nth-child(2):not(.fileUploadContainer) {
+  display: none !important
+}
+
+.fileUpload label div:nth-child(3):is(.fileUploadOverlay) {
+  display: grid !important;
+}
+
+.fileUpload label div:nth-child(4):is(.fileUploadContainer) {
+  opacity: 0;
+}
+
+/* File uploader Ends */
+
 @keyframes yTranslate {
   0% {
     transform: translateY(100px);

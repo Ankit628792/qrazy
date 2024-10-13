@@ -49,16 +49,16 @@ AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 
 export { AvatarImage, AvatarFallback }
 
-export default function Avatar({ image, fallback, onClick }: {
+export default function Avatar({ image, fallback, onClick, hoverColor }: {
   image?: string;
   fallback?: string | React.ReactNode;
   onClick?: () => void;
+  hoverColor?: string
 }) {
   return (
-    <AvatarWrapper className="cursor-pointer select-none" onClick={() => typeof onClick === "function" ? onClick() : {}}>
-      <AvatarImage src={image} />
-      <AvatarFallback>{fallback || 'Q'}</AvatarFallback>
+    <AvatarWrapper className="cursor-pointer select-none bg-white dark:bg-black" onClick={() => typeof onClick === "function" ? onClick() : {}}>
+      <AvatarImage className={cn("bg-white dark:bg-black", hoverColor)} src={image} />
+      <AvatarFallback className={cn("bg-white dark:bg-black", hoverColor)}>{fallback || 'Q'}</AvatarFallback>
     </AvatarWrapper>
-
   )
 }

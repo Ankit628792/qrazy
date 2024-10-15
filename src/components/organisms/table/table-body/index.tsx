@@ -71,7 +71,7 @@ export const TableBody = <T extends { [key: string]: any }, U>({
 
   return (
     <tbody
-      className={`overflow-scroll w-full block ${className}`}
+      className={`overflow-y-scroll w-full block ${className}`}
       style={{ height: 'calc(100vh - 194px)' }}
     >
       {rowData.map((row, index) => (

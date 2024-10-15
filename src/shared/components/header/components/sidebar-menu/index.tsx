@@ -41,7 +41,7 @@ export const SideBarMenu = ({
       headerNode={<Logo />}
       Children={
         <React.Fragment>
-          <Container className="pt-2">
+          <Container className="pt-4">
             <RenderButtonType
               user={user}
               handleSignOut={handleSignOut}
@@ -49,8 +49,8 @@ export const SideBarMenu = ({
             />
           </Container>
           <Container>
-            <Container className="py-2">
-              <Container className="flex flex-col lg:gap-y-2">
+            <Container className="py-4">
+              <Container className="flex flex-col gap-y-4">
                 {subNavigationData?.map((item) => (
                   <Link
                     key={item.name}

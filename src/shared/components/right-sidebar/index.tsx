@@ -37,11 +37,11 @@ export const RightSideBarMenu = ({
         />
       )}
       <Container
-        className={`fixed inset-y-0 right-0 w-[446px] bg-gray-100 z-50 transform transition-transform ease-in-out duration-300 border-x border-gray-500/10 ${sideBarOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed inset-y-0 right-0 w-[446px] z-50 transform transition-transform ease-in-out duration-300 ${sideBarOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
-        <Container className="bg-gray-100 h-screen">
+        <Container className="bg-gradient-to-b from-zinc-200 to-sky-100 dark:from-zinc-700 dark:to-zinc-900 h-screen">
           <Container className="p-2">
-            <Container className="flex items-center justify-between">
+            <Container className="flex items-center justify-between p-2 ">
               {headerNode}
               <ButtonWithIcon
                 Icon={AiTwotoneCloseCircle}
@@ -51,7 +51,7 @@ export const RightSideBarMenu = ({
               />
             </Container>
             <div
-              className="mt-2  border-t border-gray-500/10"
+              className="mt-2 border-t border-gray-500/10"
               style={{
                 height: 'calc(100% - 3.5rem)'
               }}

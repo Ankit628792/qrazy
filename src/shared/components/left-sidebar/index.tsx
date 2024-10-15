@@ -53,8 +53,8 @@ export const LeftSideBarMenu = ({ showOnlyIcons }: LeftSideBarMenuProps) => {
   const selectedModule = useSelectedSideBarModule()
 
   return (
-    <Container className="h-[inherit] bg-gray-100 flex flex-col items-start justify-between border-x border-gray-500/10">
-      <Container className="w-full">
+    <Container className="h-[inherit] flex flex-col items-start justify-between border-x border-gray-500/10">
+      <Container className="w-full py-2">
         {menuItems.map((item, index) => (
           <SidebarContainer
             key={index}
@@ -65,7 +65,7 @@ export const LeftSideBarMenu = ({ showOnlyIcons }: LeftSideBarMenuProps) => {
           />
         ))}
       </Container>
-      <Container className="w-full">
+      <Container className="w-full py-2">
         {menuBottomItems.map((item, index) => (
           <SidebarContainer
             key={index}

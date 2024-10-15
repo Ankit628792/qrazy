@@ -21,7 +21,7 @@ export const SidebarContainer = <T extends IBaseMenuItem>({
         <Container
           className={`flex items-center justify-start gap-4 p-2 cursor-pointer hover:bg-gray-200 ${`/${selectedModule}` === item.link ? 'bg-gray-200 outline-y outline-gray-500/10' : ''}`}
         >
-          <Container className="w-6 h-6">
+          <Container className="w-11 h-6">
             <item.icon
               className={`${
                 `/${selectedModule}` === item.link
@@ -32,11 +32,12 @@ export const SidebarContainer = <T extends IBaseMenuItem>({
           </Container>
           {!isIconsOnly && (
             <Container
-              className={`text-sm font-semibold ${
-                `/${selectedModule}` === item.link
-                  ? 'text-blue-400'
-                  : 'text-gray-700'
-              }`}
+              className={`text-sm font-semibold w-24 lg:w-24 2xl:w-40
+                ${
+                  `/${selectedModule}` === item.link
+                    ? 'text-blue-400'
+                    : 'text-gray-700'
+                }`}
             >
               {item.title}
             </Container>

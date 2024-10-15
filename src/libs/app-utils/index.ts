@@ -20,9 +20,18 @@ const encrypt = (message: string) => {
 }
 
 const API = API_URL
-const getToken = localStorage.getItem('access_token')
-const setToken = (token: string) => localStorage.setItem('access_token', token)
-const removeToken = () => localStorage.removeItem('access_token')
+const getToken =
+  typeof window !== 'undefined'
+    ? window.localStorage.getItem('access_token')
+    : ''
+const setToken = (token: string) =>
+  typeof window !== 'undefined'
+    ? window.localStorage.setItem('access_token', token)
+    : ''
+const removeToken = () =>
+  typeof window !== 'undefined'
+    ? window.localStorage.removeItem('access_token')
+    : ''
 
 const groupBy = (x: any[], f: (args: any) => void) =>
   Array.isArray(x) && typeof f === 'function'
@@ -226,6 +235,9 @@ const getGreeting = () => {
   }
 }
 
+const getRandomNumber = (min = 0, max = 1000) =>
+  Math.floor(Math.random() * (max - min + 1)) + min
+
 const appUtils = {
   API,
   getToken,
@@ -250,7 +262,8 @@ const appUtils = {
   getObjectWithMaxValue,
   getRandomTime,
   formatNumber,
-  getGreeting
+  getGreeting,
+  getRandomNumber
 }
 
 export default appUtils

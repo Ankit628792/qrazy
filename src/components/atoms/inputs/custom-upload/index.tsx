@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+'use client'
+
 import React from 'react'
 import { cn } from '@/libs/utils'
 import { FileUploader } from 'react-drag-drop-files'

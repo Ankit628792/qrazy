@@ -1,3 +1,4 @@
+"use client"
 import { createRef, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
@@ -20,7 +21,7 @@ export function encrypt(message: string) {
 }
 
 export const API = API_URL
-export const getToken = localStorage.getItem('access_token');
+export const getToken = typeof window !== "undefined" ? localStorage.getItem('access_token') : "";
 export const setToken = (token: string) => localStorage.setItem('access_token', token);
 export const removeToken = () => localStorage.removeItem('access_token');
 
@@ -195,3 +196,5 @@ export function getGreeting() {
         return 'Good Night!';
     }
 }
+
+export const getRandomNumber = (min = 0, max = 1000) => Math.floor(Math.random() * (max - min + 1)) + min;

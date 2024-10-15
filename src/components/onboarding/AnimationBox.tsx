@@ -42,7 +42,7 @@ function AnimationBox({ index, setIndex }: { index: number, setIndex: (index: nu
 
   return (
     <div className='relative flex-grow rounded-3xl w-full max-w-lg xl:max-w-xl 2xl:max-w-2xl flex-col hidden lg:flex'>
-      <div className='rounded-3xl flex-grow w-full relative snap-x snap-mandatory overflow-x-auto scroll-hide select-none bg-[#A0D9B5] hidden lg:flex'>
+      <div className='rounded-3xl flex-grow w-full relative snap-x snap-mandatory overflow-x-auto scroll-hidden select-none bg-[#A0D9B5] hidden lg:flex'>
         {
           videos.map((video, i) => {
             return <Video key={i} index={i} currentIndex={index} src={video.url} background={video.background} />

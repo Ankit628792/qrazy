@@ -1,6 +1,7 @@
 "use client"
 import AuthSuccess from '@/components/auth/Success'
 import { Button } from '@/components/ui/button'
+import Error from '@/components/ui/error'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
@@ -18,10 +19,12 @@ function Page() {
                         <div className='w-full'>
                             <Label htmlFor='password' className='text-lg'>New Password</Label>
                             <Input type='password' id='password' placeholder='Type Here...' className={cn('xl:text-lg')} />
+                            <Error error='Error here' />
                         </div>
                         <div className='w-full'>
                             <Label htmlFor='cPassword' className='text-lg'>Confirm Password</Label>
                             <Input type='password' id='cPassword' placeholder='Type Here...' className={cn('xl:text-lg')} />
+                            <Error error='Error here' />
                         </div>
                         <Button onClick={() => setSuccess(true)} size={"lg"} className="mt-4">
                             <span className='sm:text-lg select-none'>Submit</span>

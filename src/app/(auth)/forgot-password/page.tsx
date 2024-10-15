@@ -1,6 +1,7 @@
 "use client"
 import AuthSuccess from '@/components/auth/Success'
 import { Button } from '@/components/ui/button'
+import Error from '@/components/ui/error'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import React, { useState } from 'react'
@@ -17,7 +18,10 @@ function Page() {
                     <div className='w-full max-w-lg flex flex-col items-center justify-center gap-2'>
                         <h1 className='text-5xl lg:text-6xl 2xl:text-7xl font-bold text-center'>Forgot Password?</h1>
                         <p className='text-sm sm:text-base lg:text-lg text-center'>Enter the email address associated with your account.</p>
-                        <Input type='email' placeholder='Type Email Here...' className={cn('xl:text-lg my-4 xl:py-6 text-center')} />
+                        <div className='my-4 w-full text-center'>
+                            <Input type='email' placeholder='Type Email Here...' className={cn('xl:text-lg xl:py-6 text-center')} />
+                            <Error error="Error here" />
+                        </div>
                         <Button onClick={() => setSuccess(true)} size={"lg"} className="">
                             <span className='sm:text-lg select-none'>Submit</span>
                         </Button>

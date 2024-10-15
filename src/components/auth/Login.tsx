@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label'
 import { MoveRight } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import Error from '../ui/error'
 
 function Login() {
     return (
@@ -14,6 +15,7 @@ function Login() {
                 <div className="w-full text-base xl:text-lg">
                     <Label htmlFor="email" className="xl:text-base">Email</Label>
                     <Input id="email" placeholder="Enter your email" />
+                    <Error error="Error here" />
                 </div>
                 <div className="w-full text-base xl:text-lg">
                     <div className="flex items-end justify-between">
@@ -23,6 +25,7 @@ function Login() {
                         </Link>
                     </div>
                     <Input id="password" placeholder="Password" />
+                    <Error error="Error here" />
                 </div>
                 <Button size="lg" className="w-full mt-2">
                     <span className="text-base lg:text-lg">Login</span> <MoveRight className="ml-2" />

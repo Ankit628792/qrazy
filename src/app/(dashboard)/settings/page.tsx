@@ -1,9 +1,10 @@
+import Settings from '@/components/settings'
 import React from 'react'
 
-function Settings() {
+function Page() {
     return (
-        <div>Settings</div>
+        <Settings />
     )
 }
 
-export default Settings
+export default Page

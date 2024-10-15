@@ -41,7 +41,7 @@ function Questions({ index, setIndex }: {
                             })
                         }
                     </div>
-                    <Link href={"/"}>
+                    <Link href={"/settings"}>
                         <p className='text-emerald-500 hover:text-emerald-700 cursor-pointer'>Skip to Dashboard</p>
                     </Link>
                 </div>
@@ -79,8 +79,6 @@ const BasicInfo = () => {
             <div className="grid w-full gap-1.5">
                 <Label htmlFor="description" className='text-base'>About your business</Label>
                 <Textarea placeholder="e.g. We are a local bakery specializing in artisanal breads and pastries." id="description" className='h-40 overflow-y-auto' />
-                <p className="text-sm text-muted-foreground">
-                </p>
             </div>
 
         </div>
@@ -137,7 +135,7 @@ const ContactInfo = () => {
                 <Input type='text' id='contactEmail' placeholder='e.g. contact@delanki.com' className={cn('2xl:text-lg')} />
             </div>
             <div className='w-full'>
-                <Label htmlFor='contactNumber' className='text-base'>Contact Number</Label>
+                <Label htmlFor='contactNumber' className='text-base'>Contact Number <span className='text-xs italic text-right opacity-50'>(* include country code)</span></Label>
                 <Input type='tel' id='contactNumber' placeholder='e.g. +911234567890' className={cn('2xl:text-lg')} />
                 <p className='text-xs italic'>* Please include country code</p>
             </div>

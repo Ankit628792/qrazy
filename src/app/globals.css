@@ -19,7 +19,7 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
-.scroll-hide::-webkit-scrollbar {
+.scroll-hidden::-webkit-scrollbar {
   display: none;
 }
 
@@ -67,6 +67,10 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .error {
+    @apply text-rose-500 text-xs px-1 leading-none
   }
 
   .menu-item {

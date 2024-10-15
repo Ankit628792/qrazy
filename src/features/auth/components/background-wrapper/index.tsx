@@ -38,17 +38,13 @@ export const AuthBackgroundWrapper = ({
         <div className="text-base flex flex-wrap gap-2 justify-between w-full absolute bottom-0 left-0 right-0 p-5">
           <div className="flex-shrink-0">
             Copyright&copy;2023
-            <Link href={''} className="text-emerald-500 px-1 font-medium">
-              Delanki
-            </Link>
+            <div className="text-emerald-500 px-1 font-medium">Delanki</div>
           </div>
           <div className="flex-shrink-0 space-x-4">
-            <Link href={''} className="text-emerald-500 font-medium">
-              Privacy Policy
-            </Link>
-            <Link href={''} className="text-emerald-500 font-medium">
+            <div className="text-emerald-500 font-medium">Privacy Policy</div>
+            <div className="text-emerald-500 font-medium">
               Terms & Conditions
-            </Link>
+            </div>
           </div>
         </div>
       </div>

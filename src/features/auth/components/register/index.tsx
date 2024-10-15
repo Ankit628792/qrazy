@@ -1,67 +1,59 @@
 'use client'
 
 import React from 'react'
-import Joi from 'joi'
-import {
-  Button,
-  Container,
-  EmailInput,
-  Form,
-  FormInput,
-  FormProvider,
-  FormSection,
-  PasswordInput
-} from '@/components'
-
-const registerSchema = Joi.object({
-  email: Joi.string()
-    .email({ tlds: { allow: false } })
-    .required()
-    .messages({
-      'string.empty': 'Email is required',
-      'string.email': 'Please enter a valid email'
-    }),
-  password: Joi.string().min(6).required().messages({
-    'string.empty': 'Password is required',
-    'string.min': 'Password must be at least 6 characters'
-  }),
-  confirmPassword: Joi.string().valid(Joi.ref('password')).required().messages({
-    'any.only': 'Passwords do not match',
-    'string.empty': 'Password confirmation is required'
-  })
-})
+import Error from '@/shadcn-ui/error'
+import { Button } from '@/shadcn-ui/button'
+import { Input } from '@/shadcn-ui/input'
+import { Label } from '@/shadcn-ui/label'
+import { MoveRight } from 'lucide-react'
 
 export const RegisterComponent = () => {
-  const handleSubmit = (data: any) => {
-    console.log(data)
-  }
-
   return (
-    <Container className="w-[50vw] h-[50vh]">
-      <FormProvider schema={registerSchema} onSubmit={handleSubmit}>
-        <Form>
-          <FormSection
-            label="Register a new account"
-            className="w-[50vw] h-[50vh]"
-          >
-            <FormInput name="email" label="Email">
-              <EmailInput />
-            </FormInput>
-            <FormInput name="password" label="Password">
-              <PasswordInput />
-            </FormInput>
-            <FormInput name="confirmPassword" label="Confirm Password">
-              <PasswordInput />
-            </FormInput>
-            <Button
-              type="submit"
-              btnText="Register"
-              btnType="base"
-              className="w-[200px] m-2"
-            />
-          </FormSection>
-        </Form>
-      </FormProvider>
-    </Container>
+    <React.Fragment>
+      <h1 className="text-4xl font-bold select-none mb-2">
+        Qrazy Welcomes You!
+      </h1>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="w-full text-base xl:text-lg">
+          <Label htmlFor="fName" className="xl:text-base">
+            First Name
+          </Label>
+          <Input id="fName" placeholder="Type here..." />
+          <Error error="Error here" />
+        </div>
+        <div className="w-full text-base xl:text-lg">
+          <Label htmlFor="lName" className="xl:text-base">
+            Last Name
+          </Label>
+          <Input id="lName" placeholder="Type here..." />
+          <Error error="Error here" />
+        </div>
+      </div>
+      <div className="w-full text-base xl:text-lg">
+        <Label htmlFor="email" className="xl:text-base">
+          Email
+        </Label>
+        <Input id="email" placeholder="Enter your email" />
+        <Error error="Error here" />
+      </div>
+      <div className="w-full text-base xl:text-lg">
+        <Label htmlFor="password" className="xl:text-base">
+          Password
+        </Label>
+        <Input id="password" placeholder="Enter Your Password" />
+        <Error error="Error here" />
+      </div>
+      <div className="w-full text-base xl:text-lg">
+        <Label htmlFor="cPassword" className="xl:text-base">
+          Confirm Password
+        </Label>
+        <Input id="cPassword" placeholder="Re-Type Your Password" />
+        <Error error="Error here" />
+      </div>
+      <Button size="lg" className="w-full mt-2">
+        <span className="text-base lg:text-lg">Register</span>{' '}
+        <MoveRight className="ml-2" />
+      </Button>
+    </React.Fragment>
   )
 }

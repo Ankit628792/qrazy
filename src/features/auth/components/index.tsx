@@ -35,17 +35,16 @@ const LoginTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
 const RegisterTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
   return (
     <AuthBackgroundWrapper type={CURRENT_AUTH_STEP.REGISTER}>
-      <Container className="mb-8">
-        <RegisterComponent />
-      </Container>
-      <Container className="text-center flex items-center justify-center gap-2">
-        <p className="text-sm text-gray-600">Already have an account?</p>
-        <Button
+      <RegisterComponent />
+      <div className="text-sm xl:text-base flex items-center justify-center">
+        <p>Already have an account?</p>
+        <div
           onClick={() => setIsLoginTabActive(true)}
-          btnText="Login"
-          btnType="tertiary"
-        />
-      </Container>
+          className="text-emerald-500 px-1 font-medium"
+        >
+          Login
+        </div>
+      </div>
     </AuthBackgroundWrapper>
   )
 }

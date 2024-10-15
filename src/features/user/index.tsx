@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { withViewPermissions } from '@/shared/HOC/useHaveViewPermission'
+import { withViewPermissions } from '@/utils/middlewares/useHaveViewPermission'
 import { IUserRowData } from './user.interface'
 import { Container, Modal, TableComponent } from '@/components'
 import { ReportViewSideBarMenu } from '../report/components/view-sidebar'

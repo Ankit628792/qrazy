@@ -4,7 +4,7 @@ import React from 'react'
 import { Container, TableComponent } from '@/components'
 import { InvoiceViewSideBarMenu } from './components/view-sidebar'
 import { IInvoiceRowData } from './invoice.interface'
-import { withViewPermissions } from '@/shared/HOC/useHaveViewPermission'
+import { withViewPermissions } from '@/utils/middlewares/useHaveViewPermission'
 
 const InvoiceComponent: React.FC = () => {
   const [isViewSidebarOpen, setIsViewSidebarOpen] = React.useState(false)

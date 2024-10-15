@@ -24,6 +24,13 @@ export const ROUTES = {
   OVERVIEW: '/overview'
 }
 
+export enum ONBOARDING_TITLES {
+  BASIC_INFO = 'Basic Info',
+  PERSONALIZATION = 'Personalization',
+  COMPANY_LOCATION = 'Company Location',
+  CONTACT_DETAILS = 'Contact Details'
+}
+
 export interface IRouteParams {
   [key: string]: string
 }

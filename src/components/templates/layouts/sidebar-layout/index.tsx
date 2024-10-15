@@ -25,22 +25,14 @@ export const SidebarLayout = ({ children }: SidebarLayoutProps) => {
   }
   setModulesAndPermissions(JSON.stringify(permissions))
   return (
-    <React.Fragment>
+    <main className="flex flex-col min-h-dvh w-full bg-gradient-to-b from-zinc-200 to-sky-100 dark:from-zinc-700 dark:to-zinc-900">
       <HeaderComponent />
-      <Container className="h-[calc(100vh-50px)] flex">
-        <Container
-          className={`h-full ${showOnlyIcons ? 'w-[50px]' : 'w-[246px]'}`}
-        >
-          <LeftSideBarMenu showOnlyIcons={showOnlyIcons} />
-        </Container>
-        <Container
-          className={`h-full flex items-center justify-center bg-gray-100 p-2
-            ${showOnlyIcons ? 'w-[calc(100vw-50px)]' : 'w-[calc(100vw-246px)]'}
-            `}
-        >
+      <section className="flex-grow w-full flex px-5 gap-4 h-dvh">
+        <LeftSideBarMenu showOnlyIcons={showOnlyIcons} />
+        <Container className="flex-grow overflow-y-auto pb-5 pt-24 scroll-hidden">
           {children}
         </Container>
-      </Container>
-    </React.Fragment>
+      </section>
+    </main>
   )
 }

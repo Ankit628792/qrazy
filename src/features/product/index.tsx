@@ -4,7 +4,7 @@ import React from 'react'
 import { Container, TableComponent } from '@/components'
 import { ProductViewSideBarMenu } from './components/view-sidebar'
 import { IProductRowData } from './product.interface'
-import { withViewPermissions } from '@/utils/middlewares/useHaveViewPermission'
+import { withViewPermissions } from '@/libs/middlewares/useHaveViewPermission'
 
 const ProductComponent: React.FC = () => {
   const [isViewSidebarOpen, setIsViewSidebarOpen] = React.useState(false)

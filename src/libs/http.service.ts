@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { showToast } from '@/utils/show-toast'
+import { showToast } from '@/libs/show-toast'
 import { AUTH_LOCAL_STORAGE_KEYS } from '@/features/auth/auth.interface'
 
 const TIMEOUT = 5000

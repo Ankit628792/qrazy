@@ -4,7 +4,7 @@ import React from 'react'
 import { Container, TableComponent } from '@/components'
 import { ReportViewSideBarMenu } from './components/view-sidebar'
 import { IReportRowData } from './report.interface'
-import { withViewPermissions } from '@/utils/middlewares/useHaveViewPermission'
+import { withViewPermissions } from '@/libs/middlewares/useHaveViewPermission'
 
 const ReportComponent: React.FC = () => {
   const [isViewSidebarOpen, setIsViewSidebarOpen] = React.useState(false)

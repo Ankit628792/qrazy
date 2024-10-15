@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { withViewPermissions } from '@/utils/middlewares/useHaveViewPermission'
+import { withViewPermissions } from '@/libs/middlewares/useHaveViewPermission'
 
 const OverviewComponent: React.FC = () => {
   return <div>Overview Component</div>

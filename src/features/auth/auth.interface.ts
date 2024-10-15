@@ -76,3 +76,8 @@ export enum QUERY_STATUS {
   PENDING = 'pending',
   RESOLVED = 'resolved'
 }
+
+export enum CURRENT_AUTH_STEP {
+  LOGIN = 'login',
+  REGISTER = 'register'
+}

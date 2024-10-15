@@ -1,6 +1,8 @@
 import { Button, Container } from '@/components'
 import { LoginComponent } from './login'
 import { RegisterComponent } from './register'
+import { AuthBackgroundWrapper } from './background-wrapper'
+import { CURRENT_AUTH_STEP } from '../auth.interface'
 
 type getRenderComponentProps = {
   isLoginTabActive: boolean
@@ -13,7 +15,7 @@ type tabComponentProps = {
 
 const LoginTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
   return (
-    <Container>
+    <AuthBackgroundWrapper type={CURRENT_AUTH_STEP.LOGIN}>
       <Container className="mb-8">
         <LoginComponent />
       </Container>
@@ -25,13 +27,13 @@ const LoginTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
           btnType="tertiary"
         />
       </Container>
-    </Container>
+    </AuthBackgroundWrapper>
   )
 }
 
 const RegisterTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
   return (
-    <Container>
+    <AuthBackgroundWrapper type={CURRENT_AUTH_STEP.REGISTER}>
       <Container className="mb-8">
         <RegisterComponent />
       </Container>
@@ -43,7 +45,7 @@ const RegisterTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
           btnType="tertiary"
         />
       </Container>
-    </Container>
+    </AuthBackgroundWrapper>
   )
 }
 

@@ -2,15 +2,20 @@
 
 import React from 'react'
 import { useTheme } from 'next-themes'
-import { MoonIcon, SunIcon } from '@heroicons/react/20/solid'
+import { Moon, Sun } from 'lucide-react'
 import { THEME_TYPES } from '../../header.interface'
 
 const renderThemeIcon = (theme: string | undefined) => {
   switch (theme) {
     case THEME_TYPES.LIGHT:
-      return <MoonIcon className="h-6 w-6 text-black-400 dark:text-gray-600" />
+      return (
+        <Moon className="absolute w-7 h-7 dark:rotate-90 dark:scale-0 transition-all rotate-0 scale-100" />
+      )
     case THEME_TYPES.DARK:
-      return <SunIcon className="h-6 w-6 text-black-400 dark:text-gray-600" />
+      return (
+        <Sun className="w-7 h-7 dark:rotate-0 dark:scale-100 transition-all -rotate-90 scale-0" />
+      )
+
     default:
       return null
   }
@@ -29,8 +34,8 @@ export const ThemeSwitcher = () => {
   }
 
   return (
-    <button
-      className={`w-fit rounded-md hover:scale-110 active:scale-100 duration-200`}
+    <div
+      className="w-full flex flex-col items-center z-50 cursor-pointer"
       onClick={() =>
         setTheme(
           theme === THEME_TYPES.DARK ? THEME_TYPES.LIGHT : THEME_TYPES.DARK
@@ -38,6 +43,6 @@ export const ThemeSwitcher = () => {
       }
     >
       {renderThemeIcon(theme)}
-    </button>
+    </div>
   )
 }

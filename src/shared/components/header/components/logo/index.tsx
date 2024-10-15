@@ -1,22 +1,36 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Container } from '@/components'
+import LogoLight from '@/assets/logo-light.svg'
+import LogoDark from '@/assets/logo-dark.svg'
 import { ROUTES } from '@/shared/shared.interface'
+import { cn } from '@/libs/utils'
 
-export const Logo = () => {
+type LogoProps = {
+  style?: React.CSSProperties
+  className?: string
+}
+
+export const Logo = ({ style = {}, className = '' }: LogoProps) => {
   return (
-    <Container className="flex lg:flex-1">
-      <Link href={ROUTES.HOME}>
+    <Link href={ROUTES.HOME}>
+      <div
+        className={cn(
+          'rounded-full overflow-hidden w-16 relative select-none flex',
+          className,
+          style
+        )}
+      >
         <Image
-          src="/logo.png"
+          src={LogoDark}
           alt="logo"
-          width={32}
-          height={32}
-          className="filter bg-black-400 rounded-full"
-          placeholder="empty"
-          priority
+          className="w-full h-full object-cover inline-flex dark:hidden"
         />
-      </Link>
-    </Container>
+        <Image
+          src={LogoLight}
+          alt="logo"
+          className="w-full h-full object-cover hidden dark:inline-flex"
+        />
+      </div>
+    </Link>
   )
 }

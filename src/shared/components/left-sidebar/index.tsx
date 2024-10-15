@@ -11,6 +11,7 @@ import { SiGooglesheets } from 'react-icons/si'
 import { SidebarContainer } from './component/SidebarContainer'
 import { IMenuBottomItem, IMenuItem } from './left-sidebar.interface'
 import { useSelectedSideBarModule } from './hooks/useSelectedSideBarModule'
+import { Cog } from 'lucide-react'
 import useLeftSidebarStore from './store/left-sidebar.store'
 
 // hard coded menu items
@@ -34,6 +35,11 @@ const menuItems: IMenuItem[] = [
     title: 'Report',
     icon: SiGooglesheets,
     link: ROUTES.REPORT
+  },
+  {
+    title: 'Settings',
+    icon: Cog,
+    link: ROUTES.SETTINGS
   }
 ]
 

@@ -19,7 +19,7 @@ export const SidebarContainer = <T extends IBaseMenuItem>({
     <div key={index} className="w-full">
       <Link href={item.link}>
         <Container
-          className={`flex items-center justify-start gap-4 p-2 cursor-pointer hover:bg-gray-200 ${`/${selectedModule}` === item.link ? 'bg-gray-200 outline-y outline-gray-500/10' : ''}`}
+          className={`flex items-center justify-start gap-4 p-2 cursor-pointer ${`/${selectedModule}` === item.link ? 'bg-gray-200 outline-y outline-gray-500/10' : ''}`}
         >
           <Container className="w-11 h-6">
             <item.icon

@@ -21,7 +21,8 @@ export const ROUTES = {
   INVOICE: '/invoice',
   PRODUCT: '/product',
   REPORT: '/report',
-  OVERVIEW: '/overview'
+  OVERVIEW: '/overview',
+  SETTINGS: '/settings'
 }
 
 export interface IRouteParams {

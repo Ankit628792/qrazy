@@ -41,7 +41,7 @@ export const RightSideBarMenu = ({
       >
         <Container className="bg-gradient-to-b from-zinc-200 to-sky-100 dark:from-zinc-700 dark:to-zinc-900 h-screen">
           <Container className="p-2">
-            <Container className="flex items-center justify-between p-2 ">
+            <Container className="flex items-center justify-between">
               {headerNode}
               <ButtonWithIcon
                 Icon={AiTwotoneCloseCircle}

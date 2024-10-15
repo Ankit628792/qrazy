@@ -23,12 +23,12 @@ export const Logo = ({ style = {}, className = '' }: LogoProps) => {
         <Image
           src={LogoDark}
           alt="logo"
-          className="w-8 h-8 object-cover inline-flex dark:hidden"
+          className="w-12 h-12 object-cover inline-flex dark:hidden"
         />
         <Image
           src={LogoLight}
           alt="logo"
-          className="w-8 h-8 object-cover hidden dark:inline-flex"
+          className="w-12 h-12 object-cover hidden dark:inline-flex"
         />
       </div>
     </Link>

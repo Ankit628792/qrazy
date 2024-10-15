@@ -15,7 +15,7 @@ export const Logo = ({ style = {}, className = '' }: LogoProps) => {
     <Link href={ROUTES.HOME}>
       <div
         className={cn(
-          'rounded-full overflow-hidden w-16 relative select-none flex',
+          'rounded-full overflow-hidden relative select-none flex',
           className,
           style
         )}
@@ -23,12 +23,12 @@ export const Logo = ({ style = {}, className = '' }: LogoProps) => {
         <Image
           src={LogoDark}
           alt="logo"
-          className="w-full h-full object-cover inline-flex dark:hidden"
+          className="w-8 h-8 object-cover inline-flex dark:hidden"
         />
         <Image
           src={LogoLight}
           alt="logo"
-          className="w-full h-full object-cover hidden dark:inline-flex"
+          className="w-8 h-8 object-cover hidden dark:inline-flex"
         />
       </div>
     </Link>

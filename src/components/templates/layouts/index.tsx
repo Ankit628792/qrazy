@@ -8,7 +8,7 @@ import { LayoutProps } from '@/types/templates'
 
 export const Layout = ({ children }: LayoutProps) => {
   // const { user } = useAuth()
-  const isUserLoggedIn = false
+  const isUserLoggedIn = true
 
   if (isUserLoggedIn) {
     return (

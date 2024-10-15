@@ -24,7 +24,7 @@ export const HeaderComponent: React.FC = () => {
   const { setSideBarOpen } = useHeaderStore()
 
   return (
-    <header className="bg-gray-100 border-y border-gray-500/10 ">
+    <header className="px-5 py-3 fixed w-full top-0 z-40 bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 backdrop-blur-sm">
       <nav
         className="flex items-center justify-between p-2 bg-transparent relative z-10"
         aria-label="Global"
@@ -40,30 +40,27 @@ export const HeaderComponent: React.FC = () => {
             <React.Fragment>
               {showOnlyIcons ? (
                 <TbLayoutSidebarLeftExpandFilled
-                  className="w-full h-full"
+                  className="w-8 h-8"
                   onClick={() => setShowOnlyIcons(!showOnlyIcons)}
                 />
               ) : (
                 <TbLayoutSidebarLeftCollapseFilled
-                  className="w-full h-full"
+                  className="w-8 h-8"
                   onClick={() => setShowOnlyIcons(!showOnlyIcons)}
                 />
               )}
             </React.Fragment>
           )}
         </div>
-        <Container className="flex items-center justify-center gap-x-4">
-          <ThemeSwitcher />
-          <Container className='className="relative flex overflow-hidden'>
-            <SideBarMenu
-              user={user}
-              sideBarOpen={sideBarOpen}
-              subNavigationData={subNavigation}
-              handleSignOut={() => logOut()}
-              setSideBarOpen={setSideBarOpen}
-              googleSignIn={() => setSideBarOpen(true)}
-            />
-          </Container>
+        <Container className="relative flex overflow-hidden">
+          <SideBarMenu
+            user={user}
+            sideBarOpen={sideBarOpen}
+            subNavigationData={subNavigation}
+            handleSignOut={() => logOut()}
+            setSideBarOpen={setSideBarOpen}
+            googleSignIn={() => setSideBarOpen(true)}
+          />
         </Container>
       </nav>
     </header>

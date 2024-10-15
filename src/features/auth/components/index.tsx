@@ -3,6 +3,7 @@ import { LoginComponent } from './login'
 import { RegisterComponent } from './register'
 import { AuthBackgroundWrapper } from './background-wrapper'
 import { CURRENT_AUTH_STEP } from '../auth.interface'
+import Link from 'next/link'
 
 type getRenderComponentProps = {
   isLoginTabActive: boolean
@@ -16,17 +17,17 @@ type tabComponentProps = {
 const LoginTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
   return (
     <AuthBackgroundWrapper type={CURRENT_AUTH_STEP.LOGIN}>
-      <Container className="mb-8">
-        <LoginComponent />
-      </Container>
-      <Container className="text-center flex items-center justify-center gap-2">
-        <p className="text-sm text-gray-600">Don&apos;t have an account?</p>
-        <Button
+      <h1 className="text-4xl font-bold select-none mb-2">Welcome Back!</h1>
+      <LoginComponent />
+      <div className="text-sm xl:text-base flex items-center justify-center">
+        <p>Don&apos;t have an account?</p>
+        <div
           onClick={() => setIsLoginTabActive(false)}
-          btnText="Register"
-          btnType="tertiary"
-        />
-      </Container>
+          className="text-emerald-500 px-1 font-medium"
+        >
+          Register
+        </div>
+      </div>
     </AuthBackgroundWrapper>
   )
 }

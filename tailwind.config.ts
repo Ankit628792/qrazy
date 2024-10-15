@@ -13,10 +13,7 @@ const config: Config = {
   darkMode: ['class'],
   theme: {
     extend: {
-      ...QrazyTheme.baseTheme,
-      dark: {
-        ...QrazyTheme.darkTheme
-      }
+      ...QrazyTheme
     }
   },
   plugins: [require('tailwindcss-animate')]

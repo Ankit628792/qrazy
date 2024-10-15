@@ -1,59 +1,42 @@
 'use client'
 
 import React from 'react'
-import Joi from 'joi'
-import {
-  Button,
-  Container,
-  EmailInput,
-  Form,
-  FormInput,
-  FormProvider,
-  FormSection,
-  PasswordInput
-} from '@/components'
-
-const loginSchema = Joi.object({
-  email: Joi.string()
-    .email({ tlds: { allow: false } })
-    .required()
-    .messages({
-      'string.empty': 'Email is required',
-      'string.email': 'Please enter a valid email'
-    }),
-  password: Joi.string().min(6).required().messages({
-    'string.empty': 'Password is required',
-    'string.min': 'Password must be at least 6 characters'
-  })
-})
+import Error from '@/shadcn-ui/error'
+import Link from 'next/link'
+import { Label } from '@/shadcn-ui/label'
+import { Input } from '@/shadcn-ui/input'
+import { Button } from '@/shadcn-ui/button'
+import { MoveRight } from 'lucide-react'
 
 export const LoginComponent = () => {
-  const handleSubmit = (data: any) => {
-    console.log(data)
-  }
   return (
-    <Container className="w-[50vw] h-[50vh]">
-      <FormProvider schema={loginSchema} onSubmit={handleSubmit}>
-        <Form>
-          <FormSection
-            label="Login to your account"
-            className="w-[50vw] h-[50vh]"
+    <React.Fragment>
+      <div className="w-full text-base xl:text-lg">
+        <Label htmlFor="email" className="xl:text-base">
+          Email
+        </Label>
+        <Input id="email" placeholder="Enter your email" />
+        <Error error="Error here" />
+      </div>
+      <div className="w-full text-base xl:text-lg">
+        <div className="flex items-end justify-between">
+          <Label htmlFor="password" className="xl:text-base">
+            Password
+          </Label>
+          <Link
+            href={'/forgot-password'}
+            className="text-emerald-500 px-1 text-sm"
           >
-            <FormInput name="email" label="Email">
-              <EmailInput />
-            </FormInput>
-            <FormInput name="password" label="Password">
-              <PasswordInput />
-            </FormInput>
-            <Button
-              type="submit"
-              btnText="Login"
-              btnType="base"
-              className="w-[200px] m-2"
-            />
-          </FormSection>
-        </Form>
-      </FormProvider>
-    </Container>
+            Forget Password?
+          </Link>
+        </div>
+        <Input id="password" placeholder="Password" />
+        <Error error="Error here" />
+      </div>
+      <Button size="lg" className="w-full mt-2">
+        <span className="text-base lg:text-lg">Login</span>{' '}
+        <MoveRight className="ml-2" />
+      </Button>
+    </React.Fragment>
   )
 }

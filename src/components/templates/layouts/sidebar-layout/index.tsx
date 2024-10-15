@@ -27,7 +27,7 @@ export const SidebarLayout = ({ children }: SidebarLayoutProps) => {
   return (
     <main className="flex flex-col min-h-dvh w-full bg-gradient-to-b from-zinc-200 to-sky-100 dark:from-zinc-700 dark:to-zinc-900">
       <HeaderComponent />
-      <section className="flex-grow w-full flex pt-[64px] h-[calc(100vh-64px)]">
+      <section className="flex-grow w-full flex mt-[64px] h-[calc(100vh-64px)]">
         <LeftSideBarMenu showOnlyIcons={showOnlyIcons} />
         <Container className="flex-grow overflow-y-auto scroll-hidden px-2">
           {children}

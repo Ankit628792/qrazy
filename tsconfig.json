@@ -20,7 +20,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
-      "@/shadcn-ui/*": ["./src/shadcn-ui/*"]
+      "@/shadcn-ui/*": ["./src/shadcn-ui/*"],
+      "@/data/*": ["./src/data/*"]
     },
     "allowImportingTsExtensions": true
   },

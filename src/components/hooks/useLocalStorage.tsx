@@ -1,6 +1,7 @@
 export const useLocalStorage = (key: string) => {
   const setItem = (value: any) => {
     try {
+      if (typeof window === 'undefined') return
       window.localStorage.setItem(key, value)
     } catch (error) {
       console.error(

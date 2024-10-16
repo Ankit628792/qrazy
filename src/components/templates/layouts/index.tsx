@@ -14,7 +14,7 @@ export const Layout = ({ children }: LayoutProps) => {
   const isUserLoggedIn = true
 
   if (router === ROUTES.HOME) {
-    return <React.Fragment>{children}</React.Fragment>
+    return <ProtectedBoundary {...{ children }} />
   }
 
   if (isUserLoggedIn) {

@@ -13,18 +13,20 @@ import { AppleCardsCarousel } from './components/apple-cards-carousel'
 
 export const HomeComponent: React.FC = () => {
   return (
-    <div className="bg-black-700">
-      <header className="p-2 fixed w-full top-0 z-40">
-        <Logo />
+    <div>
+      <header className="p-2 fixed w-full top-0 z-40 bg-white backdrop-blur-sm border-y border-gray-500/10 bg-opacity-5">
+        <Logo className="bg-white w-fit" />
       </header>
-      <TextHoverEffect text="QRAZY" />
-      <HeroParallaxComponent />
-      <SubScroll />
-      <WoobleCards />
-      <AppleCardsCarousel />
-      <SubHeroSection />
-      <HeroSection />
-      <GlobeComponent />
+      <div className="bg-black-700">
+        <TextHoverEffect text="QRAZY" />
+        <HeroParallaxComponent />
+        <SubScroll />
+        <WoobleCards />
+        <AppleCardsCarousel />
+        <SubHeroSection />
+        <HeroSection />
+        <GlobeComponent />
+      </div>
     </div>
   )
 }

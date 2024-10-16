@@ -52,5 +52,3 @@ export const ForgotPasswordComponent = () => {
     </React.Fragment>
   )
 }
-
-export default ForgotPasswordComponent

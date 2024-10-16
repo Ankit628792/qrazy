@@ -1,20 +1,21 @@
-import { Button, Container } from '@/components'
 import { LoginComponent } from './login'
 import { RegisterComponent } from './register'
 import { AuthBackgroundWrapper } from './background-wrapper'
 import { CURRENT_AUTH_STEP } from '../auth.interface'
-import Link from 'next/link'
+import { VerifyEmail } from './verify'
+import { ForgotPasswordComponent } from './forgot-password'
+import { ResetPasswordComponent } from '@/features/settings/components/reset-password'
 
 type getRenderComponentProps = {
-  isLoginTabActive: boolean
-  setIsLoginTabActive: (value: boolean) => void
+  currentAuthStep: CURRENT_AUTH_STEP
+  setCurrentAuthStep: (value: CURRENT_AUTH_STEP) => void
 }
 
 type tabComponentProps = {
-  setIsLoginTabActive: (value: boolean) => void
+  setCurrentAuthStep: (value: CURRENT_AUTH_STEP) => void
 }
 
-const LoginTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
+const LoginTabComponent = ({ setCurrentAuthStep }: tabComponentProps) => {
   return (
     <AuthBackgroundWrapper type={CURRENT_AUTH_STEP.LOGIN}>
       <h1 className="text-4xl font-bold select-none mb-2">Welcome Back!</h1>
@@ -22,25 +23,45 @@ const LoginTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
       <div className="text-sm xl:text-base flex items-center justify-center">
         <p>Don&apos;t have an account?</p>
         <div
-          onClick={() => setIsLoginTabActive(false)}
-          className="text-emerald-500 px-1 font-medium"
+          onClick={() => setCurrentAuthStep(CURRENT_AUTH_STEP.REGISTER)}
+          className="cursor-pointer text-emerald-500 px-1 font-medium"
         >
           Register
+        </div>
+      </div>
+      <div className="flex">
+        <div
+          onClick={() => setCurrentAuthStep(CURRENT_AUTH_STEP.FORGOT_PASSWORD)}
+          className="cursor-pointer text-emerald-500 px-1 font-medium"
+        >
+          Forgot Password
+        </div>
+        <div
+          onClick={() => setCurrentAuthStep(CURRENT_AUTH_STEP.VERIFY_EMAIL)}
+          className="cursor-pointer text-emerald-500 px-1 font-medium"
+        >
+          Verify Email
+        </div>
+        <div
+          onClick={() => setCurrentAuthStep(CURRENT_AUTH_STEP.RESET_PASSWORD)}
+          className="cursor-pointer text-emerald-500 px-1 font-medium"
+        >
+          Reset Password
         </div>
       </div>
     </AuthBackgroundWrapper>
   )
 }
 
-const RegisterTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
+const RegisterTabComponent = ({ setCurrentAuthStep }: tabComponentProps) => {
   return (
     <AuthBackgroundWrapper type={CURRENT_AUTH_STEP.REGISTER}>
       <RegisterComponent />
       <div className="text-sm xl:text-base flex items-center justify-center">
         <p>Already have an account?</p>
         <div
-          onClick={() => setIsLoginTabActive(true)}
-          className="text-emerald-500 px-1 font-medium"
+          onClick={() => setCurrentAuthStep(CURRENT_AUTH_STEP.LOGIN)}
+          className="cursor-pointer text-emerald-500 px-1 font-medium"
         >
           Login
         </div>
@@ -49,17 +70,43 @@ const RegisterTabComponent = ({ setIsLoginTabActive }: tabComponentProps) => {
   )
 }
 
+const ForgotPasswordTabComponent = ({
+  setCurrentAuthStep
+}: tabComponentProps) => {
+  return <ForgotPasswordComponent />
+}
+
+const ResetPasswordTabComponent = ({
+  setCurrentAuthStep
+}: tabComponentProps) => {
+  return <ResetPasswordComponent />
+}
+
+const VerifyEmailTabComponent = ({ setCurrentAuthStep }: tabComponentProps) => {
+  return <VerifyEmail />
+}
+
 const getRenderComponent = ({
-  isLoginTabActive,
-  setIsLoginTabActive
+  currentAuthStep,
+  setCurrentAuthStep
 }: getRenderComponentProps) => {
-  switch (isLoginTabActive) {
-    case true:
-      return <LoginTabComponent setIsLoginTabActive={setIsLoginTabActive} />
-    case false:
-      return <RegisterTabComponent setIsLoginTabActive={setIsLoginTabActive} />
+  switch (currentAuthStep) {
+    case CURRENT_AUTH_STEP.LOGIN:
+      return <LoginTabComponent setCurrentAuthStep={setCurrentAuthStep} />
+    case CURRENT_AUTH_STEP.REGISTER:
+      return <RegisterTabComponent setCurrentAuthStep={setCurrentAuthStep} />
+    case CURRENT_AUTH_STEP.FORGOT_PASSWORD:
+      return (
+        <ForgotPasswordTabComponent setCurrentAuthStep={setCurrentAuthStep} />
+      )
+    case CURRENT_AUTH_STEP.RESET_PASSWORD:
+      return (
+        <ResetPasswordTabComponent setCurrentAuthStep={setCurrentAuthStep} />
+      )
+    case CURRENT_AUTH_STEP.VERIFY_EMAIL:
+      return <VerifyEmailTabComponent setCurrentAuthStep={setCurrentAuthStep} />
     default:
-      return <LoginTabComponent setIsLoginTabActive={setIsLoginTabActive} />
+      return <LoginTabComponent setCurrentAuthStep={setCurrentAuthStep} />
   }
 }
 

@@ -79,5 +79,9 @@ export enum QUERY_STATUS {
 
 export enum CURRENT_AUTH_STEP {
   LOGIN = 'login',
-  REGISTER = 'register'
+  REGISTER = 'register',
+  FORGOT_PASSWORD = 'forgot_password',
+  RESET_PASSWORD = 'reset_password',
+  VERIFY_EMAIL = 'verify_email'
+
 }

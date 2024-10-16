@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { CURRENT_AUTH_STEP } from '../auth.interface'
 
 const images = [
   'https://cdn.dribbble.com/userupload/4972790/file/original-963f1a25237cfee6042f3231de26e03b.jpg',
@@ -11,15 +12,16 @@ const images = [
 ]
 
 type AuthManagementState = {
-  isLoginTabActive: boolean
+  currentAuthStep: CURRENT_AUTH_STEP
   authStepsImages: typeof images
-  setIsLoginTabActive: (isActive: boolean) => void
+  setCurrentAuthStep: (value: CURRENT_AUTH_STEP) => void
 }
 
 const useAuthStore = create<AuthManagementState>((set) => ({
-  isLoginTabActive: true,
+  currentAuthStep: CURRENT_AUTH_STEP.LOGIN,
   authStepsImages: images,
-  setIsLoginTabActive: (isActive) => set({ isLoginTabActive: isActive })
+  setCurrentAuthStep: (value: CURRENT_AUTH_STEP) =>
+    set({ currentAuthStep: value })
 }))
 
 export default useAuthStore

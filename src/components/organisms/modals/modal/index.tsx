@@ -18,13 +18,13 @@ export const Modal: React.FC<ModalProps> = ({
       </div>
 
       <div
-        className={`bg-white rounded-lg shadow-xl transform transition-all px-4 py-4 mobile:max-w-lg mobile:w-full ${className}`}
+        className={`bg-white rounded-lg shadow-xl transform transition-all mobile:max-w-lg mobile:w-full ${className}`}
       >
         <div className="space-y-10">
           {header && <div>{header}</div>}
-          <div className="bg-white px-2.5">{children}</div>
+          <div className="bg-white">{children}</div>
           {footer && (
-            <div className="sm:px-6 sm:flex sm:flex-row-reverse">{footer}</div>
+            <div className="sm:flex sm:flex-row-reverse">{footer}</div>
           )}
         </div>
       </div>

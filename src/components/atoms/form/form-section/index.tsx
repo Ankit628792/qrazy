@@ -8,7 +8,7 @@ export const FormSection: React.FC<FormSectionProps> = ({
   className = ''
 }) => {
   return (
-    <div className={`border p-4 rounded-md mb-4 ${className}`}>
+    <div className={`border p-4 rounded-md ${className}`}>
       {label && (
         <label className="block text-neutral-900 font-sans mb-2">{label}</label>
       )}

@@ -15,7 +15,7 @@ import { Cog } from 'lucide-react'
 import useLeftSidebarStore from './store/left-sidebar.store'
 
 // hard coded menu items
-const menuItems: IMenuItem[] = [
+export const menuItems: IMenuItem[] = [
   {
     title: 'Overview',
     icon: FaChartPie,
@@ -43,7 +43,7 @@ const menuItems: IMenuItem[] = [
   }
 ]
 
-const menuBottomItems: IMenuBottomItem[] = [
+export const menuBottomItems: IMenuBottomItem[] = [
   {
     title: 'User Profile',
     icon: BsFillBuildingsFill,

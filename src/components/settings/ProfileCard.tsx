@@ -2,7 +2,7 @@ import { GlobeLock } from "lucide-react"
 
 const ProfileCard = () => {
     return (
-        <div className='w-full rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm overflow-hidden sticky top-0'>
+        <div className='w-full rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm overflow-hidden lg:sticky lg:top-0'>
             <div className='h-32 w-full'>
                 <img className='w-full h-full object-cover' src={"https://images.unsplash.com/photo-1513346940221-6f673d962e97"} alt="" />
             </div>

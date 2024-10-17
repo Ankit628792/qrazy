@@ -9,13 +9,13 @@ const SaveOptions = ({ onSave, onCancel, visible = false }: {
     visible?: boolean
 }) => {
     return (
-        <div className={cn('flex gap-4', visible ? "" : "opacity-0 invisible select-none")}>
+        <div className={cn('flex gap-2 sm:gap-4', visible ? "" : "opacity-0 invisible select-none")}>
             <Button disabled={!visible} onClick={onSave} size={"sm"} className='bg-emerald-500 hover:bg-sky-600 dark:text-white'>
-                <Save className='w-4 mr-2' />
+                <Save className='w-4 mr-0.5 sm:mr-2' />
                 <span>Save</span>
             </Button>
             <Button disabled={!visible} onClick={onCancel} size={"sm"}>
-                <UndoDot className='w-4 mr-2' />
+                <UndoDot className='w-4 mr-0.5 sm:mr-2' />
                 <span>Cancel</span>
             </Button>
         </div>

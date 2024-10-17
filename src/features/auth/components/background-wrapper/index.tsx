@@ -27,15 +27,16 @@ export const AuthBackgroundWrapper = ({
     >
       <div
         className={cn(
-          'w-full lg:w-1/2 p-10 bg-white dark:bg-zinc-900 grid place-items-center relative'
+          'w-full lg:w-1/2 p-10 pb-5 bg-white dark:bg-zinc-900 flex flex-col items-center justify-between relative'
         )}
       >
+        <div></div>
         <div className="flex flex-col gap-2 w-full max-w-sm xl:max-w-md">
           <Logo />
           {children}
         </div>
 
-        <div className="text-base flex flex-wrap gap-2 justify-between w-full absolute bottom-0 left-0 right-0 p-5">
+        <div className="text-base flex flex-wrap gap-2 justify-between w-full">
           <div className="flex-shrink-0">
             Copyright&copy;2023
             <div className="text-emerald-500 px-1 font-medium">Delanki</div>

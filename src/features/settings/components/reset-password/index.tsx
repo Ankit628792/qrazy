@@ -4,7 +4,7 @@ import { Label } from '@/shadcn-ui/label'
 
 export const ResetPasswordComponent = () => {
   return (
-    <div className="w-full rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm p-3 sticky top-72">
+    <div className="w-full rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm p-3 lg:sticky lg:top-72">
       <div className="pt-1 px-2 pb-3">
         <h1 className="font-medium">Password Setting</h1>
       </div>

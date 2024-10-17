@@ -10,7 +10,7 @@ async function verifyToken() {
 export const VerifyEmail = async () => {
   const verified = await verifyToken()
   return (
-    <section className="w-full h-dvh grid place-items-center">
+    <section className="w-full h-dvh grid place-items-center p-3">
       <img
         className="absolute inset-0 w-full h-full object-cover"
         src="https://cdn.dribbble.com/users/720738/screenshots/3008140/media/262ca14adca124e2c316b027e479c638.gif"

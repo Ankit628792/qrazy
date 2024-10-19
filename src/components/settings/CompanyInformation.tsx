@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Textarea } from "../ui/textarea"
-import SaveOptions from "./SaveOptions"
+import SaveOptions from "../ak/SaveOptions"
 import Error from "../ui/error"
 
 function CompanyInformation() {

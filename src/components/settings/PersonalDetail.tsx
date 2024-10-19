@@ -1,5 +1,5 @@
 "use client"
-import SaveOptions from './SaveOptions'
+import SaveOptions from '../ak/SaveOptions'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { cn } from '@/lib/utils'
@@ -24,7 +24,6 @@ function PersonalDetail() {
                         <Input id="lName" placeholder="Type here..." className={cn('2xl:text-lg')} />
                         <Error error="Error here" />
                     </div>
-
                 </div>
                 <div className="w-full">
                     <Label htmlFor="email">Email</Label>

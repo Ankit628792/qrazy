@@ -91,15 +91,20 @@ export const openLink = (link: string) => {
 }
 
 
-export const useClickOutside = (handler: any, ref = null) => {
+export const useClickOutside = (handler: any, ref: any, outerRef?: any) => {
     const domRef = ref || createRef();
 
     useEffect(() => {
         const localHandler = (e: any) => {
             if (!domRef.current) return;
-            // @ts-expect-error available
-            // it is available
-            if (!domRef.current?.contains(e.target)) handler();
+            if (!domRef.current?.contains(e.target)) {
+                if (outerRef && outerRef.current?.contains(e.target)) {
+                    handler();
+                }
+                else {
+                    handler()
+                }
+            }
         };
         document.addEventListener("mousedown", localHandler);
         return () => document.removeEventListener("mousedown", localHandler);
@@ -136,6 +141,7 @@ export const fetchLocation = async (loc: string) => {
 }
 
 export function getFavicon(url: string) {
+    if (!url) return '';
     let domain = url.replace(/^https?:\/\//i, '').replace(/^www\./i, '');
     domain = domain.split('/')[0];
 

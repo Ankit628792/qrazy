@@ -1,13 +1,11 @@
 "use client"
 import AnalyticCard from '@/components/ak/AnalyticCard'
 import { AreaChartGradient } from '@/components/ui/area-chart';
-import { HandCoins, LayoutDashboard, ScanQrCode, ShoppingBagIcon, TrendingUp, Users } from 'lucide-react'
+import { ArrowUpRightFromCircle, HandCoins, LayoutDashboard, ScanQrCode, ShoppingBagIcon, TrendingUp, Users } from 'lucide-react'
 import React from 'react'
 import { chartData, formattedChartData, generateChartConfig } from './constant';
 import { Charts, Progress } from './sample';
-
-
-
+import Link from 'next/link';
 
 
 function Products() {
@@ -53,6 +51,9 @@ function Products() {
     return (
         <section className='flex flex-col gap-4'>
             <div className='flex gap-4 w-full overflow-y-auto scroll-hidden'>
+                <Link href={"/products/create"}>
+                    <AnalyticCard title="Product" Icon={ArrowUpRightFromCircle} value="+ Add Item" />
+                </Link>
                 {
                     analyticCardData.map((card) => {
                         return (

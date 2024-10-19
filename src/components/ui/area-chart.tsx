@@ -17,6 +17,9 @@ import {
 } from "@/components/ui/chart"
 import { getProductKeys } from "@/app/(dashboard)/products/constant"
 import React from "react"
+import { Button } from "./button"
+import { ListTodo } from "lucide-react"
+import Link from "next/link"
 
 export const description = "An area chart with gradient fill"
 
@@ -36,11 +39,17 @@ export function AreaChartGradient({
 
     return (
         <Card>
-            <CardHeader>
+            <CardHeader className="relative">
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>
                     {description}
                 </CardDescription>
+                <Link href={"/products/listing"} className="absolute top-3 right-3">
+                    <Button size={"sm"} className=" gap-1">
+                        <ListTodo className="w-4" />
+                        View All
+                    </Button>
+                </Link>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={cConfig}>

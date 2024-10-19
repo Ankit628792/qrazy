@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-provider";
 import ToggleTheme from "@/components/ak/ToggleTheme";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "QRazy | Admin",
@@ -35,6 +36,7 @@ export default function RootLayout({
           defaultTheme="light"
         >
           <div className="flex flex-col min-h-dvh w-full text-black dark:text-white bg-white dark:bg-black">
+            <Toaster />
             {children}
             <div className="fixed bottom-2 right-2 z-50 p-2 bg-white dark:bg-black rounded-full" draggable>
               <ToggleTheme />

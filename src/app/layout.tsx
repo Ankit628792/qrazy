@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-provider";
 import ToggleTheme from "@/components/ak/ToggleTheme";
 import { Toaster } from "react-hot-toast";
+import TopLoader from "@/components/ak/TopLoader";
 
 export const metadata: Metadata = {
   title: "QRazy | Admin",
@@ -28,12 +29,13 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
       </head>
       <body
-        className={`antialiased `}
+        className={`antialiased overflow-x-hidden`}
       >
+        <TopLoader />
         <ThemeProvider
           attribute="class"
           enableSystem
-          defaultTheme="light"
+          defaultTheme="system"
         >
           <div className="flex flex-col min-h-dvh w-full text-black dark:text-white bg-white dark:bg-black">
             <Toaster />

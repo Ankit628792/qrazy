@@ -5,44 +5,49 @@ import { Button } from '../ui/button'
 import { MoreHorizontal } from 'lucide-react'
 import { Dropdown } from '../ui/dropdown-menu'
 import moment from 'moment'
+import { cn } from '@/lib/utils'
 
-type Header = {
-    accessor: string,
-    title: string,
-}
-const ProductTable = ({ data, headers }: { data: Product[], headers: Header[] }) => {
+const ProductTable = ({ data }: { data: Product[] }) => {
     return (
-        <Table>
+        <Table className='product-table text-center'>
             <TableHeader>
-                <TableRow>
-                    {
-                        headers.map((header) => (
-                            <TableHead key={header.accessor} className='min-w-max'>
-                                {header.title}
-                            </TableHead>
-                        ))}
+                <TableRow className='text-center'>
+                    <TableHead colSpan={2} className='text-center'>General Info</TableHead>
+                    <TableHead className='text-center'>Category</TableHead>
+                    <TableHead className='text-center'>Status</TableHead>
+                    <TableHead className='min-w-28 text-center'>Top Region</TableHead>
+                    <TableHead className='min-w-28 text-center'>QR Scans</TableHead>
+                    <TableHead className='min-w-32 text-center'>Created On</TableHead>
+                    <TableHead className='min-w-32 text-center'>Updated On</TableHead>
+                    <TableHead></TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
                 {
                     data.map((item, i) => {
                         return (
-                            <TableRow key={item.id} className='bg-white dark:bg-black'>
-                                <TableCell className="hidden sm:table-cell">
+                            <TableRow key={item.id}>
+                                <TableCell className='min-w-14 !shrink-0'>
                                     <Image
                                         alt="Product image"
-                                        className="aspect-square rounded-md object-cover"
-                                        height="64"
+                                        className="aspect-square rounded-md object-cover shrink-0"
+                                        height="72"
+                                        width="72"
                                         src={item.image.url}
-                                        width="64"
+                                        loading='lazy'
+                                        blurDataURL='/favicon.svg'
+                                        placeholder='blur'
                                     />
                                 </TableCell>
-                                <TableCell className="font-medium">
-                                    <p>{item.title}</p>
-                                    <p>{item.category.name}</p>
+                                <TableCell className="min-w-40 text-left cursor-pointer">
+                                    <h1 className='sm:text-base lg:text-lg font-semibold opacity-90 line-clamp-1'>{item.title}</h1>
+                                    <p className='!line-clamp-1 text-xs hidden md:block font-light tracking-wide text-gray-500 py-0.5'>{item.description}</p>
                                 </TableCell>
+                                <TableCell>{item.category.name}</TableCell>
                                 <TableCell>
-                                    <Badge variant="outline">{item.status}</Badge>
+                                    <Status id={item.id} type={item.status}>
+                                        <Badge type={item.status} />
+                                    </Status>
                                 </TableCell>
                                 <TableCell>{item.region}</TableCell>
                                 <TableCell>
@@ -69,18 +74,37 @@ const ProductTable = ({ data, headers }: { data: Product[], headers: Header[] })
 
 export default ProductTable
 
-const Badge = ({ children, variant }: {
-    children: React.ReactNode,
+const Badge = ({ variant, className, type }: {
     variant?: string
+    className?: string
+    type: string
 }) => {
     return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500 text-white">
-            {children}
+        <span className={cn("block min-w-16 items-center px-2.5 py-1 rounded-full text-xs font-medium text-white w-full", variant === "outline" ? "border" : "", type === "active" ? "bg-emerald-500" : type === "inactive" ? "bg-rose-500" : type === "draft" ? "bg-orange-500" : "", className)}>
+            {type}
         </span>
     )
 }
 
-const MoreOption = ({ id }: { id: string | number }) => {
+const Status = ({ children, id, type }: {
+    children: React.ReactNode,
+    id: string | number,
+    type: string
+}) => {
+
+    const handleClick = (action: string) => {
+        console.log(`Clicked on ${action} action having ${id}`)
+    }
+    return (
+        <Dropdown label='Change Status' items={type === "draft" ? ["edit"] : type === "active" ? ["inactive"] : type === "inactive" ? ["active"] : []} handleClick={handleClick}>
+            <div className='cursor-pointer'>
+                {children}
+            </div>
+        </Dropdown>
+    )
+}
+
+export const MoreOption = ({ id }: { id: string | number }) => {
     const handleClick = (action: string) => {
         console.log(`Clicked on ${action} action having ${id}`)
     }

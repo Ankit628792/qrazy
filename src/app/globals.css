@@ -97,6 +97,31 @@ body {
     @apply hidden w-0
   }
 
+  .product-table {
+    @apply border-spacing-x-0 border-spacing-y-2 lg:border-spacing-y-3 border-separate w-full
+  }
+
+  .product-table td {
+    @apply p-2 lg:p-3 align-middle shrink-0 text-sm
+  }
+
+  .product-table tr {
+    @apply bg-white dark:bg-black bg-opacity-60 dark:bg-opacity-60 backdrop-blur-sm hover:bg-white hover:bg-opacity-100 hover:dark:bg-black hover:dark:bg-opacity-100
+  }
+
+  /* 
+  .product-table tr:hover {
+    @apply hover:opacity-50 dark:hover:opacity-50
+  } */
+
+  .product-table tr td:nth-last-child(1), .product-table th:nth-last-child(1) {
+    @apply rounded-r-xl
+  }
+
+  .product-table tr td:nth-of-type(1), .product-table th:nth-of-type(1) {
+    @apply rounded-l-xl
+  }
+
 }
 
 @layer base {

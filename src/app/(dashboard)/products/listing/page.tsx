@@ -4,12 +4,12 @@ import DropdownMenuCheckboxes from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { File, ListFilter, PlusCircle, Search } from 'lucide-react'
 import { useState } from 'react'
-import { filterOptions, generateRandomProducts, productHeaders } from './constant'
+import { filterOptions, generateRandomProducts } from './constant'
 import ProductTable from '@/components/product/table'
-
+import Link from 'next/link'
 
 function Page() {
-    const [products, setProducts] = useState(generateRandomProducts(5))
+    const [products] = useState(generateRandomProducts(10))
     const [filter, setFilter] = useState(filterOptions);
 
     const handleFilter = (id: string | number, checked: boolean) => {
@@ -19,9 +19,11 @@ function Page() {
 
         setFilter(updatedFilter);
     }
+
+
     return (
         <section className=''>
-            <div className=' py-5 px-3 sticky -mt-2.5 -top-2.5 bg-white bg-opacity-10 dark:bg-zinc-900 dark:bg-opacity-10 backdrop-blur-md rounded-xl z-10'>
+            <div className=' py-5 px-3 sticky -mt-3 -top-3 bg-white bg-opacity-10 dark:bg-zinc-900 dark:bg-opacity-10 backdrop-blur-md rounded-xl z-10'>
                 <h1 className='text-2xl lg:text-3xl font-semibold pb-3'>Products Listing</h1>
                 <div className='w-full flex items-center gap-2'>
                     <form className="flex-1 relative">
@@ -49,21 +51,25 @@ function Page() {
                                 Export
                             </span>
                         </Button>
-                        <Button size="sm" className="gap-1 bg-emerald-500 hover:bg-emerald-600 text-white">
-                            <PlusCircle className="h-4 w-4" />
-                            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                Add Product
-                            </span>
-                        </Button>
+                        <Link href={"/products/create"}>
+                            <Button size="sm" className="gap-1 bg-emerald-500 hover:bg-emerald-600 text-white">
+                                <PlusCircle className="h-4 w-4" />
+                                <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                                    Add Product
+                                </span>
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>
-            <div className='h-screen'>
-                <ProductTable data={products} headers={productHeaders} />
+            <div className='w-full overflow-x-auto scroll-hidden'>
+                <ProductTable data={products} />
             </div>
         </section>
     )
 }
 
 export default Page
+
+
 

@@ -6,7 +6,7 @@ import Tooltip from '../ui/tooltip'
 
 function Sidebar() {
     return (
-        <aside className='flex flex-col py-5 items-center justify-between pt-28'>
+        <aside className='hidden sm:flex flex-col py-5 items-center justify-between pt-28'>
             <div>
                 <Tooltip title='Go Back'>
                     <Avatar fallback={<ChevronLeft />} />

@@ -11,32 +11,41 @@ import Link from "next/link";
 import * as Yup from "yup";
 import Error from "../ui/error";
 
-type IGenericForm = Record<string, string | null>;
+type TError = Record<string, string | null>;
+
+interface IBasicForm {
+  business: string;
+  gstNo: string;
+  description: string;
+}
+
+interface IPesonlizationForm {
+  logo: string | null | File;
+  website: string;
+}
+
+interface ILocationInfoForm {
+  address: string;
+  pinCode: string;
+  country: string;
+}
+
+interface IContactInfoForm {
+  contactEmail: string;
+  contactNumber: string;
+}
 
 export type IRootOnboardingForm = {
-  basicInfo: {
-    business: string | null;
-    gstNo: string | null;
-    description: string | null;
-  };
-  personalization: {
-    logo: string | null;
-    website: string | null;
-  };
-  locationInfo: {
-    address: string | null;
-    pinCode: string | null;
-    country: string | null;
-  };
-  contactInfo: {
-    contactEmail: string | null;
-    contactNumber: string | null;
-  };
+  basicInfo: IBasicForm;
+  personalization: IPesonlizationForm;
+  locationInfo: ILocationInfoForm;
+  contactInfo: IContactInfoForm;
 };
 
-interface IProps {
+interface IProps<T> {
   index: number;
   onboardingRootForm: IRootOnboardingForm;
+  initialValues: T;
   setOnboardingRootForm: (form: IRootOnboardingForm) => void;
   setIndex: (index: number) => void;
 }
@@ -50,22 +59,22 @@ function Questions({ index, setIndex }: IQuestion) {
   const [onboardingRootForm, setOnboardingRootForm] =
     useState<IRootOnboardingForm>({
       basicInfo: {
-        business: null,
-        gstNo: null,
-        description: null,
+        business: "",
+        gstNo: "",
+        description: "",
       },
       personalization: {
         logo: null,
-        website: null,
+        website: "",
       },
       locationInfo: {
-        address: null,
-        pinCode: null,
-        country: null,
+        address: "",
+        pinCode: "",
+        country: "",
       },
       contactInfo: {
-        contactEmail: null,
-        contactNumber: null,
+        contactEmail: "",
+        contactNumber: "",
       },
     });
   const titles = OnboardingTitles;
@@ -77,6 +86,7 @@ function Questions({ index, setIndex }: IQuestion) {
           <BasicInfo
             index={index}
             onboardingRootForm={onboardingRootForm}
+            initialValues={onboardingRootForm.basicInfo}
             setOnboardingRootForm={setOnboardingRootForm}
             setIndex={setIndex}
           />
@@ -86,6 +96,7 @@ function Questions({ index, setIndex }: IQuestion) {
           <Personalization
             index={index}
             onboardingRootForm={onboardingRootForm}
+            initialValues={onboardingRootForm.personalization}
             setOnboardingRootForm={setOnboardingRootForm}
             setIndex={setIndex}
           />
@@ -95,6 +106,7 @@ function Questions({ index, setIndex }: IQuestion) {
           <LocationInfo
             index={index}
             onboardingRootForm={onboardingRootForm}
+            initialValues={onboardingRootForm.locationInfo}
             setOnboardingRootForm={setOnboardingRootForm}
             setIndex={setIndex}
           />
@@ -104,6 +116,7 @@ function Questions({ index, setIndex }: IQuestion) {
           <ContactInfo
             index={index}
             onboardingRootForm={onboardingRootForm}
+            initialValues={onboardingRootForm.contactInfo}
             setOnboardingRootForm={setOnboardingRootForm}
             setIndex={setIndex}
           />
@@ -158,16 +171,23 @@ export default Questions;
 const BasicInfo = ({
   index,
   onboardingRootForm,
+  initialValues = {
+    business: "",
+    gstNo: "",
+    description: "",
+  },
   setOnboardingRootForm,
   setIndex,
-}: IProps) => {
+}: IProps<IBasicForm>) => {
+  const [basicInfo, setBasicInfo] = React.useState<IBasicForm>(initialValues);
+
   const basicInfoSchema = Yup.object({
     business: Yup.string().required("Business name is required"),
-    gstNo: Yup.string(),
+    gstNo: Yup.string().min(15, "GST No should be 15 characters long"),
     description: Yup.string().required("Description is required"),
   });
 
-  const [errors, setErrors] = React.useState<IGenericForm>({
+  const [errors, setErrors] = React.useState<TError>({
     business: null,
     gstNo: null,
     description: null,
@@ -176,26 +196,29 @@ const BasicInfo = ({
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setOnboardingRootForm({
-      ...onboardingRootForm,
-      basicInfo: {
-        ...onboardingRootForm.basicInfo,
-        [e.target.name]: e.target.value,
-      },
+    setBasicInfo({
+      ...basicInfo,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async () => {
     try {
-      await basicInfoSchema.validate(onboardingRootForm.basicInfo, {
+      await basicInfoSchema.validate(basicInfo, {
         abortEarly: false,
       });
       setErrors({});
-      setIndex(index + 1);
-      console.log("Form:", {
-        formData: onboardingRootForm.basicInfo,
+      setOnboardingRootForm({
+        ...onboardingRootForm,
+        basicInfo: {
+          ...basicInfo,
+        },
       });
       setIndex(index < 3 ? index + 1 : 3);
+      console.log("Form:", {
+        basicInfo: basicInfo,
+        formData: onboardingRootForm.basicInfo,
+      });
     } catch (err: unknown) {
       const validationErrors: Record<string, string> = {};
       const firstError = err.inner[0];
@@ -223,7 +246,7 @@ const BasicInfo = ({
             placeholder="e.g. Amul, Nestlé, Tropicana "
             className={cn("2xl:text-lg")}
             name="business"
-            value={onboardingRootForm.basicInfo.business || ""}
+            value={basicInfo.business || ""}
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, business: "" })}
           />
@@ -240,7 +263,7 @@ const BasicInfo = ({
             name="gstNo"
             placeholder="e.g. 22AAAAA0000A1Z5"
             className={cn("2xl:text-lg")}
-            value={onboardingRootForm.basicInfo.gstNo || ""}
+            value={basicInfo.gstNo || ""}
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, gstNo: "" })}
           />
@@ -255,7 +278,7 @@ const BasicInfo = ({
             id="description"
             className="h-40 overflow-y-auto"
             name="description"
-            value={onboardingRootForm.basicInfo.description || ""}
+            value={basicInfo.description || ""}
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, description: "" })}
           />
@@ -286,15 +309,22 @@ const BasicInfo = ({
 const Personalization = ({
   index,
   onboardingRootForm,
+  initialValues = {
+    logo: "",
+    website: "",
+  },
   setOnboardingRootForm,
   setIndex,
-}: IProps) => {
+}: IProps<IPesonlizationForm>) => {
+  const [personalization, setPersonalizatoin] =
+    React.useState<IPesonlizationForm>(initialValues);
+
   const personalizationSchema = Yup.object({
     logo: Yup.string().required("Logo is required"),
     website: Yup.string().required("Website is required"),
   });
 
-  const [errors, setErrors] = React.useState<IGenericForm>({
+  const [errors, setErrors] = React.useState<TError>({
     logo: null,
     website: null,
   });
@@ -302,34 +332,34 @@ const Personalization = ({
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setOnboardingRootForm({
-      ...onboardingRootForm,
-      personalization: {
-        ...onboardingRootForm.personalization,
-        [e.target.name]: e.target.value,
-      },
+    setPersonalizatoin({
+      ...personalization,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleLogoChange = (file: File) => {
-    setOnboardingRootForm({
-      ...onboardingRootForm,
-      personalization: {
-        ...onboardingRootForm.personalization,
-        logo: URL.createObjectURL(file),
-      },
+    setPersonalizatoin({
+      ...personalization,
+      logo: URL.createObjectURL(file),
     });
     setErrors({ ...errors, logo: "" });
   };
 
   const handleSubmit = async () => {
     try {
-      await personalizationSchema.validate(onboardingRootForm.personalization, {
+      await personalizationSchema.validate(personalization, {
         abortEarly: false,
       });
       setErrors({});
       console.log("Form:", {
-        formData: onboardingRootForm.personalization,
+        formData: personalization,
+      });
+      setOnboardingRootForm({
+        ...onboardingRootForm,
+        personalization: {
+          ...personalization,
+        },
       });
       setIndex(index < 3 ? index + 1 : 3);
     } catch (err: unknown) {
@@ -349,7 +379,7 @@ const Personalization = ({
       <div className="space-y-4 py-4">
         <div className="w-full">
           <UploadLogo
-            file={onboardingRootForm.personalization.logo}
+            file={personalization.logo}
             handleChange={handleLogoChange}
             name="logo"
           />
@@ -365,7 +395,7 @@ const Personalization = ({
             placeholder="e.g. https://www.delanki.com"
             className={cn("2xl:text-lg")}
             name="website"
-            value={onboardingRootForm.personalization.website || ""}
+            value={personalization.website || ""}
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, website: "" })}
           />
@@ -402,16 +432,24 @@ const options = [
 const LocationInfo = ({
   index,
   onboardingRootForm,
+  initialValues = {
+    address: "",
+    pinCode: "",
+    country: "",
+  },
   setOnboardingRootForm,
   setIndex,
-}: IProps) => {
+}: IProps<ILocationInfoForm>) => {
+  const [locationInfo, setLocationInfo] =
+    React.useState<ILocationInfoForm>(initialValues);
+
   const locationInfoSchema = Yup.object({
     address: Yup.string().required("Address is required"),
     pinCode: Yup.string().required("Pin code is required"),
     country: Yup.string().required("Country is required"),
   });
 
-  const [errors, setErrors] = React.useState<IGenericForm>({
+  const [errors, setErrors] = React.useState<TError>({
     address: null,
     pinCode: null,
     country: null,
@@ -420,35 +458,35 @@ const LocationInfo = ({
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setOnboardingRootForm({
-      ...onboardingRootForm,
-      locationInfo: {
-        ...onboardingRootForm.locationInfo,
-        [e.target.name]: e.target.value,
-      },
+    setLocationInfo({
+      ...locationInfo,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleCountryChange = (option: Option) => {
     const { value } = option;
-    setOnboardingRootForm({
-      ...onboardingRootForm,
-      locationInfo: {
-        ...onboardingRootForm.locationInfo,
-        country: value,
-      },
+    setLocationInfo({
+      ...locationInfo,
+      country: value,
     });
     setErrors({ ...errors, country: "" });
   };
 
   const handleSubmit = async () => {
     try {
-      await locationInfoSchema.validate(onboardingRootForm.locationInfo, {
+      await locationInfoSchema.validate(locationInfo, {
         abortEarly: false,
       });
       setErrors({});
       console.log("Form:", {
-        formData: onboardingRootForm.locationInfo,
+        formData: locationInfo,
+      });
+      setOnboardingRootForm({
+        ...onboardingRootForm,
+        locationInfo: {
+          ...locationInfo,
+        },
       });
       setIndex(index < 3 ? index + 1 : 3);
     } catch (err: unknown) {
@@ -457,7 +495,7 @@ const LocationInfo = ({
       validationErrors[firstError.path] = firstError.message;
       setErrors(validationErrors);
       console.log("Form:", {
-        formData: onboardingRootForm.locationInfo,
+        formData: locationInfo,
         errors: validationErrors,
       });
     }
@@ -476,7 +514,7 @@ const LocationInfo = ({
             placeholder="e.g. 123 Main St, New Delhi"
             className={cn("2xl:text-lg")}
             name="address"
-            value={onboardingRootForm.locationInfo.address || ""}
+            value={locationInfo.address || ""}
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, address: "" })}
           />
@@ -492,7 +530,7 @@ const LocationInfo = ({
             placeholder="e.g. 110053"
             className={cn("2xl:text-lg")}
             name="pinCode"
-            value={onboardingRootForm.locationInfo.pinCode || ""}
+            value={locationInfo.pinCode || ""}
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, pinCode: "" })}
           />
@@ -503,7 +541,7 @@ const LocationInfo = ({
             Country
           </Label>
           <SearchSelect
-            selectedValue={onboardingRootForm.locationInfo.country || ""}
+            selectedValue={locationInfo.country || ""}
             onChange={handleCountryChange}
             options={options}
           />
@@ -534,9 +572,16 @@ const LocationInfo = ({
 const ContactInfo = ({
   index,
   onboardingRootForm,
+  initialValues = {
+    contactEmail: "",
+    contactNumber: "",
+  },
   setOnboardingRootForm,
   setIndex,
-}: IProps) => {
+}: IProps<IContactInfoForm>) => {
+  const [contactInfo, setContactInfo] =
+    React.useState<IContactInfoForm>(initialValues);
+
   const contactInfoSchema = Yup.object({
     contactEmail: Yup.string().email().required("Email is required"),
     contactNumber: Yup.string()
@@ -547,7 +592,7 @@ const ContactInfo = ({
       .required("Contact number is required"),
   });
 
-  const [errors, setErrors] = React.useState<IGenericForm>({
+  const [errors, setErrors] = React.useState<TError>({
     contactEmail: null,
     contactNumber: null,
   });
@@ -555,24 +600,27 @@ const ContactInfo = ({
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setOnboardingRootForm({
-      ...onboardingRootForm,
-      contactInfo: {
-        ...onboardingRootForm.contactInfo,
-        [e.target.name]: e.target.value,
-      },
+    setContactInfo({
+      ...contactInfo,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async () => {
     try {
-      await contactInfoSchema.validate(onboardingRootForm.contactInfo, {
+      await contactInfoSchema.validate(contactInfo, {
         abortEarly: false,
       });
       setErrors({});
       console.log("Form:", {
-        formData: onboardingRootForm.contactInfo,
+        formData: contactInfo,
         onboardingRootForm,
+      });
+      setOnboardingRootForm({
+        ...onboardingRootForm,
+        contactInfo: {
+          ...contactInfo,
+        },
       });
       setIndex(index < 3 ? index + 1 : 3);
     } catch (err: unknown) {
@@ -600,7 +648,7 @@ const ContactInfo = ({
             placeholder="e.g. contact@delanki.com"
             className={cn("2xl:text-lg")}
             name="contactEmail"
-            value={onboardingRootForm.contactInfo.contactEmail || ""}
+            value={contactInfo.contactEmail || ""}
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, contactEmail: "" })}
           />
@@ -619,7 +667,7 @@ const ContactInfo = ({
             placeholder="e.g. +911234567890"
             className={cn("2xl:text-lg")}
             name="contactNumber"
-            value={onboardingRootForm.contactInfo.contactNumber || ""}
+            value={contactInfo.contactNumber || ""}
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, contactNumber: "" })}
           />

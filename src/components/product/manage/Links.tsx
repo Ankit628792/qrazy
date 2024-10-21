@@ -51,7 +51,9 @@ function Links() {
                 className={`py-5 2xl:text-base ${
                   errors[`links[${i}].url`] ? "border-red-500" : ""
                 }`}
-                onFocus={() => setError(`links[${i}].url`, "")}
+                onFocus={() => {
+                  setError(`links[${i}].url`, "");
+                }}
               />
             </div>
           );

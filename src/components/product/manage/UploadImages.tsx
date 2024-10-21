@@ -30,11 +30,25 @@ function UploadImages() {
     outerRef
   );
 
-  const handleImageChange = (i: number, file: File) => {
+  const handleImageChange = (file: File) => {
+    const updatedImage = {
+      ...image,
+      url: URL.createObjectURL(file),
+      file: file,
+    } as ProductImage;
+    setImage(updatedImage);
+    setError("image.id", "");
+    setError("image.file", "");
+    setError("image.url", "");
+  };
+
+  const handleImagesChange = (i: number, file: File) => {
     let arr = [...images];
     arr[i].url = URL.createObjectURL(file);
     arr[i].file = file;
     setImages(arr);
+    setError(`images[${i}].id`, "");
+    setError(`images[${i}].file`, "");
     setError(`images[${i}].url`, "");
   };
   return (
@@ -50,12 +64,7 @@ function UploadImages() {
         <div className="w-full aspect-square overflow-hidden bg-gray-100 dark:bg-zinc-900 rounded-lg grid place-items-center">
           <FileUploader
             handleChange={(file: File) => {
-              const updatedImage = {
-                ...image,
-                url: URL.createObjectURL(file),
-                file: file,
-              } as ProductImage;
-              setImage(updatedImage);
+              handleImageChange(file);
             }}
             name="logo"
             types={["jpg", "JPG", "png", "PNG", "jpeg", "JPEG"]}
@@ -78,7 +87,18 @@ function UploadImages() {
               </>
             }
           />
-          {errors["image.url"] && <Error error={errors["image.url"]} />}
+          {(errors["image.url"] ||
+            errors["image.file"] ||
+            errors["image.id"]) && (
+            <Error
+              error={
+                errors["image.id"] ||
+                errors["image.file"] ||
+                errors["image.url"] ||
+                "Image is required"
+              }
+            />
+          )}
         </div>
       </div>
       <div
@@ -90,7 +110,7 @@ function UploadImages() {
         {images.map((image, i) => (
           <div key={i} className="flex flex-col">
             <FileUploader
-              handleChange={(file: File) => handleImageChange(i, file)}
+              handleChange={(file: File) => handleImagesChange(i, file)}
               name="logo"
               types={["jpg", "JPG", "png", "PNG", "jpeg", "JPEG"]}
               children={
@@ -112,8 +132,17 @@ function UploadImages() {
                 </>
               }
             />
-            {errors[`images[${i}].url`] && (
-              <Error error={errors[`images[${i}].url`] || ""} />
+            {(errors[`images[${i}].id`] ||
+              errors[`images[${i}].file`] ||
+              errors[`images[${i}].url`]) && (
+              <Error
+                error={
+                  errors[`images[${i}].id`] ||
+                  errors[`images[${i}].file`] ||
+                  errors[`images[${i}].url`] ||
+                  "Image is required"
+                }
+              />
             )}
           </div>
         ))}

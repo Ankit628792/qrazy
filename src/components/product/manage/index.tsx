@@ -15,7 +15,9 @@ import * as Yup from "yup";
 const validationSchemaForSaveDraft = Yup.object({
   title: Yup.string().required("Title is required"),
   image: Yup.object({
+    id: Yup.number().required("ID is required"),
     url: Yup.string().required("Image is required"),
+    file: Yup.mixed().required("File is required"),
   }),
 });
 
@@ -26,18 +28,25 @@ const validationSchemaForAddProduct = Yup.object({
   mrl: Yup.number().min(1).required("MRL is required"),
   links: Yup.array().of(
     Yup.object({
+      id: Yup.number().required("ID is required"),
       url: Yup.string().required("URL is required"),
     })
   ),
   category: Yup.object({
+    id: Yup.number().required("ID is required"),
     name: Yup.string().required("Name is required"),
+    description: Yup.string().required("Description is required"),
   }),
   image: Yup.object({
+    id: Yup.number().required("ID is required"),
     url: Yup.string().required("Image is required"),
+    file: Yup.mixed().required("File is required"),
   }),
   images: Yup.array().of(
     Yup.object({
+      id: Yup.number().required("ID is required"),
       url: Yup.string().required("Required"),
+      file: Yup.mixed().required("Required"),
     })
   ),
 });
@@ -45,7 +54,7 @@ const validationSchemaForAddProduct = Yup.object({
 function ManageProduct() {
   const { title, description, mrp, mrl, links, category, image, images } =
     useProductDetailsStore();
-  const { errors, setError } = useProductErrorsStore();
+  const { errors, setError, setEmptyErrors } = useProductErrorsStore();
 
   const handleSaveDraft = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,15 +63,8 @@ function ManageProduct() {
         { title, image },
         { abortEarly: false }
       );
+      setEmptyErrors();
       console.log("Form:", { title, image });
-      setError("title", null);
-      setError("description", null);
-      setError("mrp", null);
-      setError("mrl", null);
-      setError("links", null);
-      setError("category", null);
-      setError("images", null);
-      setError("image", null);
     } catch (err: unknown) {
       console.log("Form:", {
         formData: { title, image },
@@ -82,15 +84,8 @@ function ManageProduct() {
         { title, description, mrp, mrl, links, category, images, image },
         { abortEarly: false }
       );
+      setEmptyErrors();
       console.log("Form:", { title, description, mrp, mrl, links, category });
-      setError("title", null);
-      setError("description", null);
-      setError("mrp", null);
-      setError("mrl", null);
-      setError("links", null);
-      setError("category", null);
-      setError("images", null);
-      setError("image", null);
     } catch (err: unknown) {
       const validationErrors: Record<string, string> = {};
       console.log("Form:", {

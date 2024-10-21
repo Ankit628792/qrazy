@@ -26,6 +26,7 @@ export interface IProductFormErrorsState {
   errors: IError;
 
   setError: (field: keyof IError, errorMessage: string | null) => void;
+  setEmptyErrors: () => void;
 }
 
 const useProductDetailsStore = create<IProductFormDetailsState>((set) => ({
@@ -81,6 +82,19 @@ const useProductErrorsStore = create<IProductFormErrorsState>((set) => ({
       errors: {
         ...state.errors,
         [field]: errorMessage,
+      },
+    })),
+  setEmptyErrors: () =>
+    set((state) => ({
+      errors: {
+        title: null,
+        description: null,
+        mrp: null,
+        mrl: null,
+        links: null,
+        category: null,
+        image: null,
+        images: null,
       },
     })),
 }));

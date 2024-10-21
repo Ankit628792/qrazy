@@ -6,7 +6,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import UploadLogo from "../ak/UploadLogo";
-import SearchSelect from "../ui/search-select";
+import SearchSelect, { Option } from "../ui/search-select";
 import Link from "next/link";
 import * as Yup from "yup";
 import Error from "../ui/error";
@@ -429,8 +429,8 @@ const LocationInfo = ({
     });
   };
 
-  const handleCountryChange = (value: string) => {
-    console.log(value);
+  const handleCountryChange = (option: Option) => {
+    const { value } = option;
     setOnboardingRootForm({
       ...onboardingRootForm,
       locationInfo: {
@@ -503,7 +503,7 @@ const LocationInfo = ({
             Country
           </Label>
           <SearchSelect
-            value={onboardingRootForm.locationInfo.country || ""}
+            selectedValue={onboardingRootForm.locationInfo.country || ""}
             onChange={handleCountryChange}
             options={options}
           />
@@ -572,7 +572,7 @@ const ContactInfo = ({
       setErrors({});
       console.log("Form:", {
         formData: onboardingRootForm.contactInfo,
-        onboardingRootForm
+        onboardingRootForm,
       });
       setIndex(index < 3 ? index + 1 : 3);
     } catch (err: unknown) {

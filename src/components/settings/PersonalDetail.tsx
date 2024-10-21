@@ -7,7 +7,6 @@ import Error from "../ui/error";
 import { useSettingsStore } from "@/store/settings.store";
 
 function PersonalDetail() {
-  const { personalDetailsCard, setPersonalDetailsCard } = useSettingsStore();
   return (
     <div className="flex flex-col gap-3 pt-1 pb-2">
       <div className="px-2 flex items-center justify-between">

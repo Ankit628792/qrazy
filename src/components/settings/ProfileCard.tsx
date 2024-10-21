@@ -1,10 +1,13 @@
 "use client";
 
-import { useSettingsStore } from "@/store/settings.store";
 import { GlobeLock } from "lucide-react";
+import { IProfileCard } from ".";
 
-const ProfileCard = () => {
-  const { profileCard, setProfileCard } = useSettingsStore();
+interface IProfileCardProp {
+  profileCard: IProfileCard;
+}
+
+const ProfileCard = ({ profileCard }: IProfileCardProp) => {
   return (
     <div className="w-full rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm overflow-hidden lg:sticky lg:top-0">
       <div className="h-32 w-full">

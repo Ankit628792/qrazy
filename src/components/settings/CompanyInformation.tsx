@@ -8,8 +8,6 @@ import Error from "../ui/error";
 import { useSettingsStore } from "@/store/settings.store";
 
 function CompanyInformation() {
-  const { companyDetailsCard, setCompanyDetailsCard } = useSettingsStore();
-
   return (
     <div className="flex flex-col gap-3 py-2">
       <div className="px-2 flex items-center justify-between">

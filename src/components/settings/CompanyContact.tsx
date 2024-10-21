@@ -16,8 +16,6 @@ const options = [
 ];
 
 function CompanyContact() {
-  const { companyContactCard, setCompanyContactCard } = useSettingsStore();
-
   const [country, setCountry] = useState<string>("");
 
   return (

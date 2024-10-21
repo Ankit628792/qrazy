@@ -66,13 +66,16 @@ function ManageProduct() {
       setEmptyErrors();
       console.log("Form:", { title, image });
     } catch (err: unknown) {
-      console.log("Form:", {
-        formData: { title, image },
-      });
+      setEmptyErrors();
       const validationErrors: Record<string, string> = {};
       (err as Yup.ValidationError).inner.forEach(async (error) => {
         validationErrors[error.path] = error.message;
-        await setError(error.path as keyof typeof errors, error.message);
+        setError(error.path as keyof typeof errors, error.message);
+      });
+      console.log("Form:", {
+        formData: { title, image },
+        errors: errors,
+        validationErrors,
       });
     }
   };
@@ -95,7 +98,7 @@ function ManageProduct() {
       });
       (err as Yup.ValidationError).inner.forEach(async (error) => {
         validationErrors[error.path] = error.message;
-        await setError(error.path as keyof typeof errors, error.message);
+        setError(error.path as keyof typeof errors, error.message);
       });
     }
   };

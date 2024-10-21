@@ -321,7 +321,7 @@ const Personalization = ({
 
   const personalizationSchema = Yup.object({
     logo: Yup.string().required("Logo is required"),
-    website: Yup.string().required("Website is required"),
+    website: Yup.string().url().required("Website is required"),
   });
 
   const [errors, setErrors] = React.useState<TError>({

@@ -5,7 +5,7 @@ import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import Error from "../ui/error";
 import { IPersonalDetailsCard } from ".";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 interface PersonalDetailProps {
@@ -27,12 +27,26 @@ function PersonalDetail({
 }: PersonalDetailProps) {
   const [personalDetailsForm, setPersonalDetailsForm] =
     useState<IPersonalDetailsCard>(personalDetailsCard);
+  const [idealState, setIdealState] =
+    useState<IPersonalDetailsCard>(personalDetailsCard);
+  const [showSaveButton, setShowSaveButton] = useState<boolean>(false);
 
   const [errors, setErrors] = useState<Record<string, string | null>>({
     firstName: null,
     lastName: null,
     email: null,
   });
+
+  useEffect(() => {
+    if (
+      personalDetailsForm.firstName === idealState.firstName &&
+      personalDetailsForm.lastName === idealState.lastName
+    ) {
+      setShowSaveButton(false);
+    } else {
+      setShowSaveButton(true);
+    }
+  }, [personalDetailsForm]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPersonalDetailsForm({
@@ -60,7 +74,10 @@ function PersonalDetail({
     }
   };
 
-  const handleCancel = () => {};
+  const handleCancel = () => {
+    setPersonalDetailsForm(idealState);
+    setErrors({});
+  };
 
   return (
     <div className="flex flex-col gap-3 pt-1 pb-2">
@@ -69,7 +86,7 @@ function PersonalDetail({
         <SaveOptions
           onSave={() => handleSave()}
           onCancel={() => handleCancel()}
-          visible={true}
+          visible={showSaveButton}
         />
       </div>
       <div className="bg-white dark:bg-black p-4 rounded-2xl flex flex-col gap-2">

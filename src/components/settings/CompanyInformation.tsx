@@ -7,7 +7,7 @@ import SaveOptions from "../ak/SaveOptions";
 import Error from "../ui/error";
 import { ICompanyDetailsCard } from ".";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ICompanyInformation {
   companyDetailsCard: ICompanyDetailsCard;
@@ -32,6 +32,9 @@ function CompanyInformation({
 }: ICompanyInformation) {
   const [companyDetailsForm, setCompanyDetailsForm] =
     useState<ICompanyDetailsCard>(companyDetailsCard);
+  const [idealState, setIdealState] =
+    useState<ICompanyDetailsCard>(companyDetailsCard);
+  const [showSaveButton, setShowSaveButton] = useState<boolean>(false);
 
   const [errors, setErrors] = useState<Record<string, string | null>>({
     bussinessName: null,
@@ -39,6 +42,19 @@ function CompanyInformation({
     aboutYourCompany: null,
     companyURL: null,
   });
+
+  useEffect(() => {
+    if (
+      companyDetailsForm.bussinessName === idealState.bussinessName &&
+      companyDetailsForm.gstNumber === idealState.gstNumber &&
+      companyDetailsForm.aboutYourCompany === idealState.aboutYourCompany &&
+      companyDetailsForm.companyURL === idealState.companyURL
+    ) {
+      setShowSaveButton(false);
+    } else {
+      setShowSaveButton(true);
+    }
+  }, [companyDetailsForm]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -68,7 +84,10 @@ function CompanyInformation({
     }
   };
 
-  const handleCancel = () => {};
+  const handleCancel = () => {
+    setCompanyDetailsForm(idealState);
+    setErrors({});
+  };
   return (
     <div className="flex flex-col gap-3 py-2">
       <div className="px-2 flex items-center justify-between">
@@ -76,7 +95,7 @@ function CompanyInformation({
         <SaveOptions
           onSave={() => handleSave()}
           onCancel={() => handleCancel()}
-          visible={true}
+          visible={showSaveButton}
         />
       </div>
       <div className="bg-white dark:bg-black p-4 rounded-2xl flex flex-col gap-2">

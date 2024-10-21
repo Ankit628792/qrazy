@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import SearchSelect, { Option } from "../ui/search-select";
@@ -42,6 +42,9 @@ function CompanyContact({
   const [companyContactForm, setCompanyContactForm] =
     useState<ICompanyContactCard>(companyContactCard);
   const [country, setCountry] = useState<string>("");
+  const [idealState, setIdealState] =
+    useState<ICompanyContactCard>(companyContactCard);
+  const [showSaveButton, setShowSaveButton] = useState<boolean>(false);
 
   const [errors, setErrors] = useState<Record<string, string | null>>({
     address: null,
@@ -50,6 +53,20 @@ function CompanyContact({
     contactEmail: null,
     contactNumber: null,
   });
+
+  useEffect(() => {
+    if (
+      companyContactForm.address === idealState.address &&
+      companyContactForm.pinCode === idealState.pinCode &&
+      companyContactForm.country === idealState.country &&
+      companyContactForm.contactEmail === idealState.contactEmail &&
+      companyContactForm.contactNumber === idealState.contactNumber
+    ) {
+      setShowSaveButton(false);
+    } else {
+      setShowSaveButton(true);
+    }
+  }, [companyContactForm]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompanyContactForm({
@@ -86,14 +103,17 @@ function CompanyContact({
     }
   };
 
-  const handleCancel = () => {};
+  const handleCancel = () => {
+    setCompanyContactForm(idealState);
+    setErrors({});
+  };
 
   return (
     <div className="flex flex-col gap-3 pt-2">
       <div className="px-2 flex items-center justify-between">
         <h1 className="font-medium -mb-2">Company Contact</h1>
         <SaveOptions
-          visible
+          visible={showSaveButton}
           onSave={() => handleSave()}
           onCancel={handleCancel}
         />

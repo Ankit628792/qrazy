@@ -14,14 +14,8 @@ export interface IProfileCard {
   companyURL: string;
 }
 
-export interface IResetPasswordCard {
-  currentPassword: string;
-  newPassword: string;
-  confirmPassword: string;
-}
-
 export interface IPersonalDetailsCard {
-  fullName: string;
+  firstName: string;
   lastName: string;
   email: string;
 }
@@ -43,7 +37,6 @@ export interface ICompanyContactCard {
 
 export interface ISettingsState {
   profileCard: IProfileCard;
-  resetPasswordCard: IResetPasswordCard;
   personalDetailsCard: IPersonalDetailsCard;
   companyDetailsCard: ICompanyDetailsCard;
   companyContactCard: ICompanyContactCard;
@@ -58,13 +51,8 @@ function Settings() {
       location: "United States of America & Atlanta",
       companyURL: "www.delanki.com",
     },
-    resetPasswordCard: {
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    },
     personalDetailsCard: {
-      fullName: "Ankit",
+      firstName: "Ankit",
       lastName: "Kumar",
       email: "ankit@gmail.com",
     },
@@ -89,9 +77,15 @@ function Settings() {
         <ResetPassword />
       </div>
       <div className="flex-grow flex flex-col gap-2 rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm p-3">
-        <PersonalDetail />
-        <CompanyInformation />
-        <CompanyContact />
+        <PersonalDetail
+          personalDetailsCard={rootLevelState.personalDetailsCard}
+        />
+        <CompanyInformation
+          companyDetailsCard={rootLevelState.companyDetailsCard}
+        />
+        <CompanyContact
+          companyContactCard={rootLevelState.companyContactCard}
+        />
       </div>
     </section>
   );

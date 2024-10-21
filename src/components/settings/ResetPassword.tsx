@@ -4,7 +4,6 @@ import React from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useSettingsStore } from "@/store/settings.store";
 
 const ResetPassword = () => {
   return (

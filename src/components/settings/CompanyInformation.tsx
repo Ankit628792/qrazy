@@ -5,9 +5,23 @@ import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import SaveOptions from "../ak/SaveOptions";
 import Error from "../ui/error";
-import { useSettingsStore } from "@/store/settings.store";
+import { ICompanyDetailsCard } from ".";
+import { useState } from "react";
 
-function CompanyInformation() {
+interface ICompanyInformation {
+  companyDetailsCard: ICompanyDetailsCard;
+}
+
+function CompanyInformation({
+  companyDetailsCard = {
+    bussinessName: "",
+    gstNumber: "",
+    aboutYourCompany: "",
+    companyURL: "",
+  },
+}: ICompanyInformation) {
+  const [companyDetailsForm, setCompanyDetailsForm] =
+    useState<ICompanyDetailsCard>(companyDetailsCard);
   return (
     <div className="flex flex-col gap-3 py-2">
       <div className="px-2 flex items-center justify-between">

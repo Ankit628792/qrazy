@@ -4,9 +4,22 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import Error from "../ui/error";
-import { useSettingsStore } from "@/store/settings.store";
+import { IPersonalDetailsCard } from ".";
+import { useState } from "react";
 
-function PersonalDetail() {
+interface PersonalDetailProps {
+  personalDetailsCard: IPersonalDetailsCard;
+}
+
+function PersonalDetail({
+  personalDetailsCard = {
+    firstName: "",
+    lastName: "",
+    email: "",
+  },
+}: PersonalDetailProps) {
+  const [personalDetailsForm, setPersonalDetailsForm] =
+    useState<IPersonalDetailsCard>(personalDetailsCard);
   return (
     <div className="flex flex-col gap-3 pt-1 pb-2">
       <div className="px-2 flex items-center justify-between">

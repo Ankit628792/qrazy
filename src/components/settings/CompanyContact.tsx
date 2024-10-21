@@ -7,7 +7,7 @@ import SearchSelect from "../ui/search-select";
 import SaveOptions from "../ak/SaveOptions";
 import { cn } from "@/lib/utils";
 import Error from "../ui/error";
-import { useSettingsStore } from "@/store/settings.store";
+import { ICompanyContactCard } from ".";
 
 const options = [
   { id: 1, value: "1", label: "Option 1" },
@@ -15,7 +15,21 @@ const options = [
   { id: 3, value: "3", label: "Option 3" },
 ];
 
-function CompanyContact() {
+interface ICompanyDetailsCard {
+  companyContactCard: ICompanyContactCard;
+}
+
+function CompanyContact({
+  companyContactCard = {
+    address: "",
+    pinCode: "",
+    country: "",
+    contactEmail: "",
+    contactNumber: "",
+  },
+}: ICompanyDetailsCard) {
+  const [companyContactForm, setCompanyContactForm] =
+    useState<ICompanyContactCard>(companyContactCard);
   const [country, setCountry] = useState<string>("");
 
   return (

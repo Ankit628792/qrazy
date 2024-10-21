@@ -57,17 +57,17 @@ function Settings() {
       email: "ankit@gmail.com",
     },
     companyDetailsCard: {
-      bussinessName: "",
-      gstNumber: "",
-      aboutYourCompany: "",
-      companyURL: "",
+      bussinessName: "Delanki India",
+      gstNumber: "1234512345",
+      aboutYourCompany: "Create a beautiful website for your business.",
+      companyURL: "google.com",
     },
     companyContactCard: {
-      address: "",
-      pinCode: "",
-      country: "",
-      contactEmail: "",
-      contactNumber: "",
+      address: "Delanki India",
+      pinCode: "110053",
+      country: "India",
+      contactEmail: "test@gmail.com",
+      contactNumber: "+918787676545",
     },
   });
   return (

@@ -22,8 +22,8 @@ function Page() {
 
 
     return (
-        <section className=''>
-            <div className=' py-5 px-3 sticky -mt-3 -top-3 bg-white bg-opacity-10 dark:bg-zinc-900 dark:bg-opacity-10 backdrop-blur-md rounded-bl-xl rounded-br-xl z-10'>
+        <section>
+            <div className='py-5 px-3 sticky -mt-3 -top-3 bg-white bg-opacity-10 dark:bg-zinc-900 dark:bg-opacity-10 backdrop-blur-md rounded-bl-xl rounded-br-xl z-10'>
                 <h1 className='text-2xl lg:text-3xl font-semibold pb-3'>Products Listing</h1>
                 <div className='w-full flex items-center gap-2'>
                     <form className="flex-1 relative">

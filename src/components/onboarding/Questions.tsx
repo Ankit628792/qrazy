@@ -108,7 +108,7 @@ const options = [
 ];
 
 const LocationInfo = () => {
-    const [country, setCountry] = React.useState<string>('');
+    const [country, setCountry] = React.useState<Option | null>();
     return (
         <div className='space-y-4 py-4'>
             <div className='w-full'>
@@ -121,7 +121,7 @@ const LocationInfo = () => {
             </div>
             <div className='w-full'>
                 <Label htmlFor='location' className='text-base'>Country</Label>
-                <SearchSelect value={country} onChange={setCountry} options={options} />
+                <SearchSelect selectedValue={country?.value} onChange={(e) => setCountry(e)} options={options} />
             </div>
         </div>
     )

@@ -1,24 +1,27 @@
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from './select';
 import { Input } from './input';
+import { useState } from 'react';
 
-type Option = {
-    label: string;
-    value: string;
-    id: string | number;
-}
-
-const SearchSelect = ({ options, value, onChange }: {
+const SearchSelect = ({ options, selectedValue, onChange }: {
     options: Option[];
-    value: string;
-    onChange: (value: string) => void;
+    selectedValue?: string;
+    onChange: (value: Option) => void;
 }) => {
+
+    const [value, setValue] = useState(selectedValue || "")
 
     const filteredOptions = options.filter((option: Option) =>
         option.label.toLowerCase().includes(value.toLowerCase())
     );
 
     return (
-        <Select>
+        <Select defaultValue={selectedValue}
+            value={selectedValue}
+            onValueChange={(id) => {
+                let option = options.find((item: Option) => id === item.id.toString()) as Option
+                setValue(option.value || "")
+                onChange(option)
+            }}>
             <SelectTrigger>
                 <SelectValue placeholder="Select an option" />
             </SelectTrigger>
@@ -26,7 +29,7 @@ const SearchSelect = ({ options, value, onChange }: {
                 <Input
                     placeholder="Search..."
                     value={value}
-                    onChange={(e) => onChange(e.target.value)}
+                    onChange={(e) => setValue(e.target.value)}
                     className="mb-2"
                 />
                 {filteredOptions.map((option: Option) => (
@@ -40,3 +43,4 @@ const SearchSelect = ({ options, value, onChange }: {
 };
 
 export default SearchSelect;
+

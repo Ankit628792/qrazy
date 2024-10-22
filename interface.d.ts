@@ -1,3 +1,19 @@
+interface Option {
+    label: string;
+    value: string;
+    id: string | number;
+}
+
+type ID = {
+    id: string | number;
+}
+
+type ProductOption = {
+    id: string | number,
+    title: string,
+    category: string,
+    image: string,
+}
 
 interface ProductLink {
     id: number | string,
@@ -25,8 +41,8 @@ interface Product {
     image: ProductImage,
     images: Array<ProductImage>,
     status: "active" | "inactive" | "draft",
-    created_at: Date,
-    updated_at: Date,
+    created_at: Date | string,
+    updated_at: Date | string,
 
     // additional fields
     region: string,

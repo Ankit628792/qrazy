@@ -130,7 +130,7 @@ function CompanyContact({
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, address: "" })}
           />
-          {errors.address && <Error error={errors.address} />}
+          <Error error={errors.address} />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="w-full">
@@ -144,7 +144,7 @@ function CompanyContact({
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, pinCode: "" })}
             />
-            {errors.pinCode && <Error error={errors.pinCode} />}
+            <Error error={errors.pinCode} />
           </div>
           <div className="w-full">
             <Label htmlFor="location">Country</Label>
@@ -153,7 +153,7 @@ function CompanyContact({
               options={options}
               onChange={handleSelect}
             />
-            {errors.country && <Error error={errors.country} />}
+            <Error error={errors.country} />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -168,7 +168,7 @@ function CompanyContact({
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, contactEmail: "" })}
             />
-            {errors.contactEmail && <Error error={errors.contactEmail} />}
+            <Error error={errors.contactEmail} />
           </div>
           <div className="w-full">
             <Label htmlFor="contactNumber">
@@ -186,7 +186,7 @@ function CompanyContact({
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, contactNumber: "" })}
             />
-            {errors.contactNumber && <Error error={errors.contactNumber} />}
+            <Error error={errors.contactNumber} />
           </div>
         </div>
       </div>

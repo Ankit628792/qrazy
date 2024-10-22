@@ -33,7 +33,7 @@ function Pricing() {
               }}
               onFocus={() => setError("mrp", "")}
             />
-            {errors.mrp && <Error error={errors.mrp} />}
+             <Error error={errors.mrp} />
           </div>
           <div className="w-full">
             <Label htmlFor="mrl">Maximum Reward Limit</Label>
@@ -49,7 +49,7 @@ function Pricing() {
               }}
               onFocus={() => setError("mrl", "")}
             />
-            {errors.mrl && <Error error={errors.mrl} />}
+            <Error error={errors.mrl} />
           </div>
         </div>
       </div>

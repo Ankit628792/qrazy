@@ -107,7 +107,7 @@ const AddCategory = ({
               name="name"
               onFocus={() => setErrors({ ...errors, name: "" })}
             />
-            {errors.name && <Error error={errors.name} />}
+             <Error error={errors.name} />
           </div>
           <div className="w-full">
             <Label htmlFor="description" className="sm:text-lg">
@@ -122,7 +122,7 @@ const AddCategory = ({
               name="description"
               onFocus={() => setErrors({ ...errors, description: "" })}
             />
-            {errors.description && <Error error={errors.description} />}
+ <Error error={errors.description} />
           </div>
         </CardContent>
         <CardFooter className="pt-8">

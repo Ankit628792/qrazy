@@ -102,7 +102,7 @@ function PersonalDetail({
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, firstName: "" })}
             />
-            {errors.firstName && <Error error={errors.firstName} />}
+            <Error error={errors.firstName} />
           </div>
           <div className="w-full">
             <Label htmlFor="lName">Last Name</Label>
@@ -115,7 +115,7 @@ function PersonalDetail({
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, lastName: "" })}
             />
-            {errors.lastName && <Error error={errors.lastName} />}
+            <Error error={errors.lastName} />
           </div>
         </div>
         <div className="w-full">
@@ -130,7 +130,7 @@ function PersonalDetail({
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, email: "" })}
           />
-          {errors.email && <Error error={errors.email} />}
+          <Error error={errors.email} />
         </div>
       </div>
     </div>

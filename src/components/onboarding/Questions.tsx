@@ -250,7 +250,7 @@ const BasicInfo = ({
                         onChange={handleChange}
                         onFocus={() => setErrors({ ...errors, business: "" })}
                     />
-                    {errors.business && <Error error={errors.business} />}
+                      <Error error={errors.business} />
                 </div>
                 <div className="w-full">
                     <Label htmlFor="lastName" className="text-base">
@@ -267,7 +267,7 @@ const BasicInfo = ({
                         onChange={handleChange}
                         onFocus={() => setErrors({ ...errors, gstNo: "" })}
                     />
-                    {errors.gstNo && <Error error={errors.gstNo} />}
+                    <Error error={errors.gstNo} />
                 </div>
                 <div className="grid w-full gap-1.5">
                     <Label htmlFor="description" className="text-base">
@@ -282,7 +282,7 @@ const BasicInfo = ({
                         onChange={handleChange}
                         onFocus={() => setErrors({ ...errors, description: "" })}
                     />
-                    {errors.description && <Error error={errors.description} />}
+                    <Error error={errors.description} />
                 </div>
             </div>
             <div className="flex items-center gap-10">
@@ -383,7 +383,7 @@ const Personalization = ({
                         handleChange={handleLogoChange}
                         name="logo"
                     />
-                    {errors.logo && <Error error={errors.logo} />}
+                    <Error error={errors.logo} />
                 </div>
                 <div className="w-full">
                     <Label htmlFor="website" className="text-base">
@@ -399,7 +399,7 @@ const Personalization = ({
                         onChange={handleChange}
                         onFocus={() => setErrors({ ...errors, website: "" })}
                     />
-                    {errors.website && <Error error={errors.website} />}
+                     <Error error={errors.website} />
                 </div>
             </div>
             <div className="flex items-center gap-10">
@@ -518,7 +518,7 @@ const LocationInfo = ({
                         onChange={handleChange}
                         onFocus={() => setErrors({ ...errors, address: "" })}
                     />
-                    {errors.address && <Error error={errors.address} />}
+                     <Error error={errors.address} />
                 </div>
                 <div className="w-full">
                     <Label htmlFor="pinCode" className="text-base">
@@ -534,7 +534,7 @@ const LocationInfo = ({
                         onChange={handleChange}
                         onFocus={() => setErrors({ ...errors, pinCode: "" })}
                     />
-                    {errors.pinCode && <Error error={errors.pinCode} />}
+                    <Error error={errors.pinCode} />
                 </div>
                 <div className="w-full">
                     <Label htmlFor="location" className="text-base">
@@ -545,7 +545,7 @@ const LocationInfo = ({
                         onChange={handleCountryChange}
                         options={options}
                     />
-                    {errors.country && <Error error={errors.country} />}
+                    <Error error={errors.country} />
                 </div>
             </div>
             <div className="flex items-center gap-10">
@@ -652,7 +652,7 @@ const ContactInfo = ({
                         onChange={handleChange}
                         onFocus={() => setErrors({ ...errors, contactEmail: "" })}
                     />
-                    {errors.contactEmail && <Error error={errors.contactEmail} />}
+<Error error={errors.contactEmail} />
                 </div>
                 <div className="w-full">
                     <Label htmlFor="contactNumber" className="text-base">
@@ -672,7 +672,7 @@ const ContactInfo = ({
                         onFocus={() => setErrors({ ...errors, contactNumber: "" })}
                     />
                     <p className="text-xs italic">* Please include country code</p>
-                    {errors.contactNumber && <Error error={errors.contactNumber} />}
+                     <Error error={errors.contactNumber} />
                 </div>
             </div>
             <div className="flex items-center gap-10">

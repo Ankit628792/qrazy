@@ -80,7 +80,7 @@ const ResetPassword = () => {
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, currentPassword: "" })}
           />
-          {errors.currentPassword && <Error error={errors.currentPassword} />}
+          <Error error={errors.currentPassword} />
         </div>
         <div>
           <Label htmlFor="newPassword">New Password</Label>
@@ -93,7 +93,7 @@ const ResetPassword = () => {
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, newPassword: "" })}
           />
-          {errors.newPassword && <Error error={errors.newPassword} />}
+          <Error error={errors.newPassword} />
         </div>
         <div>
           <Label htmlFor="confirmPassword">Re-enter Password</Label>

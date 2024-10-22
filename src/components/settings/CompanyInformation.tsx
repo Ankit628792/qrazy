@@ -112,7 +112,7 @@ function CompanyInformation({
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, bussinessName: "" })}
             />
-            {errors.bussinessName && <Error error={errors.bussinessName} />}
+            <Error error={errors.bussinessName} />
           </div>
           <div className="w-full">
             <Label htmlFor="lastName">
@@ -131,7 +131,7 @@ function CompanyInformation({
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, gstNumber: "" })}
             />
-            {errors.gstNumber && <Error error={errors.gstNumber} />}
+            <Error error={errors.gstNumber} />
           </div>
         </div>
         <div className="grid w-full gap-1.5">
@@ -145,7 +145,7 @@ function CompanyInformation({
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, aboutYourCompany: "" })}
           />
-          {errors.aboutYourCompany && <Error error={errors.aboutYourCompany} />}
+          <Error error={errors.aboutYourCompany} />
         </div>
         <div className="w-full">
           <Label htmlFor="website">Company Website</Label>
@@ -159,7 +159,7 @@ function CompanyInformation({
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, companyURL: "" })}
           />
-          {errors.companyURL && <Error error={errors.companyURL} />}
+          <Error error={errors.companyURL} />
         </div>
       </div>
     </div>

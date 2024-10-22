@@ -11,6 +11,7 @@ import Link from "next/link";
 import * as Yup from "yup";
 import Error from "../ui/error";
 import { gstRegex } from "../settings/CompanyInformation";
+import toast from "react-hot-toast";
 
 type TError = Record<string, string | null>;
 
@@ -345,6 +346,13 @@ const Personalization = ({
   };
 
   const handleLogoChange = (file: File) => {
+    if (file.size > 2 * 1024 * 1024) {
+      // Example: Check if file size exceeds 2MB
+      toast.error("File size should be less than 2MB");  
+      setErrors({ ...errors, logo: "" });
+      return;
+    }
+
     setPersonalizatoin({
       ...personalization,
       logo: URL.createObjectURL(file),

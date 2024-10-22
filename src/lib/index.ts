@@ -114,7 +114,7 @@ export const useClickOutside = (handler: any, ref: any, outerRef?: any) => {
 };
 
 
-export default function useDebounce(value: any, delay = 300) {
+export function useDebounce(value: any, delay = 300) {
     const [debouncedValue, setDebouncedValue] = useState(value);
 
     useEffect(() => {
@@ -128,6 +128,24 @@ export default function useDebounce(value: any, delay = 300) {
 
     return debouncedValue;
 }
+
+export function useDebouncedFunction<T>(value: T, delay: number, callback: (debouncedValue: T) => void) {
+    const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
+            callback(value);
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [value, delay, callback]);
+
+    return debouncedValue;
+}
+
 
 
 export const fetchLocation = async (loc: string) => {

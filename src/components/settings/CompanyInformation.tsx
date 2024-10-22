@@ -9,16 +9,22 @@ import { ICompanyDetailsCard } from ".";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 
+export const gstRegex =
+  /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[Z]{1}[A-Z0-9]{1}$/;
+
 interface ICompanyInformation {
   companyDetailsCard: ICompanyDetailsCard;
 }
 
 const companyDetailsSchema = Yup.object({
   bussinessName: Yup.string().required("Business Name is required"),
-  gstNumber: Yup.string().optional(),
+  gstNumber: Yup.string().optional().matches(gstRegex, "Invalid GST Number"),
   aboutYourCompany: Yup.string().required("About your company is required"),
   companyURL: Yup.string()
-    .url("Invalid URL")
+    .matches(
+      /^(https:\/\/|www\.)[a-zA-Z0-9-_.]+(\.[a-zA-Z]{2,})+.*$/,
+      "Please enter a valid URL"
+    )
     .required("Company URL is required"),
 });
 

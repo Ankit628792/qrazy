@@ -18,7 +18,8 @@ const validationSchema = Yup.object({
     .required("Email is required"),
   password: Yup.string()
     .required("Password is required")
-    .min(6, "Password must be at least 6 characters long"),
+    .min(6, "Password must be at least 6 characters long")
+    .matches(/^\S*$/, "Password cannot contain spaces"),
 });
 
 function Login() {

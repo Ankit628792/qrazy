@@ -27,7 +27,17 @@ const companyContactSchema = Yup.object({
   contactEmail: Yup.string()
     .email("Invalid email")
     .required("Email is required"),
-  contactNumber: Yup.string().required("Contact Number is required"),
+    contactNumber: Yup.string()
+    .test('starts-with-plus', 'Contact number must start with +', (value) => {
+      return value && value.startsWith('+'); // Ensure the number starts with "+"
+    })
+    .test('valid-length', 'Contact number must be between 7 and 15 digits long', (value) => {
+      return value && value.length >= 7 && value.length <= 15; // Ensure the length is between 7-15 digits
+    })
+    .test('only-digits-after-plus', 'Contact number should contain only digits after +', (value) => {
+      return /^[+][0-9]+$/.test(value); // Ensure only digits follow after "+"
+    })
+    .required("Contact number is required"),
 });
 
 function CompanyContact({
@@ -127,6 +137,7 @@ function CompanyContact({
             placeholder="e.g. 123 Main St, New Delhi"
             className={cn("2xl:text-lg")}
             value={companyContactForm.address}
+            name="address"
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, address: "" })}
           />
@@ -140,6 +151,7 @@ function CompanyContact({
               id="pinCode"
               placeholder="e.g. 110053"
               className={cn("2xl:text-lg")}
+              name="pinCode"
               value={companyContactForm.pinCode}
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, pinCode: "" })}
@@ -164,6 +176,7 @@ function CompanyContact({
               id="contactEmail"
               placeholder="e.g. contact@delanki.com"
               className={cn("2xl:text-lg")}
+              name="contactEmail"
               value={companyContactForm.contactEmail}
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, contactEmail: "" })}
@@ -182,6 +195,7 @@ function CompanyContact({
               id="contactNumber"
               placeholder="e.g. +911234567890"
               className={cn("2xl:text-lg")}
+              name="contactNumber"
               value={companyContactForm.contactNumber}
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, contactNumber: "" })}

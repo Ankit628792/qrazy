@@ -27,7 +27,10 @@ const validationSchemaForAddProduct = Yup.object({
   links: Yup.array().of(
     Yup.object({
       id: Yup.number().required("ID is required"),
-      url: Yup.string().required("URL is required"),
+      url: Yup.string().matches(
+        /^(https:\/\/|www\.)[a-zA-Z0-9-_.]+(\.[a-zA-Z]{2,})+.*$/,
+        "Please enter a valid URL"
+      ).required("URL is required"),
     })
   ),
   category: Yup.object({

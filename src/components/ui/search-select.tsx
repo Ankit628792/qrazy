@@ -1,27 +1,47 @@
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from './select';
-import { Input } from './input';
-import { useState } from 'react';
+import {
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectItem,
+} from "./select";
+import { Input } from "./input";
+import { useState } from "react";
 
-const SearchSelect = ({ options, selectedValue, onChange }: {
+export type Option = {
+    label: string;
+    value: string;
+    id: string | number;
+};
+
+const SearchSelect = ({
+    options,
+    selectedValue,
+    onChange,
+}: {
     options: Option[];
     selectedValue?: string;
-    onChange: (value: Option) => void;
+    onChange: (option: Option) => void;
 }) => {
-
-    const [value, setValue] = useState(selectedValue || "")
+    const [value, setValue] = useState(selectedValue || "");
 
     const filteredOptions = options.filter((option: Option) =>
         option.label.toLowerCase().includes(value.toLowerCase())
     );
 
     return (
-        <Select defaultValue={selectedValue}
+        <Select
+            defaultValue={selectedValue}
             value={selectedValue}
             onValueChange={(id) => {
-                let option = options.find((item: Option) => id === item.id.toString()) as Option
-                setValue(option.value || "")
-                onChange(option)
-            }}>
+                const option = options.find(
+                    (item: Option) => id === item.id.toString()
+                ) as Option;
+                setValue(option.value || "");
+                onChange(option);
+            }}
+        >
+            {" "}
             <SelectTrigger>
                 <SelectValue placeholder="Select an option" />
             </SelectTrigger>

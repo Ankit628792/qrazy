@@ -1,15 +1,21 @@
-import { ChangeEvent, useState } from "react";
-import { Select, SelectContent, SelectItem, SelectJSXItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Input } from "../ui/input";
+import { ChangeEvent, useEffect, useState } from "react";
+import { Select, SelectContent, SelectJSXItem, SelectTrigger, SelectValue } from "../../ui/select";
+import { Input } from "../../ui/input";
 import ProductCard from "./ProductCard";
 
-export const ProductSearchSelect = ({ options, product, onChange }: {
+export const ProductSearchSelect = ({ options, product, onChange, placeholder }: {
     options: Product[];
-    product: Product | undefined;
+    product: Product | undefined | null;
     onChange: (product: Product) => void;
+    placeholder?: string
 }) => {
 
     const [value, setValue] = useState(product?.title || "")
+
+    useEffect(() => {
+        setValue(product?.title || "")
+    }, [product])
+
     const filteredOptions = options.filter((option: Product) => {
         if (value) {
             return option.title.toLowerCase().includes(value.toLowerCase()) || option.category.name.toLowerCase().includes(value.toLowerCase())
@@ -21,7 +27,6 @@ export const ProductSearchSelect = ({ options, product, onChange }: {
             value={product?.id?.toString()}
             onValueChange={(id) => {
                 let product = options.find((product: Product) => id === product.id.toString()) as Product
-                setValue(product.title || "")
                 onChange(product)
             }}
         >
@@ -30,8 +35,7 @@ export const ProductSearchSelect = ({ options, product, onChange }: {
                     value ?
                         value
                         :
-
-                        <SelectValue placeholder="Select an option" />
+                        <SelectValue placeholder={placeholder || "Select an option"} />
                 }
             </SelectTrigger>
             <SelectContent>

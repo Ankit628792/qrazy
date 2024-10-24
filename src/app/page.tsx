@@ -8,9 +8,10 @@ const routes = [
   "/forgot-password",
   "/reset-password",
   "/verify",
-  "/products",
+  "/onboarding",
   "/settings",
-  "/onboarding"
+  "/products",
+  "/qrs"
 ]
 
 function Page() {

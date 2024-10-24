@@ -1,15 +1,18 @@
+'use client'
 import React from 'react'
 import ToggleTheme from '../ak/ToggleTheme'
 import Avatar from '../ui/avatar'
 import { ChevronLeft, LogOut } from 'lucide-react'
 import Tooltip from '../ui/tooltip'
+import { useRouter } from 'next/navigation'
 
 function Sidebar() {
+    const router = useRouter()
     return (
         <aside className='hidden sm:flex flex-col py-5 items-center justify-between pt-28'>
             <div>
                 <Tooltip title='Go Back'>
-                    <Avatar fallback={<ChevronLeft />} />
+                    <Avatar onClick={() => router.back()} fallback={<ChevronLeft />} />
                 </Tooltip>
             </div>
             <div className='flex flex-col gap-4 justify-end'>

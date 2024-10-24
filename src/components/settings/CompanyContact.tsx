@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import SearchSelect, { Option } from "../ui/search-select";
+import SearchSelect from "../ui/search-select";
 import SaveOptions from "../ak/SaveOptions";
 import { cn } from "@/lib/utils";
 import Error from "../ui/error";
@@ -27,7 +27,7 @@ const companyContactSchema = Yup.object({
   contactEmail: Yup.string()
     .email("Invalid email")
     .required("Email is required"),
-    contactNumber: Yup.string()
+  contactNumber: Yup.string()
     .test('starts-with-plus', 'Contact number must start with +', (value) => {
       return value && value.startsWith('+'); // Ensure the number starts with "+"
     })

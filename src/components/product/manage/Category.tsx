@@ -2,7 +2,7 @@ import SaveOptions from "@/components/ak/SaveOptions";
 import { Button } from "@/components/ui/button";
 import Error from "@/components/ui/error";
 import { Label } from "@/components/ui/label";
-import SearchSelect, { Option } from "@/components/ui/search-select";
+import SearchSelect from "@/components/ui/search-select";
 import { useState } from "react";
 import AddCategory from "./AddCategory";
 import {

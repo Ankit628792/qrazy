@@ -48,3 +48,9 @@ interface Product {
     region: string,
     scans: number
 }
+
+interface Option {
+    label: string;
+    value: string;
+    id: string | number;
+};

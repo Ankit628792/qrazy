@@ -1,8 +1,9 @@
-import React from 'react'
+import QRInvoice from '@/components/qrs'
 
 function QRs() {
+
     return (
-        <div>QRs</div>
+        <QRInvoice />
     )
 }
 

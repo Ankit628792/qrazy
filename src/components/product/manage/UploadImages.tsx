@@ -58,7 +58,7 @@ function UploadImages() {
     >
       <div className="px-2 flex items-center justify-between">
         <h1 className="input-wrapper-title">Upload Images</h1>
-        <SaveOptions onSave={() => { }} onCancel={() => { }} />
+        <SaveOptions onSave={() => {}} onCancel={() => {}} />
       </div>
       <div className="input-wrapper">
         <div className="w-full aspect-square overflow-hidden bg-gray-100 dark:bg-zinc-900 rounded-lg grid place-items-center">
@@ -87,18 +87,7 @@ function UploadImages() {
               </>
             }
           />
-          {(errors["image.url"] ||
-            errors["image.file"] ||
-            errors["image.id"]) && (
-              <Error
-                error={
-                  errors["image.id"] ||
-                  errors["image.file"] ||
-                  errors["image.url"] ||
-                  "Image is required"
-                }
-              />
-            )}
+          <Error error={errors["image.file"]} />
         </div>
       </div>
       <div
@@ -135,15 +124,15 @@ function UploadImages() {
             {(errors[`images[${i}].id`] ||
               errors[`images[${i}].file`] ||
               errors[`images[${i}].url`]) && (
-                <Error
-                  error={
-                    errors[`images[${i}].id`] ||
-                    errors[`images[${i}].file`] ||
-                    errors[`images[${i}].url`] ||
-                    "Image is required"
-                  }
-                />
-              )}
+              <Error
+                error={
+                  errors[`images[${i}].id`] ||
+                  errors[`images[${i}].file`] ||
+                  errors[`images[${i}].url`] ||
+                  "Image is required"
+                }
+              />
+            )}
           </div>
         ))}
       </div>

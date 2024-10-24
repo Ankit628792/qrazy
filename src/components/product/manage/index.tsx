@@ -15,8 +15,6 @@ import * as Yup from "yup";
 const validationSchemaForSaveDraft = Yup.object({
   title: Yup.string().required("Title is required"),
   image: Yup.object({
-    id: Yup.number().required("ID is required"),
-    url: Yup.string().required("Image is required"),
     file: Yup.mixed().required("File is required"),
   }),
 });
@@ -29,7 +27,10 @@ const validationSchemaForAddProduct = Yup.object({
   links: Yup.array().of(
     Yup.object({
       id: Yup.number().required("ID is required"),
-      url: Yup.string().required("URL is required"),
+      url: Yup.string().matches(
+        /^(https:\/\/|www\.)[a-zA-Z0-9-_.]+(\.[a-zA-Z]{2,})+.*$/,
+        "Please enter a valid URL"
+      ).required("URL is required"),
     })
   ),
   category: Yup.object({
@@ -42,13 +43,6 @@ const validationSchemaForAddProduct = Yup.object({
     url: Yup.string().required("Image is required"),
     file: Yup.mixed().required("File is required"),
   }),
-  images: Yup.array().of(
-    Yup.object({
-      id: Yup.number().required("ID is required"),
-      url: Yup.string().required("Required"),
-      file: Yup.mixed().required("Required"),
-    })
-  ),
 });
 
 function ManageProduct() {

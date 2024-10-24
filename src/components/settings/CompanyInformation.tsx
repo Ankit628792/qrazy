@@ -9,16 +9,22 @@ import { ICompanyDetailsCard } from ".";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 
+export const gstRegex =
+  /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[Z]{1}[A-Z0-9]{1}$/;
+
 interface ICompanyInformation {
   companyDetailsCard: ICompanyDetailsCard;
 }
 
 const companyDetailsSchema = Yup.object({
   bussinessName: Yup.string().required("Business Name is required"),
-  gstNumber: Yup.string().optional(),
+  gstNumber: Yup.string().optional().matches(gstRegex, "Invalid GST Number"),
   aboutYourCompany: Yup.string().required("About your company is required"),
   companyURL: Yup.string()
-    .url("Invalid URL")
+    .matches(
+      /^(https:\/\/|www\.)[a-zA-Z0-9-_.]+(\.[a-zA-Z]{2,})+.*$/,
+      "Please enter a valid URL"
+    )
     .required("Company URL is required"),
 });
 
@@ -112,7 +118,7 @@ function CompanyInformation({
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, bussinessName: "" })}
             />
-            {errors.bussinessName && <Error error={errors.bussinessName} />}
+            <Error error={errors.bussinessName} />
           </div>
           <div className="w-full">
             <Label htmlFor="lastName">
@@ -131,7 +137,7 @@ function CompanyInformation({
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, gstNumber: "" })}
             />
-            {errors.gstNumber && <Error error={errors.gstNumber} />}
+            <Error error={errors.gstNumber} />
           </div>
         </div>
         <div className="grid w-full gap-1.5">
@@ -145,7 +151,7 @@ function CompanyInformation({
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, aboutYourCompany: "" })}
           />
-          {errors.aboutYourCompany && <Error error={errors.aboutYourCompany} />}
+          <Error error={errors.aboutYourCompany} />
         </div>
         <div className="w-full">
           <Label htmlFor="website">Company Website</Label>
@@ -159,7 +165,7 @@ function CompanyInformation({
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, companyURL: "" })}
           />
-          {errors.companyURL && <Error error={errors.companyURL} />}
+          <Error error={errors.companyURL} />
         </div>
       </div>
     </div>

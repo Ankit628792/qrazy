@@ -18,7 +18,8 @@ const validationSchema = Yup.object({
     .required("Email is required"),
   password: Yup.string()
     .required("Password is required")
-    .min(6, "Password must be at least 6 characters long"),
+    .min(6, "Password must be at least 6 characters long")
+    .matches(/^\S*$/, "Password cannot contain spaces"),
 });
 
 function Login() {
@@ -72,7 +73,7 @@ function Login() {
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, email: "" })}
             />
-            {errors.email && <Error error={errors.email} />}
+            <Error error={errors.email} />
           </div>
           <div className="w-full text-base xl:text-lg">
             <div className="flex items-end justify-between">
@@ -95,7 +96,7 @@ function Login() {
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, password: "" })}
             />
-            {errors.password && <Error error={errors.password} />}
+            <Error error={errors.password} />
           </div>
           <Button size="lg" className="w-full mt-2">
             <span className="text-base lg:text-lg">Login</span>{" "}

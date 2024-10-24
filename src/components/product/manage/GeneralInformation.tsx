@@ -33,7 +33,7 @@ function GeneralInformation({ }) {
             onChange={(e) => setTitle(e.target.value)}
             onFocus={() => setError("title", "")}
           />
-          {errors.title && <Error error={errors.title} />}
+           <Error error={errors.title} />
         </div>
         <div className="w-full">
           <Label htmlFor="description">Description</Label>
@@ -46,7 +46,7 @@ function GeneralInformation({ }) {
             onChange={(e) => setDescription(e.target.value)}
             onFocus={() => setError("description", "")}
           />
-          {errors.description && <Error error={errors.description} />}
+           <Error error={errors.description} />
         </div>
       </div>
     </div>

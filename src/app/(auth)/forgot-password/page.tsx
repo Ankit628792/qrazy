@@ -78,7 +78,7 @@ function Page() {
                   className={cn("xl:text-lg xl:py-6 text-center")}
                   onFocus={() => setErrors({ ...errors, email: "" })}
                 />
-                {errors.email && <Error error={errors.email} />}
+                <Error error={errors.email} />
               </div>
               <Button size={"lg"} className="">
                 <span className="sm:text-lg select-none">Submit</span>

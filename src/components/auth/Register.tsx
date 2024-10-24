@@ -20,7 +20,8 @@ const registerSchema = Yup.object({
     .required("Email is required"),
   password: Yup.string()
     .required("Password is required")
-    .min(6, "Password must be at least 6 characters long"),
+    .min(6, "Password must be at least 6 characters long")
+    .matches(/^\S*$/, "Password cannot contain spaces"),
   cPassword: Yup.string()
     .required("Confirm Password is required")
     .oneOf([Yup.ref("password")], "Passwords must match"),
@@ -82,7 +83,7 @@ function Register() {
                 onChange={handleChange}
                 onFocus={() => setErrors({ ...errors, fName: "" })}
               />
-              {errors.fName && <Error>{errors.fName}</Error>}
+              <Error error={errors.fName} />
             </div>
             <div className="w-full text-base xl:text-lg">
               <Label className="xl:text-base">Last Name</Label>
@@ -94,7 +95,7 @@ function Register() {
                 onChange={handleChange}
                 onFocus={() => setErrors({ ...errors, lName: "" })}
               />
-              {errors.lName && <Error>{errors.lName}</Error>}
+              <Error error={errors.lName} />
             </div>
           </div>
           <div className="w-full text-base xl:text-lg">
@@ -107,7 +108,7 @@ function Register() {
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, email: "" })}
             />
-            {errors.email && <Error>{errors.email}</Error>}
+            <Error error={errors.email} />
           </div>
           <div className="w-full text-base xl:text-lg">
             <Label className="xl:text-base">Password</Label>
@@ -119,7 +120,7 @@ function Register() {
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, password: "" })}
             />
-            {errors.password && <Error>{errors.password}</Error>}
+            <Error error={errors.password} />
           </div>
           <div className="w-full text-base xl:text-lg">
             <Label className="xl:text-base">Confirm Password</Label>
@@ -131,7 +132,7 @@ function Register() {
               onChange={handleChange}
               onFocus={() => setErrors({ ...errors, cPassword: "" })}
             />
-            {errors.cPassword && <Error>{errors.cPassword}</Error>}
+            <Error error={errors.cPassword} />
           </div>
           <Button size="lg" className="w-full mt-2">
             <span className="text-base lg:text-lg">Register</span>{" "}

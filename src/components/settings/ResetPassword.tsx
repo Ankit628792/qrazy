@@ -14,10 +14,37 @@ type IResetPasswordForm = {
 };
 
 const resetPasswordSchema = Yup.object({
-  currentPassword: Yup.string().required("Current Password is required"),
+  currentPassword: Yup.string()
+    .required("Current Password is required")
+    .matches(/^\S*$/, "Password cannot contain spaces"),
   newPassword: Yup.string()
     .required("New Password is required")
-    .min(8, "Password must be at least 8 characters long"),
+    .test(
+      "min-length",
+      "Password must be at least 6 characters long",
+      (value) => value && value.length >= 6
+    )
+    .test(
+      "has-lowercase",
+      "Password must contain at least one lowercase letter",
+      (value) => /[a-z]/.test(value)
+    )
+    .test(
+      "has-uppercase",
+      "Password must contain at least one uppercase letter",
+      (value) => /[A-Z]/.test(value)
+    )
+    .test("has-number", "Password must contain at least one number", (value) =>
+      /\d/.test(value)
+    )
+    .test(
+      "has-special-char",
+      "Password must contain at least one special character",
+      (value) => /[@$!%*?&]/.test(value)
+    )
+    .test("no-spaces", "Password cannot contain spaces", (value) =>
+      /^\S*$/.test(value)
+    ),
   confirmPassword: Yup.string()
     .required("Confirm Password is required")
     .oneOf([Yup.ref("newPassword")], "Passwords must match"),
@@ -80,7 +107,7 @@ const ResetPassword = () => {
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, currentPassword: "" })}
           />
-          {errors.currentPassword && <Error error={errors.currentPassword} />}
+          <Error error={errors.currentPassword} />
         </div>
         <div>
           <Label htmlFor="newPassword">New Password</Label>
@@ -93,7 +120,7 @@ const ResetPassword = () => {
             onChange={handleChange}
             onFocus={() => setErrors({ ...errors, newPassword: "" })}
           />
-          {errors.newPassword && <Error error={errors.newPassword} />}
+          <Error error={errors.newPassword} />
         </div>
         <div>
           <Label htmlFor="confirmPassword">Re-enter Password</Label>

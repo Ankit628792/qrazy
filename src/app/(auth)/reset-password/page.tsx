@@ -14,7 +14,8 @@ type IForm = Record<string, string | null>;
 const validationSchema = Yup.object({
   password: Yup.string()
     .required("Password is required")
-    .min(6, "Password must be at least 6 characters long"),
+    .min(6, "Password must be at least 6 characters long")
+    .matches(/^\S*$/, "Password cannot contain spaces"),
   cPassword: Yup.string()
     .required("Confirm Password is required")
     .oneOf([Yup.ref("password")], "Passwords must match"),
@@ -82,7 +83,7 @@ function Page() {
                   onChange={handleChange}
                   onFocus={() => setErrors({ ...errors, password: "" })}
                 />
-                {errors.password && <Error error={errors.password} />}
+                <Error error={errors.password} />
               </div>
               <div className="w-full">
                 <Label htmlFor="cPassword" className="text-lg">
@@ -97,7 +98,7 @@ function Page() {
                   onChange={handleChange}
                   onFocus={() => setErrors({ ...errors, cPassword: "" })}
                 />
-                {errors.cPassword && <Error error={errors.cPassword} />}
+                <Error error={errors.cPassword} />
               </div>
               <Button size={"lg"} className="mt-4">
                 <span className="sm:text-lg select-none">Submit</span>

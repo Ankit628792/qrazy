@@ -8,11 +8,6 @@ import {
 import { Input } from "./input";
 import { useState } from "react";
 
-export type Option = {
-    label: string;
-    value: string;
-    id: string | number;
-};
 
 const SearchSelect = ({
     options,

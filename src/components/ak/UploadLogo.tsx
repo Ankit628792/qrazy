@@ -2,16 +2,17 @@ import { cn } from '@/lib/utils';
 import { FileUploader } from 'react-drag-drop-files'
 const initialSize = "w-60 h-60 md:w-72 md:h-72 2xl:w-80 2xl:h-80 "
 
-function UploadLogo({ file, handleChange, size = "" }: {
-    file: File | null,
+function UploadLogo({ file, handleChange, size = "", name }: {
+    file: File | null | string,
     handleChange: (file: File) => void,
     size?: string,
+    name?: string
 }) {
     return (
         <div className={cn('overflow-hidden fileUpload flex')}>
             <FileUploader
                 handleChange={(file: File) => handleChange(file)}
-                name="logo"
+                name={name || "logo"}
                 types={["jpg", "JPG", "png", "PNG", "jpeg", "JPEG"]}
                 children={<>
                     <div className={cn('logo p-10  absolute inset-0 bg-white dark:bg-black text-black dark:text-white border rounded-full place-items-center fileUploadOverlay z-20 shrink-0', initialSize, size)}>

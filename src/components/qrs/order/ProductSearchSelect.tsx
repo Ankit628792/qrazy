@@ -26,7 +26,7 @@ export const ProductSearchSelect = ({ options, product, onChange, placeholder }:
         <Select defaultValue={product?.id?.toString() || ""}
             value={product?.id?.toString()}
             onValueChange={(id) => {
-                let product = options.find((product: Product) => id === product.id.toString()) as Product
+                const product = options.find((product: Product) => id === product.id.toString()) as Product
                 onChange(product)
             }}
         >

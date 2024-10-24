@@ -26,7 +26,7 @@ type OrderItem = {
 }
 
 
-let example: OrderItem = {
+const example: OrderItem = {
     id: "number",
     title: "Red Lebel",
     image: {

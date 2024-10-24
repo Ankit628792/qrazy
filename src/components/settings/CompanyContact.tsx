@@ -15,7 +15,7 @@ const options = [
 
 
 function CompanyContact() {
-    const [country, setCountry] = useState<string>('');
+    const [country, setCountry] = useState<Option | null>();
 
     return (
         <div className='flex flex-col gap-3 pt-2'>
@@ -37,7 +37,7 @@ function CompanyContact() {
                     </div>
                     <div className='w-full'>
                         <Label htmlFor='location'>Country</Label>
-                        <SearchSelect value={country} onChange={setCountry} options={options} />
+                        <SearchSelect selectedValue={country?.value} onChange={setCountry} options={options} />
                         <Error error="Error here" />
                     </div>
                 </div>

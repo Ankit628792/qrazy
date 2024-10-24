@@ -13,7 +13,7 @@ const options = [
 ];
 
 function Category() {
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState<Option | null>();
     const [showAddCategory, setShowAddCategory] = useState(false);
     return (
         <>
@@ -25,7 +25,7 @@ function Category() {
                 <div className='input-wrapper flex-grow justify-between'>
                     <div className="w-full">
                         <Label htmlFor="category">Product Category</Label>
-                        <SearchSelect value={category} onChange={setCategory} options={options} />
+                        <SearchSelect selectedValue={category?.value} onChange={setCategory} options={options} />
                         <Error error="Error here" />
                     </div>
 

@@ -1,11 +1,12 @@
 "use client"
 import AnalyticCard from '@/components/ak/AnalyticCard'
 import { AreaChartGradient } from '@/components/ui/area-chart';
-import { ArrowUpRightFromCircle, HandCoins, LayoutDashboard, ScanQrCode, ShoppingBagIcon, TrendingUp, Users } from 'lucide-react'
+import { ArrowUpRightFromCircle, HandCoins, LayoutDashboard, ListTodo, ScanQrCode, ShoppingBagIcon, TrendingUp, Users } from 'lucide-react'
 import React from 'react'
 import { chartData, formattedChartData, generateChartConfig } from './constant';
 import { Charts, Progress } from './sample';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 
 function Products() {
@@ -70,6 +71,12 @@ function Products() {
                         cConfig={generateChartConfig(chartData)}
                         title='Top 5 Products'
                         description="Showing most used product for scanning in the last 6 months"
+                        Navigate={<Link href={"/products/listing"} className="absolute top-3 right-3">
+                            <Button size={"sm"} className=" gap-1">
+                                <ListTodo className="w-4" />
+                                View All
+                            </Button>
+                        </Link>}
                         Footer={<div className="flex w-full items-start gap-2 text-sm">
                             {/* <div className="grid gap-2">
                                 <div className="flex items-center gap-2 font-medium leading-none">

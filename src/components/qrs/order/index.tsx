@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { getRandomNumber } from '@/lib';
 import { useRouter } from 'next/navigation';
 
-type OrderItem = {
+export type OrderItem = {
     id: number | string;
     title: string;
     image: {
@@ -26,7 +26,7 @@ type OrderItem = {
 }
 
 
-const example: OrderItem = {
+export const exampleOrderItem: OrderItem = {
     id: "number",
     title: "Red Lebel",
     image: {
@@ -34,7 +34,7 @@ const example: OrderItem = {
     },
     category: {
         id: 'string',
-        name: "Drinks",
+        name: "Drinks & Beverage",
     },
     mrl: 6767,
     quantity: 123,
@@ -48,7 +48,7 @@ const products = generateRandomProducts(5)
 function OrderQR() {
     const router = useRouter()
 
-    const [orderList, setOrderList] = useState([example])
+    const [orderList, setOrderList] = useState(Array(1).fill(exampleOrderItem))
     const [selectedItem, setSelectedItem] = useState<any>();
     return (
         <>

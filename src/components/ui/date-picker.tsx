@@ -13,15 +13,16 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function DatePicker({ date, onDateChange, placeholder }: {
+export function DatePicker({ date, onDateChange, placeholder, disabled = false }: {
     date: Date | undefined,
     onDateChange: (date: Date | undefined) => void,
     placeholder?: string
+    disabled?: boolean
 }) {
 
     return (
         <Popover>
-            <PopoverTrigger asChild>
+            <PopoverTrigger disabled={disabled} asChild>
                 <Button
                     variant={"outline"}
                     className={cn(

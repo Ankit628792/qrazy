@@ -62,7 +62,7 @@ function Page() {
                     </div>
                 </div>
             </div>
-            <div className='w-full overflow-x-auto scroll-hidden'>
+            <div className='w-full overflow-x-auto scroll-hidden -mt-3'>
                 <ProductTable data={products} />
             </div>
         </section>

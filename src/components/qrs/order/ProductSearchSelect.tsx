@@ -3,11 +3,12 @@ import { Select, SelectContent, SelectJSXItem, SelectTrigger, SelectValue } from
 import { Input } from "../../ui/input";
 import ProductCard from "./ProductCard";
 
-export const ProductSearchSelect = ({ options, product, onChange, placeholder }: {
+export const ProductSearchSelect = ({ options, product, onChange, placeholder, disabled = false }: {
     options: Product[];
     product: Product | undefined | null;
     onChange: (product: Product) => void;
     placeholder?: string
+    disabled?: boolean
 }) => {
 
     const [value, setValue] = useState(product?.title || "")
@@ -23,7 +24,9 @@ export const ProductSearchSelect = ({ options, product, onChange, placeholder }:
     });
 
     return (
-        <Select defaultValue={product?.id?.toString() || ""}
+        <Select
+            disabled={disabled}
+            defaultValue={product?.id?.toString() || ""}
             value={product?.id?.toString()}
             onValueChange={(id) => {
                 const product = options.find((product: Product) => id === product.id.toString()) as Product

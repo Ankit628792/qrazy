@@ -1,3 +1,4 @@
+'use client'
 import { ChartConfig } from "@/components/ui/chart";
 import { getRandomNumber } from "@/lib";
 

@@ -120,7 +120,7 @@ function QRs() {
                             </form>
 
                             <div className="ml-auto flex items-center gap-2">
-                                <Link href={"/products/create"}>
+                                <Link href={"/qrs/order"}>
                                     <Button size="sm" className="gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white">
                                         <Clock4 className="h-4 w-4" />
                                         <span>

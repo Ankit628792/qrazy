@@ -1,5 +1,6 @@
 "use client"
 import { getCenter } from 'geolib'
+import { MapPin } from 'lucide-react'
 import React, { useState, useEffect, useMemo } from 'react'
 import ReactMapGL, { Marker } from 'react-map-gl'
 
@@ -64,13 +65,46 @@ function Map({ data }: { data: Array<any> }) {
                             </div>
                             {
                                 // selectedLocation?.longitude === item.longitude &&
-                                <div
-                                    onClick={() => setSelectedLocation(null)}
-                                    className="rounded-xl z-40 cursor-pointer transition duration-150 ease-out absolute top-5 -left-10 w-24 px-2 py-1 bg-emerald-600 hidden group-hover:block"
-                                >
-                                    <p className='text-white text-xs text-center font-medium leading-none line-clamp-2'>
-                                        {item.title}
-                                    </p>
+                                // <div
+                                //     onClick={() => setSelectedLocation(null)}
+                                //     className="rounded-xl z-40 cursor-pointer transition duration-150 ease-out absolute top-5 -left-10 w-24 px-2 py-1 bg-emerald-600  group-hover:block"
+                                // >
+                                //     <p className='text-white text-xs text-center font-medium leading-none line-clamp-2'>
+                                //         {item.title}
+                                //     </p>
+                                // </div>
+                                selectedLocation?.longitude === item.longitude &&
+                                <div onClick={() => setSelectedLocation(null)} className='glass-base rounded-xl z-40 cursor-pointer absolute -top-36 -left-[9.65rem] p-2 w-80 shrink-0 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 ease-out'>
+                                    <div className='triangle-down absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-10 h-10 glass-base'></div>
+                                    <div className='bg-white dark:bg-black w-full rounded-lg p-3'>
+                                        <div className='flex justify-between'>
+                                            <div className='flex items-center gap-2'>
+                                                <img className='w-11 h-11 rounded-full object-cover border' src={'https://plus.unsplash.com/premium_photo-1664392147011-2a720f214e01'} alt={item.title} />
+                                                <div>
+                                                    <h1 className='text-base font-medium'>{item.title}</h1>
+                                                    <p className='text-xs text-gray-500 font-light'>{"Category"}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className='text-right'>
+                                                <p className='text-base font-medium'>$76.20</p>
+                                                <h3 className='text-xs'>Md. Devender</h3>
+                                            </div>
+                                        </div>
+
+                                        <div className='flex items-center justify-between text-sm mt-3'>
+                                            <div className='flex items-center gap-1'>
+                                                <MapPin className='w-4' />
+                                                <span>{item.title}</span>
+                                            </div>
+
+                                            <p className='text-gray-500 italic text-xs'>
+                                                2 minutes ago
+                                            </p>
+
+                                        </div>
+
+                                    </div>
                                 </div>
                             }
                         </Marker>

@@ -68,6 +68,10 @@ body {
   filter: saturate(2) contrast(1.2);
 }
 
+.triangle-down {
+  clip-path: polygon(100% 0, 0 0, 51% 31%);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

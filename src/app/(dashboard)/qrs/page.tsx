@@ -79,6 +79,7 @@ function QRs() {
             <div className='grid grid-cols-12 gap-4 flex-grow'>
                 <div className='col-span-12 lg:col-span-7 flex flex-col gap-6'>
                     <AreaChartGradient
+                        className="glass"
                         cData={formattedChartData(chartData)}
                         cConfig={generateChartConfig(chartData)}
                         title='Top 5 Products'
@@ -93,6 +94,7 @@ function QRs() {
                 </div>
                 <div className='col-span-12 lg:col-span-5 flex flex-col gap-4'>
                     <DonutChart
+                        className="glass"
                         title="QR Scans"
                         cData={donutChartData}
                         cConfig={donutChartConfig}
@@ -108,7 +110,7 @@ function QRs() {
                     />
                 </div>
                 <div className='col-span-12 flex-grow'>
-                    <div className=' py-5 px-3 sticky -mt-3 -top-3 bg-white bg-opacity-10 dark:bg-zinc-900 dark:bg-opacity-10 backdrop-blur-md rounded-bl-xl rounded-br-xl z-10'>
+                    <div className=' py-5 px-3 sticky -top-3 bg-white bg-opacity-10 dark:bg-zinc-900 dark:bg-opacity-10 backdrop-blur-md rounded-bl-xl rounded-br-xl z-10'>
                         <div className='w-full flex items-center gap-2'>
                             <form className="flex-1 relative">
                                 <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />

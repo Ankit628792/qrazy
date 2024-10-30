@@ -104,7 +104,7 @@ const OrderTable = ({ data }: { data: OrderItem[] }) => {
                                 <TableCell>
                                     <div className='flex gap-4'>
                                         <Button className='min-w-20'>Edit</Button>
-                                        <Button className='min-w-20 bg-rose-500 text-white'>Remove</Button>
+                                        <Button className='min-w-20 bg-rose-500 hover:bg-rose-600 text-white'>Remove</Button>
                                     </div>
                                 </TableCell>
                             </TableRow>

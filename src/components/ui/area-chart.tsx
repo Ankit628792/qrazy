@@ -26,7 +26,8 @@ export function AreaChartGradient({
     title,
     description,
     Footer = (<></>),
-    Navigate = (<></>)
+    Navigate = (<></>),
+    className
 }: {
     cData: Array<any>,
     cConfig: ChartConfig,
@@ -34,10 +35,11 @@ export function AreaChartGradient({
     description?: string,
     Footer?: React.ReactNode
     Navigate?: React.ReactNode
+    className?: string
 }) {
 
     return (
-        <Card>
+        <Card className={className}>
             <CardHeader className="relative">
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>

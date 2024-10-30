@@ -53,12 +53,12 @@ function Products() {
         <section className='flex flex-col gap-4'>
             <div className='flex gap-4 w-full overflow-y-auto scroll-hidden'>
                 <Link href={"/products/create"}>
-                    <AnalyticCard title="Product" Icon={ArrowUpRightFromCircle} value="+ Add Item" />
+                    <AnalyticCard title="Product" Icon={ArrowUpRightFromCircle} value="+ Add Item" width='glass' />
                 </Link>
                 {
                     analyticCardData.map((card) => {
                         return (
-                            <AnalyticCard key={card.id} {...card} />
+                            <AnalyticCard key={card.id} {...card} width='glass' />
                         )
                     })
                 }
@@ -67,6 +67,7 @@ function Products() {
             <div className='grid grid-cols-12 gap-4'>
                 <div className='col-span-12 lg:col-span-5 flex flex-col gap-6'>
                     <AreaChartGradient
+                        className='glass'
                         cData={formattedChartData(chartData)}
                         cConfig={generateChartConfig(chartData)}
                         title='Top 5 Products'
@@ -89,7 +90,7 @@ function Products() {
                         </div>
                         }
                     />
-                    <Progress />
+                    <Progress className='glass' />
                 </div>
                 <div className='col-span-12 lg:col-span-7'>
                     <Charts />

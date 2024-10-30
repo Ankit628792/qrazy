@@ -26,13 +26,15 @@ export function DonutChart({
     description,
     cData,
     cConfig,
-    Footer = (<></>)
+    Footer = (<></>),
+    className
 }: {
     title: string,
     cData: Array<any>,
     cConfig: ChartConfig,
     description?: string,
-    Footer?: React.ReactNode
+    Footer?: React.ReactNode,
+    className?: string
 }) {
 
     const totalValue = useMemo(() => {
@@ -40,7 +42,7 @@ export function DonutChart({
     }, [])
 
     return (
-        <Card className="flex flex-col">
+        <Card className={className}>
             <CardHeader className="items-center pb-0">
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>{description}</CardDescription>

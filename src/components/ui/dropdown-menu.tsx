@@ -207,7 +207,7 @@ export type Item = {
   id: string | number
   label: string
   value: string
-  checked: boolean
+  checked?: boolean
 }
 export default function DropdownMenuCheckboxes({ children, label, items, onChange }: {
   children: React.ReactNode,

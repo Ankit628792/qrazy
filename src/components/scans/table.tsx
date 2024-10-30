@@ -28,7 +28,7 @@ const ScanTable = ({ data }: { data: ScanRow[] }) => {
                                         className="aspect-square rounded-md object-cover shrink-0"
                                         height="60"
                                         width="60"
-                                        src='/favicon.svg'
+                                        src={item.image.url}
                                         loading='lazy'
                                         blurDataURL='/favicon.svg'
                                         placeholder='blur'

@@ -7,7 +7,7 @@ interface ProductLink {
 interface Category {
     id?: string | number,
     name: string,
-    description: string,
+    description?: string,
 }
 
 interface ProductImage {
@@ -38,3 +38,17 @@ interface Option {
     value: string;
     id: string | number;
 };
+
+
+interface ScanRow {
+    id: number | string,
+    title: string,
+    description: string,
+    category: Category,
+    image: ProductImage,
+
+    username?: string,
+    region?: string,
+    reward?: string | number
+    created_at?: Date | string
+}

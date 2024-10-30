@@ -1,7 +1,7 @@
 export const ROUTES = [
     "Products",
     "QRs",
-    "Reports",
+    "Scans",
     "Settings"
 ]
 

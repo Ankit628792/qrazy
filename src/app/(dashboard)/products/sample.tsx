@@ -40,7 +40,7 @@ export function Charts() {
         <div className="chart-wrapper mx-auto grid md:grid-cols-2 gap-6 sm:flex-row">
             <div className="grid w-full gap-6 grid-cols-1">
                 <Card
-                    className="lg:max-w-md" x-chunk="charts-01-chunk-0"
+                    className="lg:max-w-md glass"
                 >
                     <CardHeader className="space-y-0 pb-2">
                         <CardDescription>Today</CardDescription>
@@ -168,7 +168,7 @@ export function Charts() {
                     </CardFooter>
                 </Card>
                 <Card
-                    className="flex flex-col lg:max-w-md" x-chunk="charts-01-chunk-1"
+                    className="flex flex-col lg:max-w-md glass"
                 >
                     <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-2 [&>div]:flex-1">
                         <div>
@@ -598,7 +598,7 @@ export function Charts() {
                 </Card>
             </div> */}
             <div className="grid w-full flex-1 gap-6">
-                <Card>
+                <Card className="glass">
                     <CardContent className="flex gap-4 p-4">
                         <div className="grid items-center gap-2">
                             <div className="grid flex-1 auto-rows-min gap-0.5">
@@ -686,7 +686,7 @@ export function Charts() {
                         </ChartContainer>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="glass">
                     <CardHeader className="p-4 pb-0">
                         <CardTitle>Active Energy</CardTitle>
                         <CardDescription>
@@ -767,7 +767,7 @@ export function Charts() {
                         </ChartContainer>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="glass">
                     <CardHeader className="space-y-0 pb-0">
                         <CardDescription>Time in Bed</CardDescription>
                         <CardTitle className="flex items-baseline gap-1 text-4xl tabular-nums">
@@ -877,9 +877,9 @@ export function Charts() {
 }
 
 
-export const Progress = () => {
+export const Progress = ({ className }: { className?: string }) => {
     return (
-        <Card>
+        <Card className={className}>
             <CardHeader>
                 <CardTitle>Progress</CardTitle>
                 <CardDescription>

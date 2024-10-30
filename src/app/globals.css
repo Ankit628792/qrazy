@@ -64,6 +64,10 @@ body {
   }
 }
 
+.mapboxgl-map {
+  filter: saturate(2) contrast(1.2);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -98,7 +102,7 @@ body {
   }
 
   .product-table {
-    @apply border-spacing-x-0 border-spacing-y-2 lg:border-spacing-y-3 border-separate w-full
+    @apply border-spacing-x-0 border-spacing-y-2 lg:border-spacing-y-3 border-separate w-full mt-3
   }
 
   .product-table td {
@@ -106,7 +110,7 @@ body {
   }
 
   .product-table tr {
-    @apply bg-white dark:bg-black bg-opacity-60 dark:bg-opacity-60 backdrop-blur-sm hover:bg-white hover:bg-opacity-100 hover:dark:bg-black hover:dark:bg-opacity-100
+    @apply bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm hover:bg-white hover:bg-opacity-100 hover:dark:bg-black hover:dark:bg-opacity-100
   }
 
   /* 
@@ -115,11 +119,20 @@ body {
   } */
 
   .product-table tr td:nth-last-child(1), .product-table th:nth-last-child(1) {
-    @apply rounded-r-xl
+    /* @apply rounded-r-xl */
   }
 
-  .product-table tr td:nth-of-type(1), .product-table th:nth-of-type(1) {
-    @apply rounded-l-xl
+  .product-table tr td:nth-of-type(1),
+  .product-table th:nth-of-type(1) {
+    /* @apply rounded-l-xl */
+  }
+
+  .glass {
+    @apply bg-white bg-opacity-70 dark:bg-black dark:bg-opacity-70 backdrop-blur-sm hover:bg-opacity-90 dark:hover:bg-opacity-90 transition-all duration-150 ease-out
+  }
+
+  .glass-base {
+    @apply bg-white bg-opacity-70 dark:bg-black dark:bg-opacity-70 backdrop-blur-sm
   }
 
 }

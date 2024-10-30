@@ -17,7 +17,7 @@ const InvoiceTable = ({ data }: { data: Product[] }) => {
                     <TableHead className='min-w-32 text-center'>Transaction ID</TableHead>
                     <TableHead className='min-w-28 text-center'>Quantity</TableHead>
                     <TableHead className='min-w-32 text-center'>Total Amount</TableHead>
-                    <TableHead className='min-w-32 text-center'>Ordered By</TableHead>
+                    {/* <TableHead className='min-w-32 text-center'>Ordered By</TableHead> */}
                     <TableHead className='min-w-32 text-center'>Ordered On</TableHead>
                 </TableRow>
             </TableHeader>
@@ -35,9 +35,9 @@ const InvoiceTable = ({ data }: { data: Product[] }) => {
 
                                 <TableCell>7,87,886</TableCell>
                                 <TableCell>₹ 7,726</TableCell>
-                                <TableCell>
+                                {/* <TableCell>
                                     Ankit Kumar
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>
                                     {moment(item.created_at).format("DD/MM/YYYY")}
                                 </TableCell>

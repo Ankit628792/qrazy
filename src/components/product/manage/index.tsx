@@ -47,7 +47,7 @@ const validationSchemaForAddProduct = Yup.object({
         .notRequired()
         .test("is-valid-url", "Please enter a valid URL", (value) => {
           if (value == null || value === "") return true;
-          return /^(https:\/\/|www\.)[a-zA-Z0-9-_.]+(\.[a-zA-Z]{2,})+.*$/.test(
+          return /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-_.]+\.[a-zA-Z]{2,}.*$/.test(
             value
           );
         }),

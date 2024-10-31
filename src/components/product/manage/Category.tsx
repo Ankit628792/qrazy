@@ -5,10 +5,7 @@ import { Label } from "@/components/ui/label";
 import SearchSelect from "@/components/ui/search-select";
 import { useState } from "react";
 import AddCategory from "./AddCategory";
-import {
-  useProductDetailsStore,
-  useProductErrorsStore,
-} from "@/store/product.store";
+import { useCategoryStore, useProductErrorsStore } from "@/store/product.store";
 
 const options = [
   { id: 1, value: "1", label: "Option 1" },
@@ -17,7 +14,7 @@ const options = [
 ];
 
 function Category() {
-  const { category, setCategory } = useProductDetailsStore();
+  const { category, setCategory } = useCategoryStore();
   const { errors, setError } = useProductErrorsStore();
   const [showAddCategory, setShowAddCategory] = useState(false);
 

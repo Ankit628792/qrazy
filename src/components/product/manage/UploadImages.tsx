@@ -3,7 +3,8 @@ import Error from "@/components/ui/error";
 import { useClickOutside } from "@/lib";
 import { cn } from "@/lib/utils";
 import {
-  useProductDetailsStore,
+  useImagesStore,
+  useImageStore,
   useProductErrorsStore,
 } from "@/store/product.store";
 import { FileIcon, ImagePlus } from "lucide-react";
@@ -17,7 +18,8 @@ type ProductImage = {
 };
 
 function UploadImages() {
-  const { image, images, setImage, setImages } = useProductDetailsStore();
+  const { images, setImages } = useImagesStore();
+  const { image, setImage } = useImageStore();
   const { errors, setError } = useProductErrorsStore();
 
   const ref = useRef(null);

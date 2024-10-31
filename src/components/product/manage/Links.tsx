@@ -1,12 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import SaveOptions from "@/components/ak/SaveOptions";
-import Error from "@/components/ui/error";
 import { Input } from "@/components/ui/input";
 import { getFavicon } from "@/lib";
-import {
-  useProductDetailsStore,
-  useProductErrorsStore,
-} from "@/store/product.store";
+import { useLinksStore, useProductErrorsStore } from "@/store/product.store";
 import { Link } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -14,7 +10,7 @@ import toast from "react-hot-toast";
 const TIMER = 500;
 
 function Links() {
-  const { links, setLinks } = useProductDetailsStore();
+  const { links, setLinks } = useLinksStore();
   const { errors, setError } = useProductErrorsStore();
   const [debounceTimer, setDebounceTimer] = useState(null);
 
@@ -22,7 +18,7 @@ function Links() {
     links.forEach((link, i) => {
       if (link.url) {
         const isValid =
-          /^(https:\/\/|www\.)[a-zA-Z0-9-_.]+(\.[a-zA-Z]{2,})+.*$/.test(
+          /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-_.]+\.[a-zA-Z]{2,}.*$/.test(
             link.url
           );
         if (!isValid) {

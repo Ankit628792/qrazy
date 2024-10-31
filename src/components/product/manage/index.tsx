@@ -7,8 +7,13 @@ import Links from "./Links";
 import Category from "./Category";
 import UploadImages from "./UploadImages";
 import {
-  useProductDetailsStore,
+  useCategoryStore,
+  useImagesStore,
+  useImageStore,
+  useLinksStore,
+  usePricingStore,
   useProductErrorsStore,
+  useTitleDescriptionStore,
 } from "@/store/product.store";
 import * as Yup from "yup";
 
@@ -51,8 +56,14 @@ const validationSchemaForAddProduct = Yup.object({
 });
 
 function ManageProduct() {
-  const { title, description, mrp, mrl, links, category, image, images } =
-    useProductDetailsStore();
+  // const { title, description, mrp, mrl, links, category, image, images } =
+  //   useProductDetailsStore();
+  const { title, description } = useTitleDescriptionStore();
+  const { mrp, mrl } = usePricingStore();
+  const { links } = useLinksStore();
+  const { category } = useCategoryStore();
+  const { image } = useImageStore();
+  const { images } = useImagesStore();
   const { errors, setError, setEmptyErrors } = useProductErrorsStore();
 
   const handleSaveDraft = async (e: React.FormEvent) => {

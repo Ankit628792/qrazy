@@ -3,13 +3,10 @@ import Error from "@/components/ui/error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import {
-  useProductDetailsStore,
-  useProductErrorsStore,
-} from "@/store/product.store";
+import { usePricingStore, useProductErrorsStore } from "@/store/product.store";
 
 function Pricing() {
-  const { mrp, mrl, setMrp, setMrl } = useProductDetailsStore();
+  const { mrp, mrl, setMrp, setMrl } = usePricingStore();
   const { errors, setError } = useProductErrorsStore();
   return (
     <div className="manage-product-element">

@@ -5,13 +5,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import {
-  useProductDetailsStore,
   useProductErrorsStore,
+  useTitleDescriptionStore,
 } from "@/store/product.store";
 
-function GeneralInformation({ }) {
+function GeneralInformation({}) {
   const { title, description, setTitle, setDescription } =
-    useProductDetailsStore();
+    useTitleDescriptionStore();
 
   const { errors, setError } = useProductErrorsStore();
 
@@ -19,7 +19,7 @@ function GeneralInformation({ }) {
     <div className="manage-product-element">
       <div className="px-2 flex items-center justify-between">
         <h1 className="input-wrapper-title">General Information</h1>
-        <SaveOptions onSave={() => { }} onCancel={() => { }} />
+        <SaveOptions onSave={() => {}} onCancel={() => {}} />
       </div>
       <div className="input-wrapper">
         <div className="w-full">
@@ -33,7 +33,7 @@ function GeneralInformation({ }) {
             onChange={(e) => setTitle(e.target.value)}
             onFocus={() => setError("title", "")}
           />
-           <Error error={errors.title} />
+          <Error error={errors.title} />
         </div>
         <div className="w-full">
           <Label htmlFor="description">Description</Label>
@@ -46,7 +46,7 @@ function GeneralInformation({ }) {
             onChange={(e) => setDescription(e.target.value)}
             onFocus={() => setError("description", "")}
           />
-           <Error error={errors.description} />
+          <Error error={errors.description} />
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import SaveOptions from "@/components/ak/SaveOptions";
 import Error from "@/components/ui/error";
 import { Input } from "@/components/ui/input";
@@ -7,16 +8,41 @@ import {
   useProductErrorsStore,
 } from "@/store/product.store";
 import { Link } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+
+const TIMER = 500;
 
 function Links() {
   const { links, setLinks } = useProductDetailsStore();
   const { errors, setError } = useProductErrorsStore();
+  const [debounceTimer, setDebounceTimer] = useState(null);
+
+  const validateLinks = () => {
+    links.forEach((link, i) => {
+      if (link.url) {
+        const isValid =
+          /^(https:\/\/|www\.)[a-zA-Z0-9-_.]+(\.[a-zA-Z]{2,})+.*$/.test(
+            link.url
+          );
+        if (!isValid) {
+          return toast.error(`Please enter a valid URL for link ${i + 1}`);
+        }
+      }
+    });
+  };
 
   const handleChange = (i: number, value: string) => {
     let arr: ProductLink[] = [...links];
     arr[i].url = value;
     setLinks(arr);
+
+    if (debounceTimer) clearTimeout(debounceTimer);
+
+    const newTimer = setTimeout(() => {
+      validateLinks();
+    }, TIMER);
+    setDebounceTimer(newTimer);
   };
 
   return (

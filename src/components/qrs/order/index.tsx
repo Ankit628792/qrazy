@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import OrderTable from './OrderTable'
 import { ListPlus } from 'lucide-react';
 import { generateRandomProducts } from '@/app/(dashboard)/products/listing/constant';
@@ -84,7 +84,13 @@ function OrderQR() {
 export default OrderQR
 
 const Total = () => {
-    const total = getRandomNumber(1000, 10000)
+
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        // Generate the random total only on the client
+        setTotal(getRandomNumber(1000, 10000));
+      }, []);
     return (
         <section className='bg-white dark:bg-black rounded-xl p-3 mt-10 max-w-sm ml-auto '>
             <table className='table-auto border-separate border-spacing-y-2 border-spacing-x-5 w-full ml-auto'>

@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/lib/theme-provider";
 import ToggleTheme from "@/components/ak/ToggleTheme";
 import { Toaster } from "react-hot-toast";
 import TopLoader from "@/components/ak/TopLoader";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "QRazy | Admin",
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+     <Head>
         <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -27,7 +28,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-      </head>
+      </Head>
       <body
         className={`antialiased overflow-x-hidden`}
       >

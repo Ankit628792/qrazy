@@ -1,11 +1,11 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { CheckCircle, FileClock } from "lucide-react";
-import GeneralInformation from "./GeneralInformation";
-import Pricing from "./Pricing";
-import Links from "./Links";
-import Category from "./Category";
-import UploadImages from "./UploadImages";
+'use client'
+import { Button } from '@/components/ui/button'
+import { CheckCircle, FileClock } from 'lucide-react'
+import GeneralInformation from './GeneralInformation'
+import Pricing from './Pricing'
+import Links from './Links'
+import Category from './Category'
+import UploadImages from './UploadImages'
 import {
   useCategoryStore,
   useImagesStore,
@@ -13,103 +13,103 @@ import {
   useLinksStore,
   usePricingStore,
   useProductErrorsStore,
-  useTitleDescriptionStore,
-} from "@/store/product.store";
-import * as Yup from "yup";
+  useTitleDescriptionStore
+} from '@/store/product.store'
+import * as Yup from 'yup'
 
 const validationSchemaForSaveDraft = Yup.object({
-  title: Yup.string().required("Title is required"),
+  title: Yup.string().required('Title is required'),
   image: Yup.object({
-    file: Yup.mixed().required("File is required"),
-  }),
-});
+    file: Yup.mixed().required('File is required')
+  })
+})
 
 const validationSchemaForAddProduct = Yup.object({
-  title: Yup.string().required("Title is required"),
-  description: Yup.string().required("Description is required"),
-  mrp: Yup.number().min(1).required("MRP is required"),
-  mrl: Yup.number().min(1).required("MRL is required"),
+  title: Yup.string().required('Title is required'),
+  description: Yup.string().required('Description is required'),
+  mrp: Yup.number().min(1).required('MRP is required'),
+  mrl: Yup.number().min(1).required('MRL is required'),
   category: Yup.object({
-    id: Yup.number().required("ID is required"),
-    name: Yup.string().required("Name is required"),
-    description: Yup.string().required("Description is required"),
+    id: Yup.number().required('ID is required'),
+    name: Yup.string().required('Name is required'),
+    description: Yup.string().required('Description is required')
   }),
   image: Yup.object({
-    id: Yup.number().required("ID is required"),
-    url: Yup.string().required("Image is required"),
-    file: Yup.mixed().required("File is required"),
+    id: Yup.number().required('ID is required'),
+    url: Yup.string().required('Image is required'),
+    file: Yup.mixed().required('File is required')
   }),
   links: Yup.array().of(
     Yup.object({
-      id: Yup.number().required("ID is required"),
+      id: Yup.number().required('ID is required'),
       url: Yup.string()
         .nullable()
         .notRequired()
-        .test("is-valid-url", "Please enter a valid URL", (value) => {
-          if (value == null || value === "") return true;
+        .test('is-valid-url', 'Please enter a valid URL', (value) => {
+          if (value == null || value === '') return true
           return /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-_.]+\.[a-zA-Z]{2,}.*$/.test(
             value
-          );
-        }),
+          )
+        })
     })
-  ),
-});
+  )
+})
 
 function ManageProduct() {
-  const { title, description } = useTitleDescriptionStore();
-  const { mrp, mrl } = usePricingStore();
-  const { links } = useLinksStore();
-  const { category } = useCategoryStore();
-  const { image } = useImageStore();
-  const { images } = useImagesStore();
-  const { errors, setError, setEmptyErrors } = useProductErrorsStore();
+  const { title, description } = useTitleDescriptionStore()
+  const { mrp, mrl } = usePricingStore()
+  const { links } = useLinksStore()
+  const { category } = useCategoryStore()
+  const { image } = useImageStore()
+  const { images } = useImagesStore()
+  const { errors, setError, setEmptyErrors } = useProductErrorsStore()
 
   const handleSaveDraft = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       await validationSchemaForSaveDraft.validate(
         { title, image },
         { abortEarly: false }
-      );
-      setEmptyErrors();
-      console.log("Form:", { title, image });
+      )
+      setEmptyErrors()
+      console.log('Form:', { title, image })
     } catch (err: unknown) {
-      setEmptyErrors();
-      const validationErrors: Record<string, string> = {};
-      (err as Yup.ValidationError).inner.forEach(async (error) => {
-        validationErrors[error.path] = error.message;
-        setError(error.path as keyof typeof errors, error.message);
-      });
-      console.log("Form:", {
+      setEmptyErrors()
+      const validationErrors: Record<string, string> = {}
+      ;(err as Yup.ValidationError).inner.forEach(async (error) => {
+        validationErrors[error.path] = error.message
+        setError(error.path as keyof typeof errors, error.message)
+      })
+      console.log('Form:', {
         formData: { title, image },
         errors: errors,
-        validationErrors,
-      });
+        validationErrors
+      })
     }
-  };
+  }
 
   const handleAddProduct = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       await validationSchemaForAddProduct.validate(
         { title, description, mrp, mrl, links, category, images, image },
         { abortEarly: false }
-      );
-      setEmptyErrors();
-      console.log("Form:", { title, description, mrp, mrl, links, category });
+      )
+      setEmptyErrors()
+      console.log('Form:', { title, description, mrp, mrl, links, category })
     } catch (err: unknown) {
-      const validationErrors: Record<string, string> = {};
-      console.log("Form:", {
+      const validationErrors: Record<string, string> = {}
+      console.log('Form:', {
         formData: { title, description, mrp, mrl, links, category },
         errors: validationErrors,
-        errorFromStore: errors,
-      });
-      (err as Yup.ValidationError).inner.forEach(async (error) => {
-        validationErrors[error.path] = error.message;
-        setError(error.path as keyof typeof errors, error.message);
-      });
+        errorFromStore: errors
+      })
+      ;(err as Yup.ValidationError).inner.forEach(async (error) => {
+        validationErrors[error.path] = error.message
+        setError(error.path as keyof typeof errors, error.message)
+      })
     }
-  };
+  }
 
   return (
     <section className="py-5 sm:px-3">
@@ -119,14 +119,14 @@ function ManageProduct() {
         </h1>
         <div className="flex gap-2 sm:gap-3 md:gap-4">
           <Button
-            variant={"outline"}
+            variant={'outline'}
             onClick={handleSaveDraft}
             className="gap-2 hidden sm:inline-flex rounded-full"
           >
             <FileClock /> Save Draft
           </Button>
           <Button
-            variant={"default"}
+            variant={'default'}
             onClick={handleAddProduct}
             className="gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white"
           >
@@ -146,7 +146,7 @@ function ManageProduct() {
         </div>
       </div>
     </section>
-  );
+  )
 }
 
-export default ManageProduct;
+export default ManageProduct

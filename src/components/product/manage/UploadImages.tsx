@@ -1,58 +1,58 @@
-import SaveOptions from "@/components/ak/SaveOptions";
-import Error from "@/components/ui/error";
-import { useClickOutside } from "@/lib";
-import { cn } from "@/lib/utils";
+import SaveOptions from '@/components/ak/SaveOptions'
+import Error from '@/components/ui/error'
+import { useClickOutside } from '@/lib'
+import { cn } from '@/lib/utils'
 import {
   useImagesStore,
   useImageStore,
-  useProductErrorsStore,
-} from "@/store/product.store";
-import { FileIcon, ImagePlus } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
-import { FileUploader } from "react-drag-drop-files";
+  useProductErrorsStore
+} from '@/store/product.store'
+import { FileIcon, ImagePlus } from 'lucide-react'
+import React, { useEffect, useRef, useState } from 'react'
+import { FileUploader } from 'react-drag-drop-files'
 
 type ProductImage = {
-  id: number | string;
-  url: string;
-  file?: File | null;
-};
+  id: number | string
+  url: string
+  file?: File | null
+}
 
 function UploadImages() {
-  const { images, setImages } = useImagesStore();
-  const { image, setImage } = useImageStore();
-  const { errors, setError } = useProductErrorsStore();
+  const { images, setImages } = useImagesStore()
+  const { image, setImage } = useImageStore()
+  const { errors, setError } = useProductErrorsStore()
 
-  const ref = useRef(null);
-  const outerRef = useRef(null);
+  const ref = useRef(null)
+  const outerRef = useRef(null)
   useClickOutside(
     () => {
-      console.log("clicked outside");
+      console.log('clicked outside')
     },
     ref,
     outerRef
-  );
+  )
 
   const handleImageChange = (file: File) => {
     const updatedImage = {
       ...image,
       url: URL.createObjectURL(file),
-      file: file,
-    } as ProductImage;
-    setImage(updatedImage);
-    setError("image.id", "");
-    setError("image.file", "");
-    setError("image.url", "");
-  };
+      file: file
+    } as ProductImage
+    setImage(updatedImage)
+    setError('image.id', '')
+    setError('image.file', '')
+    setError('image.url', '')
+  }
 
   const handleImagesChange = (i: number, file: File) => {
-    let arr = [...images];
-    arr[i].url = URL.createObjectURL(file);
-    arr[i].file = file;
-    setImages(arr);
-    setError(`images[${i}].id`, "");
-    setError(`images[${i}].file`, "");
-    setError(`images[${i}].url`, "");
-  };
+    let arr = [...images]
+    arr[i].url = URL.createObjectURL(file)
+    arr[i].file = file
+    setImages(arr)
+    setError(`images[${i}].id`, '')
+    setError(`images[${i}].file`, '')
+    setError(`images[${i}].url`, '')
+  }
   return (
     <div
       className="manage-product-element flex-grow lg:flex-grow-0"
@@ -66,10 +66,10 @@ function UploadImages() {
         <div className="w-full aspect-square overflow-hidden bg-gray-100 dark:bg-zinc-900 rounded-lg grid place-items-center">
           <FileUploader
             handleChange={(file: File) => {
-              handleImageChange(file);
+              handleImageChange(file)
             }}
             name="logo"
-            types={["jpg", "JPG", "png", "PNG", "jpeg", "JPEG"]}
+            types={['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG']}
             children={
               <>
                 {image?.url ? (
@@ -89,12 +89,12 @@ function UploadImages() {
               </>
             }
           />
-          <Error error={errors["image.file"]} />
+          <Error error={errors['image.file']} />
         </div>
       </div>
       <div
         className={cn(
-          "bg-white dark:bg-black p-4 pb-3 rounded-2xl flex gap-2 sm:gap-4 items-center justify-center overflow-x-auto file-input-wrapper"
+          'bg-white dark:bg-black p-4 pb-3 rounded-2xl flex gap-2 sm:gap-4 items-center justify-center overflow-x-auto file-input-wrapper'
         )}
         ref={ref}
       >
@@ -103,7 +103,7 @@ function UploadImages() {
             <FileUploader
               handleChange={(file: File) => handleImagesChange(i, file)}
               name="logo"
-              types={["jpg", "JPG", "png", "PNG", "jpeg", "JPEG"]}
+              types={['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG']}
               children={
                 <>
                   <div
@@ -131,7 +131,7 @@ function UploadImages() {
                   errors[`images[${i}].id`] ||
                   errors[`images[${i}].file`] ||
                   errors[`images[${i}].url`] ||
-                  "Image is required"
+                  'Image is required'
                 }
               />
             )}
@@ -139,7 +139,7 @@ function UploadImages() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
-export default UploadImages;
+export default UploadImages

@@ -7,24 +7,24 @@ import Tooltip from '../ui/tooltip'
 import { useRouter } from 'next/navigation'
 
 function Sidebar() {
-    const router = useRouter()
-    return (
-        <aside className='hidden sm:flex flex-col py-5 items-center justify-between pt-28'>
-            <div>
-                <Tooltip title='Go Back'>
-                    <Avatar onClick={() => router.back()} fallback={<ChevronLeft />} />
-                </Tooltip>
-            </div>
-            <div className='flex flex-col gap-4 justify-end'>
-                <Tooltip title="Toggle Theme">
-                    <Avatar fallback={<ToggleTheme />} />
-                </Tooltip>
-                <Tooltip title="Logout">
-                    <Avatar fallback={<LogOut />} />
-                </Tooltip>
-            </div>
-        </aside>
-    )
+  const router = useRouter()
+  return (
+    <aside className="hidden sm:flex flex-col py-5 items-center justify-between pt-28">
+      <div>
+        <Tooltip title="Go Back">
+          <Avatar onClick={() => router.back()} fallback={<ChevronLeft />} />
+        </Tooltip>
+      </div>
+      <div className="flex flex-col gap-4 justify-end">
+        <Tooltip title="Toggle Theme">
+          <Avatar fallback={<ToggleTheme />} />
+        </Tooltip>
+        <Tooltip title="Logout">
+          <Avatar fallback={<LogOut />} />
+        </Tooltip>
+      </div>
+    </aside>
+  )
 }
 
 export default Sidebar

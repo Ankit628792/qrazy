@@ -1,60 +1,60 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
-import AuthSuccess from "@/components/auth/Success";
-import { Button } from "@/components/ui/button";
-import Error from "@/components/ui/error";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-import React, { useState } from "react";
-import * as Yup from "yup";
+'use client'
+import AuthSuccess from '@/components/auth/Success'
+import { Button } from '@/components/ui/button'
+import Error from '@/components/ui/error'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { cn } from '@/lib/utils'
+import React, { useState } from 'react'
+import * as Yup from 'yup'
 
-type IForm = Record<string, string | null>;
+type IForm = Record<string, string | null>
 
 const validationSchema = Yup.object({
   password: Yup.string()
-    .required("Password is required")
-    .min(6, "Password must be at least 6 characters long")
-    .matches(/^\S*$/, "Password cannot contain spaces"),
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters long')
+    .matches(/^\S*$/, 'Password cannot contain spaces'),
   cPassword: Yup.string()
-    .required("Confirm Password is required")
-    .oneOf([Yup.ref("password")], "Passwords must match"),
-});
+    .required('Confirm Password is required')
+    .oneOf([Yup.ref('password')], 'Passwords must match')
+})
 
 function Page() {
   const [form, setForm] = useState<IForm>({
     password: null,
-    cPassword: null,
-  });
+    cPassword: null
+  })
   const [errors, setErrors] = useState<IForm>({
     password: null,
-    cPassword: null,
-  });
-  const [success, setSuccess] = useState(false);
+    cPassword: null
+  })
+  const [success, setSuccess] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" });
-  };
+    setForm({ ...form, [e.target.name]: e.target.value })
+    setErrors({ ...errors, [e.target.name]: '' })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      await validationSchema.validate(form, { abortEarly: false });
-      console.log("Form:", form);
-      setSuccess(true);
-      setErrors({});
+      await validationSchema.validate(form, { abortEarly: false })
+      console.log('Form:', form)
+      setSuccess(true)
+      setErrors({})
     } catch (err: unknown) {
-      const validationErrors: Record<string, string> = {};
-      const firstError = err.inner[0];
-      validationErrors[firstError.path] = firstError.message;
-      setErrors(validationErrors);
-      console.log("Form:", {
+      const validationErrors: Record<string, string> = {}
+      const firstError = err.inner[0]
+      validationErrors[firstError.path] = firstError.message
+      setErrors(validationErrors)
+      console.log('Form:', {
         formData: form,
-        errors: validationErrors,
-      });
+        errors: validationErrors
+      })
     }
-  };
+  }
 
   return (
     <>
@@ -79,9 +79,9 @@ function Page() {
                   id="password"
                   name="password"
                   placeholder="Type Here..."
-                  className={cn("xl:text-lg")}
+                  className={cn('xl:text-lg')}
                   onChange={handleChange}
-                  onFocus={() => setErrors({ ...errors, password: "" })}
+                  onFocus={() => setErrors({ ...errors, password: '' })}
                 />
                 <Error error={errors.password} />
               </div>
@@ -94,13 +94,13 @@ function Page() {
                   id="cPassword"
                   name="cPassword"
                   placeholder="Type Here..."
-                  className={cn("xl:text-lg")}
+                  className={cn('xl:text-lg')}
                   onChange={handleChange}
-                  onFocus={() => setErrors({ ...errors, cPassword: "" })}
+                  onFocus={() => setErrors({ ...errors, cPassword: '' })}
                 />
                 <Error error={errors.cPassword} />
               </div>
-              <Button size={"lg"} className="mt-4">
+              <Button size={'lg'} className="mt-4">
                 <span className="sm:text-lg select-none">Submit</span>
               </Button>
             </div>
@@ -114,7 +114,7 @@ function Page() {
         onClose={() => setSuccess(false)}
       />
     </>
-  );
+  )
 }
 
-export default Page;
+export default Page

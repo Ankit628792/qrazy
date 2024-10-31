@@ -1,94 +1,94 @@
-"use client";
+'use client'
 
-import React from "react";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import * as Yup from "yup";
-import Error from "../ui/error";
+import React from 'react'
+import { Label } from '../ui/label'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
+import * as Yup from 'yup'
+import Error from '../ui/error'
 
 type IResetPasswordForm = {
-  currentPassword: string;
-  newPassword: string;
-  confirmPassword: string;
-};
+  currentPassword: string
+  newPassword: string
+  confirmPassword: string
+}
 
 const resetPasswordSchema = Yup.object({
   currentPassword: Yup.string()
-    .required("Current Password is required")
-    .matches(/^\S*$/, "Password cannot contain spaces"),
+    .required('Current Password is required')
+    .matches(/^\S*$/, 'Password cannot contain spaces'),
   newPassword: Yup.string()
-    .required("New Password is required")
+    .required('New Password is required')
     .test(
-      "min-length",
-      "Password must be at least 6 characters long",
+      'min-length',
+      'Password must be at least 6 characters long',
       (value) => value && value.length >= 6
     )
     .test(
-      "has-lowercase",
-      "Password must contain at least one lowercase letter",
+      'has-lowercase',
+      'Password must contain at least one lowercase letter',
       (value) => /[a-z]/.test(value)
     )
     .test(
-      "has-uppercase",
-      "Password must contain at least one uppercase letter",
+      'has-uppercase',
+      'Password must contain at least one uppercase letter',
       (value) => /[A-Z]/.test(value)
     )
-    .test("has-number", "Password must contain at least one number", (value) =>
+    .test('has-number', 'Password must contain at least one number', (value) =>
       /\d/.test(value)
     )
     .test(
-      "has-special-char",
-      "Password must contain at least one special character",
+      'has-special-char',
+      'Password must contain at least one special character',
       (value) => /[@$!%*?&]/.test(value)
     )
-    .test("no-spaces", "Password cannot contain spaces", (value) =>
+    .test('no-spaces', 'Password cannot contain spaces', (value) =>
       /^\S*$/.test(value)
     ),
   confirmPassword: Yup.string()
-    .required("Confirm Password is required")
-    .oneOf([Yup.ref("newPassword")], "Passwords must match"),
-});
+    .required('Confirm Password is required')
+    .oneOf([Yup.ref('newPassword')], 'Passwords must match')
+})
 
 const ResetPassword = () => {
   const [resetPasswordForm, setResetPasswordForm] =
     React.useState<IResetPasswordForm>({
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    })
 
   const [errors, setErrors] = React.useState<Record<string, string | null>>({
     currentPassword: null,
     newPassword: null,
-    confirmPassword: null,
-  });
+    confirmPassword: null
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setResetPasswordForm({
       ...resetPasswordForm,
-      [e.target.name]: e.target.value,
-    });
-  };
+      [e.target.name]: e.target.value
+    })
+  }
 
   const handleSave = async () => {
     try {
       await resetPasswordSchema.validate(resetPasswordForm, {
-        abortEarly: false,
-      });
-      console.log("Form:", resetPasswordForm);
-      setErrors({});
+        abortEarly: false
+      })
+      console.log('Form:', resetPasswordForm)
+      setErrors({})
     } catch (err: unknown) {
-      const validationErrors: Record<string, string> = {};
-      const firstError = err.inner[0];
-      validationErrors[firstError.path] = firstError.message;
-      setErrors(validationErrors);
-      console.log("Form:", {
+      const validationErrors: Record<string, string> = {}
+      const firstError = err.inner[0]
+      validationErrors[firstError.path] = firstError.message
+      setErrors(validationErrors)
+      console.log('Form:', {
         formData: resetPasswordForm,
-        errors: validationErrors,
-      });
+        errors: validationErrors
+      })
     }
-  };
+  }
 
   return (
     <div className="w-full rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm p-3 lg:sticky lg:top-72">
@@ -105,7 +105,7 @@ const ResetPassword = () => {
             name="currentPassword"
             value={resetPasswordForm.currentPassword}
             onChange={handleChange}
-            onFocus={() => setErrors({ ...errors, currentPassword: "" })}
+            onFocus={() => setErrors({ ...errors, currentPassword: '' })}
           />
           <Error error={errors.currentPassword} />
         </div>
@@ -118,7 +118,7 @@ const ResetPassword = () => {
             name="newPassword"
             value={resetPasswordForm.newPassword}
             onChange={handleChange}
-            onFocus={() => setErrors({ ...errors, newPassword: "" })}
+            onFocus={() => setErrors({ ...errors, newPassword: '' })}
           />
           <Error error={errors.newPassword} />
         </div>
@@ -131,10 +131,10 @@ const ResetPassword = () => {
             name="confirmPassword"
             value={resetPasswordForm.confirmPassword}
             onChange={handleChange}
-            onFocus={() => setErrors({ ...errors, confirmPassword: "" })}
+            onFocus={() => setErrors({ ...errors, confirmPassword: '' })}
           />
           {errors.confirmPassword && (
-            <Error error={errors.confirmPassword || ""} />
+            <Error error={errors.confirmPassword || ''} />
           )}
         </div>
         <hr className="my-1" />
@@ -143,7 +143,7 @@ const ResetPassword = () => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ResetPassword;
+export default ResetPassword

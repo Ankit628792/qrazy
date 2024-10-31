@@ -1,84 +1,84 @@
-import PopUp from "@/components/ak/PopUp";
-import { Button } from "@/components/ui/button";
+import PopUp from '@/components/ak/PopUp'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Error from "@/components/ui/error";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import Tooltip from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
-import { CheckCircle, XIcon } from "lucide-react";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import * as Yup from "yup";
+  CardTitle
+} from '@/components/ui/card'
+import Error from '@/components/ui/error'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import Tooltip from '@/components/ui/tooltip'
+import { cn } from '@/lib/utils'
+import { CheckCircle, XIcon } from 'lucide-react'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import * as Yup from 'yup'
 
 const addCategorySchema = Yup.object({
-  name: Yup.string().required("Category name is required"),
-  description: Yup.string().required("Category description is required"),
-});
+  name: Yup.string().required('Category name is required'),
+  description: Yup.string().required('Category description is required')
+})
 
 const AddCategory = ({
   onClose,
-  onSuccess,
+  onSuccess
 }: {
-  onClose: () => void;
-  onSuccess: (category: Category) => void;
+  onClose: () => void
+  onSuccess: (category: Category) => void
 }) => {
   const [category, setCategory] = useState<Category>({
-    name: "",
-    description: "",
-  });
+    name: '',
+    description: ''
+  })
 
   const [errors, setErrors] = useState<Record<string, string | null>>({
     name: null,
-    description: null,
-  });
+    description: null
+  })
 
   const handleSubmit = async () => {
     try {
-      await addCategorySchema.validate(category, { abortEarly: false });
+      await addCategorySchema.validate(category, { abortEarly: false })
       toast
         .promise(
           new Promise((resolve, reject) => {
             setTimeout(() => {
-              resolve("Category added successfully!");
-            }, 1000);
+              resolve('Category added successfully!')
+            }, 1000)
           }),
           {
-            loading: "Validating category",
-            success: "Category added successfully!",
-            error: "Failed to add category.",
+            loading: 'Validating category',
+            success: 'Category added successfully!',
+            error: 'Failed to add category.'
           }
         )
         .then(() => {
-          onSuccess(category);
+          onSuccess(category)
         })
-        .catch(() => {});
+        .catch(() => {})
     } catch (err: unknown) {
       if (err instanceof Yup.ValidationError) {
-        const validationErrors: Record<string, string> = {};
-        const firstError = err.inner[0];
-        validationErrors[firstError.path] = firstError.message;
-        setErrors(validationErrors);
-        console.log("Form:", {
+        const validationErrors: Record<string, string> = {}
+        const firstError = err.inner[0]
+        validationErrors[firstError.path] = firstError.message
+        setErrors(validationErrors)
+        console.log('Form:', {
           formData: category,
-          errors: validationErrors,
-        });
+          errors: validationErrors
+        })
       }
     }
-  };
+  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setCategory({ ...category, [e.target.id]: e.target.value });
-  };
+    setCategory({ ...category, [e.target.id]: e.target.value })
+  }
   return (
     <PopUp onClose={onClose}>
       <Card className="w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-xl relative y-translate">
@@ -103,11 +103,11 @@ const AddCategory = ({
               value={category.name}
               onChange={handleChange}
               placeholder="Type here..."
-              className={cn("2xl:text-lg")}
+              className={cn('2xl:text-lg')}
               name="name"
-              onFocus={() => setErrors({ ...errors, name: "" })}
+              onFocus={() => setErrors({ ...errors, name: '' })}
             />
-             <Error error={errors.name} />
+            <Error error={errors.name} />
           </div>
           <div className="w-full">
             <Label htmlFor="description" className="sm:text-lg">
@@ -118,17 +118,17 @@ const AddCategory = ({
               value={category.description}
               onChange={handleChange}
               placeholder="Type here..."
-              className={cn("2xl:text-lg")}
+              className={cn('2xl:text-lg')}
               name="description"
-              onFocus={() => setErrors({ ...errors, description: "" })}
+              onFocus={() => setErrors({ ...errors, description: '' })}
             />
- <Error error={errors.description} />
+            <Error error={errors.description} />
           </div>
         </CardContent>
         <CardFooter className="pt-8">
           <Button
             onClick={handleSubmit}
-            size={"lg"}
+            size={'lg'}
             className="gap-2 ml-auto bg-emerald-500 hover:bg-emerald-600 text-white rounded-full"
           >
             <CheckCircle />
@@ -137,6 +137,6 @@ const AddCategory = ({
         </CardFooter>
       </Card>
     </PopUp>
-  );
-};
-export default AddCategory;
+  )
+}
+export default AddCategory

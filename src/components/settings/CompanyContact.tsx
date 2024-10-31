@@ -1,68 +1,76 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import SearchSelect from "../ui/search-select";
-import SaveOptions from "../ak/SaveOptions";
-import { cn } from "@/lib/utils";
-import Error from "../ui/error";
-import { ICompanyContactCard } from ".";
-import * as Yup from "yup";
+import { useEffect, useState } from 'react'
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
+import SearchSelect from '../ui/search-select'
+import SaveOptions from '../ak/SaveOptions'
+import { cn } from '@/lib/utils'
+import Error from '../ui/error'
+import { ICompanyContactCard } from '.'
+import * as Yup from 'yup'
 
 const options = [
-  { id: 1, value: "1", label: "Option 1" },
-  { id: 2, value: "2", label: "Option 2" },
-  { id: 3, value: "3", label: "Option 3" },
-];
+  { id: 1, value: '1', label: 'Option 1' },
+  { id: 2, value: '2', label: 'Option 2' },
+  { id: 3, value: '3', label: 'Option 3' }
+]
 
 interface ICompanyDetailsCard {
-  companyContactCard: ICompanyContactCard;
+  companyContactCard: ICompanyContactCard
 }
 
 const companyContactSchema = Yup.object({
-  address: Yup.string().required("Address is required"),
-  pinCode: Yup.string().required("Pin Code is required"),
-  country: Yup.string().required("Country is required"),
+  address: Yup.string().required('Address is required'),
+  pinCode: Yup.string().required('Pin Code is required'),
+  country: Yup.string().required('Country is required'),
   contactEmail: Yup.string()
-    .email("Invalid email")
-    .required("Email is required"),
+    .email('Invalid email')
+    .required('Email is required'),
   contactNumber: Yup.string()
     .test('starts-with-plus', 'Contact number must start with +', (value) => {
-      return value && value.startsWith('+'); // Ensure the number starts with "+"
+      return value && value.startsWith('+') // Ensure the number starts with "+"
     })
-    .test('valid-length', 'Contact number must be between 7 and 15 digits long', (value) => {
-      return value && value.length >= 7 && value.length <= 15; // Ensure the length is between 7-15 digits
-    })
-    .test('only-digits-after-plus', 'Contact number should contain only digits after +', (value) => {
-      return /^[+][0-9]+$/.test(value); // Ensure only digits follow after "+"
-    })
-    .required("Contact number is required"),
-});
+    .test(
+      'valid-length',
+      'Contact number must be between 7 and 15 digits long',
+      (value) => {
+        return value && value.length >= 7 && value.length <= 15 // Ensure the length is between 7-15 digits
+      }
+    )
+    .test(
+      'only-digits-after-plus',
+      'Contact number should contain only digits after +',
+      (value) => {
+        return /^[+][0-9]+$/.test(value) // Ensure only digits follow after "+"
+      }
+    )
+    .required('Contact number is required')
+})
 
 function CompanyContact({
   companyContactCard = {
-    address: "",
-    pinCode: "",
-    country: "",
-    contactEmail: "",
-    contactNumber: "",
-  },
+    address: '',
+    pinCode: '',
+    country: '',
+    contactEmail: '',
+    contactNumber: ''
+  }
 }: ICompanyDetailsCard) {
   const [companyContactForm, setCompanyContactForm] =
-    useState<ICompanyContactCard>(companyContactCard);
-  const [country, setCountry] = useState<string>("");
+    useState<ICompanyContactCard>(companyContactCard)
+  const [country, setCountry] = useState<string>('')
   const [idealState, setIdealState] =
-    useState<ICompanyContactCard>(companyContactCard);
-  const [showSaveButton, setShowSaveButton] = useState<boolean>(false);
+    useState<ICompanyContactCard>(companyContactCard)
+  const [showSaveButton, setShowSaveButton] = useState<boolean>(false)
 
   const [errors, setErrors] = useState<Record<string, string | null>>({
     address: null,
     pinCode: null,
     country: null,
     contactEmail: null,
-    contactNumber: null,
-  });
+    contactNumber: null
+  })
 
   useEffect(() => {
     if (
@@ -72,51 +80,51 @@ function CompanyContact({
       companyContactForm.contactEmail === idealState.contactEmail &&
       companyContactForm.contactNumber === idealState.contactNumber
     ) {
-      setShowSaveButton(false);
+      setShowSaveButton(false)
     } else {
-      setShowSaveButton(true);
+      setShowSaveButton(true)
     }
-  }, [companyContactForm]);
+  }, [companyContactForm])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompanyContactForm({
       ...companyContactForm,
-      [e.target.name]: e.target.value,
-    });
-  };
+      [e.target.name]: e.target.value
+    })
+  }
 
   const handleSelect = (option: Option) => {
-    setCountry(option.value);
+    setCountry(option.value)
     setCompanyContactForm({
       ...companyContactForm,
-      country: option.label,
-    });
-    setErrors({ ...errors, country: "" });
-  };
+      country: option.label
+    })
+    setErrors({ ...errors, country: '' })
+  }
 
   const handleSave = async () => {
     try {
       await companyContactSchema.validate(companyContactForm, {
-        abortEarly: false,
-      });
-      console.log("Form:", companyContactForm);
-      setErrors({});
+        abortEarly: false
+      })
+      console.log('Form:', companyContactForm)
+      setErrors({})
     } catch (err: unknown) {
-      const validationErrors: Record<string, string> = {};
-      const firstError = err.inner[0];
-      validationErrors[firstError.path] = firstError.message;
-      setErrors(validationErrors);
-      console.log("Form:", {
+      const validationErrors: Record<string, string> = {}
+      const firstError = err.inner[0]
+      validationErrors[firstError.path] = firstError.message
+      setErrors(validationErrors)
+      console.log('Form:', {
         formData: companyContactForm,
-        errors: validationErrors,
-      });
+        errors: validationErrors
+      })
     }
-  };
+  }
 
   const handleCancel = () => {
-    setCompanyContactForm(idealState);
-    setErrors({});
-  };
+    setCompanyContactForm(idealState)
+    setErrors({})
+  }
 
   return (
     <div className="flex flex-col gap-3 pt-2">
@@ -135,11 +143,11 @@ function CompanyContact({
             type="text"
             id="address"
             placeholder="e.g. 123 Main St, New Delhi"
-            className={cn("2xl:text-lg")}
+            className={cn('2xl:text-lg')}
             value={companyContactForm.address}
             name="address"
             onChange={handleChange}
-            onFocus={() => setErrors({ ...errors, address: "" })}
+            onFocus={() => setErrors({ ...errors, address: '' })}
           />
           <Error error={errors.address} />
         </div>
@@ -150,11 +158,11 @@ function CompanyContact({
               type="text"
               id="pinCode"
               placeholder="e.g. 110053"
-              className={cn("2xl:text-lg")}
+              className={cn('2xl:text-lg')}
               name="pinCode"
               value={companyContactForm.pinCode}
               onChange={handleChange}
-              onFocus={() => setErrors({ ...errors, pinCode: "" })}
+              onFocus={() => setErrors({ ...errors, pinCode: '' })}
             />
             <Error error={errors.pinCode} />
           </div>
@@ -175,17 +183,17 @@ function CompanyContact({
               type="text"
               id="contactEmail"
               placeholder="e.g. contact@delanki.com"
-              className={cn("2xl:text-lg")}
+              className={cn('2xl:text-lg')}
               name="contactEmail"
               value={companyContactForm.contactEmail}
               onChange={handleChange}
-              onFocus={() => setErrors({ ...errors, contactEmail: "" })}
+              onFocus={() => setErrors({ ...errors, contactEmail: '' })}
             />
             <Error error={errors.contactEmail} />
           </div>
           <div className="w-full">
             <Label htmlFor="contactNumber">
-              Contact Number{" "}
+              Contact Number{' '}
               <span className="text-xs italic text-right opacity-50">
                 (* include country code)
               </span>
@@ -194,18 +202,18 @@ function CompanyContact({
               type="tel"
               id="contactNumber"
               placeholder="e.g. +911234567890"
-              className={cn("2xl:text-lg")}
+              className={cn('2xl:text-lg')}
               name="contactNumber"
               value={companyContactForm.contactNumber}
               onChange={handleChange}
-              onFocus={() => setErrors({ ...errors, contactNumber: "" })}
+              onFocus={() => setErrors({ ...errors, contactNumber: '' })}
             />
             <Error error={errors.contactNumber} />
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default CompanyContact;
+export default CompanyContact

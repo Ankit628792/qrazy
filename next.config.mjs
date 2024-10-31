@@ -1,17 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
-    images: {
-        remotePatterns: [
-            {
-                protocol: "https",
-                hostname: "**",
-            },
-        ],
-    },
-};
+  eslint: {
+    ignoreDuringBuilds: true
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**'
+      }
+    ]
+  }
+}
 
-export default nextConfig;
-
+export default nextConfig

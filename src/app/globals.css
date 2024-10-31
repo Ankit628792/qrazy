@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 body {
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .font-man {
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .font-urban {
-  font-family: "Urbanist", sans-serif;
+  font-family: 'Urbanist', sans-serif;
 }
 
 .y-translate {
@@ -29,9 +29,8 @@ body {
   transition: all 0.1s ease-in-out;
 }
 
-.fileUpload input[type="file"] {
+.fileUpload input[type='file'] {
   display: none !important;
-
 }
 
 .fileUpload label div.fileUploadOverlay {
@@ -39,7 +38,7 @@ body {
 }
 
 .fileUpload label div:nth-child(2):not(.fileUploadContainer) {
-  display: none !important
+  display: none !important;
 }
 
 .fileUpload label div:nth-child(3):is(.fileUploadOverlay) {
@@ -74,43 +73,43 @@ body {
   }
 
   .error {
-    @apply text-rose-500 text-xs px-1 leading-none h-2
+    @apply text-rose-500 text-xs px-1 leading-none h-2;
   }
 
   .menu-item {
-    @apply min-w-24 font-medium text-center py-3 px-5 rounded-full hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-150 ease-in-out
+    @apply min-w-24 font-medium text-center py-3 px-5 rounded-full hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-150 ease-in-out;
   }
 
   .menu-item.active {
-    @apply bg-black dark:bg-white text-white dark:text-black
+    @apply bg-black dark:bg-white text-white dark:text-black;
   }
 
   .manage-product-element {
-    @apply flex flex-col gap-3 rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm p-3 pt-2
+    @apply flex flex-col gap-3 rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm p-3 pt-2;
   }
 
   .manage-product-element .input-wrapper {
-    @apply bg-white dark:bg-black p-4 rounded-2xl flex flex-col gap-1
+    @apply bg-white dark:bg-black p-4 rounded-2xl flex flex-col gap-1;
   }
 
   .manage-product-element .input-wrapper-title {
-    @apply font-medium -mb-2 lg:text-lg 2xl:text-xl
+    @apply font-medium -mb-2 lg:text-lg 2xl:text-xl;
   }
 
   .manage-product-element .file-input-wrapper input {
-    @apply hidden w-0
+    @apply hidden w-0;
   }
 
   .product-table {
-    @apply border-spacing-x-0 border-spacing-y-2 lg:border-spacing-y-3 border-separate w-full
+    @apply border-spacing-x-0 border-spacing-y-2 lg:border-spacing-y-3 border-separate w-full;
   }
 
   .product-table td {
-    @apply p-2 lg:p-3 align-middle shrink-0 text-sm
+    @apply p-2 lg:p-3 align-middle shrink-0 text-sm;
   }
 
   .product-table tr {
-    @apply bg-white dark:bg-black bg-opacity-60 dark:bg-opacity-60 backdrop-blur-sm hover:bg-white hover:bg-opacity-100 hover:dark:bg-black hover:dark:bg-opacity-100
+    @apply bg-white dark:bg-black bg-opacity-60 dark:bg-opacity-60 backdrop-blur-sm hover:bg-white hover:bg-opacity-100 hover:dark:bg-black hover:dark:bg-opacity-100;
   }
 
   /* 
@@ -118,7 +117,8 @@ body {
     @apply hover:opacity-50 dark:hover:opacity-50
   } */
 
-  .product-table tr td:nth-last-child(1), .product-table th:nth-last-child(1) {
+  .product-table tr td:nth-last-child(1),
+  .product-table th:nth-last-child(1) {
     /* @apply rounded-r-xl */
   }
 
@@ -128,13 +128,12 @@ body {
   }
 
   .glass {
-    @apply bg-white bg-opacity-70 dark:bg-black dark:bg-opacity-70 backdrop-blur-sm hover:bg-opacity-90 dark:hover:bg-opacity-90 transition-all duration-150 ease-out
+    @apply bg-white bg-opacity-70 dark:bg-black dark:bg-opacity-70 backdrop-blur-sm hover:bg-opacity-90 dark:hover:bg-opacity-90 transition-all duration-150 ease-out;
   }
 
   .glass-base {
-    @apply bg-white bg-opacity-70 dark:bg-black dark:bg-opacity-70 backdrop-blur-sm
+    @apply bg-white bg-opacity-70 dark:bg-black dark:bg-opacity-70 backdrop-blur-sm;
   }
-
 }
 
 @layer base {

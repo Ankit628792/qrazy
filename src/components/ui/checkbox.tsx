@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { Check } from "lucide-react"
+import * as React from 'react'
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
+import { Check } from 'lucide-react'
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
@@ -13,13 +13,13 @@ const Checkbox = React.forwardRef<
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      "peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+      'peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground',
       className
     )}
     {...props}
   >
     <CheckboxPrimitive.Indicator
-      className={cn("flex items-center justify-center text-current")}
+      className={cn('flex items-center justify-center text-current')}
     >
       <Check className="h-4 w-4" />
     </CheckboxPrimitive.Indicator>
@@ -29,7 +29,13 @@ Checkbox.displayName = CheckboxPrimitive.Root.displayName
 
 export { Checkbox, CheckboxWithText }
 
-function CheckboxWithText({ label, description, id, checked, onChange }: {
+function CheckboxWithText({
+  label,
+  description,
+  id,
+  checked,
+  onChange
+}: {
   label: string
   description?: string
   id?: number | string
@@ -39,7 +45,11 @@ function CheckboxWithText({ label, description, id, checked, onChange }: {
   id = JSON.stringify(id)
   return (
     <div className="items-top flex space-x-2 my-1">
-      <Checkbox id={id} checked={checked} onCheckedChange={(val) => onChange(val)} />
+      <Checkbox
+        id={id}
+        checked={checked}
+        onCheckedChange={(val) => onChange(val)}
+      />
       <div className="grid gap-1.5 leading-none select-none">
         <label
           htmlFor={id}
@@ -47,11 +57,8 @@ function CheckboxWithText({ label, description, id, checked, onChange }: {
         >
           {label}
         </label>
-        <p className="text-sm text-muted-foreground">
-          {description}
-        </p>
+        <p className="text-sm text-muted-foreground">{description}</p>
       </div>
     </div>
   )
 }
-

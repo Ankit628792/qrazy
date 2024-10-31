@@ -1,54 +1,54 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+'use client'
 
-import AuthSuccess from "@/components/auth/Success";
-import { Button } from "@/components/ui/button";
-import Error from "@/components/ui/error";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import React, { useState } from "react";
-import * as Yup from "yup";
+import AuthSuccess from '@/components/auth/Success'
+import { Button } from '@/components/ui/button'
+import Error from '@/components/ui/error'
+import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
+import React, { useState } from 'react'
+import * as Yup from 'yup'
 
-type IForm = Record<string, string | null>;
+type IForm = Record<string, string | null>
 
 const validationSchema = Yup.object({
   email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-});
+    .email('Invalid email address')
+    .required('Email is required')
+})
 
 function Page() {
   const [form, setForm] = useState<IForm>({
-    email: null,
-  });
+    email: null
+  })
   const [errors, setErrors] = useState<IForm>({
-    email: null,
-  });
-  const [success, setSuccess] = useState(false);
+    email: null
+  })
+  const [success, setSuccess] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" });
-  };
+    setForm({ ...form, [e.target.name]: e.target.value })
+    setErrors({ ...errors, [e.target.name]: '' })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      await validationSchema.validate(form, { abortEarly: false });
-      console.log("Form:", form);
-      setSuccess(true);
-      setErrors({});
+      await validationSchema.validate(form, { abortEarly: false })
+      console.log('Form:', form)
+      setSuccess(true)
+      setErrors({})
     } catch (err: unknown) {
-      const validationErrors: Record<string, string> = {};
-      const firstError = err.inner[0];
-      validationErrors[firstError.path] = firstError.message;
-      setErrors(validationErrors);
-      console.log("Form:", {
+      const validationErrors: Record<string, string> = {}
+      const firstError = err.inner[0]
+      validationErrors[firstError.path] = firstError.message
+      setErrors(validationErrors)
+      console.log('Form:', {
         formData: form,
-        errors: validationErrors,
-      });
+        errors: validationErrors
+      })
     }
-  };
+  }
 
   return (
     <>
@@ -73,14 +73,14 @@ function Page() {
                   id="email"
                   name="email"
                   placeholder="Type Email Here..."
-                  value={form.email || ""}
+                  value={form.email || ''}
                   onChange={handleChange}
-                  className={cn("xl:text-lg xl:py-6 text-center")}
-                  onFocus={() => setErrors({ ...errors, email: "" })}
+                  className={cn('xl:text-lg xl:py-6 text-center')}
+                  onFocus={() => setErrors({ ...errors, email: '' })}
                 />
                 <Error error={errors.email} />
               </div>
-              <Button size={"lg"} className="">
+              <Button size={'lg'} className="">
                 <span className="sm:text-lg select-none">Submit</span>
               </Button>
             </div>
@@ -94,7 +94,7 @@ function Page() {
         onClose={() => setSuccess(false)}
       />
     </>
-  );
+  )
 }
 
-export default Page;
+export default Page

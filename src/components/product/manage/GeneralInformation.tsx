@@ -1,19 +1,19 @@
-import SaveOptions from "@/components/ak/SaveOptions";
-import Error from "@/components/ui/error";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
+import SaveOptions from '@/components/ak/SaveOptions'
+import Error from '@/components/ui/error'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { cn } from '@/lib/utils'
 import {
   useProductErrorsStore,
-  useTitleDescriptionStore,
-} from "@/store/product.store";
+  useTitleDescriptionStore
+} from '@/store/product.store'
 
 function GeneralInformation({}) {
   const { title, description, setTitle, setDescription } =
-    useTitleDescriptionStore();
+    useTitleDescriptionStore()
 
-  const { errors, setError } = useProductErrorsStore();
+  const { errors, setError } = useProductErrorsStore()
 
   return (
     <div className="manage-product-element">
@@ -28,10 +28,10 @@ function GeneralInformation({}) {
             id="title"
             placeholder="Product title here..."
             name="title"
-            className={cn("2xl:text-lg")}
+            className={cn('2xl:text-lg')}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            onFocus={() => setError("title", "")}
+            onFocus={() => setError('title', '')}
           />
           <Error error={errors.title} />
         </div>
@@ -41,16 +41,16 @@ function GeneralInformation({}) {
             id="description"
             placeholder="About your product..."
             name="description"
-            className={cn("2xl:text-lg")}
+            className={cn('2xl:text-lg')}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            onFocus={() => setError("description", "")}
+            onFocus={() => setError('description', '')}
           />
           <Error error={errors.description} />
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default GeneralInformation;
+export default GeneralInformation

@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import { GlobeLock } from "lucide-react";
-import { IProfileCard } from ".";
+import { GlobeLock } from 'lucide-react'
+import { IProfileCard } from '.'
 
 interface IProfileCardProp {
-  profileCard: IProfileCard;
+  profileCard: IProfileCard
 }
 
 const ProfileCard = ({ profileCard }: IProfileCardProp) => {
@@ -13,7 +13,7 @@ const ProfileCard = ({ profileCard }: IProfileCardProp) => {
       <div className="h-32 w-full">
         <img
           className="w-full h-full object-cover"
-          src={"https://images.unsplash.com/photo-1513346940221-6f673d962e97"}
+          src={'https://images.unsplash.com/photo-1513346940221-6f673d962e97'}
           alt=""
         />
       </div>
@@ -42,7 +42,7 @@ const ProfileCard = ({ profileCard }: IProfileCardProp) => {
         <p className="text-xs pb-3 text-gray-500">Member since Aug 2023</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProfileCard;
+export default ProfileCard

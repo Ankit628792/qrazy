@@ -1,32 +1,32 @@
-import SaveOptions from "@/components/ak/SaveOptions";
-import { Button } from "@/components/ui/button";
-import Error from "@/components/ui/error";
-import { Label } from "@/components/ui/label";
-import SearchSelect from "@/components/ui/search-select";
-import { useState } from "react";
-import AddCategory from "./AddCategory";
-import { useCategoryStore, useProductErrorsStore } from "@/store/product.store";
+import SaveOptions from '@/components/ak/SaveOptions'
+import { Button } from '@/components/ui/button'
+import Error from '@/components/ui/error'
+import { Label } from '@/components/ui/label'
+import SearchSelect from '@/components/ui/search-select'
+import { useState } from 'react'
+import AddCategory from './AddCategory'
+import { useCategoryStore, useProductErrorsStore } from '@/store/product.store'
 
 const options = [
-  { id: 1, value: "1", label: "Option 1" },
-  { id: 2, value: "2", label: "Option 2" },
-  { id: 3, value: "3", label: "Option 3" },
-];
+  { id: 1, value: '1', label: 'Option 1' },
+  { id: 2, value: '2', label: 'Option 2' },
+  { id: 3, value: '3', label: 'Option 3' }
+]
 
 function Category() {
-  const { category, setCategory } = useCategoryStore();
-  const { errors, setError } = useProductErrorsStore();
-  const [showAddCategory, setShowAddCategory] = useState(false);
+  const { category, setCategory } = useCategoryStore()
+  const { errors, setError } = useProductErrorsStore()
+  const [showAddCategory, setShowAddCategory] = useState(false)
 
   const handleSelect = (option: Option) => {
     const category = {
       id: option.id,
       name: option.label,
-      description: option.value,
-    };
-    setCategory(category);
-    setError("category.name", "");
-  };
+      description: option.value
+    }
+    setCategory(category)
+    setError('category.name', '')
+  }
 
   return (
     <>
@@ -43,8 +43,8 @@ function Category() {
               selectedValue={category.name}
               onChange={handleSelect}
             />
-            {errors["category.name"] && (
-              <Error error={errors["category.name"]} />
+            {errors['category.name'] && (
+              <Error error={errors['category.name']} />
             )}
           </div>
 
@@ -65,14 +65,14 @@ function Category() {
         <AddCategory
           onClose={() => setShowAddCategory(false)}
           onSuccess={() => {
-            setShowAddCategory(false);
+            setShowAddCategory(false)
           }}
         />
       ) : (
         <></>
       )}
     </>
-  );
+  )
 }
 
-export default Category;
+export default Category

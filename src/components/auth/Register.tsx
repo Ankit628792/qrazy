@@ -1,31 +1,31 @@
-"use client";
+'use client'
 
-import Auth from "@/components/auth/Auth";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { MoveRight } from "lucide-react";
-import Link from "next/link";
-import React from "react";
-import Error from "../ui/error";
-import * as Yup from "yup";
+import Auth from '@/components/auth/Auth'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { MoveRight } from 'lucide-react'
+import Link from 'next/link'
+import React from 'react'
+import Error from '../ui/error'
+import * as Yup from 'yup'
 
-type IRegisterForm = Record<string, string | null>;
+type IRegisterForm = Record<string, string | null>
 
 const registerSchema = Yup.object({
-  fName: Yup.string().required("First Name is required"),
-  lName: Yup.string().required("Last Name is required"),
+  fName: Yup.string().required('First Name is required'),
+  lName: Yup.string().required('Last Name is required'),
   email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
+    .email('Invalid email address')
+    .required('Email is required'),
   password: Yup.string()
-    .required("Password is required")
-    .min(6, "Password must be at least 6 characters long")
-    .matches(/^\S*$/, "Password cannot contain spaces"),
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters long')
+    .matches(/^\S*$/, 'Password cannot contain spaces'),
   cPassword: Yup.string()
-    .required("Confirm Password is required")
-    .oneOf([Yup.ref("password")], "Passwords must match"),
-});
+    .required('Confirm Password is required')
+    .oneOf([Yup.ref('password')], 'Passwords must match')
+})
 
 function Register() {
   const [registerForm, setRegisterForm] = React.useState<IRegisterForm>({
@@ -33,38 +33,38 @@ function Register() {
     lName: null,
     email: null,
     password: null,
-    cPassword: null,
-  });
+    cPassword: null
+  })
   const [errors, setErrors] = React.useState<IRegisterForm>({
     fName: null,
     lName: null,
     email: null,
     password: null,
-    cPassword: null,
-  });
+    cPassword: null
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" });
-  };
+    setRegisterForm({ ...registerForm, [e.target.name]: e.target.value })
+    setErrors({ ...errors, [e.target.name]: '' })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      await registerSchema.validate(registerForm, { abortEarly: false });
-      console.log("Form:", registerForm);
-      setErrors({});
+      await registerSchema.validate(registerForm, { abortEarly: false })
+      console.log('Form:', registerForm)
+      setErrors({})
     } catch (err: unknown) {
-      const validationErrors: Record<string, string> = {};
-      const firstError = err.inner[0];
-      validationErrors[firstError.path] = firstError.message;
-      setErrors(validationErrors);
-      console.log("Form:", {
+      const validationErrors: Record<string, string> = {}
+      const firstError = err.inner[0]
+      validationErrors[firstError.path] = firstError.message
+      setErrors(validationErrors)
+      console.log('Form:', {
         formData: registerForm,
-        errors: validationErrors,
-      });
+        errors: validationErrors
+      })
     }
-  };
+  }
   return (
     <Auth type="register">
       <>
@@ -79,9 +79,9 @@ function Register() {
                 id="fName"
                 name="fName"
                 placeholder="Type here..."
-                value={registerForm.fName || ""}
+                value={registerForm.fName || ''}
                 onChange={handleChange}
-                onFocus={() => setErrors({ ...errors, fName: "" })}
+                onFocus={() => setErrors({ ...errors, fName: '' })}
               />
               <Error error={errors.fName} />
             </div>
@@ -91,9 +91,9 @@ function Register() {
                 id="lName"
                 name="lName"
                 placeholder="Type here..."
-                value={registerForm.lName || ""}
+                value={registerForm.lName || ''}
                 onChange={handleChange}
-                onFocus={() => setErrors({ ...errors, lName: "" })}
+                onFocus={() => setErrors({ ...errors, lName: '' })}
               />
               <Error error={errors.lName} />
             </div>
@@ -104,9 +104,9 @@ function Register() {
               id="email"
               name="email"
               placeholder="Enter your email"
-              value={registerForm.email || ""}
+              value={registerForm.email || ''}
               onChange={handleChange}
-              onFocus={() => setErrors({ ...errors, email: "" })}
+              onFocus={() => setErrors({ ...errors, email: '' })}
             />
             <Error error={errors.email} />
           </div>
@@ -116,9 +116,9 @@ function Register() {
               id="password"
               name="password"
               placeholder="Enter Your Password"
-              value={registerForm.password || ""}
+              value={registerForm.password || ''}
               onChange={handleChange}
-              onFocus={() => setErrors({ ...errors, password: "" })}
+              onFocus={() => setErrors({ ...errors, password: '' })}
             />
             <Error error={errors.password} />
           </div>
@@ -128,26 +128,26 @@ function Register() {
               id="cPassword"
               placeholder="Re-Type Your Password"
               name="cPassword"
-              value={registerForm.cPassword || ""}
+              value={registerForm.cPassword || ''}
               onChange={handleChange}
-              onFocus={() => setErrors({ ...errors, cPassword: "" })}
+              onFocus={() => setErrors({ ...errors, cPassword: '' })}
             />
             <Error error={errors.cPassword} />
           </div>
           <Button size="lg" className="w-full mt-2">
-            <span className="text-base lg:text-lg">Register</span>{" "}
+            <span className="text-base lg:text-lg">Register</span>{' '}
             <MoveRight className="ml-2" />
           </Button>
         </form>
         <div className="text-sm xl:text-base flex items-center justify-center">
           <p>Already have an account?</p>
-          <Link href={"/login"} className="text-emerald-500 px-1 font-medium">
+          <Link href={'/login'} className="text-emerald-500 px-1 font-medium">
             Login
           </Link>
         </div>
       </>
     </Auth>
-  );
+  )
 }
 
-export default Register;
+export default Register

@@ -36,7 +36,7 @@ function Category() {
       <div className="manage-product-element flex-grow">
         <div className="px-2 flex items-center justify-between">
           <h1 className="input-wrapper-title">Category</h1>
-          <SaveOptions onSave={() => { }} onCancel={() => { }} />
+          <SaveOptions onSave={() => {}} onCancel={() => {}} />
         </div>
         <div className="input-wrapper flex-grow justify-between">
           <div className="w-full">

@@ -24,15 +24,6 @@ const validationSchemaForAddProduct = Yup.object({
   description: Yup.string().required("Description is required"),
   mrp: Yup.number().min(1).required("MRP is required"),
   mrl: Yup.number().min(1).required("MRL is required"),
-  links: Yup.array().of(
-    Yup.object({
-      id: Yup.number().required("ID is required"),
-      url: Yup.string().matches(
-        /^(https:\/\/|www\.)[a-zA-Z0-9-_.]+(\.[a-zA-Z]{2,})+.*$/,
-        "Please enter a valid URL"
-      ).required("URL is required"),
-    })
-  ),
   category: Yup.object({
     id: Yup.number().required("ID is required"),
     name: Yup.string().required("Name is required"),
@@ -43,6 +34,20 @@ const validationSchemaForAddProduct = Yup.object({
     url: Yup.string().required("Image is required"),
     file: Yup.mixed().required("File is required"),
   }),
+  links: Yup.array().of(
+    Yup.object({
+      id: Yup.number().required("ID is required"),
+      url: Yup.string()
+        .nullable()
+        .notRequired()
+        .test("is-valid-url", "Please enter a valid URL", (value) => {
+          if (value == null || value === "") return true;
+          return /^(https:\/\/|www\.)[a-zA-Z0-9-_.]+(\.[a-zA-Z]{2,})+.*$/.test(
+            value
+          );
+        }),
+    })
+  ),
 });
 
 function ManageProduct() {

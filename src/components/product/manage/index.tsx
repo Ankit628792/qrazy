@@ -56,8 +56,6 @@ const validationSchemaForAddProduct = Yup.object({
 });
 
 function ManageProduct() {
-  // const { title, description, mrp, mrl, links, category, image, images } =
-  //   useProductDetailsStore();
   const { title, description } = useTitleDescriptionStore();
   const { mrp, mrl } = usePricingStore();
   const { links } = useLinksStore();

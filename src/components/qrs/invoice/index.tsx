@@ -11,6 +11,8 @@ import PhysicalQR from '@/assets/physical.png'
 import Image from 'next/image'
 import Tooltip from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
+import DownloadQrZipButton from '../generate/DownloadQRZipButton'
+
 
 function Invoice() {
     const [active, setActive] = useState(false)
@@ -63,9 +65,7 @@ function Invoice() {
                         <h3>Billing</h3>
                     </div>
                     <div className='px-5 pb-3 -mt-3 flex gap-4'>
-                        <Button className='bg-emerald-500 hover:bg-emerald-600 text-white'>
-                            Download QRs
-                        </Button>
+                        <DownloadQrZipButton text='Download QRs' />
                         <Button>
                             Order Again
                         </Button>

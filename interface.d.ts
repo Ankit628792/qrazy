@@ -52,3 +52,5 @@ interface ScanRow {
     reward?: string | number
     created_at?: Date | string
 }
+
+declare module 'lodash.isequal'

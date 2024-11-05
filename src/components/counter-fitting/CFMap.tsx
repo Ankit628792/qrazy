@@ -1,78 +1,30 @@
 "use client"
-import { getCenter } from 'geolib'
 import { MapPin } from 'lucide-react'
-import React, { useState, useEffect, useMemo } from 'react'
-import ReactMapGL, { Marker } from 'react-map-gl'
+import React, { useState } from 'react'
+import { Marker } from 'react-map-gl'
+import MapWrapper from '../ak/MapWrapper'
 
 type Coordinate = {
     longitude: number,
     latitude: number
 }
 
-function Map({ data }: { data: Array<any> }) {
+function CFMap({ data }: { data: Array<any> }) {
     const [selectedLocation, setSelectedLocation] = useState<Coordinate | null>(null);
-    const [viewport, setViewport] = useState({
-        latitude: 0,
-        longitude: 0,
-        zoom: 5,
-        width: '100%',
-        height: typeof window !== 'undefined' ? window.innerHeight * 0.7 : 700
-    });
-
-    const coordinates = data.map((result) => ({
-        longitude: result.longitude,
-        latitude: result.latitude
-    }));
-
-    // Center point of coordinates
-    const center = useMemo(() => getCenter(coordinates), [data]);
-
-    // Update viewport center when data changes
-    useEffect(() => {
-        if (center) {
-            setViewport((prev) => ({
-                ...prev,
-                latitude: center.latitude,
-                longitude: center.longitude,
-            }));
-        }
-    }, [center]);
-
-    const handleViewportChange = (newViewport: any) => {
-        setViewport((prev) => ({
-            ...prev,
-            ...newViewport
-        }));
-    };
 
     return (
-        <ReactMapGL
-            mapStyle='mapbox://styles/ankit628792/cks0ivxbk1c1v17p7ar3evdja'
-            mapboxApiAccessToken={'pk.eyJ1IjoiYW5raXQ2Mjg3OTIiLCJhIjoiY2xyNGlyODN5MHd2ZDJrbzg2NjA1eGs3YyJ9.fgdQWATO9XGIMqhi1d3tcA'}
-            {...viewport}
-            onViewportChange={handleViewportChange}
-            scrollZoom={{ speed: 1.5, smooth: true }}
-        >
+        <MapWrapper data={data}>
             {
                 data.map((item, i) => (
                     <div key={i} className='relative group'>
                         <Marker longitude={item.longitude} latitude={item.latitude} offsetLeft={-10} offsetTop={-10}>
-                            <div className="w-3 h-3 bg-emerald-500 rounded-full cursor-pointer relative grid place-items-center"
+                            <div className="w-3 h-3 bg-rose-500 rounded-full cursor-pointer relative grid place-items-center"
                                 aria-label="push-pin"
                                 onClick={() => setSelectedLocation(item)}
                             >
-                                <div className='w-6 h-6 rounded-full bg-emerald-500 animate-ping absolute'></div>
+                                <div className='w-6 h-6 rounded-full bg-rose-500 animate-ping absolute'></div>
                             </div>
                             {
-                                // selectedLocation?.longitude === item.longitude &&
-                                // <div
-                                //     onClick={() => setSelectedLocation(null)}
-                                //     className="rounded-xl z-40 cursor-pointer transition duration-150 ease-out absolute top-5 -left-10 w-24 px-2 py-1 bg-emerald-600  group-hover:block"
-                                // >
-                                //     <p className='text-white text-xs text-center font-medium leading-none line-clamp-2'>
-                                //         {item.title}
-                                //     </p>
-                                // </div>
                                 selectedLocation?.longitude === item.longitude &&
                                 <div onClick={() => setSelectedLocation(null)} className='glass-base rounded-xl z-40 cursor-pointer absolute -top-36 -left-[9.65rem] p-2 w-80 shrink-0 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 ease-out'>
                                     <div className='triangle-down absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-10 h-10 glass-base'></div>
@@ -87,8 +39,9 @@ function Map({ data }: { data: Array<any> }) {
                                             </div>
 
                                             <div className='text-right'>
-                                                <p className='text-base font-medium'>$76.20</p>
-                                                <h3 className='text-xs'>Md. Devender</h3>
+                                                {/* <p className='text-base font-medium'>$76.20</p> */}
+                                                <h3 className='text-sm'>Md. Devender</h3>
+                                                <p className='text-xs text-gray-500'>Reported by</p>
                                             </div>
                                         </div>
 
@@ -101,9 +54,7 @@ function Map({ data }: { data: Array<any> }) {
                                             <p className='text-gray-500 italic text-xs'>
                                                 2 minutes ago
                                             </p>
-
                                         </div>
-
                                     </div>
                                 </div>
                             }
@@ -111,8 +62,8 @@ function Map({ data }: { data: Array<any> }) {
                     </div>
                 ))
             }
-        </ReactMapGL>
+        </MapWrapper>
     );
 }
 
-export default Map;
+export default CFMap;

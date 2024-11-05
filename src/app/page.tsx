@@ -12,7 +12,8 @@ const routes = [
   '/products',
   '/qrs',
   // "/access",
-  '/scans'
+  "/scans",
+  '/counter-fitting'
 ]
 
 function Page() {

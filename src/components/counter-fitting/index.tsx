@@ -1,6 +1,6 @@
 "use client"
-import React from 'react'
-import { dummyLocations, dummyScans } from './constant'
+import { useState } from 'react'
+import { dummyLocations, dummyScans } from '../scans/constant'
 import ChartUp from '@/assets/chart-up.png'
 import ChartDown from '@/assets/chart-down.png'
 import { Info } from 'lucide-react'
@@ -8,24 +8,23 @@ import { cn } from '@/lib/utils'
 import moment from 'moment'
 import ScanTable from './table'
 import Tooltip from '../ui/tooltip'
-import ScanMap from './ScanMap'
+import CFMap from './CFMap'
 
 
 function Scans() {
-    const [data, setData] = React.useState(dummyLocations)
-
+    const [data, setData] = useState(dummyLocations)
     return (
         <>
             {/* <section className='py-5 px-3 sticky -mt-3 -top-3 bg-white bg-opacity-10 dark:bg-zinc-900 dark:bg-opacity-10 backdrop-blur-md rounded-bl-xl rounded-br-xl z-10'>
                 <h1 className='text-2xl lg:text-3xl font-semibold pb-3'>Scans</h1>
             </section> */}
             <section className='relative'>
-                <div className='h-[90dvh] w-full overflow-hidden -mt-3 relative scans'>
+                <div className='h-[90dvh] w-full overflow-hidden -mt-3 relative counter-fitting'>
                     <div className='glass-base w-full max-w-[200px] p-3 absolute top-0 right-0 z-20 flex flex-col gap-2 rounded-bl-xl text-right'>
-                        <h1><span className='text-3xl font-medium'>999</span> Scans</h1>
+                        <h1><span className='text-3xl font-medium'>999</span> Reports</h1>
                         <h2>in last <span className=''>10 min</span></h2>
                     </div>
-                    <ScanMap data={data} />
+                    <CFMap data={data} />
                 </div>
 
                 <div className='bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm rounded-2xl overflow-hidden z-10 transform -translate-y-72 min-h-96'>
@@ -42,7 +41,7 @@ function Scans() {
                                         </div>
                                         <div className={cn('flex items-end justify-between gap-4 w-full mt-5')}>
                                             <h1 className='text-3xl xl:text-4xl font-medium'>123</h1>
-                                            <p className='text-base'>Total Scans</p>
+                                            <p className='text-base'>Total Reports</p>
                                         </div>
                                     </div>
                                 )

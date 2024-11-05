@@ -63,8 +63,12 @@ body {
   }
 }
 
-.mapboxgl-map {
+.scans .mapboxgl-map {
   filter: saturate(2) contrast(1.2);
+}
+
+.counter-fitting .mapboxgl-map {
+  filter: saturate(2) contrast(1.2) hue-rotate(90deg);
 }
 
 @layer utilities {

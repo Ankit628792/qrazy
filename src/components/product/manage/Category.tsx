@@ -19,12 +19,12 @@ function Category() {
   const [showAddCategory, setShowAddCategory] = useState(false)
 
   const handleSelect = (option: Option) => {
-    const category = {
+    const newCategory = {
       id: option.id,
       name: option.label,
       description: option.value
     }
-    setCategory(category)
+    setCategory(newCategory)
     setError('category.name', '')
   }
 

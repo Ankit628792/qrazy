@@ -22,31 +22,29 @@ interface ICompanyDetailsCard {
 
 const companyContactSchema = Yup.object({
   address: Yup.string().required('Address is required'),
-  pinCode: Yup.string().required('Pin Code is required'),
+  
+  pinCode: Yup.string()
+    .matches(/^\d{6}$/, 'Pin Code must be a 6-digit number') // Example for a 6-digit pin code
+    .required('Pin Code is required'),
+  
   country: Yup.string().required('Country is required'),
+  
   contactEmail: Yup.string()
-    .email('Invalid email')
+    .email('Invalid email address')
     .required('Email is required'),
+  
   contactNumber: Yup.string()
-    .test('starts-with-plus', 'Contact number must start with +', (value) => {
-      return value && value.startsWith('+') // Ensure the number starts with "+"
+    .test('starts-with-plus', 'Phone number must start with a "+"', (value) => {
+      return typeof value === 'string' && value.startsWith('+'); // Ensure value is a string
     })
-    .test(
-      'valid-length',
-      'Contact number must be between 7 and 15 digits long',
-      (value) => {
-        return value && value.length >= 7 && value.length <= 15 // Ensure the length is between 7-15 digits
-      }
-    )
-    .test(
-      'only-digits-after-plus',
-      'Contact number should contain only digits after +',
-      (value) => {
-        return /^[+][0-9]+$/.test(value) // Ensure only digits follow after "+"
-      }
-    )
-    .required('Contact number is required')
-})
+    .test('valid-length', 'Phone number must be between 7 and 15 digits (excluding the "+")', (value) => {
+      return typeof value === 'string' && value.length >= 8 && value.length <= 16; // Ensure value is a string
+    })
+    .test('only-digits-after-plus', 'Phone number should contain only digits after the "+"', (value) => {
+      return typeof value === 'string' && /^[+][0-9]+$/.test(value); // Ensure value is a string
+    })
+    .required('Contact number is required'),
+});
 
 function CompanyContact({
   companyContactCard = {
@@ -109,7 +107,7 @@ function CompanyContact({
       })
       console.log('Form:', companyContactForm)
       setErrors({})
-    } catch (err: unknown) {
+    } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message

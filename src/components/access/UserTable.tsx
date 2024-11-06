@@ -42,7 +42,7 @@ const UserTable = ({ data }: { data: User[] }) => {
       </TableHeader>
       <TableBody>
         {data.map((item, i) =>
-          item.created_at ? <Row item={item} i={i} key={i} /> : <AddRow i={i} />
+          item.created_at ? <Row item={item} i={i} key={i} /> : <AddRow key={i} i={i} />
         )}
       </TableBody>
     </Table>

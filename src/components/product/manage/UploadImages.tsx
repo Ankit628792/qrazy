@@ -33,12 +33,11 @@ function UploadImages() {
   )
 
   const handleImageChange = (file: File) => {
-    const updatedImage = {
-      ...image,
+    setImage({
+      id: image?.id || "",
       url: URL.createObjectURL(file),
       file: file
-    } as ProductImage
-    setImage(updatedImage)
+    })
     setError('image.id', '')
     setError('image.file', '')
     setError('image.url', '')

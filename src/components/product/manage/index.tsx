@@ -66,50 +66,90 @@ function ManageProduct() {
 
   const handleSaveDraft = async (e: React.FormEvent) => {
     e.preventDefault()
+  
     try {
+      // Validate the form data
       await validationSchemaForSaveDraft.validate(
         { title, image },
         { abortEarly: false }
       )
+      // Reset any previous errors if validation is successful
       setEmptyErrors()
       console.log('Form:', { title, image })
     } catch (err: unknown) {
       setEmptyErrors()
+  
+      // Initialize an object to store errors
       const validationErrors: Record<string, string> = {}
-      ;(err as Yup.ValidationError).inner.forEach(async (error) => {
-        validationErrors[error.path] = error.message
-        setError(error.path as keyof typeof errors, error.message)
-      })
-      console.log('Form:', {
-        formData: { title, image },
-        errors: errors,
-        validationErrors
-      })
+  
+      // Check if error is an instance of Yup.ValidationError
+      if (err instanceof Yup.ValidationError) {
+        // Loop through each error and store it in validationErrors
+        err.inner.forEach((error) => {
+          if (error.path) {
+            validationErrors[error.path] = error.message
+          }
+        })
+  
+        // Set the errors in the state after collecting all errors
+        for (const path in validationErrors) {
+          if (validationErrors.hasOwnProperty(path)) {
+            setError(path as keyof typeof errors, validationErrors[path])
+          }
+        }
+  
+        console.log('Form:', {
+          formData: { title, image },
+          errors,
+          validationErrors,
+        })
+      }
     }
   }
+  
 
   const handleAddProduct = async (e: React.FormEvent) => {
     e.preventDefault()
+  
+    // Collect form data in an object to reduce repetition
+    const formData = { title, description, mrp, mrl, links, category, images, image }
+  
     try {
-      await validationSchemaForAddProduct.validate(
-        { title, description, mrp, mrl, links, category, images, image },
-        { abortEarly: false }
-      )
+      // Validate form data using Yup schema
+      await validationSchemaForAddProduct.validate(formData, { abortEarly: false })
+      
+      // Reset errors if validation succeeds
       setEmptyErrors()
-      console.log('Form:', { title, description, mrp, mrl, links, category })
+      console.log('Form:', formData) // Log form data after validation success
+  
     } catch (err: unknown) {
+      // Initialize validation errors object
       const validationErrors: Record<string, string> = {}
-      console.log('Form:', {
-        formData: { title, description, mrp, mrl, links, category },
-        errors: validationErrors,
-        errorFromStore: errors
-      })
-      ;(err as Yup.ValidationError).inner.forEach(async (error) => {
-        validationErrors[error.path] = error.message
-        setError(error.path as keyof typeof errors, error.message)
-      })
+  
+      // Check if the error is a Yup validation error
+      if (err instanceof Yup.ValidationError) {
+        // Loop through validation errors and collect them
+        err.inner.forEach((error) => {
+          if (error.path) {
+            validationErrors[error.path] = error.message
+          }
+        })
+  
+        // Set errors in state in a batch after collecting them
+        Object.keys(validationErrors).forEach((field) => {
+          setError(field as keyof typeof errors, validationErrors[field])
+        })
+        
+        // Log validation errors along with the form data and existing errors
+        console.log('Form:', {
+          formData,
+          errors: validationErrors,
+          errorFromStore: errors,
+        })
+      }
     }
   }
+  
 
   return (
     <section className="py-5 sm:px-3">

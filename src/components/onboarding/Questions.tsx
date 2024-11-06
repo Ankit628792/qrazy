@@ -6,7 +6,7 @@ import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import UploadLogo from '../ak/UploadLogo'
-import SearchSelect, { Option } from '../ui/search-select'
+import SearchSelect from '../ui/search-select'
 import Link from 'next/link'
 import * as Yup from 'yup'
 import Error from '../ui/error'
@@ -221,7 +221,7 @@ const BasicInfo = ({
         basicInfo: basicInfo,
         formData: onboardingRootForm.basicInfo
       })
-    } catch (err: unknown) {
+    } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
@@ -376,7 +376,7 @@ const Personalization = ({
         }
       })
       setIndex(index < 3 ? index + 1 : 3)
-    } catch (err: unknown) {
+    } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
@@ -503,7 +503,7 @@ const LocationInfo = ({
         }
       })
       setIndex(index < 3 ? index + 1 : 3)
-    } catch (err: unknown) {
+    } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
@@ -596,28 +596,27 @@ const ContactInfo = ({
   const [contactInfo, setContactInfo] =
     React.useState<IContactInfoForm>(initialValues)
 
-  const contactInfoSchema = Yup.object({
-    contactEmail: Yup.string().email().required('Email is required'),
-    contactNumber: Yup.string()
-      .test('starts-with-plus', 'Contact number must start with +', (value) => {
-        return value && value.startsWith('+') // Ensure the number starts with "+"
-      })
-      .test(
-        'valid-length',
-        'Contact number must be between 7 and 15 digits long',
-        (value) => {
-          return value && value.length >= 7 && value.length <= 15 // Ensure the length is between 7-15 digits
-        }
-      )
-      .test(
-        'only-digits-after-plus',
-        'Contact number should contain only digits after +',
-        (value) => {
-          return /^[+][0-9]+$/.test(value) // Ensure only digits follow after "+"
-        }
-      )
-      .required('Contact number is required')
-  })
+    const contactInfoSchema = Yup.object({
+      contactEmail: Yup.string()
+        .email('Invalid email address')
+        .required('Email is required'),
+    
+      contactNumber: Yup.string()
+        .test('starts-with-plus', 'Contact number must start with +', (value) => {
+          // Typecast value as string
+          return typeof value === 'string' && value.startsWith('+');
+        })
+        .test('valid-length', 'Contact number must be between 7 and 15 digits long (excluding "+")', (value) => {
+          // Typecast value as string and ensure valid length
+          return typeof value === 'string' && value.length >= 8 && value.length <= 16;
+        })
+        .test('only-digits-after-plus', 'Contact number should contain only digits after +', (value) => {
+          // Typecast value as string and validate regex
+          return typeof value === 'string' && /^[+][0-9]+$/.test(value);
+        })
+        .required('Contact number is required')
+    })
+    
 
   const [errors, setErrors] = React.useState<TError>({
     contactEmail: null,
@@ -650,7 +649,7 @@ const ContactInfo = ({
         }
       })
       setIndex(index < 3 ? index + 1 : 3)
-    } catch (err: unknown) {
+    } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message

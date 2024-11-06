@@ -12,7 +12,7 @@ const TIMER = 500
 function Links() {
   const { links, setLinks } = useLinksStore()
   const { errors, setError } = useProductErrorsStore()
-  const [debounceTimer, setDebounceTimer] = useState(null)
+  const [debounceTimer, setDebounceTimer] = useState<string |number | null>(null)
 
   const validateLinks = () => {
     links.forEach((link, i) => {
@@ -35,7 +35,7 @@ function Links() {
 
     if (debounceTimer) clearTimeout(debounceTimer)
 
-    const newTimer = setTimeout(() => {
+    const newTimer:any = setTimeout(() => {
       validateLinks()
     }, TIMER)
     setDebounceTimer(newTimer)

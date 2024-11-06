@@ -62,7 +62,7 @@ function PersonalDetail({
       })
       console.log('Form:', personalDetailsForm)
       setErrors({})
-    } catch (err: unknown) {
+    } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message

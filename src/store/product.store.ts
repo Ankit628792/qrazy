@@ -8,19 +8,9 @@ export interface IProductFormErrorsState {
   setEmptyErrors: () => void
 }
 
-export interface ProductLink {
-  id: number
-  url: string
-}
-
-export interface Category {
-  id: number
-  name: string
-  description: string
-}
 
 export interface ProductImage {
-  id: number
+  id: number | string
   url: string
   file: File | null
 }

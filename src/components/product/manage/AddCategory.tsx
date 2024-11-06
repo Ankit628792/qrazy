@@ -42,10 +42,13 @@ const AddCategory = ({
 
   const handleSubmit = async () => {
     try {
+      // Validate the category using Yup schema
       await addCategorySchema.validate(category, { abortEarly: false })
+      
+      // Show a success toast after validation and submission
       toast
         .promise(
-          new Promise((resolve, reject) => {
+          new Promise((resolve) => {
             setTimeout(() => {
               resolve('Category added successfully!')
             }, 1000)
@@ -59,13 +62,25 @@ const AddCategory = ({
         .then(() => {
           onSuccess(category)
         })
-        .catch(() => {})
+        .catch((error) => {
+          console.error('Error in toast promise:', error)
+        })
+      
     } catch (err: unknown) {
       if (err instanceof Yup.ValidationError) {
         const validationErrors: Record<string, string> = {}
-        const firstError = err.inner[0]
-        validationErrors[firstError.path] = firstError.message
+  
+        // Loop through each validation error and collect them
+        err.inner.forEach((error) => {
+          if (error.path) {
+            validationErrors[error.path] = error.message
+          }
+        })
+  
+        // Update state with all validation errors
         setErrors(validationErrors)
+  
+        // Log the form data and errors for debugging
         console.log('Form:', {
           formData: category,
           errors: validationErrors
@@ -73,6 +88,7 @@ const AddCategory = ({
       }
     }
   }
+  
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

@@ -17,38 +17,32 @@ const resetPasswordSchema = Yup.object({
   currentPassword: Yup.string()
     .required('Current Password is required')
     .matches(/^\S*$/, 'Password cannot contain spaces'),
+
   newPassword: Yup.string()
     .required('New Password is required')
-    .test(
-      'min-length',
-      'Password must be at least 6 characters long',
-      (value) => value && value.length >= 6
-    )
-    .test(
-      'has-lowercase',
-      'Password must contain at least one lowercase letter',
-      (value) => /[a-z]/.test(value)
-    )
-    .test(
-      'has-uppercase',
-      'Password must contain at least one uppercase letter',
-      (value) => /[A-Z]/.test(value)
-    )
-    .test('has-number', 'Password must contain at least one number', (value) =>
-      /\d/.test(value)
-    )
-    .test(
-      'has-special-char',
-      'Password must contain at least one special character',
-      (value) => /[@$!%*?&]/.test(value)
-    )
-    .test('no-spaces', 'Password cannot contain spaces', (value) =>
-      /^\S*$/.test(value)
-    ),
+    .test('min-length', 'Password must be at least 6 characters long', (value) => {
+      return typeof value === 'string' && value.length >= 6;
+    })
+    .test('has-lowercase', 'Password must contain at least one lowercase letter', (value) => {
+      return typeof value === 'string' && /[a-z]/.test(value);
+    })
+    .test('has-uppercase', 'Password must contain at least one uppercase letter', (value) => {
+      return typeof value === 'string' && /[A-Z]/.test(value);
+    })
+    .test('has-number', 'Password must contain at least one number', (value) => {
+      return typeof value === 'string' && /\d/.test(value);
+    })
+    .test('has-special-char', 'Password must contain at least one special character', (value) => {
+      return typeof value === 'string' && /[@$!%*?&]/.test(value);
+    })
+    .test('no-spaces', 'Password cannot contain spaces', (value) => {
+      return typeof value === 'string' && /^\S*$/.test(value);
+    }),
+
   confirmPassword: Yup.string()
     .required('Confirm Password is required')
     .oneOf([Yup.ref('newPassword')], 'Passwords must match')
-})
+});
 
 const ResetPassword = () => {
   const [resetPasswordForm, setResetPasswordForm] =
@@ -78,7 +72,7 @@ const ResetPassword = () => {
       })
       console.log('Form:', resetPasswordForm)
       setErrors({})
-    } catch (err: unknown) {
+    } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message

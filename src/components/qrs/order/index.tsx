@@ -7,6 +7,7 @@ import ManageOrderProduct from './ManageOrderProduct';
 import { Button } from '@/components/ui/button';
 import { getRandomNumber } from '@/lib';
 import { useRouter } from 'next/navigation';
+import QRTemplate from './QRTemplate';
 
 export type OrderItem = {
     id: number | string;
@@ -50,6 +51,7 @@ function OrderQR() {
 
     const [orderList, setOrderList] = useState(Array(1).fill(exampleOrderItem))
     const [selectedItem, setSelectedItem] = useState<any>();
+    const [selectTemplate, setSelectTemplate] = useState(false);
     return (
         <>
             <div className='bg-white dark:bg-black flex items-center justify-between p-3 pl-5 rounded-xl'>
@@ -74,8 +76,9 @@ function OrderQR() {
             </section>
 
 
-            <Total />
+            <Total onPayClick={() => setSelectTemplate(true)} />
 
+            {selectTemplate ? <QRTemplate onClose={() => setSelectTemplate(false)} /> : <></>}
             {selectedItem ? <ManageOrderProduct products={products} onClose={() => setSelectedItem(false)} /> : <></>}
         </>
     )
@@ -83,7 +86,9 @@ function OrderQR() {
 
 export default OrderQR
 
-const Total = () => {
+const Total = ({ onPayClick }: {
+    onPayClick: () => void;
+}) => {
     const total = getRandomNumber(1000, 10000)
     return (
         <section className='bg-white dark:bg-black rounded-xl p-3 mt-10 max-w-sm ml-auto '>
@@ -109,8 +114,8 @@ const Total = () => {
             </table>
 
             <hr className='my-3' />
-            <Button size={"lg"} className='w-full bg-amber-500 hover:bg-amber-600 text-white'>
-                <span className='xl:text-lg'>Pay Now</span>
+            <Button onClick={onPayClick} size={"lg"} className='w-full bg-amber-500 hover:bg-amber-600 text-white'>
+                <span className='xl:text-lg'>Continue & Pay</span>
             </Button>
         </section>
     )

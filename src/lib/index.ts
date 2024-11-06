@@ -80,7 +80,7 @@ export const showSuccess = (msg: string) => {
     toast.success(msg, { id: 'success' })
 }
 export const showInfo = (msg: string) => {
-    toast.success(msg, { id: 'info' })
+    toast(msg, { id: 'info' })
 }
 
 export const openLink = (link: string) => {

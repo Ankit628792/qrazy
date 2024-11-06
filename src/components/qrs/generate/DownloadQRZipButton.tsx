@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { QRCode } from 'react-qrcode-logo';
 import JSZip from 'jszip';
 import { productQRList } from './constant';
+import { showInfo } from '@/lib';
 
 interface ProductQRList {
     productId: string;
@@ -36,7 +37,6 @@ const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) 
 
     const handleDownloadZip = async () => {
         const zip = new JSZip();
-        setLoading(true);
 
         try {
             for (let i = 0; i < qrList.length; i++) {
@@ -64,7 +64,18 @@ const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) 
 
     return (
         <>
-            {qrList.map((data, index) => (
+            <Button loading={loading} disabled={loading} className='bg-emerald-500 hover:bg-emerald-600 text-white' onClick={() => {
+                showInfo("Downloading...");
+                setTimeout(() => {
+                    setLoading(true)
+                }, 1000);
+                setTimeout(() => {
+                    handleDownloadZip()
+                }, 2000);
+            }}>
+                {text}
+            </Button>
+            {loading && qrList.map((data, index) => (
                 <div
                     id={data.productId}
                     key={data.productId}
@@ -85,9 +96,6 @@ const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) 
                     ))}
                 </div>
             ))}
-            <Button disabled={loading} className='bg-emerald-500 hover:bg-emerald-600 text-white' onClick={handleDownloadZip}>
-                {text}
-            </Button>
         </>
     );
 };

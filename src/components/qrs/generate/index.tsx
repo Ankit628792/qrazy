@@ -66,8 +66,8 @@ const QRGenerate = () => {
                                 name='quietZone'
                                 type='range'
                                 handleChange={handleChange}
-                                min={20}
-                                max={80}
+                                min={10}
+                                max={100}
                             />
                             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '4px', justifyContent: 'space-around' }}>
                                 <InputField

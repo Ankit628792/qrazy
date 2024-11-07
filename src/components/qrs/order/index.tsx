@@ -100,17 +100,23 @@ const QRType = () => {
         <div className='glass-base rounded-xl p-3 w-full'>
             <h2 className='text-xl font-medium'>QR Type</h2>
             <div className='flex gap-6 my-1'>
-                <div className='group'>
+                <div className='group flex items-center gap-1'>
                     <div className={cn('p-1 rounded-xl border-2 cursor-pointer', qrType == "DIGITAL" ? 'border-emerald-500' : 'border-transparent')} onClick={() => setQrType("DIGITAL")}>
                         <Image className='rounded-lg' src={DigitalQR.src} blurDataURL={DigitalQR.blurDataURL} width={70} height={70} alt='Digital QR' />
                     </div>
-                    <p className='text-xs text-center mt-0.5'>Digital QR</p>
+                    <div>
+                        <p className='text-xs text-center mt-0.5'>Digital QR</p>
+                        <p>₹ 0.5/qr</p>
+                    </div>
                 </div>
-                <div className='group'>
+                <div className='group flex items-center gap-1'>
                     <div className={cn('p-1 rounded-xl border-2 cursor-pointer', qrType === "PHYSICAL" ? 'border-emerald-500' : 'border-transparent')} onClick={() => setQrType("PHYSICAL")}>
                         <Image className='rounded-lg' src={PhysicalQR.src} blurDataURL={PhysicalQR.blurDataURL} width={70} height={70} alt='Physical QR' />
                     </div>
-                    <p className='text-xs text-center mt-0.5'>Physical QR</p>
+                    <div>
+                        <p className='text-xs text-center mt-0.5'>Physical QR</p>
+                        <p>₹ 0.8/qr</p>
+                    </div>
                 </div>
             </div>
         </div>

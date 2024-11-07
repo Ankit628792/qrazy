@@ -3,9 +3,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import Image from 'next/image'
 import moment from 'moment'
 import { Button } from '../../ui/button'
-import DigitalQR from '@/assets/digital.png'
-import PhysicalQR from '@/assets/physical.png'
-import Tooltip from '@/components/ui/tooltip'
 
 // Need to update type
 type OrderItem = {
@@ -34,7 +31,6 @@ const OrderTable = ({ data }: { data: OrderItem[] }) => {
                     <TableHead colSpan={2} className='text-left'>General Info</TableHead>
                     <TableHead className='min-w-20 text-center'>MRL</TableHead>
                     <TableHead className='min-w-20 text-center'>Expiry Date</TableHead>
-                    <TableHead className='min-w-20 text-center'>QR Type</TableHead>
                     <TableHead className='min-w-20 text-center'>Quantity</TableHead>
                     <TableHead className='min-w-20 text-center'>Cost</TableHead>
                     <TableHead className='min-w-20 w-24'></TableHead>
@@ -64,42 +60,11 @@ const OrderTable = ({ data }: { data: OrderItem[] }) => {
                                     <h1 className='sm:text-base lg:text-lg font-semibold opacity-90 line-clamp-1'>{item.title}</h1>
                                     <p className='!line-clamp-1 text-xs hidden md:block font-light tracking-wide text-gray-500 py-0.5'>{item.category.name}</p>
                                 </TableCell>
-                                <TableCell>{item.mrl}</TableCell>
+                                <TableCell>₹ {item.mrl}</TableCell>
                                 <TableCell>{moment(item.expiryDate).format("DD/MM/YYYY")}</TableCell>
-                                <TableCell>
-                                    <div className='flex items-center justify-center gap-2'>
-                                        {
-                                            item.digital
-                                                ?
-                                                <Tooltip title='Digital QR'>
-                                                    <Image className='rounded-lg' src={DigitalQR.src} blurDataURL={DigitalQR.blurDataURL} width={44} height={44} alt='Digital QR' />
-                                                </Tooltip>
-                                                :
-                                                <></>
-                                        }
-                                        {
-                                            item.physical
-                                                ?
-                                                <Tooltip title='Physical QR'>
-                                                    <Image className='rounded-lg' src={PhysicalQR.src} blurDataURL={PhysicalQR.blurDataURL} width={44} height={44} alt='Physical QR' />
-                                                </Tooltip>
-                                                :
-                                                <></>
-                                        }
-                                    </div>
-                                </TableCell>
                                 <TableCell>{item.quantity}</TableCell>
                                 <TableCell>
-                                    {
-                                        (digital && physical) ?
-                                            <div className='flex flex-col leading-none'>
-                                                <span>₹ {digital.toFixed(2)}</span>
-                                                <span>+</span>
-                                                <span>₹ {physical.toFixed(2)}</span>
-                                            </div>
-                                            :
-                                            <p>₹ {(digital + physical).toFixed(2)}</p>
-                                    }
+                                    <p>₹ {(digital + physical).toFixed(2)}</p>
                                 </TableCell>
                                 <TableCell>
                                     <div className='flex gap-4'>

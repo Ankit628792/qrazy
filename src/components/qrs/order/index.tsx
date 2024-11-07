@@ -8,6 +8,10 @@ import { Button } from '@/components/ui/button';
 import { getRandomNumber } from '@/lib';
 import { useRouter } from 'next/navigation';
 import QRTemplate from './QRTemplate';
+import DigitalQR from '@/assets/digital.png'
+import PhysicalQR from '@/assets/physical.png'
+import Image from 'next/image'
+import { cn } from '@/lib/utils';
 
 export type OrderItem = {
     id: number | string;
@@ -52,6 +56,7 @@ function OrderQR() {
     const [orderList, setOrderList] = useState(Array(1).fill(exampleOrderItem))
     const [selectedItem, setSelectedItem] = useState<any>();
     const [selectTemplate, setSelectTemplate] = useState(false);
+
     return (
         <>
             <div className='bg-white dark:bg-black flex items-center justify-between p-3 pl-5 rounded-xl'>
@@ -75,8 +80,10 @@ function OrderQR() {
                 </div>
             </section>
 
-
-            <Total onPayClick={() => setSelectTemplate(true)} />
+            <div className='mt-10 max-w-sm ml-auto flex flex-col gap-4 '>
+                <QRType />
+                <Total onPayClick={() => setSelectTemplate(true)} />
+            </div>
 
             {selectTemplate ? <QRTemplate onClose={() => setSelectTemplate(false)} /> : <></>}
             {selectedItem ? <ManageOrderProduct products={products} onClose={() => setSelectedItem(false)} /> : <></>}
@@ -86,12 +93,36 @@ function OrderQR() {
 
 export default OrderQR
 
+const QRType = () => {
+    const [qrType, setQrType] = useState("");
+
+    return (
+        <div className='glass-base rounded-xl p-3 w-full'>
+            <h2 className='text-xl font-medium'>QR Type</h2>
+            <div className='flex gap-6 my-1'>
+                <div className='group'>
+                    <div className={cn('p-1 rounded-xl border-2 cursor-pointer', qrType == "DIGITAL" ? 'border-emerald-500' : 'border-transparent')} onClick={() => setQrType("DIGITAL")}>
+                        <Image className='rounded-lg' src={DigitalQR.src} blurDataURL={DigitalQR.blurDataURL} width={70} height={70} alt='Digital QR' />
+                    </div>
+                    <p className='text-xs text-center mt-0.5'>Digital QR</p>
+                </div>
+                <div className='group'>
+                    <div className={cn('p-1 rounded-xl border-2 cursor-pointer', qrType === "PHYSICAL" ? 'border-emerald-500' : 'border-transparent')} onClick={() => setQrType("PHYSICAL")}>
+                        <Image className='rounded-lg' src={PhysicalQR.src} blurDataURL={PhysicalQR.blurDataURL} width={70} height={70} alt='Physical QR' />
+                    </div>
+                    <p className='text-xs text-center mt-0.5'>Physical QR</p>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 const Total = ({ onPayClick }: {
     onPayClick: () => void;
 }) => {
     const total = getRandomNumber(1000, 10000)
     return (
-        <section className='bg-white dark:bg-black rounded-xl p-3 mt-10 max-w-sm ml-auto '>
+        <section className='glass-base rounded-xl p-3 w-full'>
             <table className='table-auto border-separate border-spacing-y-2 border-spacing-x-5 w-full ml-auto'>
                 <tbody>
                     <tr>

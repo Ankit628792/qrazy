@@ -9,16 +9,10 @@ import ProductCard from './ProductCard'
 import { Input } from '../../ui/input'
 import Error from '../../ui/error'
 import { DatePicker } from '../../ui/date-picker'
-import DigitalQR from '@/assets/digital.png'
-import PhysicalQR from '@/assets/physical.png'
-import Image from 'next/image'
-import { cn } from '@/lib/utils'
 import { Label } from '../../ui/label'
 import { Button } from '../../ui/button'
 
 type QRData = {
-    digital?: boolean;
-    physical?: boolean;
     quantity?: number;
     expiryDate?: Date | undefined;
     mrl?: string;
@@ -33,7 +27,6 @@ function ManageOrderProduct({ products, initialData = {}, onClose, viewOnly = fa
     title?: string,
     description?: string
 }) {
-    // const [selectProduct, setSelectedProduct] = useState<Product | undefined | null>(initialProduct);
     const [data, setData] = useState<QRData>(initialData)
 
     const handleProductSelect = (product: Product | null) => {
@@ -93,23 +86,6 @@ function ManageOrderProduct({ products, initialData = {}, onClose, viewOnly = fa
                         <Label>Maximum Reward Limit (MRL)</Label>
                         <Input disabled={viewOnly} name='mrl' value={data.mrl} onChange={handleDataChange} placeholder='What will be the maximum reward limit?' />
                         <Error error={"Error here"} />
-                    </div>
-                    <div>
-                        <Label>QR Type</Label>
-                        <div className='flex gap-6 my-1'>
-                            <div className='group'>
-                                <div className={cn('p-1.5 rounded-3xl border-2', data.digital ? 'border-emerald-500' : 'border-transparent', viewOnly ? "cursor-auto" : "cursor-pointer")} onClick={() => viewOnly ? {} : setData((prev) => ({ ...prev, digital: !prev.digital }))}>
-                                    <Image className='rounded-2xl' src={DigitalQR.src} blurDataURL={DigitalQR.blurDataURL} width={80} height={80} alt='Digital QR' />
-                                </div>
-                                <p className='text-xs text-center mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 ease-in-out'>Digital QR</p>
-                            </div>
-                            <div className='group'>
-                                <div className={cn('p-1.5 rounded-3xl border-2', data.physical ? 'border-emerald-500' : 'border-transparent', viewOnly ? "cursor-auto" : "cursor-pointer")} onClick={() => viewOnly ? {} : setData((prev) => ({ ...prev, physical: !prev.physical }))}>
-                                    <Image className='rounded-2xl' src={PhysicalQR.src} blurDataURL={PhysicalQR.blurDataURL} width={80} height={80} alt='Physical QR' />
-                                </div>
-                                <p className='text-xs text-center mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 ease-in-out'>Physical QR</p>
-                            </div>
-                        </div>
                     </div>
                 </CardContent>
                 <CardFooter>

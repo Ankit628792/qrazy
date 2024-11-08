@@ -55,18 +55,30 @@ function OrderQR() {
 
     const [orderList, setOrderList] = useState(Array(1).fill(exampleOrderItem))
     const [selectedItem, setSelectedItem] = useState<any>();
-    const [selectTemplate, setSelectTemplate] = useState(false);
+
+    const onPayClick = () => {
+
+    }
 
     return (
         <>
             <div className='bg-white dark:bg-black flex items-center justify-between p-3 pl-5 rounded-xl'>
-                <h1 className='text-2xl lg:text-3xl font-semibold'>Order QR Code</h1>
-                <Button onClick={() => router.back()}>
-                    <span>Cancel</span>
-                </Button>
+                <h1 className='text-2xl lg:text-3xl font-semibold'>Order QRs</h1>
+                <div className='flex items-center gap-4'>
+                    <Button onClick={onPayClick} className={cn('w-full bg-amber-500 hover:bg-amber-600 text-white')}>
+                        <span>Checkout</span>
+                    </Button>
+                    <Button onClick={() => { router.replace('/qrs') }}>
+                        <span>Cancel</span>
+                    </Button>
+                </div>
+            </div>
+            <div className='mt-5 w-full flex flex-col lg:flex-row gap-5'>
+                <QRType />
+                <QRTemplate />
             </div>
             <section className='bg-white bg-opacity-50 backdrop-blur-sm dark:bg-black dark:bg-opacity-50 px-3 rounded-2xl mt-5'>
-                <h1 className='text-xl font-medium p-3 pb-0'>Selected Products</h1>
+                <h1 className='text-xl font-medium p-3 pb-0 select-none'>Selected Products</h1>
                 {
                     orderList.length
                         ?
@@ -80,12 +92,10 @@ function OrderQR() {
                 </div>
             </section>
 
-            <div className='mt-10 max-w-sm ml-auto flex flex-col gap-4 '>
-                <QRType />
-                <Total onPayClick={() => setSelectTemplate(true)} />
+            <div className='mt-10 sm:max-w-sm ml-auto flex flex-col gap-4 '>
+                <Total onPayClick={onPayClick} />
             </div>
 
-            {selectTemplate ? <QRTemplate onClose={() => setSelectTemplate(false)} /> : <></>}
             {selectedItem ? <ManageOrderProduct products={products} onClose={() => setSelectedItem(false)} /> : <></>}
         </>
     )
@@ -97,24 +107,27 @@ const QRType = () => {
     const [qrType, setQrType] = useState("");
 
     return (
-        <div className='glass-base rounded-xl p-3 w-full'>
-            <h2 className='text-xl font-medium'>QR Type</h2>
-            <div className='flex gap-6 my-1'>
+        <div className='glass-base rounded-xl p-3 w-full sm:max-w-max shrink-0 flex flex-col justify-between gap-2'>
+            <div>
+                <h2 className='text-lg font-medium'>QR Type</h2>
+                <p className='text-sm text-gray-500'>Choose what's your need</p>
+            </div>
+            <div className='flex items-center justify-evenly gap-4'>
                 <div className='group flex items-center gap-1'>
                     <div className={cn('p-1 rounded-xl border-2 cursor-pointer', qrType == "DIGITAL" ? 'border-emerald-500' : 'border-transparent')} onClick={() => setQrType("DIGITAL")}>
-                        <Image className='rounded-lg' src={DigitalQR.src} blurDataURL={DigitalQR.blurDataURL} width={70} height={70} alt='Digital QR' />
+                        <Image className='rounded-lg' src={DigitalQR.src} blurDataURL={DigitalQR.blurDataURL} width={80} height={80} alt='Digital QR' />
                     </div>
                     <div>
-                        <p className='text-xs text-center mt-0.5'>Digital QR</p>
+                        <p className='text-sm text-center mt-0.5 text-gray-500'>Digital QR</p>
                         <p>₹ 0.5/qr</p>
                     </div>
                 </div>
                 <div className='group flex items-center gap-1'>
                     <div className={cn('p-1 rounded-xl border-2 cursor-pointer', qrType === "PHYSICAL" ? 'border-emerald-500' : 'border-transparent')} onClick={() => setQrType("PHYSICAL")}>
-                        <Image className='rounded-lg' src={PhysicalQR.src} blurDataURL={PhysicalQR.blurDataURL} width={70} height={70} alt='Physical QR' />
+                        <Image className='rounded-lg' src={PhysicalQR.src} blurDataURL={PhysicalQR.blurDataURL} width={80} height={80} alt='Physical QR' />
                     </div>
                     <div>
-                        <p className='text-xs text-center mt-0.5'>Physical QR</p>
+                        <p className='text-xs text-center mt-0.5 text-gray-500'>Physical QR</p>
                         <p>₹ 0.8/qr</p>
                     </div>
                 </div>
@@ -152,7 +165,7 @@ const Total = ({ onPayClick }: {
 
             <hr className='my-3' />
             <Button onClick={onPayClick} size={"lg"} className='w-full bg-amber-500 hover:bg-amber-600 text-white'>
-                <span className='xl:text-lg'>Continue & Pay</span>
+                <span className='xl:text-lg'>Checkout</span>
             </Button>
         </section>
     )

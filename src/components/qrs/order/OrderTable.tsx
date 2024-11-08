@@ -30,7 +30,7 @@ const OrderTable = ({ data }: { data: OrderItem[] }) => {
                     <TableHead className='text-center'>S.no.</TableHead>
                     <TableHead colSpan={2} className='text-left'>General Info</TableHead>
                     <TableHead className='min-w-20 text-center'>MRL</TableHead>
-                    <TableHead className='min-w-20 text-center'>Expiry Date</TableHead>
+                    <TableHead className='min-w-28 text-center'>Expiry Date</TableHead>
                     <TableHead className='min-w-20 text-center'>Quantity</TableHead>
                     <TableHead className='min-w-20 text-center'>Cost</TableHead>
                     <TableHead className='min-w-20 w-24'></TableHead>

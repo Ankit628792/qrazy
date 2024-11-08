@@ -24,7 +24,7 @@ export const generateQRList = () => {
 }
 
 
-export const templates = [
+export const QRTemplates = [
     {
         id: 1,
         params: {

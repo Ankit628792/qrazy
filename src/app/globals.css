@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+html {
   font-family: "Manrope", sans-serif;
 }
 
@@ -110,7 +110,7 @@ body {
   }
 
   .product-table {
-    @apply border-spacing-x-0 border-spacing-y-2 lg:border-spacing-y-3 border-separate w-full mt-3
+    @apply border-spacing-x-0 border-spacing-y-2 lg:border-spacing-y-3 border-separate w-full
   }
 
   .product-table td {

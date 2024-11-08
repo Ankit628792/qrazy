@@ -438,9 +438,9 @@ const Personalization = ({
 }
 
 const options = [
-  { id: 1, value: '1', label: 'Option 1' },
-  { id: 2, value: '2', label: 'Option 2' },
-  { id: 3, value: '3', label: 'Option 3' }
+  { id: '1', value: 'Option 1', label: 'Option 1' },
+  { id: '2', value: 'Option 2', label: 'Option 2' },
+  { id: '3', value: 'Option 3', label: 'Option 3' }
 ]
 
 const LocationInfo = ({
@@ -555,7 +555,7 @@ const LocationInfo = ({
             Country
           </Label>
           <SearchSelect
-            selectedValue={locationInfo.country || ''}
+            initialValue={locationInfo.country}
             onChange={handleCountryChange}
             options={options}
           />
@@ -596,27 +596,27 @@ const ContactInfo = ({
   const [contactInfo, setContactInfo] =
     React.useState<IContactInfoForm>(initialValues)
 
-    const contactInfoSchema = Yup.object({
-      contactEmail: Yup.string()
-        .email('Invalid email address')
-        .required('Email is required'),
-    
-      contactNumber: Yup.string()
-        .test('starts-with-plus', 'Contact number must start with +', (value) => {
-          // Typecast value as string
-          return typeof value === 'string' && value.startsWith('+');
-        })
-        .test('valid-length', 'Contact number must be between 7 and 15 digits long (excluding "+")', (value) => {
-          // Typecast value as string and ensure valid length
-          return typeof value === 'string' && value.length >= 8 && value.length <= 16;
-        })
-        .test('only-digits-after-plus', 'Contact number should contain only digits after +', (value) => {
-          // Typecast value as string and validate regex
-          return typeof value === 'string' && /^[+][0-9]+$/.test(value);
-        })
-        .required('Contact number is required')
-    })
-    
+  const contactInfoSchema = Yup.object({
+    contactEmail: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+
+    contactNumber: Yup.string()
+      .test('starts-with-plus', 'Contact number must start with +', (value) => {
+        // Typecast value as string
+        return typeof value === 'string' && value.startsWith('+');
+      })
+      .test('valid-length', 'Contact number must be between 7 and 15 digits long (excluding "+")', (value) => {
+        // Typecast value as string and ensure valid length
+        return typeof value === 'string' && value.length >= 8 && value.length <= 16;
+      })
+      .test('only-digits-after-plus', 'Contact number should contain only digits after +', (value) => {
+        // Typecast value as string and validate regex
+        return typeof value === 'string' && /^[+][0-9]+$/.test(value);
+      })
+      .required('Contact number is required')
+  })
+
 
   const [errors, setErrors] = React.useState<TError>({
     contactEmail: null,

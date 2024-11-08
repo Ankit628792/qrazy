@@ -6,26 +6,26 @@ import {
   CircleArrowOutUpRight,
   IndianRupee,
   QrCode,
+  QrCodeIcon,
   ReceiptText,
   SquareActivity
 } from 'lucide-react'
 import moment from 'moment'
 import { getRandomNumber } from '@/lib/index'
 import ManageOrderProduct from '../order/ManageOrderProduct'
-import { exampleOrderItem, OrderItem } from '../order'
+import { exampleQRData } from '../order'
 import DigitalQR from '@/assets/digital.png'
 import PhysicalQR from '@/assets/physical.png'
 import Image from 'next/image'
 import Tooltip from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { QRCode } from 'react-qrcode-logo'
+import { templates } from '../generate/constant'
 
 function Invoice() {
   const [active, setActive] = useState(false)
-  const [products, setProducts] = useState(Array(5).fill(exampleOrderItem))
-
-  const handleProductClick = () => {
-    setActive(true)
-  }
+  const [products, setProducts] = useState(Array(5).fill(exampleQRData))
 
   return (
     <section className="flex flex-col w-full h-full gap-6 relative">
@@ -65,12 +65,15 @@ function Invoice() {
             <h3>Products</h3>
           </div>
           <Products
-            handleProductClick={handleProductClick}
             products={products}
           />
         </div>
 
-        <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 backdrop-blur-sm w-full lg:max-w-sm xl:max-w-md min-w-96 rounded-xl">
+        <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 backdrop-blur-sm w-full lg:max-w-sm xl:max-w-md min-w-96 rounded-xl relative">
+          <div className='absolute rounded-sm overflow-hidden top-7 right-5 hover:scale-[2] origin-top-right transition-transform duration-200 ease-out'>
+            {/* @ts-ignore */}
+            <QRCode  {...templates[3].params} value='www.qrazy.in' size={50} quietZone={4} />
+          </div>
           <div className="text-lg font-medium text-center bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 backdrop-blur-sm rounded-xl rounded-br-none py-3 px-5 min-w-28 max-w-max transform -translate-y-2/3 ml-auto">
             <h3>Billing</h3>
           </div>
@@ -78,7 +81,7 @@ function Invoice() {
             <Button className="bg-emerald-500 hover:bg-emerald-600 text-white">
               Download QRs
             </Button>
-            <Button>Order Again</Button>
+            <Button className='hidden sm:inline-block'>Order Again</Button>
           </div>
           <Billing />
         </div>
@@ -101,18 +104,15 @@ function Invoice() {
 export default Invoice
 
 const Products = ({
-  handleProductClick,
   products
 }: {
-  handleProductClick: (product: OrderItem) => void
-  products: OrderItem[]
+  products: QROrder[]
 }) => {
   return (
     <div className="px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 -mt-3">
       {products.map((product, i) => (
         <Product
           key={i}
-          handleProductClick={() => handleProductClick(product)}
           product={product}
         />
       ))}
@@ -122,10 +122,8 @@ const Products = ({
 
 const Product = ({
   product,
-  handleProductClick
 }: {
-  handleProductClick: (product: any) => void
-  product: OrderItem
+  product: QROrder
 }) => {
   return (
     <div className="w-full relative bg-white dark:bg-black rounded-lg overflow-hidden p-3 flex flex-col gap-2 sm:gap-3 group cursor-pointer">
@@ -134,14 +132,14 @@ const Product = ({
       </div>
       <div className="flex items-center gap-3">
         <img
-          src={product.image.url}
+          src={product.selectedProduct?.image.url}
           className="w-12 h-12 xl:w-14 xl:h-14 rounded-lg"
           alt=""
         />
         <div>
-          <h1 className="text-base xl:text-lg font-medium">{product.title}</h1>
+          <h1 className="text-base xl:text-lg font-medium">{product.selectedProduct?.title}</h1>
           <p className="text-gray-500 text-xs xl:text-sm">
-            {product.category.name}
+            {product.selectedProduct?.category.name}
           </p>
         </div>
       </div>
@@ -152,38 +150,11 @@ const Product = ({
             Expires {moment('2024-10-26T10:16:20.804Z').fromNow()}
           </span>
         </div>
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center gap-1">
           <span className="text-sm xl:text-base font-medium">
             {product.quantity}
           </span>
-          {product.digital ? (
-            <Tooltip title="Digital QR">
-              <Image
-                className="rounded-sm"
-                src={DigitalQR.src}
-                blurDataURL={DigitalQR.blurDataURL}
-                width={28}
-                height={28}
-                alt="Digital QR"
-              />
-            </Tooltip>
-          ) : (
-            <></>
-          )}
-          {product.physical ? (
-            <Tooltip title="Physical QR">
-              <Image
-                className="rounded-sm"
-                src={PhysicalQR.src}
-                blurDataURL={PhysicalQR.blurDataURL}
-                width={28}
-                height={28}
-                alt="Physical QR"
-              />
-            </Tooltip>
-          ) : (
-            <></>
-          )}
+          <QrCodeIcon className='w-4' />
         </div>
       </div>
     </div>
@@ -199,7 +170,15 @@ const Billing = () => {
         <tr>
           <td className="min-w-32 border-b border-dashed pb-3">Total QRs:</td>
           <td className="w-full border-b border-dashed pb-3 text-right flex gap-2 items-center justify-end">
-            <QrCode className="w-4" /> <span>775675</span>
+            <Tooltip title='Digital QR'>
+              <div className='group flex items-center gap-2'>
+                <div className='text-right'>
+                  <p className='text-xs text-gray-500'>₹0.5/qr</p>
+                  <p className='text-base'>787768</p>
+                </div>
+                <Image className='rounded-md' src={DigitalQR.src} blurDataURL={DigitalQR.blurDataURL} width={40} height={40} alt='Digital QR' />
+              </div>
+            </Tooltip>
           </td>
         </tr>
         <tr>

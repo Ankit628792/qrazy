@@ -17,7 +17,7 @@ interface ICompanyInformation {
 }
 
 const companyDetailsSchema = Yup.object({
-  bussinessName: Yup.string().required('Business Name is required'),
+  businessName: Yup.string().required('Business Name is required'),
   gstNumber: Yup.string().optional().matches(gstRegex, 'Invalid GST Number'),
   aboutYourCompany: Yup.string().required('About your company is required'),
   companyURL: Yup.string()
@@ -30,7 +30,7 @@ const companyDetailsSchema = Yup.object({
 
 function CompanyInformation({
   companyDetailsCard = {
-    bussinessName: '',
+    businessName: '',
     gstNumber: '',
     aboutYourCompany: '',
     companyURL: ''
@@ -43,7 +43,7 @@ function CompanyInformation({
   const [showSaveButton, setShowSaveButton] = useState<boolean>(false)
 
   const [errors, setErrors] = useState<Record<string, string | null>>({
-    bussinessName: null,
+    businessName: null,
     gstNumber: null,
     aboutYourCompany: null,
     companyURL: null
@@ -51,7 +51,7 @@ function CompanyInformation({
 
   useEffect(() => {
     if (
-      companyDetailsForm.bussinessName === idealState.bussinessName &&
+      companyDetailsForm.businessName === idealState.businessName &&
       companyDetailsForm.gstNumber === idealState.gstNumber &&
       companyDetailsForm.aboutYourCompany === idealState.aboutYourCompany &&
       companyDetailsForm.companyURL === idealState.companyURL
@@ -113,12 +113,12 @@ function CompanyInformation({
               id="business"
               placeholder="e.g. Amul, Nestlé, Tropicana "
               className={cn('2xl:text-lg')}
-              name="bussinessName"
-              value={companyDetailsForm.bussinessName}
+              name="businessName"
+              value={companyDetailsForm.businessName}
               onChange={handleChange}
-              onFocus={() => setErrors({ ...errors, bussinessName: '' })}
+              onFocus={() => setErrors({ ...errors, businessName: '' })}
             />
-            <Error error={errors.bussinessName} />
+            <Error error={errors.businessName} />
           </div>
           <div className="w-full">
             <Label htmlFor="lastName">

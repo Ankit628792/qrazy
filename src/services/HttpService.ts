@@ -1,5 +1,5 @@
-'use client'
 
+import { getToken } from '@/lib'
 import axios from 'axios'
 
 const TIMEOUT = 5000
@@ -13,12 +13,15 @@ const _axios = axios.create({
 _axios.interceptors.request.use(
   (config) => {
     if (typeof window !== 'undefined') {
-      const token = window.localStorage.getItem('access_token')
 
-      config.headers
+      const token = getToken
       if (token) {
-        config.headers['Authorization'] = `Token ${token}`
+        config.headers['Authorization'] = `Bearer ${token}`
       }
+
+      config.headers['Content-Type'] = 'application/json'
+      config.headers['Accept'] = 'application/json'
+
       return config
     }
     return config
@@ -30,9 +33,16 @@ _axios.interceptors.request.use(
 
 _axios.interceptors.response.use(
   (response) => {
-    return response
+    if (response?.config) {
+      return response.data
+    }
+    return response;
   },
   (error) => {
+    // const { data = {}, status, statusText } = error?.response || {};
+    // data.description = data.message || statusText;
+    // data.message = data.error || statusText;
+    // data.statusCode = data.statusCode || status;
     return Promise.reject(error)
   }
 )
@@ -47,5 +57,11 @@ const HttpService = {
   patch: getAxiosClient().patch,
   delete: getAxiosClient().delete
 }
+
+export const post = getAxiosClient().post
+export const get = getAxiosClient().get
+export const put = getAxiosClient().put
+export const patch = getAxiosClient().patch
+export const del = getAxiosClient().delete
 
 export default HttpService

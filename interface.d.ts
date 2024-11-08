@@ -69,3 +69,12 @@ interface ScanRow {
   reward?: string | number
   created_at?: Date | string
 }
+
+
+interface QROrder {
+  id?: number | string
+  quantity?: number
+  expiryDate?: Date | undefined
+  mrl?: string | number
+  selectedProduct?: Product | undefined | null
+}

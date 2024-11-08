@@ -168,9 +168,7 @@ export function getFavicon(url: string) {
   if (!url) return ''
   let domain = url.replace(/^https?:\/\//i, '').replace(/^www\./i, '')
   domain = domain.split('/')[0]
-
   const icon = 'https://www.' + domain + '/favicon.ico'
-
   return icon
 }
 
@@ -178,8 +176,8 @@ export const decodeToken = () => {
   if (!getToken) {
     return false
   }
-  var decoded: any = jwtDecode(getToken)
-  return decoded?.userInfo
+  var decoded: any = jwtDecode('getToken')
+  return decoded
 }
 
 export const formattedDifference = (hours: number, minutes: number) =>
@@ -217,20 +215,20 @@ export const month = [
 export const getSum = (arr: any[], property: string) =>
   Array.isArray(arr)
     ? arr.reduce(
-        (sum, item) =>
-          sum + (isNaN(Number(item[property])) ? 0 : Number(item[property])),
-        0
-      )
+      (sum, item) =>
+        sum + (isNaN(Number(item[property])) ? 0 : Number(item[property])),
+      0
+    )
     : 0
 export const getObjectWithMaxValue = (arr: any[], fieldName: string) =>
   Array.isArray(arr)
     ? arr.reduce(
-        (max, obj) =>
-          Number(obj[fieldName]) > (max ? Number(max[fieldName]) : -Infinity)
-            ? obj
-            : max,
-        null
-      )
+      (max, obj) =>
+        Number(obj[fieldName]) > (max ? Number(max[fieldName]) : -Infinity)
+          ? obj
+          : max,
+      null
+    )
     : {}
 
 export function getRandomTime() {
@@ -274,3 +272,6 @@ export function getGreeting() {
 
 export const getRandomNumber = (min = 0, max = 1000) =>
   Math.floor(Math.random() * (max - min + 1)) + min
+
+export const getId = (length: number = 5): string =>
+  Array.from({ length }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 62)]).join('');

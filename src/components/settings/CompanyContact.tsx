@@ -11,9 +11,9 @@ import { ICompanyContactCard } from '.'
 import * as Yup from 'yup'
 
 const options = [
-  { id: 1, value: '1', label: 'Option 1' },
-  { id: 2, value: '2', label: 'Option 2' },
-  { id: 3, value: '3', label: 'Option 3' }
+  { id: 1, value: 'Option 1', label: 'Option 1' },
+  { id: 2, value: 'Option 2', label: 'Option 2' },
+  { id: 3, value: 'Option 3', label: 'Option 3' }
 ]
 
 interface ICompanyDetailsCard {
@@ -22,17 +22,17 @@ interface ICompanyDetailsCard {
 
 const companyContactSchema = Yup.object({
   address: Yup.string().required('Address is required'),
-  
+
   pinCode: Yup.string()
     .matches(/^\d{6}$/, 'Pin Code must be a 6-digit number') // Example for a 6-digit pin code
     .required('Pin Code is required'),
-  
+
   country: Yup.string().required('Country is required'),
-  
+
   contactEmail: Yup.string()
     .email('Invalid email address')
     .required('Email is required'),
-  
+
   contactNumber: Yup.string()
     .test('starts-with-plus', 'Phone number must start with a "+"', (value) => {
       return typeof value === 'string' && value.startsWith('+'); // Ensure value is a string
@@ -167,7 +167,7 @@ function CompanyContact({
           <div className="w-full">
             <Label htmlFor="location">Country</Label>
             <SearchSelect
-              selectedValue={country}
+              initialValue={country}
               options={options}
               onChange={handleSelect}
             />

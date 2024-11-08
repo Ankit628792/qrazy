@@ -21,7 +21,7 @@ export interface IPersonalDetailsCard {
 }
 
 export interface ICompanyDetailsCard {
-  bussinessName: string
+  businessName: string
   gstNumber: string
   aboutYourCompany: string
   companyURL: string
@@ -57,7 +57,7 @@ function Settings() {
       email: 'ankit@gmail.com'
     },
     companyDetailsCard: {
-      bussinessName: 'Delanki India',
+      businessName: 'Delanki India',
       gstNumber: '1234512345',
       aboutYourCompany: 'Create a beautiful website for your business.',
       companyURL: 'google.com'

@@ -18,6 +18,8 @@ function getRandomImage() {
   return images[Math.floor(Math.random() * images.length)]
 }
 
+const image = getRandomImage();
+
 function Auth({
   children,
   type
@@ -63,7 +65,7 @@ function Auth({
       <div className="hidden lg:block w-1/2 relative">
         <div className="absolute inset-0 z-10 bg-white dark:bg-zinc-900 bg-opacity-5 dark:bg-opacity-5"></div>
         <img
-          src={getRandomImage()}
+          src={image}
           className="w-full h-full object-cover object-center"
           alt=""
         />

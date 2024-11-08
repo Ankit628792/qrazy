@@ -9,6 +9,7 @@ import Link from 'next/link'
 import React from 'react'
 import Error from '../ui/error'
 import * as Yup from 'yup'
+import { useRegister } from '@/hooks'
 
 type IRegisterForm = Record<string, string | null>
 
@@ -48,11 +49,27 @@ function Register() {
     setErrors({ ...errors, [e.target.name]: '' })
   }
 
+  const { mutate, isPending } = useRegister(() => {
+    setRegisterForm({
+      fName: null,
+      lName: null,
+      email: null,
+      password: null,
+      cPassword: null
+    })
+  });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
       await registerSchema.validate(registerForm, { abortEarly: false })
       console.log('Form:', registerForm)
+      mutate({
+        email: registerForm.email as string,
+        password: registerForm.password as string,
+        name: registerForm.fName as string,
+        lastname: registerForm.lName as string
+      })
       setErrors({})
     } catch (err: any) {
       const validationErrors: Record<string, string> = {}
@@ -134,7 +151,7 @@ function Register() {
             />
             <Error error={errors.cPassword} />
           </div>
-          <Button size="lg" className="w-full mt-2">
+          <Button loading={isPending} size="lg" className="w-full mt-2">
             <span className="text-base lg:text-lg">Register</span>{' '}
             <MoveRight className="ml-2" />
           </Button>

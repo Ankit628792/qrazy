@@ -8,9 +8,9 @@ import AddCategory from './AddCategory'
 import { useCategoryStore, useProductErrorsStore } from '@/store/product.store'
 
 const options = [
-  { id: 1, value: '1', label: 'Option 1' },
-  { id: 2, value: '2', label: 'Option 2' },
-  { id: 3, value: '3', label: 'Option 3' }
+  { id: 1, value: 'Electronic', label: 'Electronic' },
+  { id: 2, value: 'Clothing', label: 'Clothing' },
+  { id: 3, value: 'Beauty Product', label: 'Beauty Product' }
 ]
 
 function Category() {
@@ -21,7 +21,7 @@ function Category() {
   const handleSelect = (option: Option) => {
     const newCategory = {
       id: option.id,
-      name: option.label,
+      name: option.value,
       description: option.value
     }
     setCategory(newCategory)
@@ -33,14 +33,14 @@ function Category() {
       <div className="manage-product-element flex-grow">
         <div className="px-2 flex items-center justify-between">
           <h1 className="input-wrapper-title">Category</h1>
-          <SaveOptions onSave={() => {}} onCancel={() => {}} />
+          <SaveOptions onSave={() => { }} onCancel={() => { }} />
         </div>
         <div className="input-wrapper flex-grow justify-between">
           <div className="w-full">
             <Label htmlFor="category">Product Category</Label>
             <SearchSelect
               options={options}
-              selectedValue={category.name}
+              initialValue={category.name}
               onChange={handleSelect}
             />
             {errors['category.name'] && (

@@ -17,12 +17,14 @@ export function DatePicker({
   date,
   onDateChange,
   placeholder,
-  disabled = false
+  disabled = false,
+  onFocus = () => { }
 }: {
   date: Date | undefined
   onDateChange: (date: Date | undefined) => void
   placeholder?: string
   disabled?: boolean
+  onFocus: () => void
 }) {
   return (
     <Popover>
@@ -48,6 +50,7 @@ export function DatePicker({
           selected={date}
           onSelect={onDateChange}
           initialFocus
+          onDayFocus={onFocus}
         />
       </PopoverContent>
     </Popover>

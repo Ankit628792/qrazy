@@ -35,13 +35,13 @@ const validationSchemaForAddProduct = Yup.object({
     description: Yup.string().required('Description is required')
   }),
   image: Yup.object({
-    id: Yup.number().required('ID is required'),
+    id: Yup.mixed(),
     url: Yup.string().required('Image is required'),
     file: Yup.mixed().required('File is required')
   }),
   links: Yup.array().of(
     Yup.object({
-      id: Yup.number().required('ID is required'),
+      id: Yup.mixed(),
       url: Yup.string()
         .nullable()
         .notRequired()
@@ -66,7 +66,7 @@ function ManageProduct() {
 
   const handleSaveDraft = async (e: React.FormEvent) => {
     e.preventDefault()
-  
+
     try {
       // Validate the form data
       await validationSchemaForSaveDraft.validate(
@@ -78,10 +78,10 @@ function ManageProduct() {
       console.log('Form:', { title, image })
     } catch (err: unknown) {
       setEmptyErrors()
-  
+
       // Initialize an object to store errors
       const validationErrors: Record<string, string> = {}
-  
+
       // Check if error is an instance of Yup.ValidationError
       if (err instanceof Yup.ValidationError) {
         // Loop through each error and store it in validationErrors
@@ -90,14 +90,14 @@ function ManageProduct() {
             validationErrors[error.path] = error.message
           }
         })
-  
+
         // Set the errors in the state after collecting all errors
         for (const path in validationErrors) {
           if (validationErrors.hasOwnProperty(path)) {
             setError(path as keyof typeof errors, validationErrors[path])
           }
         }
-  
+
         console.log('Form:', {
           formData: { title, image },
           errors,
@@ -106,26 +106,26 @@ function ManageProduct() {
       }
     }
   }
-  
+
 
   const handleAddProduct = async (e: React.FormEvent) => {
     e.preventDefault()
-  
+
     // Collect form data in an object to reduce repetition
     const formData = { title, description, mrp, mrl, links, category, images, image }
-  
+
     try {
       // Validate form data using Yup schema
       await validationSchemaForAddProduct.validate(formData, { abortEarly: false })
-      
+
       // Reset errors if validation succeeds
       setEmptyErrors()
       console.log('Form:', formData) // Log form data after validation success
-  
+
     } catch (err: unknown) {
       // Initialize validation errors object
       const validationErrors: Record<string, string> = {}
-  
+
       // Check if the error is a Yup validation error
       if (err instanceof Yup.ValidationError) {
         // Loop through validation errors and collect them
@@ -134,12 +134,12 @@ function ManageProduct() {
             validationErrors[error.path] = error.message
           }
         })
-  
+
         // Set errors in state in a batch after collecting them
         Object.keys(validationErrors).forEach((field) => {
           setError(field as keyof typeof errors, validationErrors[field])
         })
-        
+
         // Log validation errors along with the form data and existing errors
         console.log('Form:', {
           formData,
@@ -149,7 +149,7 @@ function ManageProduct() {
       }
     }
   }
-  
+
 
   return (
     <section className="py-5 sm:px-3">
@@ -190,3 +190,43 @@ function ManageProduct() {
 }
 
 export default ManageProduct
+
+
+let productFinal = {
+  "title": "Project Tille",
+  "description": "Here is the description",
+  "mrp": 1000,
+  "mrl": 10,
+  "links": [
+    {
+      "id": 0,
+      "url": "https://www.samsung.com/in/smartphones/galaxy-s24-ultra/"
+    },
+    {
+      "id": 1,
+      "url": "https://www.gsmarena.com/samsung_galaxy_s24_ultra-12771.php"
+    },
+  ],
+  "category": {
+    "id": 2,
+    "name": "Option 2",
+    "description": "2"
+  },
+  "images": [
+    {
+      "id": 0,
+      "url": "blob:http://localhost:3000/b1fe2225-17e3-4e77-a400-e1f18c4c4b8b",
+      "file": {}
+    },
+    {
+      "id": 1,
+      "url": "blob:http://localhost:3000/1001f8ae-a516-45af-aae4-53aa852afc10",
+      "file": {}
+    },
+  ],
+  "image": {
+    "id": "",
+    "url": "blob:http://localhost:3000/7cef9bbf-8951-4dcb-9c10-9e1020480058",
+    "file": {}
+  }
+}

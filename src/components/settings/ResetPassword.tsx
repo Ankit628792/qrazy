@@ -6,6 +6,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import * as Yup from 'yup'
 import Error from '../ui/error'
+import { useUpdatePassword } from '@/hooks'
 
 type IResetPasswordForm = {
   currentPassword: string
@@ -65,10 +66,17 @@ const ResetPassword = () => {
     })
   }
 
+  const { mutate, isPending } = useUpdatePassword()
+
   const handleSave = async () => {
     try {
       await resetPasswordSchema.validate(resetPasswordForm, {
         abortEarly: false
+      })
+      mutate({
+        oldPassword: resetPasswordForm.currentPassword,
+        password: resetPasswordForm.newPassword,
+        passwordConfirm: resetPasswordForm.confirmPassword
       })
       console.log('Form:', resetPasswordForm)
       setErrors({})
@@ -132,7 +140,7 @@ const ResetPassword = () => {
           )}
         </div>
         <hr className="my-1" />
-        <Button className="w-full" onClick={() => handleSave()}>
+        <Button loading={isPending} className="w-full" onClick={() => handleSave()}>
           <span className="">Save</span>
         </Button>
       </div>

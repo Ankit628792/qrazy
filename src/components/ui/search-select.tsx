@@ -10,14 +10,14 @@ import { useState } from 'react'
 
 const SearchSelect = ({
   options,
-  selectedValue,
+  initialValue,
   onChange
 }: {
   options: Option[]
-  selectedValue?: string
+  initialValue?: string
   onChange: (option: Option) => void
 }) => {
-  const [value, setValue] = useState(selectedValue || '')
+  const [value, setValue] = useState(initialValue || '')
 
   const filteredOptions = options.filter((option: Option) =>
     option.label.toLowerCase().includes(value.toLowerCase())
@@ -25,17 +25,17 @@ const SearchSelect = ({
 
   return (
     <Select
-      defaultValue={selectedValue}
-      value={selectedValue}
+      defaultValue={initialValue}
+      value={initialValue}
       onValueChange={(id) => {
+        console.log({ id })
         const option = options.find(
-          (item: Option) => id === item.id.toString()
+          (item: Option) => id === item.value
         ) as Option
         setValue(option.value || '')
         onChange(option)
       }}
     >
-      {' '}
       <SelectTrigger>
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>

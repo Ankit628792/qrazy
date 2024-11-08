@@ -16,21 +16,12 @@ import ProductCard from './ProductCard'
 import { Input } from '../../ui/input'
 import Error from '../../ui/error'
 import { DatePicker } from '../../ui/date-picker'
-import DigitalQR from '@/assets/digital.png'
-import PhysicalQR from '@/assets/physical.png'
-import Image from 'next/image'
-import { cn } from '@/lib/utils'
 import { Label } from '../../ui/label'
 import { Button } from '../../ui/button'
+import { useQRSStore } from '@/store/qrs.store'
+import * as Yup from 'yup'
 
-type QRData = {
-  digital?: boolean
-  physical?: boolean
-  quantity?: number
-  expiryDate?: Date | undefined
-  mrl?: string
-  selectedProduct?: Product | undefined | null
-}
+type TError = Record<string, string | null>
 
 function ManageOrderProduct({
   products,
@@ -41,21 +32,59 @@ function ManageOrderProduct({
   description
 }: {
   products: Product[]
-  initialData?: QRData
+  initialData?: QROrder
   onClose: () => void
   viewOnly?: boolean
   title?: string
   description?: string
 }) {
-  // const [selectProduct, setSelectedProduct] = useState<Product | undefined | null>(initialProduct);
-  const [data, setData] = useState<QRData>(initialData)
+  const { setOrderList } = useQRSStore()
+  const [data, setData] = useState<QROrder>(initialData)
+
+
+  const orderSchema = Yup.object({
+    quantity: Yup.number().required('QR Quantity is required'),
+    mrl: Yup.number().required('Reward Limit is required'),
+    expiryDate: Yup.date().required('Expiry Date is required'),
+  })
+
+
+  const [errors, setErrors] = useState<TError>({
+    selectedProduct: null,
+    quantity: null,
+    mrl: null,
+    expiryDate: null
+  })
+
 
   const handleProductSelect = (product: Product | null) => {
-    setData((prev) => ({ ...prev, selectedProduct: product }))
+    setData((prev) => ({ ...prev, selectedProduct: product, mrl: product?.mrl }))
+    setErrors({ ...errors, selectedProduct: '' })
   }
 
   const handleDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value })
+  }
+
+  const handleSave = async () => {
+    if (!data.selectedProduct) {
+      return setErrors({ ...errors, selectedProduct: "Select a Product" })
+    }
+    try {
+      await orderSchema.validate(data, {
+        abortEarly: false
+      })
+      setErrors({})
+      setOrderList(data)
+      console.log('Form:', {
+        formData: data
+      })
+    } catch (err: any) {
+      const validationErrors: Record<string, string> = {}
+      const firstError = err.inner[0]
+      validationErrors[firstError.path] = firstError.message
+      setErrors(validationErrors)
+    }
   }
 
   return (
@@ -86,7 +115,7 @@ function ManageOrderProduct({
               product={data.selectedProduct}
               onChange={handleProductSelect}
             />
-            <Error error={data.selectedProduct ? '' : 'Error here'} />
+            <Error error={errors.selectedProduct} />
             {data.selectedProduct ? (
               <div className="relative">
                 <ProductCard
@@ -112,8 +141,9 @@ function ManageOrderProduct({
               value={data.quantity}
               onChange={handleDataChange}
               placeholder="Quantity of QRs to be requested"
+              onFocus={() => setErrors({ ...errors, quantity: '' })}
             />
-            <Error error={'Error here'} />
+            <Error error={errors.quantity} />
           </div>
 
           <div className="w-full mt-1">
@@ -123,8 +153,9 @@ function ManageOrderProduct({
               placeholder="Select an expiry date of generated QRs"
               date={data.expiryDate}
               onDateChange={(date) => setData({ ...data, expiryDate: date })}
+              onFocus={() => setErrors({ ...errors, expiryDate: '' })}
             />
-            <Error error={'Error here'} />
+            <Error error={errors.expiryDate} />
           </div>
 
           <div>
@@ -135,68 +166,9 @@ function ManageOrderProduct({
               value={data.mrl}
               onChange={handleDataChange}
               placeholder="What will be the maximum reward limit?"
+              onFocus={() => setErrors({ ...errors, mrl: '' })}
             />
-            <Error error={'Error here'} />
-          </div>
-          <div>
-            <Label>QR Type</Label>
-            <div className="flex gap-6 my-1">
-              <div className="group">
-                <div
-                  className={cn(
-                    'p-1.5 rounded-3xl border-2',
-                    data.digital ? 'border-emerald-500' : 'border-transparent',
-                    viewOnly ? 'cursor-auto' : 'cursor-pointer'
-                  )}
-                  onClick={() =>
-                    viewOnly
-                      ? {}
-                      : setData((prev) => ({ ...prev, digital: !prev.digital }))
-                  }
-                >
-                  <Image
-                    className="rounded-2xl"
-                    src={DigitalQR.src}
-                    blurDataURL={DigitalQR.blurDataURL}
-                    width={80}
-                    height={80}
-                    alt="Digital QR"
-                  />
-                </div>
-                <p className="text-xs text-center mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 ease-in-out">
-                  Digital QR
-                </p>
-              </div>
-              <div className="group">
-                <div
-                  className={cn(
-                    'p-1.5 rounded-3xl border-2',
-                    data.physical ? 'border-emerald-500' : 'border-transparent',
-                    viewOnly ? 'cursor-auto' : 'cursor-pointer'
-                  )}
-                  onClick={() =>
-                    viewOnly
-                      ? {}
-                      : setData((prev) => ({
-                          ...prev,
-                          physical: !prev.physical
-                        }))
-                  }
-                >
-                  <Image
-                    className="rounded-2xl"
-                    src={PhysicalQR.src}
-                    blurDataURL={PhysicalQR.blurDataURL}
-                    width={80}
-                    height={80}
-                    alt="Physical QR"
-                  />
-                </div>
-                <p className="text-xs text-center mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 ease-in-out">
-                  Physical QR
-                </p>
-              </div>
-            </div>
+            <Error error={errors.mrl} />
           </div>
         </CardContent>
         <CardFooter>
@@ -207,7 +179,7 @@ function ManageOrderProduct({
               <Button
                 size={'lg'}
                 className="bg-emerald-500 hover:bg-emerald-600 text-white"
-                onClick={() => {}}
+                onClick={handleSave}
               >
                 <span className="text-base">Save Details</span>
               </Button>

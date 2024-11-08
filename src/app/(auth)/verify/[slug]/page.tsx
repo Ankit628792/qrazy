@@ -1,13 +1,22 @@
 import { Button } from '@/components/ui/button'
+import { emailVerify } from '@/services/auth.service'
 import Link from 'next/link'
 
-async function verifyToken() {
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-  return Math.random() > 0.5
+async function verifyToken(token: string) {
+  try {
+    const res: any = await emailVerify(token);
+    console.log(res)
+    return Boolean(res?.success)
+
+  } catch (error) {
+    console.log({ error })
+  }
 }
 
-async function Page() {
-  const verified = await verifyToken()
+async function Page({ params }: { params: { slug: string } }) {
+
+  const verified = await verifyToken(params.slug)
+
   return (
     <section className="w-full h-dvh grid place-items-center p-3">
       <img

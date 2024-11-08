@@ -10,29 +10,11 @@ import {
 import Image from 'next/image'
 import moment from 'moment'
 import { Button } from '../../ui/button'
-import DigitalQR from '@/assets/digital.png'
-import PhysicalQR from '@/assets/physical.png'
-import Tooltip from '@/components/ui/tooltip'
+import { useQRSStore } from '@/store/qrs.store'
+import { getQRPrice } from '@/lib/constants'
 
-// Need to update type
-type OrderItem = {
-  id: number | string
-  title: string
-  image: {
-    url: string
-  }
-  category: {
-    id: string
-    name: string
-  }
-  mrl: string | number
-  quantity: number
-  expiryDate: Date | undefined
-  physical: boolean
-  digital: boolean
-}
-
-const OrderTable = ({ data }: { data: OrderItem[] }) => {
+const OrderTable = ({ data }: { data: QROrder[] }) => {
+  const { setActiveOrder, removeOrderItem, QRType } = useQRSStore()
   return (
     <Table className="product-table text-center">
       <TableHeader>
@@ -42,8 +24,7 @@ const OrderTable = ({ data }: { data: OrderItem[] }) => {
             General Info
           </TableHead>
           <TableHead className="min-w-20 text-center">MRL</TableHead>
-          <TableHead className="min-w-20 text-center">Expiry Date</TableHead>
-          <TableHead className="min-w-20 text-center">QR Type</TableHead>
+          <TableHead className="min-w-28 text-center">Expiry Date</TableHead>
           <TableHead className="min-w-20 text-center">Quantity</TableHead>
           <TableHead className="min-w-20 text-center">Cost</TableHead>
           <TableHead className="min-w-20 w-24"></TableHead>
@@ -51,10 +32,8 @@ const OrderTable = ({ data }: { data: OrderItem[] }) => {
       </TableHeader>
       <TableBody>
         {data.map((item, i) => {
-          const digital = item.digital ? item.quantity * 0.2 : 0
-          const physical = item.physical ? item.quantity * 0.8 : 0
           return (
-            <TableRow key={item.id} className="">
+            <TableRow key={i} className="">
               <TableCell className="text-center">{i + 1}.</TableCell>
               <TableCell className="min-w-14 !shrink-0 w-20">
                 <Image
@@ -62,7 +41,7 @@ const OrderTable = ({ data }: { data: OrderItem[] }) => {
                   className="aspect-square rounded-md object-cover shrink-0"
                   height="60"
                   width="60"
-                  src={item.image.url}
+                  src={item.selectedProduct?.image.url as string}
                   loading="lazy"
                   blurDataURL="/favicon.svg"
                   placeholder="blur"
@@ -70,64 +49,33 @@ const OrderTable = ({ data }: { data: OrderItem[] }) => {
               </TableCell>
               <TableCell className="min-w-40 text-left cursor-pointer">
                 <h1 className="sm:text-base lg:text-lg font-semibold opacity-90 line-clamp-1">
-                  {item.title}
+                  {item.selectedProduct?.title}
                 </h1>
                 <p className="!line-clamp-1 text-xs hidden md:block font-light tracking-wide text-gray-500 py-0.5">
-                  {item.category.name}
+                  {item.selectedProduct?.category.name}
                 </p>
               </TableCell>
-              <TableCell>{item.mrl}</TableCell>
+              <TableCell>₹{item.mrl}</TableCell>
               <TableCell>
                 {moment(item.expiryDate).format('DD/MM/YYYY')}
               </TableCell>
-              <TableCell>
-                <div className="flex items-center justify-center gap-2">
-                  {item.digital ? (
-                    <Tooltip title="Digital QR">
-                      <Image
-                        className="rounded-lg"
-                        src={DigitalQR.src}
-                        blurDataURL={DigitalQR.blurDataURL}
-                        width={44}
-                        height={44}
-                        alt="Digital QR"
-                      />
-                    </Tooltip>
-                  ) : (
-                    <></>
-                  )}
-                  {item.physical ? (
-                    <Tooltip title="Physical QR">
-                      <Image
-                        className="rounded-lg"
-                        src={PhysicalQR.src}
-                        blurDataURL={PhysicalQR.blurDataURL}
-                        width={44}
-                        height={44}
-                        alt="Physical QR"
-                      />
-                    </Tooltip>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              </TableCell>
+
               <TableCell>{item.quantity}</TableCell>
               <TableCell>
-                {digital && physical ? (
-                  <div className="flex flex-col leading-none">
-                    <span>₹ {digital.toFixed(2)}</span>
-                    <span>+</span>
-                    <span>₹ {physical.toFixed(2)}</span>
-                  </div>
-                ) : (
-                  <p>₹ {(digital + physical).toFixed(2)}</p>
-                )}
+                <p>
+                  {
+                    QRType
+                      ?
+                      `₹${(getQRPrice(QRType) * (item.quantity as number)).toFixed(2)}`
+                      :
+                      '-'
+                  }
+                </p>
               </TableCell>
               <TableCell>
                 <div className="flex gap-4">
-                  <Button className="min-w-20">Edit</Button>
-                  <Button className="min-w-20 bg-rose-500 hover:bg-rose-600 text-white">
+                  <Button className="min-w-20" onClick={() => setActiveOrder(item)}>Edit</Button>
+                  <Button onClick={() => removeOrderItem(item.id as string)} className="min-w-20 bg-rose-500 hover:bg-rose-600 text-white">
                     Remove
                   </Button>
                 </div>

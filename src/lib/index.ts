@@ -3,6 +3,7 @@ import { createRef, useEffect, useState } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import toast from 'react-hot-toast'
 import validator from 'validator'
+import { cookies } from 'next/headers'
 
 const API_URL = 'https://api.domain.com/api/v1'
 
@@ -23,8 +24,10 @@ export function encrypt(message: string) {
 export const API = API_URL
 export const getToken =
   typeof window !== 'undefined' ? localStorage.getItem('access_token') : ''
-export const setToken = (token: string) =>
+export const setToken = (token: string, expires: number | string) => {
+  document.cookie = `access_token=${token};expires=${expires};path=/;SameSite=Strict`;
   localStorage.setItem('access_token', token)
+}
 export const removeToken = () => localStorage.removeItem('access_token')
 
 export const groupBy = (x: any[], f: (args: any) => void) =>
@@ -176,7 +179,7 @@ export const decodeToken = () => {
   if (!getToken) {
     return false
   }
-  var decoded: any = jwtDecode('getToken')
+  var decoded: any = jwtDecode(getToken)
   return decoded
 }
 

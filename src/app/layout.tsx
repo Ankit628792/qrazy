@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/lib/theme-provider";
 import ToggleTheme from "@/components/ak/ToggleTheme";
 import { Toaster } from "react-hot-toast";
 import TopLoader from "@/components/ak/TopLoader";
+import { QueryProvider } from "@/lib/query-client-provider";
 
 export const metadata: Metadata = {
   title: "QRazy | Admin",
@@ -32,19 +33,21 @@ export default function RootLayout({
         className={`antialiased overflow-x-hidden`}
       >
         <TopLoader />
-        <ThemeProvider
-          attribute="class"
-          enableSystem
-          defaultTheme="system"
-        >
-          <div className="flex flex-col min-h-dvh w-full text-black dark:text-white bg-white dark:bg-black">
-            <Toaster />
-            {children}
-            <div className="fixed bottom-2 right-2 z-50 p-2 bg-white dark:bg-black rounded-full" draggable>
-              <ToggleTheme />
+        <QueryProvider>
+          <ThemeProvider
+            attribute="class"
+            enableSystem
+            defaultTheme="system"
+          >
+            <div className="flex flex-col min-h-dvh w-full text-black dark:text-white bg-white dark:bg-black">
+              <Toaster />
+              {children}
+              <div className="fixed bottom-2 right-2 z-50 p-2 bg-white dark:bg-black rounded-full" draggable>
+                <ToggleTheme />
+              </div>
             </div>
-          </div>
-        </ThemeProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

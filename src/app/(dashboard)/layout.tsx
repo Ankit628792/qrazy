@@ -1,5 +1,7 @@
 import Header from '@/components/dashboard/Header'
 import Sidebar from '@/components/dashboard/Sidebar'
+import { me } from '@/services/auth.service';
+import { redirect } from 'next/navigation';
 
 const videos = [
   'https://cdn.dribbble.com/userupload/17017857/file/original-62fa9969e36f163fedf9f0823f65a93d.mp4',
@@ -14,11 +16,25 @@ const videos = [
   'https://cdn.dribbble.com/userupload/4275120/file/original-f83b965091a5c2d9dcf864d168f12341.mp4'
 ]
 
-export default function RootLayout({
+async function verifyToken() {
+  let res: any;
+  try {
+    res = await me();
+  } catch (error) {
+    res = error
+  }
+  if (!res?.success) {
+    redirect("/login")
+  }
+}
+
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  await verifyToken();
+
   return (
     <>
       {/* <video muted autoPlay loop className="fixed inset-0 w-full h-full z-0 object-cover" src={videos[videos.length - 1]}></video> */}

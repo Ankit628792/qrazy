@@ -9,8 +9,9 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import Error from '../ui/error'
 import * as Yup from 'yup'
+import { useLogin } from '@/hooks'
 
-type ILoginForm = Record<string, string | null>
+type ILoginForm = Record<string, string>
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -24,13 +25,13 @@ const validationSchema = Yup.object({
 
 function Login() {
   const [loginForm, setLoginForm] = useState<ILoginForm>({
-    email: null,
-    password: null
+    email: 'ankit628792@gmail.com',
+    password: 'Ankit@123'
   })
 
   const [errors, setErrors] = useState<ILoginForm>({
-    email: null,
-    password: null
+    email: '',
+    password: ''
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,10 +39,16 @@ function Login() {
     setErrors({ ...errors, [e.target.name]: '' })
   }
 
+  const { mutate, isPending } = useLogin((err: ILoginForm) => setErrors(err))
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
       await validationSchema.validate(loginForm, { abortEarly: false })
+      mutate({
+        email: loginForm.email,
+        password: loginForm.password,
+      })
       console.log('Form:', loginForm)
       setErrors({})
     } catch (err: any) {
@@ -98,7 +105,7 @@ function Login() {
             />
             <Error error={errors.password} />
           </div>
-          <Button size="lg" className="w-full mt-2">
+          <Button loading={isPending} size="lg" className="w-full mt-2">
             <span className="text-base lg:text-lg">Login</span>{' '}
             <MoveRight className="ml-2" />
           </Button>

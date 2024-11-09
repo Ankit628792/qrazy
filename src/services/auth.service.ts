@@ -4,14 +4,14 @@ import { get, post } from "./HttpService";
 export const login = (data: {
     email: string,
     password: string,
-}) => post('/auth/login', { data: { ...data, rememberMe: true } });
+}) => post('/auth/login', { ...data, rememberMe: true });
 
 export const register = (data: {
     email: string,
     password: string,
     name: string,
     lastname: string
-}) => post('/auth/register');
+}) => post('/auth/register', data);
 
 export const emailVerify = (token: string) => get('/auth/email-verification/' + token);
 

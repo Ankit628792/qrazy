@@ -1,8 +1,9 @@
 
+import { getCookie } from '@/hooks/getCookie'
 import { getToken } from '@/lib'
 import axios from 'axios'
 
-const TIMEOUT = 5000
+const TIMEOUT = 30000
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 const _axios = axios.create({
@@ -11,19 +12,15 @@ const _axios = axios.create({
 })
 
 _axios.interceptors.request.use(
-  (config) => {
-    if (typeof window !== 'undefined') {
-
-      const token = getToken
-      if (token) {
-        config.headers['Authorization'] = `Bearer ${token}`
-      }
-
-      config.headers['Content-Type'] = 'application/json'
-      config.headers['Accept'] = 'application/json'
-
-      return config
+  async (config) => {
+    const token = await getCookie('access_token') || getToken
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`
     }
+    config.headers['Content-Type'] = 'application/json'
+    config.headers['Accept'] = 'application/json'
+    config.headers["Access-Control-Allow-Origin"] = "*"
+
     return config
   },
   (error) => {
@@ -34,16 +31,19 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   (response) => {
     if (response?.config) {
-      return response.data
+      return { success: response.data.success, message: response.data.successResponse.message, data: response.data.successResponse.data }
     }
-    return response;
+    return response.data;
   },
   (error) => {
-    // const { data = {}, status, statusText } = error?.response || {};
-    // data.description = data.message || statusText;
-    // data.message = data.error || statusText;
-    // data.statusCode = data.statusCode || status;
-    return Promise.reject(error)
+    console.log({ error })
+    const err = error?.response?.data;
+    const data = {
+      success: err?.success ?? false,
+      message: err?.errorResponse?.message || error.message,
+      errors: err?.errorResponse?.errors
+    }
+    return Promise.reject(data)
   }
 )
 

@@ -12,6 +12,7 @@ import * as Yup from 'yup'
 import Error from '../ui/error'
 import { gstRegex } from '../settings/CompanyInformation'
 import toast from 'react-hot-toast'
+import { usePostOnboarding } from '@/hooks'
 
 type TError = Record<string, string | null>
 
@@ -185,7 +186,7 @@ const BasicInfo = ({
 
   const basicInfoSchema = Yup.object({
     business: Yup.string().required('Business name is required'),
-    gstNo: Yup.string().matches(gstRegex, 'Please enter a valid GST number'),
+    // gstNo: Yup.string().matches(gstRegex, 'Please enter a valid GST number'),
     description: Yup.string().required('Description is required')
   })
 
@@ -209,6 +210,13 @@ const BasicInfo = ({
       await basicInfoSchema.validate(basicInfo, {
         abortEarly: false
       })
+      try {
+        if (basicInfo.gstNo) {
+          await Yup.string().matches(gstRegex, 'Please enter a valid GST number').validate(basicInfo.gstNo, { abortEarly: false })
+        }
+      } catch (error: any) {
+        return setErrors({ gstNo: error?.message })
+      }
       setErrors({})
       setOnboardingRootForm({
         ...onboardingRootForm,
@@ -217,23 +225,13 @@ const BasicInfo = ({
         }
       })
       setIndex(index < 3 ? index + 1 : 3)
-      console.log('Form:', {
-        basicInfo: basicInfo,
-        formData: onboardingRootForm.basicInfo
-      })
     } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
       setErrors(validationErrors)
-      console.log('Form:', {
-        formData: onboardingRootForm.basicInfo,
-        errors: validationErrors
-      })
     }
   }
-
-  console.log('Basic Info Form:', onboardingRootForm)
 
   return (
     <div className="h-full flex flex-col justify-between">
@@ -366,9 +364,6 @@ const Personalization = ({
         abortEarly: false
       })
       setErrors({})
-      console.log('Form:', {
-        formData: personalization
-      })
       setOnboardingRootForm({
         ...onboardingRootForm,
         personalization: {
@@ -381,10 +376,6 @@ const Personalization = ({
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
       setErrors(validationErrors)
-      console.log('Form:', {
-        formData: onboardingRootForm.personalization,
-        errors: validationErrors
-      })
     }
   }
 
@@ -493,9 +484,6 @@ const LocationInfo = ({
         abortEarly: false
       })
       setErrors({})
-      console.log('Form:', {
-        formData: locationInfo
-      })
       setOnboardingRootForm({
         ...onboardingRootForm,
         locationInfo: {
@@ -508,10 +496,6 @@ const LocationInfo = ({
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
       setErrors(validationErrors)
-      console.log('Form:', {
-        formData: locationInfo,
-        errors: validationErrors
-      })
     }
   }
 
@@ -632,20 +616,36 @@ const ContactInfo = ({
     })
   }
 
+  const { mutate, isPending } = usePostOnboarding()
+
   const handleSubmit = async () => {
     try {
       await contactInfoSchema.validate(contactInfo, {
         abortEarly: false
       })
       setErrors({})
-      console.log('Form:', {
-        formData: contactInfo,
-        onboardingRootForm
-      })
       setOnboardingRootForm({
         ...onboardingRootForm,
         contactInfo: {
           ...contactInfo
+        }
+      })
+      mutate({
+        businessName: onboardingRootForm.basicInfo.business,
+        gstNo: onboardingRootForm.basicInfo.gstNo,
+        description: onboardingRootForm.basicInfo.description,
+        logo: onboardingRootForm.personalization.logo as string,
+        websiteUrl: onboardingRootForm.personalization.website,
+        thumbnail: onboardingRootForm.personalization.logo as string,
+        address: {
+          address: onboardingRootForm.locationInfo.address,
+          country: onboardingRootForm.locationInfo.country,
+          state: '',
+          pincode: onboardingRootForm.locationInfo.pinCode
+        },
+        contactDetail: {
+          customerCareEmail: contactInfo.contactEmail,
+          contactNumber: contactInfo.contactNumber
         }
       })
       setIndex(index < 3 ? index + 1 : 3)
@@ -654,10 +654,6 @@ const ContactInfo = ({
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
       setErrors(validationErrors)
-      console.log('Form:', {
-        formData: onboardingRootForm.contactInfo,
-        errors: validationErrors
-      })
     }
   }
 
@@ -703,7 +699,7 @@ const ContactInfo = ({
       </div>
       <div className="flex items-center gap-10">
         <Button
-          disabled={index < 1}
+          disabled={index < 1 && isPending}
           size={'lg'}
           className="min-w-36"
           onClick={() => setIndex(index > 0 ? index - 1 : 0)}
@@ -711,6 +707,7 @@ const ContactInfo = ({
           <span className="text-lg">Previous</span>
         </Button>
         <Button
+          loading={isPending}
           size={'lg'}
           className="bg-emerald-500 hover:bg-emerald-700 dark:text-white min-w-36"
           onClick={() => handleSubmit()}

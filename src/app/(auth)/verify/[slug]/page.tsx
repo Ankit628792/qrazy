@@ -5,7 +5,6 @@ import Link from 'next/link'
 async function verifyToken(token: string) {
   try {
     const res: any = await emailVerify(token);
-    console.log(res)
     return Boolean(res?.success)
 
   } catch (error) {

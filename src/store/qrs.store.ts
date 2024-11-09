@@ -1,4 +1,3 @@
-import { QRTemplates } from '@/components/qrs/generate/constant'
 import { getId } from '@/lib'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'

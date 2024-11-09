@@ -6,6 +6,7 @@ import CompanyInformation from './CompanyInformation'
 import CompanyContact from './CompanyContact'
 import ProfileCard from './ProfileCard'
 import ResetPassword from './ResetPassword'
+import CompleteOnboarding from './CompleteOnboarding'
 
 export interface IProfileCard {
   profileImage: string
@@ -80,12 +81,13 @@ function Settings() {
         <PersonalDetail
           personalDetailsCard={rootLevelState.personalDetailsCard}
         />
-        <CompanyInformation
+        <CompleteOnboarding />
+        {/* <CompanyInformation
           companyDetailsCard={rootLevelState.companyDetailsCard}
         />
         <CompanyContact
           companyContactCard={rootLevelState.companyContactCard}
-        />
+        /> */}
       </div>
     </section>
   )

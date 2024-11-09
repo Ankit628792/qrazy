@@ -10,6 +10,8 @@ import React from 'react'
 import Error from '../ui/error'
 import * as Yup from 'yup'
 import { useRegister } from '@/hooks'
+import { useQuery } from '@tanstack/react-query'
+import { me } from '@/services/auth.service'
 
 type IRegisterForm = Record<string, string | null>
 
@@ -29,6 +31,8 @@ const registerSchema = Yup.object({
 })
 
 function Register() {
+  const { data, isFetching, isError, error, } = useQuery({ queryKey: ["validateToken"], queryFn: () => me(), retry: false, enabled: true });
+  console.log({ data, isFetching, isError, error })
   const [registerForm, setRegisterForm] = React.useState<IRegisterForm>({
     fName: null,
     lName: null,
@@ -57,7 +61,7 @@ function Register() {
       password: null,
       cPassword: null
     })
-  });
+  }, (err: IRegisterForm) => setErrors(err));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -88,8 +92,8 @@ function Register() {
         <h1 className="text-4xl font-bold select-none mb-2">
           Qrazy Welcomes You!
         </h1>
-        <form onSubmit={handleSubmit} className="w-full">
-          <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="w-full space-y-1">
+          <div className="grid grid-cols-2 gap-5">
             <div className="w-full text-base xl:text-lg">
               <Label className="xl:text-base">First Name</Label>
               <Input

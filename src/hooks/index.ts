@@ -1,11 +1,35 @@
 "use client"
-import { useMutation } from "@tanstack/react-query"
-import { forgotPassword, login, register, resetPassword, updatePassword } from "@/services/auth.service"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { forgotPassword, login, me, register, resetPassword, updatePassword } from "@/services/auth.service"
 import { useRouter } from "next/navigation"
 import { setToken, showError, showInfo, showSuccess } from "@/lib"
+import { postOnboarding } from "@/services/profile.service"
+
+interface Error {
+    success: boolean,
+    message: string,
+    errors: any
+}
+
+interface Success {
+    success: boolean,
+    message: string,
+    data: any
+}
 
 
-export const useLogin = () => {
+function useMe() {
+    return useQuery({
+        queryKey: ["validateToken"],
+        queryFn: () => me(),
+        retry: false
+    });
+}
+
+export default useMe;
+
+
+export const useLogin = (err: Function) => {
     const router = useRouter()
     return useMutation({
         mutationKey: ["login"],
@@ -19,24 +43,27 @@ export const useLogin = () => {
                     "refreshToken": 604800000
                 }
             }
-            console.log(res)
             if (res.success) {
                 showSuccess(res.message);
-                setToken(res?.data?.token)
-                router.replace("/")
+                setToken(res?.data?.token, res?.data?.expiresIn.token)
+                router.replace("/settings")
             }
             else {
                 showError(res.message)
             }
         },
-        onError: (error, variables, context) => {
+        onError: (error: Error) => {
             // Handle error
+            if (typeof err === "function") {
+                // err(error?.errors)
+            }
+            showError(error.message)
             console.error("Error logging in:", error)
         }
     })
 }
 
-export const useRegister = (callback?: Function) => {
+export const useRegister = (callback?: Function, err?: Function) => {
     return useMutation({
         mutationKey: ["register"],
         mutationFn: register,
@@ -44,15 +71,19 @@ export const useRegister = (callback?: Function) => {
             // Handle success
             console.log(res)
             if (res.success) {
-                showError(res.message);
+                showSuccess(res.message);
                 showInfo("Verification Email is sent");
                 if (typeof callback === "function") {
                     callback();
                 }
             }
         },
-        onError: (error) => {
+        onError: (error: Error) => {
             // Handle error
+            if (typeof err === "function") {
+                err(error?.errors)
+            }
+            showError(error.message)
             console.error("Error registering:", error)
         }
     })
@@ -119,6 +150,26 @@ export const useUpdatePassword = () => {
         onError: (error) => {
             // Handle error
             console.error("Error updating password:", error)
+        }
+    })
+}
+
+export const usePostOnboarding = () => {
+    return useMutation({
+        mutationKey: ["postOnboarding"],
+        mutationFn: postOnboarding,
+        onSuccess: (res: any) => {
+            console.log(res)
+            if (res.success) {
+                showSuccess(res.message);
+            }
+            // Handle success
+            console.log(res)
+        },
+        onError: (error) => {
+            showError(error.message);
+            // Handle error
+            console.error("Error posting onboarding data:", error)
         }
     })
 }

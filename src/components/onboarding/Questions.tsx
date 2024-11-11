@@ -62,22 +62,22 @@ function Questions({ index, setIndex }: IQuestion) {
   const [onboardingRootForm, setOnboardingRootForm] =
     useState<IRootOnboardingForm>({
       basicInfo: {
-        business: '',
+        business: 'Amul',
         gstNo: '',
-        description: ''
+        description: 'We are the milk product company'
       },
       personalization: {
-        logo: null,
-        website: ''
+        logo: "https://cdn.dribbble.com/userupload/16625001/file/original-428d8c73220f1af914b060c0012582f3.jpg",
+        website: 'https://www.dribbble.com'
       },
       locationInfo: {
-        address: '',
-        pinCode: '',
-        country: ''
+        address: '13B, New Delhi',
+        pinCode: '110078',
+        country: 'India'
       },
       contactInfo: {
-        contactEmail: '',
-        contactNumber: ''
+        contactEmail: 'ankit@gmail.com',
+        contactNumber: '+919818451195'
       }
     })
   const titles = OnboardingTitles

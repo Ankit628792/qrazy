@@ -1,11 +1,13 @@
 import { LoaderCircle } from 'lucide-react'
 import React from 'react'
 
-function Loader() {
+function Loader({ text = "Loading..." }: { text?: string }) {
     return (
-        <section className='w-full h-screen overflow-hidden flex flex-col gap-1 items-center justify-center z-50 glass-base'>
-            <LoaderCircle className='animate-spin' />
-            <p className='animate-pulse'>Loading...</p>
+        <section className='w-full h-screen overflow-hidden'>
+            <div className='fixed inset-0 z-50 flex flex-col gap-1 items-center justify-center glass-base'>
+                <LoaderCircle className='animate-spin' />
+                <p className='animate-pulse'>{text}</p>
+            </div>
         </section>
     )
 }

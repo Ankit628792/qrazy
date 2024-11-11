@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode'
 import toast from 'react-hot-toast'
 import validator from 'validator'
 import { cookies } from 'next/headers'
+import { deleteCookie, setCookie } from '@/hooks/cookies.hook'
 
 const API_URL = 'https://api.domain.com/api/v1'
 
@@ -27,8 +28,12 @@ export const getToken =
 export const setToken = (token: string, expires: number | string) => {
   document.cookie = `access_token=${token};expires=${expires};path=/;SameSite=Strict`;
   localStorage.setItem('access_token', token)
+  // setCookie('access_token', token, { expires })
 }
-export const removeToken = () => localStorage.removeItem('access_token')
+export const removeToken = () => {
+  localStorage.removeItem('access_token');
+  deleteCookie('access_token');
+}
 
 export const groupBy = (x: any[], f: (args: any) => void) =>
   Array.isArray(x) && typeof f === 'function'

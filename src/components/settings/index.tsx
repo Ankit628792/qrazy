@@ -7,6 +7,8 @@ import CompanyContact from './CompanyContact'
 import ProfileCard from './ProfileCard'
 import ResetPassword from './ResetPassword'
 import CompleteOnboarding from './CompleteOnboarding'
+import { useQuery } from '@tanstack/react-query'
+import { getOnboarding } from '@/services/profile.service'
 
 export interface IProfileCard {
   profileImage: string
@@ -44,6 +46,33 @@ export interface ISettingsState {
 }
 
 function Settings() {
+  const { data } = useQuery({ queryKey: ["settings"], queryFn: getOnboarding, retry: false })
+
+  const dataFormat = {
+    "success": true,
+    "message": "get_business_details",
+    "data": {
+      "id": "33d42a15-0dc8-464e-9759-40638fb93d19",
+      "businessName": "Amul",
+      "gstNo": "",
+      "logo": "blob:http://localhost:3000/0b48cfc4-6ac3-40fa-97b5-9e54d41bf6ea",
+      "websiteUrl": "https://gptgo.ai",
+      "thumbnail": "blob:http://localhost:3000/0b48cfc4-6ac3-40fa-97b5-9e54d41bf6ea",
+      "description": "we are the milk product company",
+      "address": {
+        "address": "New Delhi, India, South Asia",
+        "country": "Option 2",
+        "state": "",
+        "pincode": 110078
+      },
+      "contactDetail": {
+        "customerCareEmail": "ankit628792@gmail.com",
+        "contactNumber": "+919818451195"
+      }
+    }
+  }
+
+  console.log({ data })
   const [rootLevelState, setRootLevelState] = useState({
     profileCard: {
       profileImage:
@@ -81,13 +110,20 @@ function Settings() {
         <PersonalDetail
           personalDetailsCard={rootLevelState.personalDetailsCard}
         />
-        <CompleteOnboarding />
-        {/* <CompanyInformation
-          companyDetailsCard={rootLevelState.companyDetailsCard}
-        />
-        <CompanyContact
-          companyContactCard={rootLevelState.companyContactCard}
-        /> */}
+        {
+          data?.data
+            ?
+            <>
+              <CompanyInformation
+                companyDetailsCard={rootLevelState.companyDetailsCard}
+              />
+              <CompanyContact
+                companyContactCard={rootLevelState.companyContactCard}
+              />
+            </>
+            :
+            <CompleteOnboarding />
+        }
       </div>
     </section>
   )

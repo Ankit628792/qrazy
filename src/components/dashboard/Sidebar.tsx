@@ -5,9 +5,12 @@ import Avatar from '../ui/avatar'
 import { ChevronLeft, LogOut } from 'lucide-react'
 import Tooltip from '../ui/tooltip'
 import { useRouter } from 'next/navigation'
+import { useLogout } from '@/hooks/useLogout'
 
 function Sidebar() {
   const router = useRouter()
+  const { mutate } = useLogout()
+
   return (
     <aside className="hidden sm:flex flex-col py-5 items-center justify-between pt-28">
       <div>
@@ -20,7 +23,7 @@ function Sidebar() {
           <Avatar fallback={<ToggleTheme />} />
         </Tooltip>
         <Tooltip title="Logout">
-          <Avatar fallback={<LogOut />} />
+          <Avatar onClick={() => mutate()} fallback={<LogOut />} />
         </Tooltip>
       </div>
     </aside>

@@ -15,6 +15,7 @@ const images = [
 ]
 
 function getRandomImage() {
+  return images[3]
   return images[Math.floor(Math.random() * images.length)]
 }
 

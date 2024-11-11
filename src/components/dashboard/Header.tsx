@@ -1,4 +1,3 @@
-import React from 'react'
 import LogoText from '../ak/LogoText'
 import UserCard from '../ak/UserCard'
 import Navigation from './Navigation'

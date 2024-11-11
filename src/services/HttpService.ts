@@ -1,5 +1,5 @@
 
-import { getCookie } from '@/hooks/getCookie'
+import { getCookie } from '@/hooks/cookies.hook'
 import { getToken } from '@/lib'
 import axios from 'axios'
 
@@ -14,13 +14,13 @@ const _axios = axios.create({
 _axios.interceptors.request.use(
   async (config) => {
     const token = await getCookie('access_token') || getToken
+
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`
     }
     config.headers['Content-Type'] = 'application/json'
     config.headers['Accept'] = 'application/json'
     config.headers["Access-Control-Allow-Origin"] = "*"
-
     return config
   },
   (error) => {
@@ -36,13 +36,13 @@ _axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    console.log({ error })
     const err = error?.response?.data;
     const data = {
       success: err?.success ?? false,
       message: err?.errorResponse?.message || error.message,
       errors: err?.errorResponse?.errors
     }
+    console.log(data)
     return Promise.reject(data)
   }
 )

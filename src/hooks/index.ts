@@ -1,9 +1,10 @@
 "use client"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { forgotPassword, login, me, register, resetPassword, updatePassword } from "@/services/auth.service"
-import { useRouter } from "next/navigation"
+import { useRouter, redirect } from "next/navigation"
 import { setToken, showError, showInfo, showSuccess } from "@/lib"
 import { postOnboarding } from "@/services/profile.service"
+import { useAdminStore } from "@/store/admin.store"
 
 interface Error {
     success: boolean,
@@ -31,6 +32,7 @@ export default useMe;
 
 export const useLogin = (err: Function) => {
     const router = useRouter()
+    const { setLoading } = useAdminStore()
     return useMutation({
         mutationKey: ["login"],
         mutationFn: login,
@@ -44,9 +46,11 @@ export const useLogin = (err: Function) => {
                 }
             }
             if (res.success) {
+                setLoading({ state: true })
                 showSuccess(res.message);
                 setToken(res?.data?.token, res?.data?.expiresIn.token)
-                router.replace("/settings")
+                router.refresh()
+                // window.location.pathname = '/'
             }
             else {
                 showError(res.message)

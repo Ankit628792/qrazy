@@ -4,18 +4,20 @@ import { ThemeProvider } from "@/lib/theme-provider";
 import ToggleTheme from "@/components/ak/ToggleTheme";
 import { Toaster } from "react-hot-toast";
 import TopLoader from "@/components/ak/TopLoader";
-import { QueryProvider } from "@/lib/query-client-provider";
+import { TanStackProvider } from "@/lib/tanstack-provider";
+import { verifyToken } from "./actions";
 
 export const metadata: Metadata = {
   title: "QRazy | Admin",
   description: "a qr based reward and sales system",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const admin = await verifyToken()
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -33,7 +35,7 @@ export default function RootLayout({
         className={`antialiased overflow-x-hidden`}
       >
         <TopLoader />
-        <QueryProvider>
+        <TanStackProvider admin={admin}>
           <ThemeProvider
             attribute="class"
             enableSystem
@@ -47,7 +49,7 @@ export default function RootLayout({
               </div>
             </div>
           </ThemeProvider>
-        </QueryProvider>
+        </TanStackProvider>
       </body>
     </html>
   );

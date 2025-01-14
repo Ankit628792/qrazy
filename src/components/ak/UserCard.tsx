@@ -13,7 +13,7 @@ function UserCard() {
         <Avatar image="https://github.com/shadcn.png" fallback="Q" />
         <div className="hidden lg:inline-block">
           <strong className="max-w-36 line-clamp-1">
-            {admin?.name + " " + admin?.lastName}
+            {admin?.firstName + " " + admin?.lastName}
           </strong>
           <p className="text-xs max-w-36 line-clamp-1">Co-Founder Delanki</p>
         </div>

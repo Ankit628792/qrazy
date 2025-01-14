@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { QRCode } from 'react-qrcode-logo';
 import JSZip from 'jszip';
 import { productQRList } from './constant';
-import toast from 'react-hot-toast';
 import { showInfo } from '@/lib';
 
 interface ProductQRList {
@@ -17,6 +16,29 @@ interface Props {
     qrList?: ProductQRList[];
     text: string;
 }
+
+// QRCode.prototype.download = function (fileType:string, fileName:string) {
+//     if (this.canvasRef.current) {
+//         var mimeType = void 0;
+//         switch (fileType) {
+//             case 'jpg':
+//                 mimeType = 'image/jpeg';
+//                 break;
+//             case 'webp':
+//                 mimeType = 'image/webp';
+//                 break;
+//             case 'png':
+//             default:
+//                 mimeType = 'image/png';
+//                 break;
+//         }
+//         var url = this.canvasRef.current.toDataURL(mimeType, 1.0);
+//         var link = document.createElement('a');
+//         link.download = fileName !== null && fileName !== void 0 ? fileName : 'react-qrcode-logo';
+//         link.href = url;
+//         link.click();
+//     }
+// };
 
 const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) => {
     const qrRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -102,3 +124,4 @@ const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) 
 };
 
 export default DownloadQrZipButton;
+

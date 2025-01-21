@@ -49,17 +49,12 @@ function Login() {
         email: loginForm.email,
         password: loginForm.password,
       })
-      console.log('Form:', loginForm)
       setErrors({})
     } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
       setErrors(validationErrors)
-      console.log('Form:', {
-        formData: loginForm,
-        errors: validationErrors
-      })
     }
   }
 

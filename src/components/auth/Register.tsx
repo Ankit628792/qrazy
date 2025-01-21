@@ -32,7 +32,6 @@ const registerSchema = Yup.object({
 
 function Register() {
   const { data, isFetching, isError, error, } = useQuery({ queryKey: ["validateToken"], queryFn: () => me(), retry: false, enabled: true });
-  console.log({ data, isFetching, isError, error })
   const [registerForm, setRegisterForm] = React.useState<IRegisterForm>({
     fName: null,
     lName: null,
@@ -67,7 +66,6 @@ function Register() {
     e.preventDefault()
     try {
       await registerSchema.validate(registerForm, { abortEarly: false })
-      console.log('Form:', registerForm)
       mutate({
         email: registerForm.email as string,
         password: registerForm.password as string,
@@ -80,10 +78,6 @@ function Register() {
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
       setErrors(validationErrors)
-      console.log('Form:', {
-        formData: registerForm,
-        errors: validationErrors
-      })
     }
   }
   return (

@@ -146,7 +146,6 @@ export const generateChartConfig = (chartData: MonthData[]): ChartConfig => {
     {} as ChartConfig
   )
 
-  // console.log(chartConfig)
   return chartConfig
 }
 

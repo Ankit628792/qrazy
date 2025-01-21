@@ -10,9 +10,6 @@ export default function Error({
     error: Error & { digest?: string }
     reset: () => void
 }) {
-    useEffect(() => {
-        console.error(error)
-    }, [error])
 
     return (
         <section className='flex flex-col min-h-screen'>

@@ -17,7 +17,9 @@ const options = [
 ]
 
 interface ICompanyDetailsCard {
-  companyContactCard: ICompanyContactCard
+  companyContactCard: ICompanyContactCard;
+  onSave: (data: { companyContactCard: ICompanyContactCard }) => void;
+  isPending?: boolean;
 }
 
 const companyContactSchema = Yup.object({
@@ -53,7 +55,9 @@ function CompanyContact({
     country: '',
     contactEmail: '',
     contactNumber: ''
-  }
+  },
+  onSave,
+  isPending
 }: ICompanyDetailsCard) {
   const [companyContactForm, setCompanyContactForm] =
     useState<ICompanyContactCard>(companyContactCard)
@@ -84,6 +88,12 @@ function CompanyContact({
     }
   }, [companyContactForm])
 
+  useEffect(() => {
+    if (!isPending) {
+      setShowSaveButton(false)
+    }
+  }, [isPending])
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompanyContactForm({
       ...companyContactForm,
@@ -105,17 +115,13 @@ function CompanyContact({
       await companyContactSchema.validate(companyContactForm, {
         abortEarly: false
       })
-      console.log('Form:', companyContactForm)
+      onSave({ companyContactCard: companyContactForm })
       setErrors({})
     } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
       setErrors(validationErrors)
-      console.log('Form:', {
-        formData: companyContactForm,
-        errors: validationErrors
-      })
     }
   }
 
@@ -132,6 +138,7 @@ function CompanyContact({
           visible={showSaveButton}
           onSave={() => handleSave()}
           onCancel={handleCancel}
+          loading={isPending}
         />
       </div>
       <div className="bg-white dark:bg-black p-4 rounded-2xl flex flex-col gap-2">

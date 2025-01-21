@@ -13,7 +13,9 @@ export const gstRegex =
   /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[Z]{1}[A-Z0-9]{1}$/
 
 interface ICompanyInformation {
-  companyDetailsCard: ICompanyDetailsCard
+  companyDetailsCard: ICompanyDetailsCard;
+  onSave: (data: { companyDetailsCard: ICompanyDetailsCard }) => void;
+  isPending?: boolean;
 }
 
 const companyDetailsSchema = Yup.object({
@@ -34,7 +36,9 @@ function CompanyInformation({
     gstNumber: '',
     aboutYourCompany: '',
     companyURL: ''
-  }
+  },
+  onSave,
+  isPending
 }: ICompanyInformation) {
   const [companyDetailsForm, setCompanyDetailsForm] =
     useState<ICompanyDetailsCard>(companyDetailsCard)
@@ -62,6 +66,12 @@ function CompanyInformation({
     }
   }, [companyDetailsForm])
 
+  useEffect(() => {
+    if (!isPending) {
+      setShowSaveButton(false)
+    }
+  }, [isPending])
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -76,17 +86,14 @@ function CompanyInformation({
       await companyDetailsSchema.validate(companyDetailsForm, {
         abortEarly: false
       })
-      console.log('Form:', companyDetailsForm)
+      onSave({ companyDetailsCard: companyDetailsCard })
+
       setErrors({})
     } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
       setErrors(validationErrors)
-      console.log('Form:', {
-        formData: companyDetailsForm,
-        errors: validationErrors
-      })
     }
   }
 
@@ -102,6 +109,7 @@ function CompanyInformation({
           onSave={() => handleSave()}
           onCancel={() => handleCancel()}
           visible={showSaveButton}
+          loading={isPending}
         />
       </div>
       <div className="bg-white dark:bg-black p-4 rounded-2xl flex flex-col gap-2">

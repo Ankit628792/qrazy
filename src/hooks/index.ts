@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import { forgotPassword, login, me, register, resetPassword, updatePassword } from "@/services/auth.service"
 import { useRouter, redirect } from "next/navigation"
 import { setToken, showError, showInfo, showSuccess } from "@/lib"
-import { postOnboarding } from "@/services/profile.service"
+import { postOnboarding, updateOnboarding } from "@/services/profile.service"
 import { useAdminStore } from "@/store/admin.store"
 
 interface Error {
@@ -148,11 +148,12 @@ export const useUpdatePassword = () => {
             if (res.success) {
                 showSuccess(res.message);
             }
-            // Handle success
-            console.log(res)
         },
         onError: (error) => {
             // Handle error
+            if (error?.errors?.password) {
+                showError(error?.errors?.password)
+            }
             console.error("Error updating password:", error)
         }
     })
@@ -163,7 +164,24 @@ export const usePostOnboarding = () => {
         mutationKey: ["postOnboarding"],
         mutationFn: postOnboarding,
         onSuccess: (res: any) => {
+            if (res.success) {
+                showSuccess(res.message);
+            }
+            // Handle success
             console.log(res)
+        },
+        onError: (error) => {
+            showError(error.message);
+            // Handle error
+            console.error("Error posting onboarding data:", error)
+        }
+    })
+}
+export const usePutOnboarding = () => {
+    return useMutation({
+        mutationKey: ["putOnboarding"],
+        mutationFn: updateOnboarding,
+        onSuccess: (res: any) => {
             if (res.success) {
                 showSuccess(res.message);
             }

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PersonalDetail from './PersonalDetail'
 import CompanyInformation from './CompanyInformation'
 import CompanyContact from './CompanyContact'
@@ -8,7 +8,10 @@ import ProfileCard from './ProfileCard'
 import ResetPassword from './ResetPassword'
 import CompleteOnboarding from './CompleteOnboarding'
 import { useQuery } from '@tanstack/react-query'
-import { getOnboarding } from '@/services/profile.service'
+import { getOnboarding, Onboarding } from '@/services/profile.service'
+import Loader from '../ak/Loader'
+import { useAdminStore } from '@/store/admin.store'
+import { usePutOnboarding } from '@/hooks'
 
 export interface IProfileCard {
   profileImage: string
@@ -46,60 +49,84 @@ export interface ISettingsState {
 }
 
 function Settings() {
-  const { data } = useQuery({ queryKey: ["settings"], queryFn: getOnboarding, retry: false })
+  const { data, isLoading, isFetching } = useQuery({ queryKey: ["settings"], queryFn: getOnboarding, retry: false })
+  const { admin } = useAdminStore()
 
-  const dataFormat = {
-    "success": true,
-    "message": "get_business_details",
-    "data": {
-      "id": "33d42a15-0dc8-464e-9759-40638fb93d19",
-      "businessName": "Amul",
-      "gstNo": "",
-      "logo": "blob:http://localhost:3000/0b48cfc4-6ac3-40fa-97b5-9e54d41bf6ea",
-      "websiteUrl": "https://gptgo.ai",
-      "thumbnail": "blob:http://localhost:3000/0b48cfc4-6ac3-40fa-97b5-9e54d41bf6ea",
-      "description": "we are the milk product company",
+  const [rootLevelState, setRootLevelState] = useState<{
+    profileCard: IProfileCard;
+    personalDetailsCard: IPersonalDetailsCard;
+    companyDetailsCard: ICompanyDetailsCard;
+    companyContactCard: ICompanyContactCard;
+  } | undefined>()
+
+  useEffect(() => {
+    if (data?.data && !isFetching) {
+
+      const info = data?.data
+
+      const formattedData = {
+        profileCard: {
+          profileImage: 'https://images.unsplash.com/photo-1685113177022-84ece209ba8d' || info.logo,
+          fullName: info.businessName,
+          location: info.address.address + ", " + info.address.state + ", " + info.address.country,
+          companyURL: info.websiteUrl
+        },
+        personalDetailsCard: {
+          firstName: admin.firstName,
+          lastName: admin.lastName,
+          email: admin.email
+        },
+        companyDetailsCard: {
+          businessName: info.businessName,
+          gstNumber: info.gstNo,
+          aboutYourCompany: info.description,
+          companyURL: info.websiteUrl
+        },
+        companyContactCard: {
+          address: info.address.address,
+          pinCode: info.address.pincode.toString(),
+          country: info.address.country,
+          contactEmail: info.contactDetail.customerCareEmail,
+          contactNumber: info.contactDetail.contactNumber
+        }
+      }
+      setRootLevelState(formattedData)
+    }
+
+  }, [data, isFetching])
+
+  const { mutate, isPending } = usePutOnboarding()
+  const onSave = (data: { personalDetailsCard: IPersonalDetailsCard } | { companyContactCard: ICompanyContactCard } | { companyDetailsCard: ICompanyDetailsCard }) => {
+    setRootLevelState(prev => {
+      return { ...prev, ...data }
+    })
+
+    const info = { ...rootLevelState, ...data };
+    let formattedData: Onboarding = {
+      "businessName": info.companyDetailsCard?.businessName as string,
+      "gstNo": info.companyDetailsCard?.gstNumber as string,
+      "logo": info.profileCard?.profileImage as string,
+      "websiteUrl": info.companyDetailsCard?.companyURL as string,
+      "thumbnail": info.profileCard?.profileImage as string,
+      "description": info.companyDetailsCard?.aboutYourCompany as string,
       "address": {
-        "address": "New Delhi, India, South Asia",
-        "country": "Option 2",
+        "address": info.companyContactCard?.address as string,
+        "country": info.companyContactCard?.country as string,
         "state": "",
-        "pincode": 110078
+        "pincode": info.companyContactCard?.pinCode as string
       },
       "contactDetail": {
-        "customerCareEmail": "ankit628792@gmail.com",
-        "contactNumber": "+919818451195"
+        "customerCareEmail": info.companyContactCard?.contactEmail as string,
+        "contactNumber": info.companyContactCard?.contactNumber as string
       }
     }
+
+    mutate(formattedData)
   }
 
-  console.log({ data })
-  const [rootLevelState, setRootLevelState] = useState({
-    profileCard: {
-      profileImage:
-        'https://images.unsplash.com/photo-1685113177022-84ece209ba8d',
-      fullName: 'Delanki India',
-      location: 'United States of America & Atlanta',
-      companyURL: 'www.delanki.com'
-    },
-    personalDetailsCard: {
-      firstName: 'Ankit',
-      lastName: 'Kumar',
-      email: 'ankit@gmail.com'
-    },
-    companyDetailsCard: {
-      businessName: 'Delanki India',
-      gstNumber: '1234512345',
-      aboutYourCompany: 'Create a beautiful website for your business.',
-      companyURL: 'google.com'
-    },
-    companyContactCard: {
-      address: 'Delanki India',
-      pinCode: '110053',
-      country: 'India',
-      contactEmail: 'test@gmail.com',
-      contactNumber: '+918787676545'
-    }
-  })
+  if (isLoading || !rootLevelState) {
+    return <Loader />
+  }
   return (
     <section className="flex flex-col lg:flex-row gap-4">
       <div className="w-full lg:max-w-xs xl:max-w-sm flex flex-col gap-2.5">
@@ -115,9 +142,13 @@ function Settings() {
             ?
             <>
               <CompanyInformation
+                onSave={onSave}
+                isPending={isPending}
                 companyDetailsCard={rootLevelState.companyDetailsCard}
               />
               <CompanyContact
+                onSave={onSave}
+                isPending={isPending}
                 companyContactCard={rootLevelState.companyContactCard}
               />
             </>

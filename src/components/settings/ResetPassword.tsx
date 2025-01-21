@@ -78,17 +78,12 @@ const ResetPassword = () => {
         password: resetPasswordForm.newPassword,
         passwordConfirm: resetPasswordForm.confirmPassword
       })
-      console.log('Form:', resetPasswordForm)
       setErrors({})
     } catch (err: any) {
       const validationErrors: Record<string, string> = {}
       const firstError = err.inner[0]
       validationErrors[firstError.path] = firstError.message
       setErrors(validationErrors)
-      console.log('Form:', {
-        formData: resetPasswordForm,
-        errors: validationErrors
-      })
     }
   }
 

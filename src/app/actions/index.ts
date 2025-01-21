@@ -5,8 +5,8 @@ import { jwtDecode } from 'jwt-decode'
 
 function isTokenExpired(exp: number): boolean {
     const currentTimestamp = Math.floor(Date.now() / 1000);
-    console.log(exp, currentTimestamp)
-    console.log(new Date(exp * 1000), new Date(currentTimestamp * 1000))
+
+    console.log("TOKEN EXPIRED: ", exp < currentTimestamp)
     return exp < currentTimestamp;
 }
 

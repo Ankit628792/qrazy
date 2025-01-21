@@ -6,11 +6,13 @@ import { cn } from '@/lib/utils'
 const SaveOptions = ({
   onSave,
   onCancel,
-  visible = false
+  visible = false,
+  loading = false,
 }: {
   onSave: () => void
   onCancel: () => void
   visible?: boolean
+  loading?: boolean
 }) => {
   return (
     <div
@@ -20,16 +22,17 @@ const SaveOptions = ({
       )}
     >
       <Button
-        disabled={!visible}
+        disabled={!visible || loading}
+        loading={loading}
         onClick={onSave}
         size={'sm'}
-        className="bg-emerald-500 hover:bg-sky-600 dark:text-white"
+        className="bg-emerald-500 hover:bg-emerald-600 dark:text-white"
       >
-        <Save className="w-4 mr-0.5 sm:mr-2" />
+        <Save className="w-4 mr-0.5" />
         <span>Save</span>
       </Button>
-      <Button disabled={!visible} onClick={onCancel} size={'sm'}>
-        <UndoDot className="w-4 mr-0.5 sm:mr-2" />
+      <Button disabled={!visible || loading} onClick={onCancel} size={'sm'}>
+        <UndoDot className="w-4 mr-0.5" />
         <span>Cancel</span>
       </Button>
     </div>

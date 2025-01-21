@@ -122,7 +122,6 @@ _axios.interceptors.response.use(
       message: err?.errorResponse?.message || error.message,
       errors: err?.errorResponse?.errors
     }
-    console.log(data)
     return Promise.reject(data)
   }
 )

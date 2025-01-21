@@ -1,6 +1,6 @@
 import { get, post, put } from './HttpService';
 
-interface Onboarding {
+export interface Onboarding {
     businessName: string,
     gstNo: string,
     logo: string,
@@ -20,10 +20,9 @@ interface Onboarding {
 }
 
 export const postOnboarding = (data: Onboarding) => {
-    console.log(data)
     return post('/business', data)
 }
 
 export const getOnboarding = () => get('/business/');
-export const updateOnboarding = (data: Partial<Onboarding>) => put('/business', data)
+export const updateOnboarding = (data: Onboarding) => put('/business/', data)
 

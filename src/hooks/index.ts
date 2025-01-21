@@ -140,13 +140,14 @@ export const useResetPassword = (callback?: Function) => {
     })
 }
 
-export const useUpdatePassword = () => {
+export const useUpdatePassword = (callback?: () => void) => {
     return useMutation({
         mutationKey: ["updatePassword"],
         mutationFn: updatePassword,
         onSuccess: (res: any) => {
             if (res.success) {
                 showSuccess(res.message);
+                callback?.();
             }
         },
         onError: (error) => {
@@ -154,6 +155,7 @@ export const useUpdatePassword = () => {
             if (error?.errors?.password) {
                 showError(error?.errors?.password)
             }
+            showError(error.message)
             console.error("Error updating password:", error)
         }
     })

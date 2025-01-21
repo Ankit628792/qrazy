@@ -66,7 +66,18 @@ const ResetPassword = () => {
     })
   }
 
-  const { mutate, isPending } = useUpdatePassword()
+  const { mutate, isPending } = useUpdatePassword(() => {
+    setResetPasswordForm({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    })
+    setErrors({
+      currentPassword: null,
+      newPassword: null,
+      confirmPassword: null
+    })
+  })
 
   const handleSave = async () => {
     try {

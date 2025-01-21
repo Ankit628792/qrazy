@@ -10,6 +10,8 @@ import * as Yup from 'yup'
 
 interface PersonalDetailProps {
   personalDetailsCard: IPersonalDetailsCard
+  onSave: (data: { personalDetailsCard: IPersonalDetailsCard }) => void;
+  isPending?: boolean;
 }
 
 const personalDetailsSchema = Yup.object({
@@ -23,7 +25,9 @@ function PersonalDetail({
     firstName: '',
     lastName: '',
     email: ''
-  }
+  },
+  onSave,
+  isPending
 }: PersonalDetailProps) {
   const [personalDetailsForm, setPersonalDetailsForm] =
     useState<IPersonalDetailsCard>(personalDetailsCard)
@@ -48,6 +52,12 @@ function PersonalDetail({
     }
   }, [personalDetailsForm])
 
+  useEffect(() => {
+    if (!isPending) {
+      setShowSaveButton(false)
+    }
+  }, [isPending])
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPersonalDetailsForm({
       ...personalDetailsForm,
@@ -61,6 +71,7 @@ function PersonalDetail({
         abortEarly: false
       })
       console.log('Form:', personalDetailsForm)
+      onSave({ personalDetailsCard: personalDetailsForm })
       setErrors({})
     } catch (err: any) {
       const validationErrors: Record<string, string> = {}
@@ -87,6 +98,7 @@ function PersonalDetail({
           onSave={() => handleSave()}
           onCancel={() => handleCancel()}
           visible={showSaveButton}
+          loading={isPending}
         />
       </div>
       <div className="bg-white dark:bg-black p-4 rounded-2xl flex flex-col gap-2">

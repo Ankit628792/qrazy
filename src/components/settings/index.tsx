@@ -135,6 +135,8 @@ function Settings() {
       </div>
       <div className="flex-grow flex flex-col gap-2 rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm p-3">
         <PersonalDetail
+          onSave={onSave}
+          isPending={isPending}
           personalDetailsCard={rootLevelState.personalDetailsCard}
         />
         {

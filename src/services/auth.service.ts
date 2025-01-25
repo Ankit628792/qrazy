@@ -13,7 +13,7 @@ export const register = (data: {
     lastName: string
 }) => post('/auth/register', data);
 
-export const emailVerify = (token: string) => get('/auth/email-verification/' + token);
+export const emailVerify = async (token: string) => get('/auth/email-verification/' + token);
 
 export const forgotPassword = (data: {
     email: string

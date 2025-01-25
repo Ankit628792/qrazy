@@ -1,36 +1,79 @@
-import { ICreateProduct, ICreateProductForm, IUplodImageResponse } from "@/types/product.interface"
-import { post } from "./HttpService";
+import {
+    ICreateProduct,
+    ICreateProductForm,
+    IUplodImageResponse
+} from '@/types/product.interface'
+import { request } from './HttpService'
 
-const uploadImage = async (file: File | null | undefined) => {
-    const formData = new FormData();
-    formData.append("image", file as File);
-    const response = await post("/image/upload")
-    return response.data as IUplodImageResponse
-};
+const uploadImage = async (file: File | null | undefined): Promise<string> => {
+    if (!file) {
+        throw new Error('No file provided')
+    }
 
-const createProduct = async (createProductPayload: ICreateProductForm) => {
-    const { title, description, category, links, images, image } = createProductPayload;
+    try {
+        const formData = new FormData()
+        formData.append('image', file)
 
-    const uploadedImageUrls = await Promise.all(
-        images.filter((img) => img.file).map((img) => uploadImage(img.file))
-    );
+        const {
+            data
+        }: {
+            data: IUplodImageResponse
+        } = await request.post('/image/upload', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
 
-    const primaryImageUrl = await uploadImage(image.file)
-
-    const finalPayload = {
-        categoryId: category.id,
-        title,
-        description,
-        image: primaryImageUrl,
-        imageUrls: uploadedImageUrls,
-        productLinks: links.map((link) => link.url).filter(Boolean),
-    };
-
-    console.log("finalPayload ====>", finalPayload)
+        return data.data.secure_url
+    } catch (error) {
+        console.error('Error uploading image:', error)
+        throw new Error('Failed to upload image. Please try again.')
+    }
 }
 
-const updateProduct = async (product: Product) => { }
+const createProduct = async (payload: ICreateProductForm) => {
+    const { title, description, category, links, images, image } = payload
+    console.log({ "first": 'createProduct', payload })
 
+    try {
+        // Upload primary image
+        const primaryImageUrl = await uploadImage((image as ProductImage).file)
+
+        const uploadedImageUrls = await Promise.all(
+            images.filter(({ file }) => file).map(({ file }) => uploadImage(file))
+        )
+
+        // Prepare the final payload
+        const finalPayload: ICreateProduct = {
+            categoryId: category.id as string,
+            title,
+            description,
+            image: primaryImageUrl,
+            imageUrls: uploadedImageUrls,
+            productLinks: links.map(({ url }) => url).filter(Boolean)
+        }
+
+        console.log('Final Payload ===>', finalPayload)
+
+        const { data } = await request.post('/product/', finalPayload)
+        return data
+    } catch (error) {
+        console.error('Error creating product:', error)
+        throw new Error(
+            'Failed to create product. Please check your inputs and try again.'
+        )
+    }
+}
+
+// Placeholder for the updateProduct function
+const updateProduct = async (product: Product) => {
+    try {
+        // Implementation here
+    } catch (error) {
+        console.error('Error updating product:', error)
+        throw new Error('Failed to update product. Please try again.')
+    }
+}
+
+// Export the ProductService
 const ProductService = {
     createProduct,
     updateProduct,

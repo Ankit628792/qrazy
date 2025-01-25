@@ -125,7 +125,7 @@ function ManageProduct() {
 
       // Reset errors if validation succeeds
       setEmptyErrors()
-
+      console.log({ "first": "handleAddProduct" })
       // Call the mutation to create a new product
       createProduct(formData)
     } catch (err: unknown) {

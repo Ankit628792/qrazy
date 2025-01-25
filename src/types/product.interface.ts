@@ -15,7 +15,7 @@ export interface ICreateProductForm {
     links: ProductLink[];
     category: Category;
     images: ProductImage[];
-    image: ProductImage;
+    image: ProductImage | null;
 }
 
 export interface IUploadImageResponseData {

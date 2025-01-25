@@ -1,6 +1,7 @@
 import {
     ICreateProduct,
     ICreateProductForm,
+    IProductListing,
     IUplodImageResponse
 } from '@/types/product.interface'
 import { request } from './HttpService'
@@ -73,11 +74,22 @@ const updateProduct = async (product: Product) => {
     }
 }
 
+const getProdustListing = async () => {
+    try {
+        const { data } = await request.get('/product/')
+        return data.data as IProductListing[]
+    } catch (error) {
+        console.error('Error fetching product listing:', error)
+        throw new Error('Failed to fetch product listing. Please try again.')
+    }
+}
+
 // Export the ProductService
 const ProductService = {
     createProduct,
     updateProduct,
-    uploadImage
+    uploadImage,
+    getProdustListing
 }
 
 export default ProductService

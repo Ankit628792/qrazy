@@ -46,3 +46,18 @@ export interface IUplodImageResponse {
     message: string;
     data: IUploadImageResponseData;
 }
+
+// LISTING PAGE
+export enum PRODUCT_QUERY_KEYS {
+    GET_PRODUCTS = 'GET_PRODUCTS',
+}
+
+export interface IProductListing {
+    id: string;
+    category: string;
+    name: string;
+    description: string;
+    image: string;
+    productLinks: string[];
+    images: ProductImage[];
+}

@@ -1,5 +1,5 @@
-import { IGetCategory } from '@/types/category.interface'
-import { get } from './HttpService'
+import { CreateCategory, IGetCategory } from '@/types/category.interface'
+import { get, post } from './HttpService'
 
 const getCategory = async () => {
     try {
@@ -10,7 +10,17 @@ const getCategory = async () => {
     }
 }
 
-const createCategory = async (data: any) => { }
+const createCategory = async (
+    createCategoryPayload: CreateCategory
+) => {
+    const url = `/category/${createCategoryPayload.name}`
+    try {
+        const response = await post(url, createCategoryPayload)
+        return response.data
+    } catch (error) {
+        console.error('Error creating category', error)
+    }
+}
 
 const CategoryService = {
     getCategory,

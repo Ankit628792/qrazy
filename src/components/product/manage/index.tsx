@@ -198,41 +198,41 @@ function ManageProduct() {
 export default ManageProduct
 
 
-let productFinal = {
-  "title": "Project Tille",
-  "description": "Here is the description",
-  "mrp": 1000,
-  "mrl": 10,
-  "links": [
-    {
-      "id": 0,
-      "url": "https://www.samsung.com/in/smartphones/galaxy-s24-ultra/"
-    },
-    {
-      "id": 1,
-      "url": "https://www.gsmarena.com/samsung_galaxy_s24_ultra-12771.php"
-    },
-  ],
-  "category": {
-    "id": 2,
-    "name": "Option 2",
-    "description": "2"
-  },
-  "images": [
-    {
-      "id": 0,
-      "url": "blob:http://localhost:3000/b1fe2225-17e3-4e77-a400-e1f18c4c4b8b",
-      "file": {}
-    },
-    {
-      "id": 1,
-      "url": "blob:http://localhost:3000/1001f8ae-a516-45af-aae4-53aa852afc10",
-      "file": {}
-    },
-  ],
-  "image": {
-    "id": "",
-    "url": "blob:http://localhost:3000/7cef9bbf-8951-4dcb-9c10-9e1020480058",
-    "file": {}
-  }
-}
+// let productFinal = {
+//   "title": "Project Tille",
+//   "description": "Here is the description",
+//   "mrp": 1000,
+//   "mrl": 10,
+//   "links": [
+//     {
+//       "id": 0,
+//       "url": "https://www.samsung.com/in/smartphones/galaxy-s24-ultra/"
+//     },
+//     {
+//       "id": 1,
+//       "url": "https://www.gsmarena.com/samsung_galaxy_s24_ultra-12771.php"
+//     },
+//   ],
+//   "category": {
+//     "id": 2,
+//     "name": "Option 2",
+//     "description": "2"
+//   },
+//   "images": [
+//     {
+//       "id": 0,
+//       "url": "blob:http://localhost:3000/b1fe2225-17e3-4e77-a400-e1f18c4c4b8b",
+//       "file": {}
+//     },
+//     {
+//       "id": 1,
+//       "url": "blob:http://localhost:3000/1001f8ae-a516-45af-aae4-53aa852afc10",
+//       "file": {}
+//     },
+//   ],
+//   "image": {
+//     "id": "",
+//     "url": "blob:http://localhost:3000/7cef9bbf-8951-4dcb-9c10-9e1020480058",
+//     "file": {}
+//   }
+// }

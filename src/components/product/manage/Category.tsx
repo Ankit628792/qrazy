@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import AddCategory from './AddCategory'
 import { useCategoryStore, useProductErrorsStore } from '@/store/product.store'
 import { useGetCategory } from '@/hooks/category/useGetCategory'
-
+ 
 function Category() {
   const { category, setCategory } = useCategoryStore()
   const { errors, setError } = useProductErrorsStore()
@@ -36,7 +36,6 @@ function Category() {
       setOptions(options)
     }
   }, [categoryList])
-
 
   return (
     <>

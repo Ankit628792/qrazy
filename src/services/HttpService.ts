@@ -84,6 +84,26 @@ const _axios = axios.create({
   baseURL: BASE_URL,
   withCredentials: true
 })
+export const request = axios.create({
+  timeout: TIMEOUT,
+  baseURL: BASE_URL,
+  withCredentials: true
+})
+
+request.interceptors.request.use(
+  async (config) => {
+    const token = await getCookie('access_token') || getToken
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token.replace(/^"|"$/g, '')}`;
+    }
+    config.headers["Access-Control-Allow-Origin"] = "*"
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
 
 _axios.interceptors.request.use(
   async (config) => {

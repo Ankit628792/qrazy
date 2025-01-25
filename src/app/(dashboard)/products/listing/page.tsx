@@ -3,14 +3,56 @@ import { Button } from '@/components/ui/button'
 import DropdownMenuCheckboxes from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { File, ListFilter, PlusCircle, Search } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { filterOptions, generateRandomProducts } from './constant'
 import ProductTable from '@/components/product/table'
 import Link from 'next/link'
+import { useGetProductListing } from '@/hooks/product/useGetProductListing'
 
 function Page() {
-  const [products] = useState(generateRandomProducts(10))
+  const [products, setProducts] = useState<Product[]>([])
   const [filter, setFilter] = useState(filterOptions)
+
+  const {
+    data: productsListing,
+  } = useGetProductListing()
+
+  console.log("productsListing ===>", {
+    productsListing,
+    generated: generateRandomProducts(1)
+  })
+
+  useEffect(() => {
+    if (productsListing) {
+      const transformedProducts = productsListing.map((product) => ({
+        id: product.id,
+        title: product.name, // using name instead of title
+        description: product.description,
+        image: {
+          id: "1", // Random image ID 
+          url: product.image
+        },
+        images: product.images,
+        category: {
+          id: "1", // Random category ID
+          name: product.category,
+          description: "Random" // Random category description
+        },
+        links: product.productLinks.map((link) => ({
+          id: "1", // Random link ID
+          url: link
+        })) || [],
+        "mrp": 4525.19,
+        "mrl": 3.79,
+        "status": "draft",
+        "created_at": "2025-01-25T15:24:50.945Z",
+        "updated_at": "2025-01-25T15:24:50.945Z",
+        "region": "East Audrey",
+        "scans": 58912
+      }))
+      setProducts(transformedProducts as unknown as Product[])
+    }
+  }, [productsListing])
 
   const handleFilter = (id: string | number, checked: boolean) => {
     const updatedFilter = filter.map((option) =>

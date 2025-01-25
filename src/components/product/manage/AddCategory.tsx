@@ -12,7 +12,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import Tooltip from '@/components/ui/tooltip'
+import { useCreateCategoryMutation } from '@/hooks/category/useCreateCategoryMutation'
 import { cn } from '@/lib/utils'
+import { CreateCategory } from '@/types/category.interface'
 import { CheckCircle, XIcon } from 'lucide-react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -40,46 +42,68 @@ const AddCategory = ({
     description: null
   })
 
+  const createCategoryMutation = useCreateCategoryMutation()
+
   const handleSubmit = async () => {
     try {
       // Validate the category using Yup schema
       await addCategorySchema.validate(category, { abortEarly: false })
-      
-      // Show a success toast after validation and submission
-      toast
-        .promise(
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve('Category added successfully!')
-            }, 1000)
-          }),
-          {
-            loading: 'Validating category',
-            success: 'Category added successfully!',
-            error: 'Failed to add category.'
-          }
-        )
-        .then(() => {
+
+      const newCategoryPayload = {
+        name: category.name,
+        description: category.description
+      }
+      console.log('Create Category Payload ====>:', {
+        newCategoryPayload,
+        category
+      }) // Log form data after validation success
+
+      createCategoryMutation.mutate(newCategoryPayload as CreateCategory, {
+        onSuccess: () => {
+          toast.success('Category added successfully!')
           onSuccess(category)
-        })
-        .catch((error) => {
-          console.error('Error in toast promise:', error)
-        })
-      
+        },
+        onError: (error) => {
+          console.error('Error creating category:', error)
+          toast.error('Failed to add category.')
+        }
+      })
+
+      // Show a success toast after validation and submission
+      // toast
+      //   .promise(
+      //     new Promise((resolve) => {
+      //       setTimeout(() => {
+      //         resolve('Category added successfully!')
+      //       }, 1000)
+      //     }),
+      //     {
+      //       loading: 'Validating category',
+      //       success: 'Category added successfully!',
+      //       error: 'Failed to add category.'
+      //     }
+      //   )
+      //   .then(() => {
+      //     onSuccess(category)
+      //   })
+      //   .catch((error) => {
+      //     console.error('Error in toast promise:', error)
+      //   })
+
     } catch (err: unknown) {
       if (err instanceof Yup.ValidationError) {
         const validationErrors: Record<string, string> = {}
-  
+
         // Loop through each validation error and collect them
         err.inner.forEach((error) => {
           if (error.path) {
             validationErrors[error.path] = error.message
           }
         })
-  
+
         // Update state with all validation errors
         setErrors(validationErrors)
-  
+
         // Log the form data and errors for debugging
         console.log('Form:', {
           formData: category,
@@ -88,7 +112,7 @@ const AddCategory = ({
       }
     }
   }
-  
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

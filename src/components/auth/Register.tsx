@@ -69,8 +69,8 @@ function Register() {
       mutate({
         email: registerForm.email as string,
         password: registerForm.password as string,
-        name: registerForm.fName as string,
-        lastname: registerForm.lName as string
+        firstName: registerForm.fName as string,
+        lastName: registerForm.lName as string
       })
       setErrors({})
     } catch (err: any) {

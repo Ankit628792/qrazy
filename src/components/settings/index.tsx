@@ -49,7 +49,7 @@ export interface ISettingsState {
 }
 
 function Settings() {
-  const { data, isLoading, isFetching } = useQuery({ queryKey: ["settings"], queryFn: getOnboarding, retry: false })
+  const { data, isLoading, isFetching, error } = useQuery({ queryKey: ["settings"], queryFn: getOnboarding, retry: false })
   const { admin } = useAdminStore()
 
   const [rootLevelState, setRootLevelState] = useState<{
@@ -92,6 +92,9 @@ function Settings() {
       }
       setRootLevelState(formattedData)
     }
+    else if (!isFetching) {
+      setRootLevelState(undefined)
+    }
 
   }, [data, isFetching])
 
@@ -124,20 +127,25 @@ function Settings() {
     mutate(formattedData)
   }
 
-  if (isLoading || !rootLevelState) {
+  if (isLoading) {
     return <Loader />
   }
+
+  if ((!rootLevelState || (admin && !admin?.isClientOnboarded))) {
+    return <CompleteOnboarding />
+  }
+
   return (
     <section className="flex flex-col lg:flex-row gap-4">
       <div className="w-full lg:max-w-xs xl:max-w-sm flex flex-col gap-2.5">
-        <ProfileCard profileCard={rootLevelState.profileCard} />
+        <ProfileCard profileCard={rootLevelState?.profileCard} />
         <ResetPassword />
       </div>
       <div className="flex-grow flex flex-col gap-2 rounded-3xl bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-50 backdrop-blur-sm p-3">
         <PersonalDetail
           onSave={onSave}
           isPending={isPending}
-          personalDetailsCard={rootLevelState.personalDetailsCard}
+          personalDetailsCard={rootLevelState?.personalDetailsCard}
         />
         {
           data?.data
@@ -146,12 +154,12 @@ function Settings() {
               <CompanyInformation
                 onSave={onSave}
                 isPending={isPending}
-                companyDetailsCard={rootLevelState.companyDetailsCard}
+                companyDetailsCard={rootLevelState?.companyDetailsCard}
               />
               <CompanyContact
                 onSave={onSave}
                 isPending={isPending}
-                companyContactCard={rootLevelState.companyContactCard}
+                companyContactCard={rootLevelState?.companyContactCard}
               />
             </>
             :

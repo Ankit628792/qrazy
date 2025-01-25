@@ -20,7 +20,7 @@ export interface Onboarding {
 }
 
 export const postOnboarding = (data: Onboarding) => {
-    return post('/business', data)
+    return post('/business/', data)
 }
 
 export const getOnboarding = () => get('/business/');

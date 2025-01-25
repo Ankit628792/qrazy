@@ -1,5 +1,5 @@
-import { get, post } from "./HttpService";
 
+import { get, post } from "./HttpService";
 
 export const login = (data: {
     email: string,
@@ -9,8 +9,8 @@ export const login = (data: {
 export const register = (data: {
     email: string,
     password: string,
-    name: string,
-    lastname: string
+    firstName: string,
+    lastName: string
 }) => post('/auth/register', data);
 
 export const emailVerify = (token: string) => get('/auth/email-verification/' + token);

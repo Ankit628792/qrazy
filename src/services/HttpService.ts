@@ -72,8 +72,6 @@
 
 // export default HttpService
 
-
-
 import { getCookie } from '@/hooks/cookies.hook'
 import { getToken } from '@/lib'
 import axios from 'axios'

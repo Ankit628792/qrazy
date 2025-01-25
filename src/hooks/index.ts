@@ -68,6 +68,7 @@ export const useLogin = (err: Function) => {
 }
 
 export const useRegister = (callback?: Function, err?: Function) => {
+    const router = useRouter();
     return useMutation({
         mutationKey: ["register"],
         mutationFn: register,
@@ -80,6 +81,7 @@ export const useRegister = (callback?: Function, err?: Function) => {
                 if (typeof callback === "function") {
                     callback();
                 }
+                router.push("/login")
             }
         },
         onError: (error: Error) => {
@@ -152,8 +154,8 @@ export const useUpdatePassword = (callback?: () => void) => {
         },
         onError: (error) => {
             // Handle error
-            if (error?.errors?.password) {
-                showError(error?.errors?.password)
+            if (((error as any)?.errors)?.password) {
+                showError(((error as any)?.errors)?.password)
             }
             showError(error.message)
             console.error("Error updating password:", error)
@@ -162,10 +164,12 @@ export const useUpdatePassword = (callback?: () => void) => {
 }
 
 export const usePostOnboarding = () => {
+    const router = useRouter();
     return useMutation({
         mutationKey: ["postOnboarding"],
         mutationFn: postOnboarding,
         onSuccess: (res: any) => {
+            router.replace("/settings")
             if (res.success) {
                 showSuccess(res.message);
             }

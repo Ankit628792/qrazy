@@ -3,20 +3,16 @@ import { Button } from '@/components/ui/button'
 import Error from '@/components/ui/error'
 import { Label } from '@/components/ui/label'
 import SearchSelect from '@/components/ui/search-select'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddCategory from './AddCategory'
 import { useCategoryStore, useProductErrorsStore } from '@/store/product.store'
-
-const options = [
-  { id: 1, value: 'Electronic', label: 'Electronic' },
-  { id: 2, value: 'Clothing', label: 'Clothing' },
-  { id: 3, value: 'Beauty Product', label: 'Beauty Product' }
-]
+import { useGetCategory } from '@/hooks/category/useGetCategory'
 
 function Category() {
   const { category, setCategory } = useCategoryStore()
   const { errors, setError } = useProductErrorsStore()
   const [showAddCategory, setShowAddCategory] = useState(false)
+  const [options, setOptions] = useState<Option[]>([])
 
   const handleSelect = (option: Option) => {
     const newCategory = {
@@ -27,6 +23,20 @@ function Category() {
     setCategory(newCategory)
     setError('category.name', '')
   }
+
+  const { data: categoryList } = useGetCategory()
+
+  useEffect(() => {
+    if (categoryList) {
+      const options = categoryList.map((category) => ({
+        id: category.id,
+        value: category.name,
+        label: category.name
+      })) as Option[] || []
+      setOptions(options)
+    }
+  }, [categoryList])
+
 
   return (
     <>

@@ -16,6 +16,7 @@ import {
   useTitleDescriptionStore
 } from '@/store/product.store'
 import * as Yup from 'yup'
+import { useCreateProductMutation } from '@/hooks/product/useCreateProduct'
 
 const validationSchemaForSaveDraft = Yup.object({
   title: Yup.string().required('Title is required'),
@@ -30,7 +31,7 @@ const validationSchemaForAddProduct = Yup.object({
   mrp: Yup.number().min(1).required('MRP is required'),
   mrl: Yup.number().min(1).required('MRL is required'),
   category: Yup.object({
-    id: Yup.number().required('ID is required'),
+    id: Yup.string().required('ID is required'),
     name: Yup.string().required('Name is required'),
     description: Yup.string().required('Description is required')
   }),
@@ -63,6 +64,10 @@ function ManageProduct() {
   const { image } = useImageStore()
   const { images } = useImagesStore()
   const { errors, setError, setEmptyErrors } = useProductErrorsStore()
+
+  const {
+    mutate: createProduct,
+  } = useCreateProductMutation()
 
   const handleSaveDraft = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -120,8 +125,9 @@ function ManageProduct() {
 
       // Reset errors if validation succeeds
       setEmptyErrors()
-      console.log('Form:', formData) // Log form data after validation success
 
+      // Call the mutation to create a new product
+      createProduct(formData)
     } catch (err: unknown) {
       // Initialize validation errors object
       const validationErrors: Record<string, string> = {}

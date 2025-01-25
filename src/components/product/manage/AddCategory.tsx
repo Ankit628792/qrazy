@@ -45,6 +45,8 @@ const AddCategory = ({
       // Validate the category using Yup schema
       await addCategorySchema.validate(category, { abortEarly: false })
       
+      console.log('Form:', category) // Log form data after validation success
+      
       // Show a success toast after validation and submission
       toast
         .promise(

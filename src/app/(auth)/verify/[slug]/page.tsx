@@ -1,14 +1,14 @@
 import { Button } from '@/components/ui/button'
-import { emailVerify } from '@/services/auth.service'
+import { BASE_URL } from '@/services/HttpService';
+import axios from 'axios';
 import Link from 'next/link'
 
 async function verifyToken(token: string) {
   try {
-    const res: any = await emailVerify(token);
-    return Boolean(res?.success)
-
+    const res: any = await axios.get(BASE_URL + '/auth/email-verification/' + token);
+    return Boolean(res?.data?.success)
   } catch (error) {
-    console.log({ error })
+    console.log("Error in verifying token")
   }
 }
 

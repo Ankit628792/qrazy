@@ -77,7 +77,7 @@ import { getToken } from '@/lib'
 import axios from 'axios'
 
 const TIMEOUT = 30000
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:9092/api/v1'
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:9092/api/v1'
 
 const _axios = axios.create({
   timeout: TIMEOUT,

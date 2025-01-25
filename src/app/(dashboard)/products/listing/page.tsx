@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { useGetProductListing } from '@/hooks/product/useGetProductListing'
 
 function Page() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<Product[]>([])
   const [filter, setFilter] = useState(filterOptions)
 
   const {
@@ -50,7 +50,7 @@ function Page() {
         "region": "East Audrey",
         "scans": 58912
       }))
-      setProducts(transformedProducts)
+      setProducts(transformedProducts as unknown as Product[])
     }
   }, [productsListing])
 

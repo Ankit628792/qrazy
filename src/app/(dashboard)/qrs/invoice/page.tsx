@@ -2,7 +2,9 @@ import Invoice from '@/components/qrs/invoice'
 import React from 'react'
 
 function Page() {
-  return <Invoice />
+    return (
+        <Invoice />
+    )
 }
 
 export default Page

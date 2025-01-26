@@ -8,16 +8,16 @@ import { filterOptions, generateRandomProducts } from './constant'
 import ProductTable from '@/components/product/table'
 import Link from 'next/link'
 import { useGetProductListing } from '@/hooks/product/useGetProductListing'
+import { v4 as uuidv4 } from 'uuid'
+import { get } from 'lodash'
 
 function Page() {
   const [products, setProducts] = useState<Product[]>([])
   const [filter, setFilter] = useState(filterOptions)
 
-  const {
-    data: productsListing,
-  } = useGetProductListing()
+  const { data: productsListing } = useGetProductListing()
 
-  console.log("productsListing ===>", {
+  console.log('productsListing ===>', {
     productsListing,
     generated: generateRandomProducts(1)
   })
@@ -26,29 +26,26 @@ function Page() {
     if (productsListing) {
       const transformedProducts = productsListing.map((product) => ({
         id: product.id,
-        title: product.name, // using name instead of title
-        description: product.description,
+        title: get(product, 'name', ''), // using name instead of title
+        description: get(product, 'description', ''),
         image: {
-          id: "1", // Random image ID 
-          url: product.image
+          id: uuidv4(), // Random image ID
+          url: product.image || ''
         },
-        images: product.images,
-        category: {
-          id: "1", // Random category ID
-          name: product.category,
-          description: "Random" // Random category description
-        },
-        links: product.productLinks.map((link) => ({
-          id: "1", // Random link ID
-          url: link
-        })) || [],
-        "mrp": 4525.19,
-        "mrl": 3.79,
-        "status": "draft",
-        "created_at": "2025-01-25T15:24:50.945Z",
-        "updated_at": "2025-01-25T15:24:50.945Z",
-        "region": "East Audrey",
-        "scans": 58912
+        images: product.images || [],
+        category: product.category,
+        links:
+          product.productLinks.map((link) => ({
+            id: uuidv4(), // Random link ID
+            url: link
+          })) || [],
+        mrp: get(product, 'mrp', 0),
+        mrl: get(product, 'mrl', 0),
+        status: get(product, 'status', 'active'), // Random status
+        created_at: get(product, 'createdAt', new Date().toISOString()),
+        updated_at: get(product, 'updatedAt', new Date().toISOString()),
+        region: get(product, 'region', 'East Audrey'), // Random region
+        scans: get(product, 'scans', 58912) // Random scans
       }))
       setProducts(transformedProducts as unknown as Product[])
     }
@@ -58,9 +55,10 @@ function Page() {
     const updatedFilter = filter.map((option) =>
       option.id === id ? { ...option, checked: checked } : option
     )
-
     setFilter(updatedFilter)
   }
+
+  console.log('products ===>', products)
 
   return (
     <section>
@@ -113,7 +111,7 @@ function Page() {
         </div>
       </div>
       <div className="w-full overflow-x-auto scroll-hidden -mt-3">
-        <ProductTable data={products} />
+        <ProductTable data={products || []} />
       </div>
     </section>
   )

@@ -74,10 +74,17 @@ export enum PRODUCT_QUERY_KEYS {
 
 export interface IProductListing {
     id: string;
-    category: string;
+    category: Category;
     name: string;
     description: string;
     image: string;
     productLinks: string[];
     images: ProductImage[];
+    createdAt: string;
+    updatedAt: string;
+    status: PRODUCT_STATUS;
+    mrp: number;
+    mrl: number;
+    region: string;
+    scans: number;
 }

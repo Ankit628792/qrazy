@@ -17,6 +17,7 @@ import {
 } from '@/store/product.store'
 import * as Yup from 'yup'
 import { useCreateProductMutation } from '@/hooks/product/useCreateProduct'
+import { useDraftProductMutation } from '@/hooks/product/useDraftProduct'
 
 const validationSchemaForSaveDraft = Yup.object({
   title: Yup.string().required('Title is required'),
@@ -68,6 +69,9 @@ function ManageProduct() {
   const {
     mutate: createProduct,
   } = useCreateProductMutation()
+  const {
+    mutate: saveDraft,
+  } = useDraftProductMutation()
 
   const handleSaveDraft = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -80,7 +84,13 @@ function ManageProduct() {
       )
       // Reset any previous errors if validation is successful
       setEmptyErrors()
-      console.log('Form:', { title, image })
+
+      const formData = { title, description, mrp, mrl, links, category, images, image }
+      console.log({ "handleSaveDraft": formData })
+
+      // Call the mutation to save the draft
+      saveDraft(formData)
+
     } catch (err: unknown) {
       setEmptyErrors()
 

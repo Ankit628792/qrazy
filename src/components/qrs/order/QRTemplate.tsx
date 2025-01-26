@@ -4,14 +4,13 @@
 // import Tooltip from '@/components/ui/tooltip'
 // import { XIcon } from 'lucide-react'
 // import React, { MutableRefObject, useRef, useState } from 'react'
-// import { templates } from '../generate/constant'
+// import { QRTemplates } from '../generate/constant'
 // import { QRCode } from 'react-qrcode-logo'
 // import { cn } from '@/lib/utils'
-// import { useQRSStore } from '@/store/qrs.store'
 
 // function QRTemplate({ title, description, onClose }: { title?: string, description?: string, onClose: () => void }) {
 //     const ref = useRef<QRCode>()
-//     const { templateId, setTemplateId } = useQRSStore()
+//     const [templateId, setTemplateId] = useState<string | number>('');
 //     return (
 //         <PopUp onClose={onClose}>
 //             <Card className='w-full max-w-xl bg-white dark:bg-black rounded-xl relative y-translate'>
@@ -31,11 +30,16 @@
 
 //                 <CardContent className='flex flex-wrap items-center justify-center gap-5'>
 //                     {
-//                         [...templates, ...templates].map((template, i) => {
+//                         [...QRTemplates, ...QRTemplates].map((template, i) => {
 //                             return (
 //                                 <div key={i} onClick={() => setTemplateId(template.id)} className={cn('p-1 border-2', template.id === templateId ? 'border-emerald-500' : 'border-transparent')}>
 //                                     {/* @ts-ignore */}
 //                                     <QRCode
+//                                         size={75}
+//                                         value='www.qrazy.in'
+//                                         ref={ref as MutableRefObject<QRCode>}
+//                                         quietZone={5}
+//                                         logoOnLoad={(e) => console.log('logo loaded', e)}
 //                                         {...{
 //                                             ...template.params,
 //                                             eyeRadius: [ // build eyeRadius manually
@@ -53,11 +57,6 @@
 //                                                 }
 //                                             ],
 //                                         }}
-//                                         size={75}
-//                                         value='www.qrazy.in'
-//                                         ref={ref as MutableRefObject<QRCode>}
-//                                         quietZone={5}
-//                                         logoOnLoad={(e) => console.log('logo loaded', e)}
 //                                     />
 //                                 </div>
 //                             )
@@ -81,17 +80,14 @@
 
 // export default QRTemplate
 
-
-
 import React, { useRef, useState } from 'react'
 import { QRTemplates } from '../generate/constant';
 import { cn } from '@/lib/utils';
 import { QRCode } from 'react-qrcode-logo';
 import { MoveLeft, MoveRight } from 'lucide-react';
-import { useQRSStore } from '@/store/qrs.store';
 
-function QRTemplate() {
-    const { templateId, setTemplateId } = useQRSStore()
+function QRTemplate(props: any) {
+    const [templateId, setTemplateId] = useState<string | number>('');
     // Create a reference to the scrollable container
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 

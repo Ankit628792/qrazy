@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 
 const QRGenerate = () => {
     const [state, setState] = useState<{ [key: string]: any }>({
-        value: "www.qrazy.in"
+        value: "www.qrazy.com"
     });
     const ref = useRef<QRCode>()
 

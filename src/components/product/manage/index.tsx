@@ -18,12 +18,18 @@ import {
 import * as Yup from 'yup'
 import { useCreateProductMutation } from '@/hooks/product/useCreateProduct'
 import { useDraftProductMutation } from '@/hooks/product/useDraftProduct'
+import { useUpdateProductMutation } from '@/hooks/product/useUpdateProduct'
 
 const validationSchemaForSaveDraft = Yup.object({
   title: Yup.string().required('Title is required'),
   image: Yup.object({
     file: Yup.mixed().required('File is required')
-  })
+  }),
+  category: Yup.object({
+    id: Yup.string().required('ID is required'),
+    name: Yup.string().required('Category is required'),
+    description: Yup.string().required('Description is required')
+  }),
 })
 
 const validationSchemaForAddProduct = Yup.object({
@@ -33,7 +39,7 @@ const validationSchemaForAddProduct = Yup.object({
   mrl: Yup.number().min(1).required('MRL is required'),
   category: Yup.object({
     id: Yup.string().required('ID is required'),
-    name: Yup.string().required('Name is required'),
+    name: Yup.string().required('Category is required'),
     description: Yup.string().required('Description is required')
   }),
   image: Yup.object({
@@ -57,7 +63,8 @@ const validationSchemaForAddProduct = Yup.object({
   )
 })
 
-function ManageProduct() {
+function ManageProduct(props: { isEdit?: boolean } | undefined) {
+  const isEdit = props?.isEdit || false
   const { title, description } = useTitleDescriptionStore()
   const { mrp, mrl } = usePricingStore()
   const { links } = useLinksStore()
@@ -70,6 +77,9 @@ function ManageProduct() {
     mutate: createProduct,
   } = useCreateProductMutation()
   const {
+    mutate: updateProduct,
+  } = useUpdateProductMutation()
+  const {
     mutate: saveDraft,
   } = useDraftProductMutation()
 
@@ -79,7 +89,7 @@ function ManageProduct() {
     try {
       // Validate the form data
       await validationSchemaForSaveDraft.validate(
-        { title, image },
+        { title, image, category },
         { abortEarly: false }
       )
       // Reset any previous errors if validation is successful
@@ -137,7 +147,11 @@ function ManageProduct() {
       setEmptyErrors()
       console.log({ "first": "handleAddProduct" })
       // Call the mutation to create a new product
-      createProduct(formData)
+      if (isEdit) {
+        updateProduct({ id: "1", status: "active", ...formData });
+      }
+      else
+        createProduct(formData)
     } catch (err: unknown) {
       // Initialize validation errors object
       const validationErrors: Record<string, string> = {}

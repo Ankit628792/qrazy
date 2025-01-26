@@ -3,6 +3,7 @@ import {
     ICreateProductForm,
     IDraftProductForm,
     IProductListing,
+    IUpdateProductForm,
     IUplodImageResponse,
     PRODUCT_STATUS
 } from '@/types/product.interface'
@@ -108,7 +109,7 @@ const createProductInDraft = async (payload: IDraftProductForm) => {
 }
 
 // Placeholder for the updateProduct function
-const updateProduct = async (product: Product) => {
+const updateProduct = async (payload: IUpdateProductForm) => {
     try {
         // Implementation here
     } catch (error) {
@@ -117,7 +118,7 @@ const updateProduct = async (product: Product) => {
     }
 }
 
-const getProdustListing = async () => {
+const getProductListing = async () => {
     try {
         const { data } = await request.get('/product/')
         return data.data as IProductListing[]
@@ -132,7 +133,7 @@ const ProductService = {
     createProduct,
     updateProduct,
     uploadImage,
-    getProdustListing,
+    getProductListing,
     createProductInDraft
 }
 

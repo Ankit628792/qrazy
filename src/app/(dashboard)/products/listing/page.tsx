@@ -26,7 +26,7 @@ function Page() {
     if (productsListing) {
       const transformedProducts = productsListing.map((product) => ({
         id: product.id,
-        title: get(product, 'name', ''), // using name instead of title
+        title: get(product, 'title', ''),
         description: get(product, 'description', ''),
         image: {
           id: uuidv4(), // Random image ID

@@ -37,6 +37,10 @@ export interface ICreateProductForm {
     images: ProductImage[];
     image: ProductImage | null;
 }
+export interface IUpdateProductForm extends ICreateProductForm {
+    id: string;
+    status: string;
+}
 
 export interface IUploadImageResponseData {
     signature: string;

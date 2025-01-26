@@ -2,14 +2,14 @@ import { showError, showSuccess } from "@/lib"
 import ProductService from "@/services/product.service"
 import { useMutation } from "@tanstack/react-query"
 
-export const useDraftProductMutation = () => {
+export const useUpdateProductMutation = () => {
     return useMutation({
-        mutationFn: ProductService.createProductInDraft,
+        mutationFn: ProductService.updateProduct,
         onSuccess: () => {
-            showSuccess("Product Drafted")
+            showSuccess("Product Details Updated")
         },
         onError: () => {
-            showError("Failed to draft product")
+            showError("Failed to update product details")
         }
     })
 }

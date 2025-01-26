@@ -1,8 +1,10 @@
 import {
     ICreateProduct,
     ICreateProductForm,
+    IDraftProductForm,
     IProductListing,
-    IUplodImageResponse
+    IUplodImageResponse,
+    PRODUCT_STATUS
 } from '@/types/product.interface'
 import { request } from './HttpService'
 
@@ -31,7 +33,7 @@ const uploadImage = async (file: File | null | undefined): Promise<string> => {
 }
 
 const createProduct = async (payload: ICreateProductForm) => {
-    const { title, description, category, links, images, image } = payload
+    const { title, description, category, links, images, image, mrl, mrp } = payload
     console.log({ "first": 'createProduct', payload })
 
     try {
@@ -49,7 +51,10 @@ const createProduct = async (payload: ICreateProductForm) => {
             description,
             image: primaryImageUrl,
             imageUrls: uploadedImageUrls,
-            productLinks: links.map(({ url }) => url).filter(Boolean)
+            productLinks: links.map(({ url }) => url).filter(Boolean),
+            mrp: mrp,
+            mrl: mrl,
+            status: PRODUCT_STATUS.ACTIVE,
         }
 
         console.log('Final Payload ===>', finalPayload)
@@ -62,6 +67,44 @@ const createProduct = async (payload: ICreateProductForm) => {
             'Failed to create product. Please check your inputs and try again.'
         )
     }
+}
+
+const createProductInDraft = async (payload: IDraftProductForm) => {
+    const { title, description, category, links, images, image, mrl, mrp } = payload
+    console.log({ "first": 'createProductInDraft', payload })
+
+    try {
+        // Upload primary image
+        const primaryImageUrl = await uploadImage((image as ProductImage).file)
+
+        const uploadedImageUrls = images && await Promise.all(
+            images.filter(({ file }) => file).map(({ file }) => uploadImage(file))
+        ) || []
+
+        // Prepare the final payload
+        const finalPayload: ICreateProduct = {
+            categoryId: category && category.id as string || '',
+            title,
+            description: description || '',
+            image: primaryImageUrl,
+            imageUrls: uploadedImageUrls,
+            productLinks: links && links.map(({ url }) => url).filter(Boolean) || [],
+            mrp: mrp || 0,
+            mrl: mrl || 0,
+            status: PRODUCT_STATUS.DRAFT,
+        }
+
+        console.log('Final Payload ===>', finalPayload)
+
+        const { data } = await request.post('/product/', finalPayload)
+        return data
+    } catch (error) {
+        console.error('Error creating product:', error)
+        throw new Error(
+            'Failed to create product. Please check your inputs and try again.'
+        )
+    }
+
 }
 
 // Placeholder for the updateProduct function
@@ -89,7 +132,8 @@ const ProductService = {
     createProduct,
     updateProduct,
     uploadImage,
-    getProdustListing
+    getProdustListing,
+    createProductInDraft
 }
 
 export default ProductService

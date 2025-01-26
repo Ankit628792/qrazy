@@ -1,3 +1,8 @@
+export enum PRODUCT_STATUS {
+    DRAFT = 'draft',
+    ACTIVE = 'active',
+}
+
 export interface ICreateProduct {
     categoryId: string
     title: string
@@ -5,7 +10,22 @@ export interface ICreateProduct {
     image: string
     productLinks: string[]
     imageUrls: string[]
+    mrp: number
+    mrl: number
+    status: PRODUCT_STATUS
 }
+
+export interface IDraftProductForm {
+    title: string;
+    image: ProductImage | null;
+    description?: string;
+    mrp?: number;
+    mrl?: number;
+    links?: ProductLink[];
+    category?: Category;
+    images?: ProductImage[];
+}
+
 
 export interface ICreateProductForm {
     title: string;

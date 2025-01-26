@@ -3352,6 +3352,11 @@ react-qrcode-logo@^3.0.0:
     lodash.isequal "^4.5.0"
     qrcode-generator "^1.4.4"
 
+react-razorpay@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-razorpay/-/react-razorpay-3.0.1.tgz#a961f240c7d696c83042bd36497ea5d4a0bcbaa4"
+  integrity sha512-43P6VB20quinlUDN3dUdg0XlMtoClzfvhgpPWnGrLwLE6Pr570fXdA4kC+92Wqof48A/x96TXRpLnrQ/J1eXyw==
+
 react-remove-scroll-bar@^2.3.6:
   version "2.3.6"
   resolved "https://registry.npmjs.org/react-remove-scroll-bar/-/react-remove-scroll-bar-2.3.6.tgz"

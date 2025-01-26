@@ -33,7 +33,7 @@ interface ProductImage {
 }
 
 interface Product {
-  id: number
+  id: number | string
   title: string
   description: string
   mrp: number

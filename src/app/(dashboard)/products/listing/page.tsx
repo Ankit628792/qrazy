@@ -17,11 +17,6 @@ function Page() {
 
   const { data: productsListing } = useGetProductListing()
 
-  console.log('productsListing ===>', {
-    productsListing,
-    generated: generateRandomProducts(1)
-  })
-
   useEffect(() => {
     if (productsListing) {
       const transformedProducts = productsListing.map((product) => ({

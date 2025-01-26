@@ -21,6 +21,9 @@ export const ProductSearchSelect = ({ options, product, onChange, placeholder, d
         if (value) {
             return option.title.toLowerCase().includes(value.toLowerCase()) || option.category.name.toLowerCase().includes(value.toLowerCase())
         }
+        else {
+            return options
+        }
     });
 
     return (

@@ -13,8 +13,13 @@ import { MoreHorizontal } from 'lucide-react'
 import { Dropdown } from '../ui/dropdown-menu'
 import moment from 'moment'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 const ProductTable = ({ data }: { data: Product[] }) => {
+  const router = useRouter()
+  const handleClick = (productId: string | number) => {
+    router.push(`/products/update/${productId}`)
+  }
   return (
     <Table className="product-table text-center">
       <TableHeader>
@@ -34,7 +39,9 @@ const ProductTable = ({ data }: { data: Product[] }) => {
       <TableBody>
         {data.map((item, i) => {
           return (
-            <TableRow key={item.id}>
+            <TableRow onClick={() => {
+              handleClick(item.id)
+            }} key={item.id}>
               <TableCell className="min-w-14 !shrink-0">
                 <Image
                   alt="Product image"

@@ -7,9 +7,9 @@ import {
     IUplodImageResponse,
     PRODUCT_STATUS
 } from '@/types/product.interface'
-import { request } from './HttpService'
+import { get, patch, post, put, request } from './HttpService'
 
-const uploadImage = async (file: File | null | undefined): Promise<string> => {
+export const uploadImage = async (file: File | null | undefined): Promise<string> => {
     if (!file) {
         throw new Error('No file provided')
     }
@@ -33,7 +33,7 @@ const uploadImage = async (file: File | null | undefined): Promise<string> => {
     }
 }
 
-const createProduct = async (payload: ICreateProductForm) => {
+export const createProduct = async (payload: ICreateProductForm) => {
     const { title, description, category, links, images, image, mrl, mrp } = payload
     console.log({ "first": 'createProduct', payload })
 
@@ -60,7 +60,7 @@ const createProduct = async (payload: ICreateProductForm) => {
 
         console.log('Final Payload ===>', finalPayload)
 
-        const { data } = await request.post('/product/', finalPayload)
+        const data = await post('/product/', finalPayload)
         return data
     } catch (error) {
         console.error('Error creating product:', error)
@@ -70,9 +70,8 @@ const createProduct = async (payload: ICreateProductForm) => {
     }
 }
 
-const createProductInDraft = async (payload: IDraftProductForm) => {
+export const createProductInDraft = async (payload: IDraftProductForm) => {
     const { title, description, category, links, images, image, mrl, mrp } = payload
-    console.log({ "first": 'createProductInDraft', payload })
 
     try {
         // Upload primary image
@@ -95,9 +94,7 @@ const createProductInDraft = async (payload: IDraftProductForm) => {
             status: PRODUCT_STATUS.DRAFT,
         }
 
-        console.log('Final Payload ===>', finalPayload)
-
-        const { data } = await request.post('/product/', finalPayload)
+        const data = await post('/product/', finalPayload)
         return data
     } catch (error) {
         console.error('Error creating product:', error)
@@ -109,8 +106,27 @@ const createProductInDraft = async (payload: IDraftProductForm) => {
 }
 
 // Placeholder for the updateProduct function
-const updateProduct = async (payload: IUpdateProductForm) => {
+export const updateProduct = async (payload: IUpdateProductForm) => {
     try {
+        const { id, images, ...otherData } = payload;
+        const uploadedImageUrls = images && await Promise.all(
+            images.filter(({ file }) => file).map(({ file }) => uploadImage(file))
+        ) || []
+        const previousImageUrls = images.filter(({ url }) => url).map(({ url }) => url)
+        // console.log(otherData)
+        const finalPayload = {
+            categoryId: otherData.category.id as string || '',
+            title: otherData.title as string,
+            description: otherData.description || '',
+            image: otherData.image?.url as string,
+            productLinks: images.map(({ url }) => url).filter(Boolean) || [],
+            mrp: (otherData.mrp || 0).toString(),
+            mrl: (otherData.mrl || 0).toString(),
+            status: PRODUCT_STATUS.ACTIVE,
+        }
+        console.log(finalPayload)
+        const data = await put('/product/' + id, finalPayload)
+        return data
         // Implementation here
     } catch (error) {
         console.error('Error updating product:', error)
@@ -118,9 +134,18 @@ const updateProduct = async (payload: IUpdateProductForm) => {
     }
 }
 
-const getProductListing = async () => {
+export const getProductListing = async () => {
     try {
-        const { data } = await request.get('/product/')
+        const data = await get('/product/')
+        return data.data as IProductListing[]
+    } catch (error) {
+        console.error('Error fetching product listing:', error)
+        throw new Error('Failed to fetch product listing. Please try again.')
+    }
+}
+export const getProductById = async (id: string) => {
+    try {
+        const data = await get('/product/' + id)
         return data.data as IProductListing[]
     } catch (error) {
         console.error('Error fetching product listing:', error)
@@ -134,7 +159,8 @@ const ProductService = {
     updateProduct,
     uploadImage,
     getProductListing,
-    createProductInDraft
+    createProductInDraft,
+    getProductById
 }
 
 export default ProductService

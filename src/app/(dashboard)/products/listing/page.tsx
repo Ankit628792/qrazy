@@ -53,8 +53,6 @@ function Page() {
     setFilter(updatedFilter)
   }
 
-  console.log('products ===>', products)
-
   return (
     <section>
       <div className="py-5 px-3 sticky -mt-3 -top-3 bg-white bg-opacity-10 dark:bg-zinc-900 dark:bg-opacity-10 backdrop-blur-md rounded-bl-xl rounded-br-xl z-10">

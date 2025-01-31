@@ -113,19 +113,21 @@ export const updateProduct = async (payload: IUpdateProductForm) => {
             images.filter(({ file }) => file).map(({ file }) => uploadImage(file))
         ) || []
         const previousImageUrls = images.filter(({ url }) => url).map(({ url }) => url)
-        // console.log(otherData)
+
+        const finalImageUrls = [...uploadedImageUrls, ...previousImageUrls]
+
         const finalPayload = {
             categoryId: otherData.category.id as string || '',
             title: otherData.title as string,
             description: otherData.description || '',
             image: otherData.image?.url as string,
-            productLinks: images.map(({ url }) => url).filter(Boolean) || [],
+            productLinks: otherData.links && otherData.links.map(({ url }) => url).filter(Boolean) || [],
             mrp: (otherData.mrp || 0).toString(),
             mrl: (otherData.mrl || 0).toString(),
             status: PRODUCT_STATUS.ACTIVE,
         }
-        console.log(finalPayload)
         const data = await put('/product/' + id, finalPayload)
+        await patch('/product/image/' + id, finalImageUrls)
         return data
         // Implementation here
     } catch (error) {

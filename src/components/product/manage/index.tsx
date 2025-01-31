@@ -88,6 +88,7 @@ function ManageProduct(props: { isEdit?: boolean, initialData?: any } | undefine
 
   useEffect(() => {
     if (initialData) {
+      console.log({ initialData })
       const { title, description, productLinks, image, images, category, mrl, mrp } = initialData
       if (title) {
         setTitle(title)

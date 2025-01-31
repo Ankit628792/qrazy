@@ -17,29 +17,6 @@ interface Props {
     text: string;
 }
 
-// QRCode.prototype.download = function (fileType:string, fileName:string) {
-//     if (this.canvasRef.current) {
-//         var mimeType = void 0;
-//         switch (fileType) {
-//             case 'jpg':
-//                 mimeType = 'image/jpeg';
-//                 break;
-//             case 'webp':
-//                 mimeType = 'image/webp';
-//                 break;
-//             case 'png':
-//             default:
-//                 mimeType = 'image/png';
-//                 break;
-//         }
-//         var url = this.canvasRef.current.toDataURL(mimeType, 1.0);
-//         var link = document.createElement('a');
-//         link.download = fileName !== null && fileName !== void 0 ? fileName : 'react-qrcode-logo';
-//         link.href = url;
-//         link.click();
-//     }
-// };
-
 const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) => {
     const qrRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [loading, setLoading] = useState(false);
@@ -124,4 +101,3 @@ const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) 
 };
 
 export default DownloadQrZipButton;
-

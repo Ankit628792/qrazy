@@ -83,7 +83,7 @@ export const QRTemplates = [
     {
         id: getId(),
         params: {
-            "value": "www.qrazy.in",
+            "value": "www.qrazy.com",
             "qrStyle": "fluid",
             "ecLevel": "H",
             "fgColor": "#ffffff",

@@ -108,19 +108,24 @@ export const createProductInDraft = async (payload: IDraftProductForm) => {
 // Placeholder for the updateProduct function
 export const updateProduct = async (payload: IUpdateProductForm) => {
     try {
-        const { id, images, ...otherData } = payload;
+        const { id, images, image, ...otherData } = payload;
+
         const uploadedImageUrls = images && await Promise.all(
             images.filter(({ file }) => file).map(({ file }) => uploadImage(file))
         ) || []
-        const previousImageUrls = images.filter(({ url }) => url).map(({ url }) => url)
+
+        const previousImageUrls = images.filter(({ url }) => url && !url.startsWith('blob')
+        ).map(({ url }) => url)
 
         const finalImageUrls = [...uploadedImageUrls, ...previousImageUrls]
+
+        const primaryImageUrl = image?.url && (image.url.startsWith('blob') ? await uploadImage((image as ProductImage).file) : image?.url)
 
         const finalPayload = {
             categoryId: otherData.category.id as string || '',
             title: otherData.title as string,
             description: otherData.description || '',
-            image: otherData.image?.url as string,
+            image: primaryImageUrl,
             productLinks: otherData.links && otherData.links.map(({ url }) => url).filter(Boolean) || [],
             mrp: (otherData.mrp || 0).toString(),
             mrl: (otherData.mrl || 0).toString(),

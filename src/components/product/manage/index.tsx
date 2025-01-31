@@ -46,8 +46,16 @@ const validationSchemaForAddProduct = Yup.object({
   }),
   image: Yup.object({
     id: Yup.mixed(),
-    url: Yup.string().required('Image is required'),
-    // file: Yup.mixed().required('File is required')
+    url: Yup.string().nullable(),
+    file: Yup.mixed().nullable(),
+  }).test('url-or-file', 'Either URL or file is required', function (value) {
+    if (!value) return this.createError({ path: 'image', message: 'Image object is required' });
+
+    const { url, file } = value;
+    if (!url && !file) {
+      return this.createError({ path: 'image', message: 'Either URL or file is required' });
+    }
+    return true;
   }),
   links: Yup.array().of(
     Yup.object({
@@ -56,14 +64,12 @@ const validationSchemaForAddProduct = Yup.object({
         .nullable()
         .notRequired()
         .test('is-valid-url', 'Please enter a valid URL', (value) => {
-          if (value == null || value === '') return true
-          return /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-_.]+\.[a-zA-Z]{2,}.*$/.test(
-            value
-          )
+          if (!value) return true;
+          return /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-_.]+\.[a-zA-Z]{2,}.*$/.test(value);
         })
     })
   )
-})
+});
 
 function ManageProduct(props: { isEdit?: boolean, initialData?: any } | undefined) {
   const isEdit = props?.isEdit || false

@@ -6,8 +6,15 @@ import { Dropdown } from '../ui/dropdown-menu'
 import moment from 'moment'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
+import { formatNumberWithCommas } from '@/lib'
 
-const InvoiceTable = ({ data }: { data: Product[] }) => {
+// Need to update after getting proper data from backend
+interface IInvoiceRow extends Product {
+    totalQuantity: number;
+    amount: number;
+}
+
+const InvoiceTable = ({ data }: { data: IInvoiceRow[] }) => {
     const router = useRouter()
     return (
         <Table className='product-table text-center'>
@@ -25,7 +32,7 @@ const InvoiceTable = ({ data }: { data: Product[] }) => {
                 {
                     data.map((item, i) => {
                         return (
-                            <TableRow className='cursor-pointer' key={item.id} onClick={() => router.push("/qrs/invoice")}>
+                            <TableRow className='cursor-pointer' key={item.id} onClick={() => router.push("/qrs/invoice/" + item.id)}>
                                 <TableCell>
                                     <p>OR7867867J7F8</p>
                                 </TableCell>
@@ -33,8 +40,8 @@ const InvoiceTable = ({ data }: { data: Product[] }) => {
                                     <p>OR7867867J7F8</p>
                                 </TableCell>
 
-                                <TableCell>7,87,886</TableCell>
-                                <TableCell>₹ 7,726</TableCell>
+                                <TableCell>{formatNumberWithCommas(item.totalQuantity)}</TableCell>
+                                <TableCell>₹ {formatNumberWithCommas(item.amount / 100)}</TableCell>
                                 {/* <TableCell>
                                     Ankit Kumar
                                 </TableCell> */}

@@ -1,4 +1,4 @@
-import { post } from "./HttpService";
+import { get, post } from "./HttpService";
 
 type OrderProduct = {
     "productId": string;
@@ -12,4 +12,19 @@ interface IOrderQR {
     "templateId": string;
 }
 
+export interface ITransactionId {
+    "razorpayOrderId"?: string;
+    "orderId"?: string;
+}
+
 export const orderQR = (data: IOrderQR) => post("/qr/order", data)
+
+export const getOrderHistory = () => get("/qr/orderDetails")
+
+export const getOrderDetails = (data: ITransactionId) => {
+    const key = Object.keys(data)[0]
+    if (key) {
+        // @ts-ignore
+        return get(`/qr/orderDetail?${key}=${data[key] as string}`)
+    }
+}

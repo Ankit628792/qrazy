@@ -3,24 +3,33 @@
 import React, { useState } from 'react'
 import { Blend, BookmarkCheck, CircleArrowOutUpRight, IndianRupee, QrCode, ReceiptText, SquareActivity } from 'lucide-react'
 import moment from 'moment'
-import { getRandomNumber } from '@/lib/index'
+import { formatNumberWithCommas, getRandomNumber } from '@/lib/index'
 import ManageOrderProduct from '../order/ManageOrderProduct'
-import { exampleOrderItem, OrderItem } from '../order'
 import DigitalQR from '@/assets/digital.png'
 import PhysicalQR from '@/assets/physical.png'
 import Image from 'next/image'
 import Tooltip from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
 import DownloadQrZipButton from '../generate/DownloadQRZipButton'
+import { useOrderIds } from '@/hooks/qr/useOrderIds'
+import { useGetOrderDetail } from '@/hooks/qr/useGetOrderDetail'
+import Loader from '@/components/ak/Loader'
 
 
 function Invoice() {
+    const invoiceId = useOrderIds()
+    const { data } = useGetOrderDetail({ orderId: invoiceId })
+    const orderDetail = data?.data
     const [active, setActive] = useState(false)
-    const [products, setProducts] = useState(Array(5).fill(exampleOrderItem));
-
+    const [products, setProducts] = useState([]);
+    console.log({ data })
 
     const handleProductClick = () => {
         setActive(true)
+    }
+
+    if (!orderDetail) {
+        return <Loader />
     }
 
     return (
@@ -40,7 +49,7 @@ function Invoice() {
                     </div>
                     <p>
                         <span className='text-5xl xl:text-6xl 2xl:text-7xl font-medium'>
-                            5,876.68
+                            {formatNumberWithCommas(orderDetail.amount / 100)}
                         </span>
                     </p>
                 </div>
@@ -57,7 +66,7 @@ function Invoice() {
                     <div className='text-lg font-medium text-center bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 backdrop-blur-sm rounded-xl rounded-bl-none py-3 px-5 min-w-28 max-w-max transform -translate-y-2/3 mr-auto'>
                         <h3>Products</h3>
                     </div>
-                    <Products handleProductClick={handleProductClick} products={products} />
+                    <Products qrType={orderDetail.qrType} handleProductClick={handleProductClick} products={orderDetail.qrProductDetailsResponses} />
                 </div>
 
                 <div className='bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 backdrop-blur-sm w-full lg:max-w-sm xl:max-w-md min-w-96 rounded-xl'>
@@ -70,10 +79,10 @@ function Invoice() {
                             Order Again
                         </Button>
                     </div>
-                    <Billing />
+                    <Billing totalQRs={orderDetail.totalQuantity} />
                 </div>
             </div>
-            {active ? <ManageOrderProduct viewOnly={true} title='#PR202476' description='Product Name - Followed by category' products={[]} onClose={() => setActive(false)} /> : <></>}
+            {active ? <ManageOrderProduct handleSubmit={() => { }} viewOnly={true} title='#PR202476' description='Product Name - Followed by category' products={[]} onClose={() => setActive(false)} /> : <></>}
         </section>
     )
 }
@@ -81,9 +90,10 @@ function Invoice() {
 export default Invoice
 
 
-const Products = ({ handleProductClick, products }: {
-    handleProductClick: (product: OrderItem) => void,
-    products: OrderItem[],
+const Products = ({ handleProductClick, products, qrType }: {
+    handleProductClick: (product: any) => void;
+    products: any[];
+    qrType: string;
 }) => {
 
 
@@ -91,7 +101,7 @@ const Products = ({ handleProductClick, products }: {
         <div className='px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 -mt-3'>
             {
                 products.map((product, i) => (
-                    <Product key={i} handleProductClick={() => handleProductClick(product)} product={product} />
+                    <Product qrType={qrType} key={i} handleProductClick={() => handleProductClick(product)} product={product} />
                 ))
             }
         </div>
@@ -99,8 +109,9 @@ const Products = ({ handleProductClick, products }: {
 }
 
 const Product = ({ product, handleProductClick }: {
-    handleProductClick: (product: any) => void,
-    product: OrderItem,
+    handleProductClick: (product: any) => void;
+    product: any;
+    qrType: string;
 }) => {
     return (
         <div className='w-full relative bg-white dark:bg-black rounded-lg overflow-hidden p-3 flex flex-col gap-2 sm:gap-3 group cursor-pointer'>
@@ -108,16 +119,16 @@ const Product = ({ product, handleProductClick }: {
                 <CircleArrowOutUpRight className='text-white w-5' />
             </div>
             <div className='flex items-center gap-3' >
-                <img src={product.image.url} className='w-12 h-12 xl:w-14 xl:h-14 rounded-lg' alt="" />
+                <img src={product.productImageUrl} className='w-12 h-12 xl:w-14 xl:h-14 rounded-lg' alt="" />
                 <div>
-                    <h1 className='text-base xl:text-lg font-medium'>{product.title}</h1>
-                    <p className='text-gray-500 text-xs xl:text-sm'>{product.category.name}</p>
+                    <h1 className='text-base xl:text-lg font-medium'>{product.productName}</h1>
+                    <p className='text-gray-500 text-xs xl:text-sm'>{product.productCategory}</p>
                 </div>
             </div>
 
             <div className='flex justify-between items-end gap-3'>
                 <div>
-                    <span className='text-xs xl:text-sm text-gray-500 line-clamp-1'>Expires {moment('2024-10-26T10:16:20.804Z').fromNow()}</span>
+                    <span className='text-xs xl:text-sm text-gray-500 line-clamp-1'>Expires {moment(product.expiryDate).fromNow()}</span>
                 </div>
                 <div className='flex items-center justify-center gap-2'>
                     <span className='text-sm xl:text-base font-medium'>{product.quantity}</span>
@@ -147,7 +158,11 @@ const Product = ({ product, handleProductClick }: {
 
 
 
-const Billing = () => {
+const Billing = ({
+    totalQRs
+}: {
+    totalQRs: number,
+}) => {
     const total = getRandomNumber(1000, 10000)
 
     return (
@@ -155,7 +170,7 @@ const Billing = () => {
             <tbody>
                 <tr>
                     <td className='min-w-32 border-b border-dashed pb-3'>Total QRs:</td>
-                    <td className='w-full border-b border-dashed pb-3 text-right flex gap-2 items-center justify-end'><QrCode className='w-4' /> <span>775675</span></td>
+                    <td className='w-full border-b border-dashed pb-3 text-right flex gap-2 items-center justify-end'><QrCode className='w-4' /> <span>{formatNumberWithCommas(totalQRs)}</span></td>
                 </tr>
                 <tr>
                     <td className='min-w-32'>Order ID:</td>

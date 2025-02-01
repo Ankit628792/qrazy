@@ -283,3 +283,7 @@ export const getRandomNumber = (min = 0, max = 1000) =>
 
 export const getId = (length: number = 5): string =>
   Array.from({ length }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 62)]).join('');
+
+export function formatNumberWithCommas(num: number): string {
+  return num.toLocaleString('en-US');
+}

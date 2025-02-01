@@ -45,6 +45,7 @@ export const useLogin = (err: Function) => {
                     "refreshToken": 604800000
                 }
             }
+            console.log(res?.data?.token)
             if (res.success) {
                 setLoading({ state: true })
                 showSuccess(res.message);

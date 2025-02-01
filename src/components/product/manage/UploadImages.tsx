@@ -1,21 +1,14 @@
 import SaveOptions from '@/components/ak/SaveOptions'
 import Error from '@/components/ui/error'
-import { useClickOutside } from '@/lib'
 import { cn } from '@/lib/utils'
 import {
   useImagesStore,
   useImageStore,
   useProductErrorsStore
 } from '@/store/product.store'
-import { FileIcon, ImagePlus } from 'lucide-react'
-import React, { useEffect, useRef, useState } from 'react'
+import { ImagePlus } from 'lucide-react'
+import React, { useRef } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
-
-type ProductImage = {
-  id: number | string
-  url: string
-  file?: File | null
-}
 
 function UploadImages() {
   const { images, setImages } = useImagesStore()
@@ -24,13 +17,6 @@ function UploadImages() {
 
   const ref = useRef(null)
   const outerRef = useRef(null)
-  useClickOutside(
-    () => {
-      console.log('clicked outside')
-    },
-    ref,
-    outerRef
-  )
 
   const handleImageChange = (file: File) => {
     setImage({
@@ -62,36 +48,34 @@ function UploadImages() {
         <SaveOptions onSave={() => { }} onCancel={() => { }} />
       </div>
       <div className="input-wrapper">
-        <div className="w-full aspect-square overflow-hidden bg-gray-100 dark:bg-zinc-900 rounded-lg grid place-items-center">
-          <FileUploader
-            handleChange={(file: File) => {
-              handleImageChange(file)
-            }}
-            name="logo"
-            types={['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG']}
-            children={
-              <>
-                {image?.url ? (
-                  <img
-                    src={image.url}
-                    alt=""
-                    className="w-full h-full rounded-lg object-contain"
-                  />
-                ) : (
-                  <div className="text-center">
-                    <ImagePlus className="transform scale-[3] opacity-5 mx-auto" />
-                    <p className="opacity-15 font-medium text-xs mt-8 text-center">
-                      Only jpg, jpeg and png
-                    </p>
-                  </div>
-                )}
-              </>
-            }
-          />
-          <Error error={errors['image.file'] ||
-            errors['image']
-          } />
-        </div>
+        <FileUploader
+          handleChange={(file: File) => {
+            handleImageChange(file)
+          }}
+          name="logo"
+          types={['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG']}
+          children={
+            <div className="w-full aspect-square overflow-hidden bg-gray-100 dark:bg-zinc-900 rounded-lg grid place-items-center">
+              {image?.url ? (
+                <img
+                  src={image.url}
+                  alt=""
+                  className="w-full h-full rounded-lg object-contain"
+                />
+              ) : (
+                <div className="text-center">
+                  <ImagePlus className="transform scale-[3] opacity-5 mx-auto" />
+                  <p className="opacity-15 font-medium text-xs mt-8 text-center">
+                    Only jpg, jpeg and png
+                  </p>
+                </div>
+              )}
+            </div>
+          }
+        />
+        <Error error={errors['image.file'] ||
+          errors['image']
+        } />
       </div>
       <div
         className={cn(
@@ -106,22 +90,20 @@ function UploadImages() {
               name="logo"
               types={['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG']}
               children={
-                <>
-                  <div
-                    key={image.id}
-                    className="w-20 h-20 overflow-hidden bg-gray-100 dark:bg-zinc-900 rounded-lg grid place-items-center"
-                  >
-                    {image.url ? (
-                      <img
-                        src={image.url}
-                        alt=""
-                        className="w-full h-full rounded-lg object-contain"
-                      />
-                    ) : (
-                      <ImagePlus className="opacity-5" />
-                    )}
-                  </div>
-                </>
+                <div
+                  key={image.id}
+                  className="w-20 h-20 overflow-hidden bg-gray-100 dark:bg-zinc-900 rounded-lg grid place-items-center"
+                >
+                  {image.url ? (
+                    <img
+                      src={image.url}
+                      alt=""
+                      className="w-full h-full rounded-lg object-contain"
+                    />
+                  ) : (
+                    <ImagePlus className="opacity-5" />
+                  )}
+                </div>
               }
             />
             {(errors[`images[${i}].id`] ||

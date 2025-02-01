@@ -15,27 +15,8 @@ import { cn } from '@/lib/utils';
 import { useGetProductListing } from '@/hooks/product/useGetProductListing';
 import { get } from 'lodash';
 import { v4 as uuidv4 } from 'uuid'
-import { useCreateQROrder } from '@/hooks/qr/useCreateQROrder';
 import { QRTemplates } from '../generate/constant';
 import usePayment from '@/hooks/usePayment';
-
-// export type QRData = {
-//     id: number | string;
-//     title: string;
-//     image: {
-//         url: string;
-//     };
-//     category: {
-//         id: string;
-//         name: string;
-//     };
-//     mrl: string | number;
-//     quantity: number;
-//     expiryDate: Date | undefined;
-//     digital: boolean;
-//     physical: boolean;
-// }
-
 
 export const exampleOrderItem: QRData = {
     id: uuidv4(),
@@ -59,13 +40,11 @@ export const exampleOrderItem: QRData = {
     expiryDate: new Date()
 }
 
-
-
 function OrderQR() {
     const router = useRouter()
 
     // const products = generateRandomProducts(5)
-    const [orderList, setOrderList] = useState<QRData[]>(Array(1).fill(exampleOrderItem))
+    const [orderList, setOrderList] = useState<QRData[]>([])
     const [selectedItem, setSelectedItem] = useState<boolean | QRData | undefined>();
     const [products, setProducts] = useState<Product[]>([])
     const [qrType, setQrType] = useState("DIGITAL");
@@ -237,8 +216,8 @@ const QRType = ({ initial, onChange }: {
                         <p>₹ 0.8/qr</p>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 

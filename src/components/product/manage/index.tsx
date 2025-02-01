@@ -19,6 +19,8 @@ import * as Yup from 'yup'
 import { useCreateProductMutation } from '@/hooks/product/useCreateProduct'
 import { useDraftProductMutation } from '@/hooks/product/useDraftProduct'
 import { useUpdateProductMutation } from '@/hooks/product/useUpdateProduct'
+import { useEffect } from 'react'
+import { getId } from '@/lib'
 
 const validationSchemaForSaveDraft = Yup.object({
   title: Yup.string().required('Title is required'),
@@ -44,8 +46,16 @@ const validationSchemaForAddProduct = Yup.object({
   }),
   image: Yup.object({
     id: Yup.mixed(),
-    url: Yup.string().required('Image is required'),
-    file: Yup.mixed().required('File is required')
+    url: Yup.string().nullable(),
+    file: Yup.mixed().nullable(),
+  }).test('url-or-file', 'Either URL or file is required', function (value) {
+    if (!value) return this.createError({ path: 'image', message: 'Image object is required' });
+
+    const { url, file } = value;
+    if (!url && !file) {
+      return this.createError({ path: 'image', message: 'Either URL or file is required' });
+    }
+    return true;
   }),
   links: Yup.array().of(
     Yup.object({
@@ -54,23 +64,22 @@ const validationSchemaForAddProduct = Yup.object({
         .nullable()
         .notRequired()
         .test('is-valid-url', 'Please enter a valid URL', (value) => {
-          if (value == null || value === '') return true
-          return /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-_.]+\.[a-zA-Z]{2,}.*$/.test(
-            value
-          )
+          if (!value) return true;
+          return /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-_.]+\.[a-zA-Z]{2,}.*$/.test(value);
         })
     })
   )
-})
+});
 
-function ManageProduct(props: { isEdit?: boolean } | undefined) {
+function ManageProduct(props: { isEdit?: boolean, initialData?: any } | undefined) {
   const isEdit = props?.isEdit || false
-  const { title, description } = useTitleDescriptionStore()
-  const { mrp, mrl } = usePricingStore()
-  const { links } = useLinksStore()
-  const { category } = useCategoryStore()
-  const { image } = useImageStore()
-  const { images } = useImagesStore()
+  const initialData = props?.initialData || null
+  const { title, description, setTitle, setDescription } = useTitleDescriptionStore()
+  const { mrp, mrl, setMrl, setMrp } = usePricingStore()
+  const { links, setLinks } = useLinksStore()
+  const { category, setCategory } = useCategoryStore()
+  const { image, setImage } = useImageStore()
+  const { images, setImages } = useImagesStore()
   const { errors, setError, setEmptyErrors } = useProductErrorsStore()
 
   const {
@@ -82,6 +91,43 @@ function ManageProduct(props: { isEdit?: boolean } | undefined) {
   const {
     mutate: saveDraft,
   } = useDraftProductMutation()
+
+  useEffect(() => {
+    if (initialData) {
+      console.log({ initialData })
+      const { title, description, productLinks, image, images, category, mrl, mrp } = initialData
+      if (title) {
+        setTitle(title)
+      }
+      if (description) {
+        setDescription(description)
+      }
+      if (productLinks) {
+        let arr = Array(5)
+          .fill(1)
+          .map((_, i) => ({ id: i, url: productLinks[i] || '' }))
+        setLinks(arr)
+      }
+      if (image) {
+        setImage({ id: getId(), url: image, file: null })
+      }
+      if (images) {
+        let arr = Array(4)
+          .fill(1)
+          .map((_, i) => ({ id: i, url: images[i]?.url || '', file: null }))
+        setImages(arr)
+      }
+      if (category) {
+        setCategory(category)
+      }
+      if (mrl) {
+        setMrl(mrl)
+      }
+      if (mrp) {
+        setMrp(mrp)
+      }
+    }
+  }, [initialData])
 
   const handleSaveDraft = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -138,7 +184,6 @@ function ManageProduct(props: { isEdit?: boolean } | undefined) {
 
     // Collect form data in an object to reduce repetition
     const formData = { title, description, mrp, mrl, links, category, images, image }
-
     try {
       // Validate form data using Yup schema
       await validationSchemaForAddProduct.validate(formData, { abortEarly: false })
@@ -148,7 +193,7 @@ function ManageProduct(props: { isEdit?: boolean } | undefined) {
       console.log({ "first": "handleAddProduct" })
       // Call the mutation to create a new product
       if (isEdit) {
-        updateProduct({ id: "1", status: "active", ...formData });
+        updateProduct({ id: initialData?.id, status: "active", ...formData });
       }
       else
         createProduct(formData)
@@ -185,23 +230,45 @@ function ManageProduct(props: { isEdit?: boolean } | undefined) {
     <section className="py-5 sm:px-3">
       <div className="flex items-center justify-between gap-4 w-full">
         <h1 className="text-2xl lg:text-3xl font-semibold">
-          <span className="hidden md:inline-block">Create</span> New Product
+          {
+            isEdit
+              ? 'Edit Product'
+              :
+              <>
+                <span className="hidden md:inline-block">Create</span> New Product
+              </>
+          }
         </h1>
         <div className="flex gap-2 sm:gap-3 md:gap-4">
-          <Button
-            variant={'outline'}
-            onClick={handleSaveDraft}
-            className="gap-2 hidden sm:inline-flex rounded-full"
-          >
-            <FileClock /> Save Draft
-          </Button>
-          <Button
-            variant={'default'}
-            onClick={handleAddProduct}
-            className="gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white"
-          >
-            <CheckCircle /> Add Product
-          </Button>
+          {
+            (isEdit && initialData?.id)
+              ?
+              <Button
+                variant={'default'}
+                onClick={handleAddProduct}
+                className="gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white"
+              >
+                <CheckCircle /> Update Product
+              </Button>
+              :
+              <>
+                <Button
+                  variant={'outline'}
+                  onClick={handleSaveDraft}
+                  className="gap-2 hidden sm:inline-flex rounded-full"
+                >
+                  <FileClock /> Save Draft
+                </Button>
+                <Button
+                  variant={'default'}
+                  onClick={handleAddProduct}
+                  className="gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white"
+                >
+                  <CheckCircle /> Add Product
+                </Button>
+              </>
+          }
+
         </div>
       </div>
       <div className="w-full flex flex-col lg:flex-row gap-4 py-4">

@@ -24,10 +24,17 @@ export function DatePicker({
   onDateChange: (date: Date | undefined) => void
   placeholder?: string
   disabled?: boolean
-  onFocus: () => void
+  onFocus?: () => void
 }) {
+  const [isPopoverOpen, setPopoverOpen] = React.useState(false)
+
+  const handleDateChange = (selectedDate: Date | undefined) => {
+    onDateChange(selectedDate)
+    setPopoverOpen(false)
+  }
+
   return (
-    <Popover>
+    <Popover open={isPopoverOpen} onOpenChange={setPopoverOpen}>
       <PopoverTrigger disabled={disabled} asChild>
         <Button
           variant={'outline'}
@@ -48,7 +55,7 @@ export function DatePicker({
         <Calendar
           mode="single"
           selected={date}
-          onSelect={onDateChange}
+          onSelect={handleDateChange}
           initialFocus
           onDayFocus={onFocus}
         />

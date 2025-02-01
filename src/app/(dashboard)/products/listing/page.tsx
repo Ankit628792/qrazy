@@ -17,11 +17,6 @@ function Page() {
 
   const { data: productsListing } = useGetProductListing()
 
-  console.log('productsListing ===>', {
-    productsListing,
-    generated: generateRandomProducts(1)
-  })
-
   useEffect(() => {
     if (productsListing) {
       const transformedProducts = productsListing.map((product) => ({
@@ -57,8 +52,6 @@ function Page() {
     )
     setFilter(updatedFilter)
   }
-
-  console.log('products ===>', products)
 
   return (
     <section>

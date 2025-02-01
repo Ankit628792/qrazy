@@ -5,7 +5,8 @@ import { useMutation } from "@tanstack/react-query"
 export const useDraftProductMutation = () => {
     return useMutation({
         mutationFn: ProductService.createProductInDraft,
-        onSuccess: () => {
+        onSuccess: (res) => {
+            console.log({ res })
             showSuccess("Product Drafted")
         },
         onError: () => {

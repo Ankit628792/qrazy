@@ -12,6 +12,9 @@ import { formatNumberWithCommas } from '@/lib'
 interface IInvoiceRow extends Product {
     totalQuantity: number;
     amount: number;
+    createAt: Date;
+    razorpayOrderId: string;
+    razorpayTxnId: string;
 }
 
 const InvoiceTable = ({ data }: { data: IInvoiceRow[] }) => {
@@ -34,19 +37,19 @@ const InvoiceTable = ({ data }: { data: IInvoiceRow[] }) => {
                         return (
                             <TableRow className='cursor-pointer' key={item.id} onClick={() => router.push("/qrs/invoice/" + item.id)}>
                                 <TableCell>
-                                    <p>OR7867867J7F8</p>
+                                    <p>{item.razorpayOrderId}</p>
                                 </TableCell>
                                 <TableCell>
-                                    <p>OR7867867J7F8</p>
+                                    <p>{item.razorpayTxnId || "OR7867867J7F8"}</p>
                                 </TableCell>
 
                                 <TableCell>{formatNumberWithCommas(item.totalQuantity)}</TableCell>
-                                <TableCell>₹ {formatNumberWithCommas(item.amount / 100)}</TableCell>
+                                <TableCell>₹ {formatNumberWithCommas(item.amount)}</TableCell>
                                 {/* <TableCell>
                                     Ankit Kumar
                                 </TableCell> */}
                                 <TableCell>
-                                    {moment(item.created_at).format("DD/MM/YYYY")}
+                                    {moment(item.createAt).format("DD/MM/YYYY")}
                                 </TableCell>
                             </TableRow>
                         )

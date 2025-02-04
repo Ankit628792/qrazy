@@ -108,7 +108,7 @@ function ManageOrderProduct({ products, initialData, onClose, viewOnly = false, 
         try {
             await validationSchema.validate(data, { abortEarly: false })
             setError({})
-            handleSubmit({ ...data, id: uuidv4() } as QRData)
+            handleSubmit({ ...data, id: initialData?.id || uuidv4() } as QRData)
             onClose()
         } catch (err: unknown) {
             const validationErrors: Record<string, string> = {}
@@ -153,17 +153,25 @@ function ManageOrderProduct({ products, initialData, onClose, viewOnly = false, 
                 </CardHeader>
                 <CardContent className='flex flex-col gap-4'>
                     <div className='w-full'>
-                        <Label>Select a product</Label>
-                        <ProductSearchSelect disabled={viewOnly} placeholder='Search and select a product' options={products as Product[]} product={data.selectedProduct as Product} onChange={handleProductSelect} />
-                        {/* <Error error={data.selectedProduct ? "" : "Error here"} /> */}
-                        <Error error={error.selectedProduct} />
+                        {
+                            viewOnly ?
+                                <div className='mb-2'>
+                                    <Label>Selected product</Label>
+                                </div>
+                                :
+                                <>
+                                    <Label>Select a product</Label>
+                                    <ProductSearchSelect disabled={viewOnly} placeholder='Search and select a product' options={products as Product[]} product={data.selectedProduct as Product} onChange={handleProductSelect} />
+                                    <Error error={error.selectedProduct} />
+                                </>
+                        }
                         {
                             data.selectedProduct ?
                                 <div className='relative'>
                                     <ProductCard className='cursor-auto' product={data.selectedProduct as Product} />
-                                    <div onClick={() => handleProductSelect(null)} className='absolute top-0 right-0 h-full grid place-items-center p-2 cursor-pointer hover:text-rose-500'>
+                                    {viewOnly ? <></> : <div onClick={() => handleProductSelect(null)} className='absolute top-0 right-0 h-full grid place-items-center p-2 cursor-pointer hover:text-rose-500'>
                                         <XIcon className='w-10' />
-                                    </div>
+                                    </div>}
                                 </div>
                                 :
                                 <></>

@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { Blend, BookmarkCheck, CircleArrowOutUpRight, IndianRupee, QrCode, ReceiptText, SquareActivity } from 'lucide-react'
 import moment from 'moment'
-import { formatNumberWithCommas, getRandomNumber } from '@/lib/index'
+import { formatNumberWithCommas, getId, getRandomNumber } from '@/lib/index'
 import ManageOrderProduct from '../order/ManageOrderProduct'
 import DigitalQR from '@/assets/digital.png'
 import PhysicalQR from '@/assets/physical.png'
@@ -20,16 +20,32 @@ function Invoice() {
     const invoiceId = useOrderIds()
     const { data } = useGetOrderDetail({ orderId: invoiceId })
     const orderDetail = data?.data
-    const [active, setActive] = useState(false)
+    const [active, setActive] = useState<any>(false)
     const [products, setProducts] = useState([]);
-    console.log({ data })
 
-    const handleProductClick = () => {
-        setActive(true)
+    const handleProductClick = (product: any) => {
+        setActive({
+            id: product.productId,
+            title: product.productName,
+            category: product.productCategory,
+            image: product.productImageUrl,
+            quantity: product.quantity, expiryDate: product.expiryDate, mrl: product.mrl
+        })
     }
 
     if (!orderDetail) {
         return <Loader />
+    }
+
+    const order = {
+        "id": orderDetail.id,
+        "amount": orderDetail.amount,
+        "status": orderDetail.status,
+        "razorpayOrderId": orderDetail.razorpayOrderId,
+        "razorpayTxnId": orderDetail.razorpayTxnId,
+        "qrType": orderDetail.qrType,
+        "templateId": orderDetail.templateId,
+        "totalQuantity": orderDetail.totalQuantity,
     }
 
     return (
@@ -49,7 +65,7 @@ function Invoice() {
                     </div>
                     <p>
                         <span className='text-5xl xl:text-6xl 2xl:text-7xl font-medium'>
-                            {formatNumberWithCommas(orderDetail.amount / 100)}
+                            {formatNumberWithCommas(orderDetail.amount)}
                         </span>
                     </p>
                 </div>
@@ -57,7 +73,7 @@ function Invoice() {
                 <div className='flex items-center flex-wrap gap-3 sm:gap-4 lg:gap-8 2xl:gap-10'>
                     <StateCard Icon={Blend} text='UPI' />
                     <StateCard Icon={BookmarkCheck} text={moment().format('DD/MM/YYYY')} />
-                    <StateCard Icon={SquareActivity} text={'Pending'} />
+                    <StateCard Icon={SquareActivity} text={orderDetail.status || 'Pending'} />
                 </div>
             </div>
 
@@ -79,10 +95,37 @@ function Invoice() {
                             Order Again
                         </Button>
                     </div>
-                    <Billing totalQRs={orderDetail.totalQuantity} />
+                    <Billing order={order} />
                 </div>
             </div>
-            {active ? <ManageOrderProduct handleSubmit={() => { }} viewOnly={true} title='#PR202476' description='Product Name - Followed by category' products={[]} onClose={() => setActive(false)} /> : <></>}
+            {active ? <ManageOrderProduct
+                handleSubmit={() => { }}
+                viewOnly={true}
+                title={"#" + active.title}
+                description={`${active?.category}`}
+                initialData={{
+                    selectedProduct: {
+                        "id": active.id,
+                        "title": active?.title,
+                        "description": "hvv",
+                        "image": {
+                            "id": "e895f952-54df-4a28-bf5e-53f6cf75ea6e",
+                            "url": active?.image
+                        },
+                        "category": {
+                            "id": "1b692363-82c6-4732-8a76-3dc32b2505a7",
+                            "name": active?.category,
+                            "description": "Apples Mobile"
+                        },
+                        "mrp": 0,
+                        "mrl": 0
+                    },
+                    id: getId(),
+                    quantity: active.quantity, expiryDate: active.expiryDate, mrl: active.mrl
+                }}
+                products={[]}
+                onClose={() => setActive(false)}
+            /> : <></>}
         </section>
     )
 }
@@ -109,12 +152,12 @@ const Products = ({ handleProductClick, products, qrType }: {
 }
 
 const Product = ({ product, handleProductClick }: {
-    handleProductClick: (product: any) => void;
+    handleProductClick: () => void;
     product: any;
     qrType: string;
 }) => {
     return (
-        <div className='w-full relative bg-white dark:bg-black rounded-lg overflow-hidden p-3 flex flex-col gap-2 sm:gap-3 group cursor-pointer'>
+        <div onClick={handleProductClick} className='w-full relative bg-white dark:bg-black rounded-lg overflow-hidden p-3 flex flex-col gap-2 sm:gap-3 group cursor-pointer'>
             <div className='bg-emerald-500 rounded-bl-3xl w-12 h-12 grid place-items-center absolute -top-12 -right-12 group-hover:top-0 group-hover:right-0 transition-all duration-150 ease-out'>
                 <CircleArrowOutUpRight className='text-white w-5' />
             </div>
@@ -130,26 +173,9 @@ const Product = ({ product, handleProductClick }: {
                 <div>
                     <span className='text-xs xl:text-sm text-gray-500 line-clamp-1'>Expires {moment(product.expiryDate).fromNow()}</span>
                 </div>
-                <div className='flex items-center justify-center gap-2'>
+                <div className='flex items-center justify-center gap-1'>
+                    <QrCode className='w-4' />
                     <span className='text-sm xl:text-base font-medium'>{product.quantity}</span>
-                    {
-                        product.digital
-                            ?
-                            <Tooltip title='Digital QR'>
-                                <Image className='rounded-sm' src={DigitalQR.src} blurDataURL={DigitalQR.blurDataURL} width={28} height={28} alt='Digital QR' />
-                            </Tooltip>
-                            :
-                            <></>
-                    }
-                    {
-                        product.physical
-                            ?
-                            <Tooltip title='Physical QR'>
-                                <Image className='rounded-sm' src={PhysicalQR.src} blurDataURL={PhysicalQR.blurDataURL} width={28} height={28} alt='Physical QR' />
-                            </Tooltip>
-                            :
-                            <></>
-                    }
                 </div>
             </div>
         </div>
@@ -159,26 +185,35 @@ const Product = ({ product, handleProductClick }: {
 
 
 const Billing = ({
-    totalQRs
+    order
 }: {
-    totalQRs: number,
+    order: {
+        id: any;
+        amount: any;
+        status: any;
+        razorpayOrderId: any;
+        razorpayTxnId: any;
+        qrType: any;
+        templateId: any;
+        totalQuantity: any;
+    },
 }) => {
-    const total = getRandomNumber(1000, 10000)
+    const total = order.amount
 
     return (
         <table className='table-auto border-separate border-spacing-y-2 border-spacing-x-5 w-full'>
             <tbody>
                 <tr>
                     <td className='min-w-32 border-b border-dashed pb-3'>Total QRs:</td>
-                    <td className='w-full border-b border-dashed pb-3 text-right flex gap-2 items-center justify-end'><QrCode className='w-4' /> <span>{formatNumberWithCommas(totalQRs)}</span></td>
+                    <td className='w-full border-b border-dashed pb-3 text-right flex gap-2 items-center justify-end'><QrCode className='w-4' /> <span>{formatNumberWithCommas(order.totalQuantity)}</span></td>
                 </tr>
                 <tr>
                     <td className='min-w-32'>Order ID:</td>
-                    <td className='w-full text-right'>OR897897JHG</td>
+                    <td className='w-full text-right'>{order.razorpayOrderId}</td>
                 </tr>
                 <tr>
                     <td className='min-w-32'>Transaction ID:</td>
-                    <td className='w-full text-right'>TRN6567567HNS</td>
+                    <td className='w-full text-right'>{order.razorpayTxnId || "TRN6567567HNS"}</td>
                 </tr>
                 <tr>
                     <td className='min-w-32'>Payment Status:</td>
@@ -220,7 +255,7 @@ const StateCard = ({ Icon, text }: {
             <div className='p-2 sm:p-2.5 rounded-full bg-black dark:bg-white bg-opacity-10 dark:bg-opacity-10 backdrop-blur-sm'>
                 <Icon />
             </div>
-            <span className='text-base sm:text-lg font-medium'>
+            <span className='text-base sm:text-lg font-medium capitalize'>
                 {text}
             </span>
         </div>

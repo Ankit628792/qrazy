@@ -85,9 +85,9 @@ function ManageOrderProduct({ products, initialData, onClose, viewOnly = false, 
     handleSubmit: (data: QRData) => void
 }) {
     const [data, setData] = useState<QRData | Record<string, any>>(initialData || {
-        quantity: 1200,
+        quantity: 20,
         expiryDate: new Date(),
-        mrl: 100,
+        mrl: 10,
     })
     const [error, setError] = useState<Record<string, string | null>>({})
 

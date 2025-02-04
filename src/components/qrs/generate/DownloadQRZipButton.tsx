@@ -3,23 +3,25 @@ import { saveAs } from 'file-saver';
 import { Button } from '@/components/ui/button';
 import { QRCode } from 'react-qrcode-logo';
 import JSZip from 'jszip';
-import { productQRList } from './constant';
 import { showInfo } from '@/lib';
+import { useGetQrCodes } from '@/hooks/qr/useGetQRCodes';
 
 interface ProductQRList {
     productId: string;
     productTitle: string;
-    qrs: string[];
+    qrCodes: string[];
 }
 
 interface Props {
     qrList?: ProductQRList[];
     text: string;
+    orderId: string;
 }
 
-const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) => {
+const DownloadQrZipButton: React.FC<Props> = ({ text, orderId }) => {
     const qrRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [loading, setLoading] = useState(false);
+    const { isPending, data, refetch } = useGetQrCodes({ orderId })
 
     const generateQrDataUrls = async (index: number) => {
         const canvases = qrRefs.current[index]?.querySelectorAll('canvas');
@@ -36,6 +38,12 @@ const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) 
     };
 
     const handleDownloadZip = async () => {
+        await refetch();
+        // return;
+        const qrList = data?.data
+        if (!qrList.length) {
+            return;
+        }
         const zip = new JSZip();
 
         try {
@@ -64,7 +72,7 @@ const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) 
 
     return (
         <>
-            <Button loading={loading} disabled={loading} className='bg-emerald-500 hover:bg-emerald-600 text-white' onClick={() => {
+            <Button loading={isPending || loading} disabled={isPending || loading} className='bg-emerald-500 hover:bg-emerald-600 text-white' onClick={() => {
                 showInfo("Downloading...");
                 setTimeout(() => {
                     setLoading(true)
@@ -75,15 +83,15 @@ const DownloadQrZipButton: React.FC<Props> = ({ qrList = productQRList, text }) 
             }}>
                 {text}
             </Button>
-            {loading && qrList.map((data, index) => (
+            {loading && data?.data?.map((item: ProductQRList, index: number) => (
                 <div
-                    id={data.productId}
-                    key={data.productId}
+                    id={item.productId}
+                    key={item.productId}
                     // @ts-ignore
                     ref={(el) => (qrRefs.current[index] = el)}
                     className='fixed bottom-0 right-0 w-0 h-0 opacity-0 overflow-hidden'
                 >
-                    {data.qrs.map((el, i) => (
+                    {item.qrCodes.map((el, i) => (
                         <QRCode
                             key={i}
                             id={el}

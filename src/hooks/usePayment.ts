@@ -12,7 +12,10 @@ const usePayment = () => {
             handler: function (response: any) {
                 console.log("PAYMENT SUCCESS")
                 setSuccess({ ...data });
-                router.push('/qrs')
+                setTimeout(() => {
+                    router.push('/qrs')
+                }, 2000);
+
             },
         };
 

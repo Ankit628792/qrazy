@@ -18,6 +18,7 @@ export interface ITransactionId {
 }
 
 export const orderQR = (data: IOrderQR) => post("/qr/order", data)
+export const getQRCodes = (orderId: string) => get("/qr/qrCodes/" + orderId)
 
 export const getOrderHistory = () => get("/qr/orderDetails")
 

@@ -1,4 +1,4 @@
-import { getOrderDetails, getOrderHistory, ITransactionId } from "@/services/qrs.service"
+import { getOrderDetails, ITransactionId } from "@/services/qrs.service"
 import { useQuery } from "@tanstack/react-query"
 
 export const useGetOrderDetail = (data: ITransactionId) => {

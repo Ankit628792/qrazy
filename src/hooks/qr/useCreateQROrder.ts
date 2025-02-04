@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 export const useCreateQROrder = (callback?: Function) => {
     const router = useRouter()
     return useMutation({
+        mutationKey: ["orderQR"],
         mutationFn: orderQR,
         onSuccess: (res) => {
             showSuccess("QR order created successfully");

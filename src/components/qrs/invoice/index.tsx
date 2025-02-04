@@ -25,11 +25,13 @@ function Invoice() {
 
     const handleProductClick = (product: any) => {
         setActive({
-            id: product.productId,
-            title: product.productName,
-            category: product.productCategory,
-            image: product.productImageUrl,
-            quantity: product.quantity, expiryDate: product.expiryDate, mrl: product.mrl
+            id: product.id,
+            title: product.title,
+            category: product.category,
+            image: product.image,
+            quantity: product.quantity,
+            expiryDate: product.expiryDate,
+            mrl: product.mrl
         })
     }
 
@@ -90,7 +92,9 @@ function Invoice() {
                         <h3>Billing</h3>
                     </div>
                     <div className='px-5 pb-3 -mt-3 flex gap-4'>
-                        <DownloadQrZipButton text='Download QRs' />
+                        <DownloadQrZipButton
+                            orderId={invoiceId}
+                            text='Download QRs' />
                         <Button>
                             Order Again
                         </Button>
@@ -107,21 +111,19 @@ function Invoice() {
                     selectedProduct: {
                         "id": active.id,
                         "title": active?.title,
-                        "description": "hvv",
+                        "description": active?.description,
                         "image": {
-                            "id": "e895f952-54df-4a28-bf5e-53f6cf75ea6e",
+                            "id": getId(),
                             "url": active?.image
                         },
-                        "category": {
-                            "id": "1b692363-82c6-4732-8a76-3dc32b2505a7",
-                            "name": active?.category,
-                            "description": "Apples Mobile"
-                        },
-                        "mrp": 0,
-                        "mrl": 0
+                        "category": active?.category,
+                        "mrp": active?.mrp,
+                        "mrl": active?.mrl,
                     },
                     id: getId(),
-                    quantity: active.quantity, expiryDate: active.expiryDate, mrl: active.mrl
+                    quantity: active.quantity,
+                    expiryDate: active.expiryDate,
+                    mrl: active.mrl
                 }}
                 products={[]}
                 onClose={() => setActive(false)}
@@ -162,10 +164,10 @@ const Product = ({ product, handleProductClick }: {
                 <CircleArrowOutUpRight className='text-white w-5' />
             </div>
             <div className='flex items-center gap-3' >
-                <img src={product.productImageUrl} className='w-12 h-12 xl:w-14 xl:h-14 rounded-lg' alt="" />
+                <img src={product.image} className='w-12 h-12 xl:w-14 xl:h-14 rounded-lg' alt="" />
                 <div>
-                    <h1 className='text-base xl:text-lg font-medium'>{product.productName}</h1>
-                    <p className='text-gray-500 text-xs xl:text-sm'>{product.productCategory}</p>
+                    <h1 className='text-base xl:text-lg font-medium'>{product.title}</h1>
+                    <p className='text-gray-500 text-xs xl:text-sm'>{product.category.name}</p>
                 </div>
             </div>
 

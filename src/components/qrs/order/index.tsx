@@ -96,9 +96,6 @@ function OrderQR() {
     const handleSubmit = (data: QRData) => {
         const arr = [...orderList];
         const idx = arr.findIndex(el => el.id === data.id);
-        console.log(arr)
-        console.log(data.id)
-        console.log(idx)
         if (idx >= 0) {
             arr[idx] = data;
         } else {

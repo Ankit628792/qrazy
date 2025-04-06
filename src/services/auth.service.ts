@@ -17,7 +17,7 @@ export const emailVerify = async (token: string) => get('/auth/email-verificatio
 
 export const forgotPassword = (data: {
     email: string
-}) => post('/auth/forgot-password', data);
+}) => post('/auth/forget-password', data);
 
 export const resetPassword = (data: {
     token: string,

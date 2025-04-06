@@ -84,13 +84,17 @@ function ManageProduct(props: { isEdit?: boolean, initialData?: any } | undefine
 
   const {
     mutate: createProduct,
+    isPending: isUpdating
   } = useCreateProductMutation()
   const {
     mutate: updateProduct,
+    isPending: isCreating
   } = useUpdateProductMutation()
   const {
     mutate: saveDraft,
   } = useDraftProductMutation()
+
+  const isLoading = isCreating || isUpdating
 
   useEffect(() => {
     if (initialData) {
@@ -261,6 +265,7 @@ function ManageProduct(props: { isEdit?: boolean, initialData?: any } | undefine
                 </Button>
                 <Button
                   variant={'default'}
+                  loading={isLoading}
                   onClick={handleAddProduct}
                   className="gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white"
                 >

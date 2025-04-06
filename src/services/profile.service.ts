@@ -1,4 +1,4 @@
-import { get, post, put } from './HttpService';
+import { get, patch, post, put } from './HttpService';
 
 export interface Onboarding {
     businessName: string,
@@ -24,5 +24,5 @@ export const postOnboarding = (data: Onboarding) => {
 }
 
 export const getOnboarding = () => get('/business/');
-export const updateOnboarding = (data: Onboarding) => put('/business/', data)
+export const updateOnboarding = (data: Onboarding) => patch('/business/', data)
 

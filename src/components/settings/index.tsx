@@ -100,7 +100,7 @@ function Settings() {
 
   const { mutate, isPending } = usePutOnboarding()
   const onSave = (data: { personalDetailsCard: IPersonalDetailsCard } | { companyContactCard: ICompanyContactCard } | { companyDetailsCard: ICompanyDetailsCard }) => {
-    setRootLevelState(prev => {
+    setRootLevelState((prev: any) => {
       return { ...prev, ...data }
     })
 

@@ -14,6 +14,7 @@ import { Dropdown } from '../ui/dropdown-menu'
 import moment from 'moment'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
+import { useDeleteProduct } from '@/hooks/product/useDeleteProduct'
 
 const ProductTable = ({ data }: { data: Product[] }) => {
   const router = useRouter()
@@ -39,10 +40,10 @@ const ProductTable = ({ data }: { data: Product[] }) => {
       <TableBody>
         {data.map((item, i) => {
           return (
-            <TableRow onClick={() => {
-              handleClick(item.id)
-            }} key={item.id}>
-              <TableCell className="min-w-14 !shrink-0">
+            <TableRow key={item.id}>
+              <TableCell onClick={() => {
+                handleClick(item.id)
+              }} className="min-w-14 !shrink-0 cursor-pointer">
                 <Image
                   alt="Product image"
                   className="aspect-square rounded-md object-cover shrink-0"
@@ -54,7 +55,9 @@ const ProductTable = ({ data }: { data: Product[] }) => {
                   placeholder="blur"
                 />
               </TableCell>
-              <TableCell className="min-w-40 text-left cursor-pointer">
+              <TableCell onClick={() => {
+                handleClick(item.id)
+              }} className="min-w-40 text-left cursor-pointer">
                 <h1 className="sm:text-base lg:text-lg font-semibold opacity-90 line-clamp-1">
                   {item.title}
                 </h1>
@@ -150,16 +153,34 @@ const Status = ({
 }
 
 export const MoreOption = ({ id }: { id: string | number }) => {
+  const { mutate: deleteProduct, isPending: isDeleting } = useDeleteProduct()
   const handleClick = (action: string) => {
     console.log(`Clicked on ${action} action having ${id}`)
+    switch (action) {
+      case 'edit':
+        // Edit product
+        break
+      case 'view':
+        // View product
+        break
+      case 'generate QRs':
+        // Generate QR codes
+        break
+      case 'delete':
+        // Delete product
+        deleteProduct(id as string);
+        break
+      default:
+        break
+    }
   }
   return (
     <Dropdown
       label="Actions"
-      items={['edit', 'view', 'generate QRs']}
+      items={['edit', 'view', 'generate QRs', 'delete']}
       handleClick={handleClick}
     >
-      <Button aria-haspopup="true" size="icon" variant="ghost">
+      <Button loading={isDeleting} aria-haspopup="true" size="icon" variant="ghost">
         <MoreHorizontal className="h-4 w-4" />
         <span className="sr-only">Toggle menu</span>
       </Button>

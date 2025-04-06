@@ -41,7 +41,7 @@ const InvoiceTable = ({ data }: { data: IInvoiceRow[] }) => {
                                 </TableCell>
 
                                 <TableCell>{formatNumberWithCommas(item.totalQuantity)}</TableCell>
-                                <TableCell>₹ {formatNumberWithCommas(item.amount / 100)}</TableCell>
+                                <TableCell>₹ {formatNumberWithCommas(item.amount)}</TableCell>
                                 {/* <TableCell>
                                     Ankit Kumar
                                 </TableCell> */}

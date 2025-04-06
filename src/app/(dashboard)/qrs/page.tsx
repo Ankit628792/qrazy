@@ -12,6 +12,7 @@ import Link from 'next/link'
 import InvoiceTable from '@/components/qrs/InvoiceTable'
 import ScannedProduct from '@/components/qrs/LastScannedProduct'
 import { useGetOrderHistory } from '@/hooks/qr/useGetOrderHistory'
+import Loader from '@/components/ak/Loader'
 
 const donutChartData = [
     { id: "scanned", value: 200, fill: "var(--color-scanned)" },
@@ -72,7 +73,7 @@ const product: Product = {
 
 function QRs() {
 
-    const { data, } = useGetOrderHistory()
+    const { data, isLoading } = useGetOrderHistory()
 
     return (
         <section className='flex gap-4 items-start'>
@@ -135,7 +136,13 @@ function QRs() {
                         </div>
                     </div>
                     <div className='w-full overflow-x-auto scroll-hidden -mt-3'>
-                        <InvoiceTable data={data?.data || []} />
+                        {
+                            isLoading
+                                ?
+                                <Loader />
+                                :
+                                <InvoiceTable data={data?.data || []} />
+                        }
                     </div>
                 </div>
             </div>

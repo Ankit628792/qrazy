@@ -10,12 +10,13 @@ import Link from 'next/link'
 import { useGetProductListing } from '@/hooks/product/useGetProductListing'
 import { v4 as uuidv4 } from 'uuid'
 import { get } from 'lodash'
+import Loader from '@/components/ak/Loader'
 
 function Page() {
   const [products, setProducts] = useState<Product[]>([])
   const [filter, setFilter] = useState(filterOptions)
 
-  const { data: productsListing } = useGetProductListing()
+  const { data: productsListing, isLoading } = useGetProductListing()
 
   useEffect(() => {
     if (productsListing) {
@@ -55,6 +56,9 @@ function Page() {
 
   return (
     <section>
+      {
+        isLoading && <Loader />
+      }
       <div className="py-5 px-3 sticky -mt-3 -top-3 bg-white bg-opacity-10 dark:bg-zinc-900 dark:bg-opacity-10 backdrop-blur-md rounded-bl-xl rounded-br-xl z-10">
         <h1 className="text-2xl lg:text-3xl font-semibold pb-3">
           Products Listing

@@ -28,3 +28,9 @@ export const getOrderDetails = (data: ITransactionId) => {
         return get(`/qr/orderDetail?${key}=${data[key] as string}`)
     }
 }
+
+export const getQrCodeList = ({ orderId }: {
+    orderId: string
+}) => {
+    return get("/qr/qrCodes/" + orderId)
+}

@@ -7,7 +7,7 @@ import {
     IUplodImageResponse,
     PRODUCT_STATUS
 } from '@/types/product.interface'
-import { get, patch, post, put, request } from './HttpService'
+import { get, patch, post, put, request, del } from './HttpService'
 
 export const uploadImage = async (file: File | null | undefined): Promise<string> => {
     if (!file) {
@@ -158,6 +158,10 @@ export const getProductById = async (id: string) => {
         console.error('Error fetching product listing:', error)
         throw new Error('Failed to fetch product listing. Please try again.')
     }
+}
+
+export const deleteProduct = async (id: string) => {
+    return del('/product/' + id)
 }
 
 // Export the ProductService

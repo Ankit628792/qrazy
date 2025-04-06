@@ -51,6 +51,8 @@ const SearchSelect = ({
             {option.label}
           </SelectItem>
         ))}
+
+        {!filteredOptions.length && <p className='text-xs p-2'>No Search Result Found</p>}
       </SelectContent>
     </Select>
   )

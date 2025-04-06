@@ -14,19 +14,32 @@ import DownloadQrZipButton from '../generate/DownloadQRZipButton'
 import { useOrderIds } from '@/hooks/qr/useOrderIds'
 import { useGetOrderDetail } from '@/hooks/qr/useGetOrderDetail'
 import Loader from '@/components/ak/Loader'
+import { useGetQRCodes } from '@/hooks/qr/useGetQRCodes'
 
 
 function Invoice() {
     const invoiceId = useOrderIds()
-    const { data } = useGetOrderDetail({ orderId: invoiceId })
+    const { data, isLoading } = useGetOrderDetail({ orderId: invoiceId })
+    const { data: qrCodeRes } = useGetQRCodes({ orderId: invoiceId })
     const orderDetail = data?.data
     const [active, setActive] = useState(false)
     const [products, setProducts] = useState([]);
-    console.log({ data })
+    console.log({ qrCodeRes })
 
     const handleProductClick = () => {
         setActive(true)
     }
+
+    const qrList = qrCodeRes?.data?.map((el: any) => ({
+
+        productId: el.productId,
+        productTitle: el.productTitle,
+        qrs: el.qrCodes
+    }))
+
+    console.log({
+        qrList
+    })
 
     if (!orderDetail) {
         return <Loader />
@@ -49,7 +62,7 @@ function Invoice() {
                     </div>
                     <p>
                         <span className='text-5xl xl:text-6xl 2xl:text-7xl font-medium'>
-                            {formatNumberWithCommas(orderDetail.amount / 100)}
+                            {formatNumberWithCommas(orderDetail.amount)}
                         </span>
                     </p>
                 </div>
@@ -74,7 +87,9 @@ function Invoice() {
                         <h3>Billing</h3>
                     </div>
                     <div className='px-5 pb-3 -mt-3 flex gap-4'>
-                        <DownloadQrZipButton text='Download QRs' />
+                        <DownloadQrZipButton
+                            qrList={qrList || []}
+                            text='Download QRs' />
                         <Button>
                             Order Again
                         </Button>

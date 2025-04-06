@@ -1,5 +1,5 @@
 "use client"
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { forgotPassword, login, me, register, resetPassword, updatePassword } from "@/services/auth.service"
 import { useRouter, redirect } from "next/navigation"
 import { setToken, showError, showInfo, showSuccess } from "@/lib"
@@ -165,11 +165,13 @@ export const useUpdatePassword = (callback?: () => void) => {
 }
 
 export const usePostOnboarding = () => {
+    const queryClient = useQueryClient();
     const router = useRouter();
     return useMutation({
         mutationKey: ["postOnboarding"],
         mutationFn: postOnboarding,
         onSuccess: (res: any) => {
+            queryClient.invalidateQueries({ queryKey: ["settings"] })
             router.replace("/settings")
             if (res.success) {
                 showSuccess(res.message);

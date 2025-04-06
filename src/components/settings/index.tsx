@@ -66,7 +66,7 @@ function Settings() {
 
       const formattedData = {
         profileCard: {
-          profileImage: 'https://images.unsplash.com/photo-1685113177022-84ece209ba8d' || info.logo,
+          profileImage: 'https://images.unsplash.com/photo-1685113177022-84ece209ba8d',
           fullName: info.businessName,
           location: info.address.address + ", " + info.address.state + ", " + info.address.country,
           companyURL: info.websiteUrl

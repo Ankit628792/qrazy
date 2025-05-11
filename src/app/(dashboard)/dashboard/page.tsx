@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { chartData, formattedChartData, generateChartConfig } from './products/constant'
+import { chartData, formattedChartData, generateChartConfig } from '../products/constant'
 import { AreaChartGradient } from '@/components/ui/area-chart'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'

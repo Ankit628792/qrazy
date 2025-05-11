@@ -1,0 +1,40 @@
+
+
+import Link from 'next/link'
+import React from 'react'
+
+const routes = [
+    "/login",
+    "/register",
+    "/forgot-password",
+    "/reset-password",
+    "/verify",
+    "/onboarding",
+    "/dashboard",
+    "/settings",
+    "/products",
+    "/qrs",
+    // "/access",
+    "/scans",
+    '/counter-fitting'
+]
+
+function Page() {
+    return (
+        <div className='pt-20'>
+            {
+                routes.map((route, index) => (
+                    <Link href={route} key={index}>
+                        <span className="block px-4 py-2 text-xl font-medium text-gray-500 hover:text-gray-700">
+                            {route.replace("/", "").toUpperCase()}
+                        </span>
+                    </Link>
+                ))}
+        </div>
+    )
+}
+
+export default Page
+
+
+

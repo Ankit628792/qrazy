@@ -76,12 +76,13 @@ const analyticCardData = [
 ]
 
 function Page() {
+  const { admin } = useAdminStore()
   return (
     <div className='grid grid-cols-12 gap-4'>
 
       <div className='col-span-12 pt-5 pb-2 divide-x-2 divide-gray-600 dark:divide-gray-400 flex justify-end '>
         <div className='text-xl font-semibold px-4'>
-          <h2>Hi, Nitesh</h2>
+          <h2>Hi, {admin?.firstName}</h2>
           <h2>{getGreeting()}</h2>
         </div>
         <div className='flex items-center gap-2 px-4 text-xl '>

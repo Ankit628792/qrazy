@@ -15,6 +15,7 @@ import { getGreeting } from '@/lib'
 import AnalyticCard from '@/components/ak/AnalyticCard'
 import { HandCoins, LayoutDashboard, ListTodo, ScanQrCode, ShoppingBagIcon, TrendingUp, Users } from 'lucide-react'
 import { ChartConfig } from '@/components/ui/chart'
+import { useAdminStore } from '@/store/admin.store'
 
 const currentDate = new Date()
 
